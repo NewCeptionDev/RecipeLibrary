@@ -1,0 +1,19 @@
+{ 
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "types": [
+        "node"
+    ]
+  },
+  "files": [
+    "app/main.ts"
+  ],
+  "exclude": [ "node_modules" ] 
+}
