@@ -1,0 +1,74 @@
+$recipe-green-palette: (
+ 50: #ebf4ea,
+ 100: #cee3cd,
+ 200: #b0d2ae,
+ 300: #93c18f,
+ 400: #7eb578,
+ 500: #6ba862,
+ 600: #629959,
+ 700: #56874e,
+ 800: #4d7645,
+ 900: #3c5736,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: rgba(black, 0.87),
+   600: rgba(black, 0.87),
+   700: rgba(black, 0.87),
+   800: white,
+   900: white,
+ )
+);
+
+$recipe-yellow-palette: (
+ 50: #fcffea,
+ 100: #f6fdca,
+ 200: #eefba5,
+ 300: #edff86,
+ 400: #e6fb69,
+ 500: #e0f84e,
+ 600: #d6e84a,
+ 700: #c5d140,
+ 800: #b4b938,
+ 900: #99912a,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: rgba(black, 0.87),
+   600: rgba(black, 0.87),
+   700: rgba(black, 0.87),
+   800: rgba(black, 0.87),
+   900: rgba(black, 0.87),
+ )
+);
+
+$recipe-red-palette: (
+ 50: #ffebee,
+ 100: #ffccd1,
+ 200: #ff9795,
+ 300: #ff6b6b,
+ 400: #ff4142,
+ 500: #ff2c22,
+ 600: #ff1d25,
+ 700: #ee061f,
+ 800: #e00017,
+ 900: #d00007,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: rgba(black, 0.87),
+   600: rgba(black, 0.87),
+   700: rgba(black, 0.87),
+   800: white,
+   900: white,
+ )
+);
