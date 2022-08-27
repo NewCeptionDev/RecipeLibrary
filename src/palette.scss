@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $recipe-green-palette: (
  50: #ebf4ea,
  100: #cee3cd,
@@ -71,4 +73,50 @@ $recipe-red-palette: (
    800: white,
    900: white,
  )
+);
+
+$recipe-black-palette: (
+ 50: #f3f8fd,
+ 100: #ebf0f5,
+ 200: #e0e5ea,
+ 300: #cfd4d8,
+ 400: #aaafb3,
+ 500: #8a8f93,
+ 600: #63676b,
+ 700: #4f5457,
+ 800: #323639,
+ 900: #121619,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: rgba(black, 0.87),
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$light-focused: rgba(white, 0.12);
+
+// Background palette for dark themes.
+$recipe-dark-theme-background-palette: (
+  status-bar: black,
+  app-bar:    map.get($recipe-black-palette, 900),
+  background: map.get($recipe-black-palette, 800),
+  hover:      rgba(white, 0.04), 
+  card:       map.get($recipe-black-palette, 800),
+  dialog:     map.get($recipe-black-palette, 800),
+  disabled-button: rgba(white, 0.12),
+  raised-button: map.get($recipe-black-palette, 800),
+  focused-button: $light-focused,
+  selected-button: map.get($recipe-black-palette, 900),
+  selected-disabled-button: map.get($recipe-black-palette, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map.get($recipe-black-palette, 700),
+  disabled-list-option: rgba(white, 0.12),
+  tooltip: map.get($recipe-black-palette, 700),
 );

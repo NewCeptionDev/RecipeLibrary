@@ -2,6 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@use 'sass:map';
 @use 'palette.scss' as palette;
 // Plus imports for other components in your app.
 
@@ -14,6 +15,9 @@ $RecipeLibrary-dark-primary: mat.define-palette(palette.$recipe-green-palette, 5
 $RecipeLibrary-dark-accent: mat.define-palette(palette.$recipe-yellow-palette, 300);
 $RecipeLibrary-dark-warn: mat.define-palette(palette.$recipe-red-palette, 300, 200, 400);
 
+$RecipeLibrary-dark-background: mat.define-palette(palette.$recipe-black-palette, 800);
+$RecipeLibrary-dark-sidebar: mat.define-palette(palette.$recipe-black-palette, 700);
+
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $RecipeLibrary-dark-theme: mat.define-dark-theme((
@@ -24,6 +28,29 @@ $RecipeLibrary-dark-theme: mat.define-dark-theme((
   )
 ));
 
+$RecipeLibrary-dark-theme: map.set(
+  $RecipeLibrary-dark-theme,
+  color
+  background,
+  palette.$recipe-dark-theme-background-palette
+);
+
+$RecipeLibrary-dark-theme: map.set(
+  $RecipeLibrary-dark-theme,
+  background,
+  palette.$recipe-dark-theme-background-palette
+);
+
+$RecipeLibrary-dark-theme: map.set(
+  $RecipeLibrary-dark-theme,
+  color,
+  background,
+  background,
+  map.get(palette.$recipe-black-palette, 800)
+);
+
+@debug $RecipeLibrary-dark-theme;
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -33,3 +60,5 @@ $RecipeLibrary-dark-theme: mat.define-dark-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+app-sidebar > .container { background-color: map.get(palette.$recipe-black-palette, 700);}
