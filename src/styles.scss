@@ -61,4 +61,4 @@ $RecipeLibrary-dark-theme: map.set(
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-app-sidebar > .container { background-color: map.get(palette.$recipe-black-palette, 700);}
+app-sidebar { background-color: map.get(palette.$recipe-black-palette, 700);}
