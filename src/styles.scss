@@ -16,7 +16,7 @@ $RecipeLibrary-dark-accent: mat.define-palette(palette.$recipe-yellow-palette, 3
 $RecipeLibrary-dark-warn: mat.define-palette(palette.$recipe-red-palette, 300, 200, 400);
 
 $RecipeLibrary-dark-background: mat.define-palette(palette.$recipe-black-palette, 800);
-$RecipeLibrary-dark-sidebar: mat.define-palette(palette.$recipe-black-palette, 700);
+$RecipeLibrary-dark-sidebar: mat.define-palette(palette.$recipe-black-palette, 600);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -61,4 +61,5 @@ $RecipeLibrary-dark-theme: map.set(
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-app-sidebar { background-color: map.get(palette.$recipe-black-palette, 700);}
+app-sidebar { background-color: map.get(palette.$recipe-black-palette, 600);}
+app-extensible-container { background-color: map.get(palette.$recipe-black-palette, 700);}

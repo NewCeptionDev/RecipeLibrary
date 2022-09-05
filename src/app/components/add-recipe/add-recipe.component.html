@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Add a Recipe</h1>
+    <div class="inputs">
+        <mat-form-field appearance="fill">
+            <mat-label>Recipe Name</mat-label>
+            <input matInput placeholder="Name of recipe" [(ngModel)]="recipeName">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Cookbook</mat-label>
+            <input type="text"
+                   placeholder="Pick the Cookbook or add a new one"
+                   matInput
+                   [formControl]="cookbookSelect"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let cookbook of filteredCookbooks | async" [value]="cookbook">
+                <mat-icon *ngIf="cookbook === cookbookSelect.value && !knownCookbooks.includes(cookbook)">add</mat-icon>
+                {{cookbook}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        <!-- Zutaten (Liste mit ausgewählten Zutaten und Buttons zum Editieren / Ergänzen in Popup) -->
+        <!-- Kategorie (Liste mit ausgewählten Zutaten und Buttons zum Editieren / Ergänzen in Popup) -->
+        <!-- Rating -->
+    </div>
+    <div class="buttons">
+        <button mat-raised-button color="primary" cdkFocusInitial>Add</button>
+        <button mat-raised-button>Cancel</button>
+    </div>
+</div>

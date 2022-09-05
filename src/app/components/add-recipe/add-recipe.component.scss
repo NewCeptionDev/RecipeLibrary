@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+        width: 30%;
+    }
+}
+
+.mat-icon {
+    margin: 0;
+}
