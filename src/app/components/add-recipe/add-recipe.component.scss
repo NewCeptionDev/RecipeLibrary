@@ -9,6 +9,7 @@
 .inputs {
     display: flex;
     flex-direction: column;
+    width: 80%;
 }
 
 .buttons {
@@ -22,5 +23,6 @@
 }
 
 .mat-icon {
-    margin: 0;
+    margin: 0 !important;
+    line-height: 1.3rem;
 }

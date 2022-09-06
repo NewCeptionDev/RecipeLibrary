@@ -19,9 +19,10 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-        <!-- Zutaten (Liste mit ausgewählten Zutaten und Buttons zum Editieren / Ergänzen in Popup) -->
-        <!-- Kategorie (Liste mit ausgewählten Zutaten und Buttons zum Editieren / Ergänzen in Popup) -->
-        <!-- Rating -->
+        <app-selected-items-display headline="Ingredients" [knownItems]="knownIngredients"></app-selected-items-display>
+        <br>
+        <app-selected-items-display headline="Categories"></app-selected-items-display>
+        <app-rating-display [editable]="true" (onNewRating)="updateRating($event)"></app-rating-display>
     </div>
     <div class="buttons">
         <button mat-raised-button color="primary" cdkFocusInitial>Add</button>

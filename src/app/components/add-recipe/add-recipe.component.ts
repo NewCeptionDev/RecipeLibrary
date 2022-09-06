@@ -13,8 +13,13 @@ export class AddRecipeComponent implements OnInit {
 
   cookbookSelect: FormControl = new FormControl();
 
+  rating: number = -1;
+
   @Input()
   knownCookbooks: string[] = ["Test", "Cookbook", "Cooking", "Try it"];
+
+  @Input()
+  knownIngredients: string[] = ["Paprika", "Zucchini", "Pizza", "Tomaten"]
 
   filteredCookbooks: Observable<string[]> = new Observable();
 
@@ -37,5 +42,9 @@ export class AddRecipeComponent implements OnInit {
     }
 
     return cookbooksToFilter.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  public updateRating(newRating: number) {
+    this.rating = newRating;
   }
 }

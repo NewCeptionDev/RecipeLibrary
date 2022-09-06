@@ -13,6 +13,11 @@ import { ExtensibleContainerComponent } from './components/extensible-container/
 import { AddRecipeComponent } from './components/add-recipe/add-recipe.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { RatingDisplayComponent } from './components/rating-display/rating-display.component';
+import { SelectedItemsDisplayComponent } from './components/selected-items-display/selected-items-display.component';
+import {MatTableModule} from '@angular/material/table';
+import { SelectItemsDialogComponent } from './components/dialogs/select-items-dialog/select-items-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SearchComponent,
     ExtensibleContainerComponent,
     AddRecipeComponent,
+    RatingDisplayComponent,
+    SelectedItemsDisplayComponent,
+    SelectItemsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatInputModule,
     FormsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
