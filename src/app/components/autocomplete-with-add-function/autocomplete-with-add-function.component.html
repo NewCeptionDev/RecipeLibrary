@@ -1,0 +1,13 @@
+<div class="container">
+    <mat-form-field appearance="fill">
+        <mat-label>{{labelName}}</mat-label>
+        <input type="text" placeholder="Pick from existing {{itemName}} or add a new one" matInput
+            [formControl]="itemSelect" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let item of filteredItems | async" [value]="item" (click)="onItemSelect(item)">
+                <mat-icon *ngIf="item === itemSelect.value && !knownItems.includes(item)">add</mat-icon>
+                {{item}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>

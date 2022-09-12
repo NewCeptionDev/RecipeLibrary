@@ -15,7 +15,9 @@
 .buttons {
     width: 100%;
     display: flex;
+    position: absolute;
     justify-content: space-evenly;
+    bottom: 2%;
 
     button {
         width: 30%;
@@ -25,4 +27,8 @@
 .mat-icon {
     margin: 0 !important;
     line-height: 1.3rem;
+}
+
+app-selected-items-display {
+    height: 35%;
 }

@@ -5,20 +5,7 @@
             <mat-label>Recipe Name</mat-label>
             <input matInput placeholder="Name of recipe" [(ngModel)]="recipeName">
         </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Cookbook</mat-label>
-            <input type="text"
-                   placeholder="Pick the Cookbook or add a new one"
-                   matInput
-                   [formControl]="cookbookSelect"
-                   [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-              <mat-option *ngFor="let cookbook of filteredCookbooks | async" [value]="cookbook">
-                <mat-icon *ngIf="cookbook === cookbookSelect.value && !knownCookbooks.includes(cookbook)">add</mat-icon>
-                {{cookbook}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
+        <app-autocomplete-with-add-function itemName="Cookbook" [knownItems]="knownCookbooks" labelName="Cookbook"></app-autocomplete-with-add-function>
         <app-selected-items-display headline="Ingredients" [knownItems]="knownIngredients"></app-selected-items-display>
         <br>
         <app-selected-items-display headline="Categories"></app-selected-items-display>

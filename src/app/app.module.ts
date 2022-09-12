@@ -18,6 +18,7 @@ import { SelectedItemsDisplayComponent } from './components/selected-items-displ
 import {MatTableModule} from '@angular/material/table';
 import { SelectItemsDialogComponent } from './components/dialogs/select-items-dialog/select-items-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { AutocompleteWithAddFunctionComponent } from './components/autocomplete-with-add-function/autocomplete-with-add-function.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     RatingDisplayComponent,
     SelectedItemsDisplayComponent,
     SelectItemsDialogComponent,
+    AutocompleteWithAddFunctionComponent,
   ],
   imports: [
     BrowserModule,

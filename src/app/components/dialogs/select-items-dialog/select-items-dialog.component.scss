@@ -15,12 +15,19 @@ mat-dialog-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-content: center;
 
-    mat-form-field {
+    app-autocomplete-with-add-function {
         width: 80%;
     }
 
     table {
         width: 80%;
+        overflow-y: auto;
+    }
+
+    .action {
+        width: 5%;
+        padding-right: 6px !important;
     }
 }
