@@ -18,6 +18,9 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()
   public knownItems: string[] = [];
 
+  @Input()
+  public clearOnSelect: boolean = true;
+
   itemSelect: FormControl = new FormControl();
 
   filteredItems: Observable<string[]> = new Observable();
@@ -39,8 +42,8 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
       map(value => this.filterItems(value || ""))
     )
 
-    this.refreshFilteredItems.subscribe((val: boolean) => {
-      if(val) {
+    this.refreshFilteredItems.subscribe((value: boolean) => {
+      if(value) {
         this.itemSelect.setValue("");
       }
     })
@@ -60,6 +63,8 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
 
   public onItemSelect(value: string) {
     this.onItemSelected.emit(value);
-    this.itemSelect.setValue("");
+    if(this.clearOnSelect) {
+      this.itemSelect.setValue("");
+    }
   }
 }

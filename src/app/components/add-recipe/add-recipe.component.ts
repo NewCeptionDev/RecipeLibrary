@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
+import { RecipeService } from 'src/app/services/recipe.service';
+import { AutocompleteWithAddFunctionComponent } from '../autocomplete-with-add-function/autocomplete-with-add-function.component';
 
 @Component({
   selector: 'app-add-recipe',
@@ -11,40 +13,56 @@ export class AddRecipeComponent implements OnInit {
 
   recipeName: string = "";
 
-  cookbookSelect: FormControl = new FormControl();
+  cookbookName: string = "";
+
+  selectedIngredients: string[] = [];
+
+  selectedCategories: string[] = [];
 
   rating: number = -1;
 
-  @Input()
-  knownCookbooks: string[] = ["Test", "Cookbook", "Cooking", "Try it"];
+  knownCookbooks: string[];
 
-  @Input()
-  knownIngredients: string[] = ["Paprika", "Zucchini", "Pizza", "Tomaten"]
+  knownIngredients: string[];
+
+  knownCategories: string[];
 
   filteredCookbooks: Observable<string[]> = new Observable();
 
-  constructor() { }
+
+  constructor(private recipeService: RecipeService) {
+    this.knownCookbooks = this.recipeService.getAllKnownCookbooks();
+    this.knownIngredients = this.recipeService.getAllKnownIngredients();
+    this.knownCategories = this.recipeService.getAllKnownCategories();
+   }
 
   ngOnInit(): void {
-    this.filteredCookbooks = this.cookbookSelect.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filterCookbooks(value || ""))
-    )
   }
-  
-  private filterCookbooks(value: string): string[] {
-    const filterValue = value.toLowerCase();
 
-    const cookbooksToFilter = [...this.knownCookbooks];
-
-    if(!cookbooksToFilter.includes(value) && !cookbooksToFilter.includes(filterValue) && value.length > 0) {
-      cookbooksToFilter.push(value);
-    }
-
-    return cookbooksToFilter.filter(option => option.toLowerCase().includes(filterValue));
-  }
 
   public updateRating(newRating: number) {
     this.rating = newRating;
+  }
+
+  public updateSelectedIngredients(ingredientList: string[]) {
+    this.selectedIngredients = ingredientList;
+  }
+
+  public updateSelectedCategories(categoryList: string[]) {
+    this.selectedCategories = categoryList;
+  }
+
+  public updateCookbookName(name: string) {
+    this.cookbookName = name;
+  }
+
+  public addRecipe() {
+    this.recipeService.addRecipe({
+      recipeName: this.recipeName,
+      cookbook: this.cookbookName,
+      ingredients: this.selectedIngredients,
+      categories: this.selectedCategories,
+      rating: this.rating
+    })
   }
 }
