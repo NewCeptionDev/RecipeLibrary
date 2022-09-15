@@ -2,6 +2,7 @@
     <app-search></app-search>
     <app-sidebar (onAddRecipe)="toggleAddRecipe()" (onEditRecipes)="toggleEditRecipes()" (onSettings)="toggleSettings()"></app-sidebar>
     <app-extensible-container *ngIf="showExtensibleContainer()">
-        <app-add-recipe *ngIf="showAddRecipe()" (onRecipeAdded)="toggleAddRecipe()"></app-add-recipe>
+        <app-recipe-form *ngIf="showAddRecipe()" (onRecipeChange)="toggleAddRecipe()"></app-recipe-form>
+        <app-edit-recipes *ngIf="showEditRecipes()"></app-edit-recipes>
     </app-extensible-container>
 </div>

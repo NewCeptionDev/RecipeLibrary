@@ -1,25 +1,27 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
+import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { AutocompleteWithAddFunctionComponent } from '../autocomplete-with-add-function/autocomplete-with-add-function.component';
 
 @Component({
-  selector: 'app-add-recipe',
-  templateUrl: './add-recipe.component.html',
-  styleUrls: ['./add-recipe.component.scss']
+  selector: 'app-recipe-form',
+  templateUrl: './recipe-form.component.html',
+  styleUrls: ['./recipe-form.component.scss']
 })
-export class AddRecipeComponent implements OnInit {
+export class RecipeFormComponent implements OnInit {
 
-  recipeName: string = "";
+  @Input()
+  recipe: Recipe = {
+    recipeName: "",
+    cookbook: "",
+    ingredients: [],
+    categories: [],
+    rating: -1
+  }
 
-  cookbookName: string = "";
-
-  selectedIngredients: string[] = [];
-
-  selectedCategories: string[] = [];
-
-  rating: number = -1;
+  editing: boolean = false;
 
   knownCookbooks: string[];
 
@@ -30,7 +32,7 @@ export class AddRecipeComponent implements OnInit {
   filteredCookbooks: Observable<string[]> = new Observable();
 
   @Output()
-  public onRecipeAdded: EventEmitter<void> = new EventEmitter();
+  public onRecipeChange: EventEmitter<void> = new EventEmitter();
 
   constructor(private recipeService: RecipeService) {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks();
@@ -39,33 +41,30 @@ export class AddRecipeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this.recipe.recipeName !== "") {
+      this.editing = true;
+    }
   }
 
 
   public updateRating(newRating: number) {
-    this.rating = newRating;
+    this.recipe.rating = newRating;
   }
 
   public updateSelectedIngredients(ingredientList: string[]) {
-    this.selectedIngredients = ingredientList;
+    this.recipe.ingredients = ingredientList;
   }
 
   public updateSelectedCategories(categoryList: string[]) {
-    this.selectedCategories = categoryList;
+    this.recipe.categories = categoryList;
   }
 
   public updateCookbookName(name: string) {
-    this.cookbookName = name;
+    this.recipe.cookbook = name;
   }
 
-  public addRecipe() {
-    this.recipeService.addRecipe({
-      recipeName: this.recipeName,
-      cookbook: this.cookbookName,
-      ingredients: this.selectedIngredients,
-      categories: this.selectedCategories,
-      rating: this.rating
-    });
-    this.onRecipeAdded.emit();
+  public editRecipe() {
+    this.recipeService.addRecipe(this.recipe);
+    this.onRecipeChange.emit();
   }
 }

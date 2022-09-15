@@ -15,13 +15,13 @@ export class SelectItemsDialogComponent implements OnInit {
 
   public data: string[] = [];
 
-  public tableDataSource: ItemDataSource;
+  public tableDataSource: ItemDataSource<string>;
 
-  public colums: string[] = ["name", "action"]
+  public columns: string[] = ["name", "action"]
 
   public headline: string;
 
-  public refreshAutocompleteItems: EventEmitter<boolean> = new EventEmitter();
+  public refreshAutocompleteItems: EventEmitter<void> = new EventEmitter();
 
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: SelectItemsDialogData) { 
     this.headline = dialogData.headline;
@@ -46,7 +46,7 @@ export class SelectItemsDialogComponent implements OnInit {
   public removeElement(element: string) {
     this.data.splice(this.data.indexOf(element), 1)
     this.tableDataSource.setData(this.data);
-    this.refreshAutocompleteItems.emit(true);
+    this.refreshAutocompleteItems.emit();
   }
 
 }

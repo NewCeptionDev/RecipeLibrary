@@ -3,7 +3,7 @@
 <mat-dialog-content>
     <app-autocomplete-with-add-function [knownItems]="dialogData.knownItems" [filterFunction]="notAlreadyIncludedInData" (onItemSelected)="onItemSelect($event)" [itemName]="headline" [refreshFilteredItems]="refreshAutocompleteItems.asObservable()"></app-autocomplete-with-add-function>
 
-    <table mat-table [dataSource]="data.length > 0 ? tableDataSource : ['No items added']">
+    <table mat-table [dataSource]="tableDataSource">
             
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> {{headline}} </th>
@@ -13,16 +13,21 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef class="action"></th>
             <td mat-cell *matCellDef="let element">
-                <button *ngIf="data.length > 0" mat-icon-button disableRipple color="warn" (click)="removeElement(element)"><mat-icon>delete</mat-icon></button>
+                <button mat-icon-button disableRipple color="warn" (click)="removeElement(element)"><mat-icon>delete</mat-icon></button>
             </td>
         </ng-container>
       
-        <tr mat-header-row *matHeaderRowDef="colums"></tr>
-        <tr mat-row *matRowDef="let row; columns: colums;"></tr>
-      </table>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="columns.length">
+            No items added
+          </td>
+      </tr>
+    </table>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
   <button mat-button [mat-dialog-close]="data" color="primary" cdkFocusInitial>Apply</button>
+  <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>
 </div>

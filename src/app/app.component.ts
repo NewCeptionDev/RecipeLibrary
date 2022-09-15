@@ -18,6 +18,10 @@ export class AppComponent {
     return this.extended === ExtendedOption.ADD;
   }
 
+  public showEditRecipes() {
+    return this.extended === ExtendedOption.EDIT;
+  }
+
   public toggleAddRecipe() {
     if(this.extended === ExtendedOption.ADD) {
       this.extended = ExtendedOption.NONE;

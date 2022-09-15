@@ -19,7 +19,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   @Input()
   public data: string[] = []
 
-  public colums: string[] = ["name", "action"]
+  public columns: string[] = ["name", "action"]
 
   @Input()
   public headline: string = "Name";
@@ -30,7 +30,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   @Output()
   public onUpdateData: EventEmitter<string[]> = new EventEmitter();
 
-  public tableDataSource: ItemDataSource;
+  public tableDataSource: ItemDataSource<string>;
 
   constructor(public dialogService: DialogsService) {
     this.tableDataSource = new ItemDataSource(this.data);

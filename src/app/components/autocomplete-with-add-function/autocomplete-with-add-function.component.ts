@@ -32,7 +32,7 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   public filterFunction: ((val: string) => boolean) | undefined = undefined;
 
   @Input()
-  public refreshFilteredItems: Observable<boolean> = new Observable();
+  public refreshFilteredItems: Observable<void> = new Observable();
 
   constructor() { }
 
@@ -42,10 +42,8 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
       map(value => this.filterItems(value || ""))
     )
 
-    this.refreshFilteredItems.subscribe((value: boolean) => {
-      if(value) {
-        this.itemSelect.setValue("");
-      }
+    this.refreshFilteredItems.subscribe(() => {
+      this.itemSelect.setValue("");
     })
   }
 

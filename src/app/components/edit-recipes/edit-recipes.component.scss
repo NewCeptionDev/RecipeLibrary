@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+
+    h1 {
+        margin-top: 2vh;
+        margin-bottom: 3vh;
+    }
+
+    table {
+        width: 90%;
+        overflow-y: auto;
+        text-align: center;
+    }
+
+    .emptyHint {
+        position: relative;
+        z-index: 1;
+        height: 50%;
+    }
+}
+
+.action {
+    width: 5%;
+    padding-right: 6px !important;
+}

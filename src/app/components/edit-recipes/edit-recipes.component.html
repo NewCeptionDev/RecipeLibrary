@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>Edit / Delete Recipes</h1>
+    <table mat-table [dataSource]="tableDataSource">
+            
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Recipe </th>
+          <td mat-cell *matCellDef="let element"> {{element.recipeName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef class="action"></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button disableRipple><mat-icon>edit</mat-icon></button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef class="action"></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button disableRipple color="warn" (click)="openDeleteDialog(element)"><mat-icon>delete</mat-icon></button>
+            </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="columns.length">
+              No Recipes added yet
+            </td>
+        </tr>
+    </table>
+
+</div>

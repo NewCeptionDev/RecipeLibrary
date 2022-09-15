@@ -1,5 +1,5 @@
 <div class="container">
-    <table mat-table [dataSource]="data.length > 0 ? tableDataSource : ['No items added']">
+    <table mat-table [dataSource]="tableDataSource">
             
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> {{headline}} </th>
@@ -14,7 +14,12 @@
             <td mat-cell *matCellDef class="action"></td>
           </ng-container>
       
-        <tr mat-header-row *matHeaderRowDef="colums; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: colums;"></tr>
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="columns.length">
+            No items added
+          </td>
+        </tr>
       </table>
 </div>

@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>{{editing ? "Edit Recipe" : "Add a Recipe"}}</h1>
+    <div class="inputs">
+        <mat-form-field appearance="fill">
+            <mat-label>Recipe Name</mat-label>
+            <input matInput placeholder="Name of recipe" [(ngModel)]="recipe.recipeName">
+        </mat-form-field>
+        <app-autocomplete-with-add-function itemName="Cookbook" [knownItems]="knownCookbooks" labelName="Cookbook" [clearOnSelect]="false" (onItemSelected)="updateCookbookName($event)"></app-autocomplete-with-add-function>
+        <app-selected-items-display headline="Ingredients" [knownItems]="knownIngredients" [data]="recipe.ingredients" (onUpdateData)="updateSelectedIngredients($event)"></app-selected-items-display>
+        <br>
+        <app-selected-items-display headline="Categories" [knownItems]="knownCategories" [data]="recipe.categories" (onUpdateData)="updateSelectedCategories($event)"></app-selected-items-display>
+        <app-rating-display [editable]="true" (onNewRating)="updateRating($event)"></app-rating-display>
+    </div>
+    <div class="buttons">
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="editRecipe()">{{editing ? "Update" : "Add"}}</button>
+        <button mat-raised-button (click)="onRecipeChange.emit()">Cancel</button>
+    </div>
+</div>
