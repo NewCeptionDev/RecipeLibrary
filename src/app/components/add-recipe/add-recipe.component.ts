@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -29,6 +29,8 @@ export class AddRecipeComponent implements OnInit {
 
   filteredCookbooks: Observable<string[]> = new Observable();
 
+  @Output()
+  public onRecipeAdded: EventEmitter<void> = new EventEmitter();
 
   constructor(private recipeService: RecipeService) {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks();
@@ -63,6 +65,7 @@ export class AddRecipeComponent implements OnInit {
       ingredients: this.selectedIngredients,
       categories: this.selectedCategories,
       rating: this.rating
-    })
+    });
+    this.onRecipeAdded.emit();
   }
 }

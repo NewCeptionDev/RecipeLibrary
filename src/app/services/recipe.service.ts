@@ -36,6 +36,6 @@ export class RecipeService {
     }
 
     this.knownIngredients.push(...recipe.ingredients.filter(ingredient => !this.knownIngredients.includes(ingredient)))
-    this.knownIngredients.push(...recipe.categories.filter(category => !this.knownCategories.includes(category)))
+    this.knownCategories.push(...recipe.categories.filter(category => !this.knownCategories.includes(category)))
   }
 }

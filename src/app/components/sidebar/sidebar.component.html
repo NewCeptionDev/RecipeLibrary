@@ -1,7 +1,7 @@
 <div class="container">
     <div class="recipeButtons">
-        <button mat-icon-button disableRipple><mat-icon class="add-icon">add</mat-icon></button>
-        <button mat-icon-button disableRipple><mat-icon class="edit-icon">edit</mat-icon></button>
+        <button mat-icon-button disableRipple (click)="addRecipe()"><mat-icon class="add-icon">add</mat-icon></button>
+        <button mat-icon-button disableRipple (click)="editRecipes()"><mat-icon class="edit-icon">edit</mat-icon></button>
     </div>
-    <button mat-icon-button disableRipple><mat-icon class="settings-icon">settings</mat-icon></button>
+    <button mat-icon-button disableRipple (click)="settings()"><mat-icon class="settings-icon">settings</mat-icon></button>
 </div>
