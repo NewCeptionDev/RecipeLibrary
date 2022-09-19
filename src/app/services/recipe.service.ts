@@ -57,4 +57,10 @@ export class RecipeService {
   public getAllRecipes() {
     return [...this.recipes];
   }
+
+  public updateRecipe(oldRecipe: Recipe, newRecipe: Recipe) {
+    const index = this.recipes.indexOf(oldRecipe);
+
+    this.recipes.splice(index, 1, newRecipe);
+  }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
 import { DialogsService } from 'src/app/services/dialogs.service';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -17,6 +18,12 @@ export class EditRecipesComponent implements OnInit {
 
   public columns: string[] = ["name", "edit", "delete"]
 
+  @Output()
+  public onEditRecipe: EventEmitter<Recipe> = new EventEmitter();
+
+  @Input()
+  public reloadRecipes: Observable<void> = new Observable();
+
   constructor(private recipeService: RecipeService, private dialogService: DialogsService) { 
     this.tableDataSource = new ItemDataSource(this.recipes);
     this.updateShownRecipes();
@@ -32,6 +39,7 @@ export class EditRecipesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.reloadRecipes.subscribe(() => this.updateShownRecipes());
   }
 
   private updateShownRecipes() {
@@ -39,4 +47,7 @@ export class EditRecipesComponent implements OnInit {
     this.tableDataSource.setData(this.recipes);
   }
 
+  public editRecipe(recipe: Recipe) {
+    this.onEditRecipe.emit(recipe);
+  }
 }

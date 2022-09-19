@@ -12,7 +12,7 @@
         <app-rating-display [editable]="true" (onNewRating)="updateRating($event)"></app-rating-display>
     </div>
     <div class="buttons">
-        <button mat-raised-button color="primary" cdkFocusInitial (click)="editRecipe()">{{editing ? "Update" : "Add"}}</button>
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="finalizeRecipe()">{{editing ? "Update" : "Add"}}</button>
         <button mat-raised-button (click)="onRecipeChange.emit()">Cancel</button>
     </div>
 </div>

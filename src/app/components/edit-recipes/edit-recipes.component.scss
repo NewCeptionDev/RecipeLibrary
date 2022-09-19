@@ -9,21 +9,19 @@
         margin-top: 2vh;
         margin-bottom: 3vh;
     }
-
-    table {
-        width: 90%;
-        overflow-y: auto;
-        text-align: center;
-    }
-
-    .emptyHint {
-        position: relative;
-        z-index: 1;
-        height: 50%;
-    }
 }
 
 .action {
     width: 5%;
     padding-right: 6px !important;
+}
+
+.tableContainer {
+    height: 90%;
+    width: 90%;
+
+    table {
+        overflow-y: auto;
+        text-align: center;
+    }
 }

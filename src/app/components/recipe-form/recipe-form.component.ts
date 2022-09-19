@@ -13,13 +13,15 @@ import { AutocompleteWithAddFunctionComponent } from '../autocomplete-with-add-f
 export class RecipeFormComponent implements OnInit {
 
   @Input()
+  recipeInput: Recipe | undefined;
+
   recipe: Recipe = {
     recipeName: "",
     cookbook: "",
     ingredients: [],
     categories: [],
     rating: -1
-  }
+  };
 
   editing: boolean = false;
 
@@ -41,14 +43,15 @@ export class RecipeFormComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if(this.recipe.recipeName !== "") {
+    if(this.recipeInput) {
       this.editing = true;
+      this.recipe = {...this.recipeInput};
     }
   }
 
 
   public updateRating(newRating: number) {
-    this.recipe.rating = newRating;
+      this.recipe.rating = newRating;
   }
 
   public updateSelectedIngredients(ingredientList: string[]) {
@@ -63,8 +66,12 @@ export class RecipeFormComponent implements OnInit {
     this.recipe.cookbook = name;
   }
 
-  public editRecipe() {
-    this.recipeService.addRecipe(this.recipe);
+  public finalizeRecipe() {
+    if(this.editing && this.recipeInput) {
+      this.recipeService.updateRecipe(this.recipeInput, this.recipe);
+    } else {
+      this.recipeService.addRecipe(this.recipe);
+    }
     this.onRecipeChange.emit();
   }
 }

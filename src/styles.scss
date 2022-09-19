@@ -61,3 +61,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 app-sidebar { background-color: map.get(palette.$recipe-black-palette, 600);}
 app-extensible-container { background-color: map.get(palette.$recipe-black-palette, 700);}
+.tableBackground {
+  background-color: #424242;
+}
