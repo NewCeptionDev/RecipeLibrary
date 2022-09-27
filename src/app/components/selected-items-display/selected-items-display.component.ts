@@ -37,6 +37,9 @@ export class SelectedItemsDisplayComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this.data.length > 0) {
+      this.tableDataSource.setData(this.data);
+    }
   }
 
   public openDialog() {

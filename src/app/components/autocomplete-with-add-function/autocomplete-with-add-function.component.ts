@@ -19,6 +19,9 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   public knownItems: string[] = [];
 
   @Input()
+  public startValue: string | undefined;
+
+  @Input()
   public clearOnSelect: boolean = true;
 
   itemSelect: FormControl = new FormControl();
@@ -37,6 +40,10 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(this.startValue) {
+      this.itemSelect.setValue(this.startValue);
+    }
+
     this.filteredItems = this.itemSelect.valueChanges.pipe(
       startWith(''),
       map(value => this.filterItems(value || ""))

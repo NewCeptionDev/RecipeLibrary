@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
@@ -12,16 +12,19 @@ import { AutocompleteWithAddFunctionComponent } from '../autocomplete-with-add-f
 })
 export class RecipeFormComponent implements OnInit {
 
-  @Input()
-  recipeInput: Recipe | undefined;
-
-  recipe: Recipe = {
+  defaultRecipe: Recipe = {
+    id: -1,
     recipeName: "",
     cookbook: "",
     ingredients: [],
     categories: [],
     rating: -1
   };
+
+  @Input()
+  recipeInput: Recipe | undefined;
+
+  recipe: Recipe = {...this.defaultRecipe};
 
   editing: boolean = false;
 
@@ -43,12 +46,11 @@ export class RecipeFormComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if(this.recipeInput) {
+    if(this.recipeInput) {     
       this.editing = true;
       this.recipe = {...this.recipeInput};
     }
   }
-
 
   public updateRating(newRating: number) {
       this.recipe.rating = newRating;
@@ -68,7 +70,7 @@ export class RecipeFormComponent implements OnInit {
 
   public finalizeRecipe() {
     if(this.editing && this.recipeInput) {
-      this.recipeService.updateRecipe(this.recipeInput, this.recipe);
+      this.recipeService.updateRecipe(this.recipeInput.id, this.recipe);
     } else {
       this.recipeService.addRecipe(this.recipe);
     }

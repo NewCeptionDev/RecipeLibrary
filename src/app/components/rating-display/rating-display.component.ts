@@ -13,6 +13,7 @@ export class RatingDisplayComponent implements OnInit {
   @Output()
   public onNewRating: EventEmitter<number> = new EventEmitter();
 
+  @Input()
   public rating: number = -1;
 
   constructor() { }

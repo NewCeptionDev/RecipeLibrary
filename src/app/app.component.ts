@@ -1,4 +1,5 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, ViewChild } from '@angular/core';
+import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
 import { Recipe } from './models/recipe';
 
 @Component({
@@ -14,6 +15,9 @@ export class AppComponent {
   currentlyEditedRecipe: Recipe | undefined = undefined;
 
   recipeEdited: EventEmitter<void> = new EventEmitter();
+
+  @ViewChild(RecipeFormComponent)
+  recipeForm!: RecipeFormComponent;
 
   public showExtensibleContainer() {
     return this.extended !== ExtendedOption.NONE;
@@ -36,7 +40,9 @@ export class AppComponent {
       this.extended = ExtendedOption.NONE;
     } else {
       this.currentlyEditedRecipe = undefined;
-      this.extended = ExtendedOption.ADD;
+      this.extended = ExtendedOption.NONE;
+      // Update after one Tick, so the recipeform gets destroyed and reinitiated with the new values
+      setTimeout(() => this.extended = ExtendedOption.ADD, 1)
     }
   }
 
@@ -73,7 +79,12 @@ export class AppComponent {
 
   public editRecipe(recipe: Recipe) {
     this.currentlyEditedRecipe = recipe;
-    this.extended = ExtendedOption.EDITRECIPE;
+    if(this.extended === ExtendedOption.EDITRECIPE) {
+      this.extended = ExtendedOption.EDIT;
+      setTimeout(() => this.extended = ExtendedOption.EDITRECIPE, 1)
+    } else {
+      this.extended = ExtendedOption.EDITRECIPE;
+    }
   }
 }
 
