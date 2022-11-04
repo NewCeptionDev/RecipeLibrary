@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {map, Observable, startWith} from 'rxjs';
 
 @Component({
   selector: 'app-autocomplete-with-add-function',
@@ -37,6 +37,9 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()
   public refreshFilteredItems: Observable<void> = new Observable();
 
+  @Input()
+  public disableAddFunction: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -59,7 +62,7 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
 
     const itemsToFilter = [...this.knownItems];
 
-    if(!itemsToFilter.includes(value) && !itemsToFilter.includes(filterValue) && value.length > 0) {
+    if(!this.disableAddFunction && !itemsToFilter.includes(value) && !itemsToFilter.includes(filterValue) && value.length > 0) {
       itemsToFilter.push(value);
     }
 

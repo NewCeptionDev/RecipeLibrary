@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-rating-display',
@@ -15,6 +15,9 @@ export class RatingDisplayComponent implements OnInit {
 
   @Input()
   public rating: number = -1;
+
+  @Input()
+  public labelAddition: string = "";
 
   constructor() { }
 

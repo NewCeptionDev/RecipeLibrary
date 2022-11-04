@@ -1,5 +1,6 @@
 export interface SelectItemsDialogData {
     data: string[],
     headline: string,
-    knownItems: string[]
+    knownItems: string[],
+    onlyAllowKnownItems?: boolean
 }

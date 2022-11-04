@@ -1,5 +1,5 @@
 <div class="container" [ngClass]="{'editable': editable}">
-    <h3 class="headline">Rating:</h3>
+    <h3 class="headline">{{labelAddition}} Rating:</h3>
     <div class="stars">
         <span *ngFor="let i of counter(5)">
             <mat-icon [ngClass]="{'filledStar': rating >= i}" (click)="updateRating(i)">star</mat-icon>

@@ -1,10 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { SelectItemsDialogData } from 'src/app/models/selectItemsDialogData';
-import { DialogsService } from 'src/app/services/dialogs.service';
-import { ItemDataSource } from 'src/app/util/ItemDataSource';
-import { SelectItemsDialogComponent } from '../dialogs/select-items-dialog/select-items-dialog.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {DialogsService} from 'src/app/services/dialogs.service';
+import {ItemDataSource} from 'src/app/util/ItemDataSource';
+import {SelectItemsDialogComponent} from '../dialogs/select-items-dialog/select-items-dialog.component';
 
 @Component({
   selector: 'app-selected-items-display',
@@ -22,10 +20,13 @@ export class SelectedItemsDisplayComponent implements OnInit {
   public columns: string[] = ["name", "action"]
 
   @Input()
-  public headline: string = "Name";
+  public headline: string = "Items";
 
   @Input()
   public knownItems: string[] = [];
+
+  @Input()
+  public onlyKnownItemsSelectable: boolean = false;
 
   @Output()
   public onUpdateData: EventEmitter<string[]> = new EventEmitter();
@@ -47,7 +48,8 @@ export class SelectedItemsDisplayComponent implements OnInit {
       const dialogRef: MatDialogRef<SelectItemsDialogComponent> = this.dialogService.openSelectItemsDialog({
         data: [...this.data],
         headline: this.headline,
-        knownItems: this.knownItems
+        knownItems: this.knownItems,
+        onlyAllowKnownItems: this.onlyKnownItemsSelectable
       })
 
       dialogRef.afterClosed().subscribe(result => {

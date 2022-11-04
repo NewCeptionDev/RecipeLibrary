@@ -64,3 +64,6 @@ app-extensible-container { background-color: map.get(palette.$recipe-black-palet
 .tableBackground {
   background-color: #424242;
 }
+app-search-options {
+  background-color: map.get(palette.$recipe-black-palette, 600);
+}

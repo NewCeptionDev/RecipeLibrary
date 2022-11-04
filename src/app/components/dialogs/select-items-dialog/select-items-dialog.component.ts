@@ -1,10 +1,7 @@
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { Component, EventEmitter, Inject, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { map, Observable, ReplaySubject, startWith } from 'rxjs';
-import { SelectItemsDialogData } from 'src/app/models/selectItemsDialogData';
-import { ItemDataSource } from 'src/app/util/ItemDataSource';
+import {SelectItemsDialogData} from 'src/app/models/selectItemsDialogData';
+import {ItemDataSource} from 'src/app/util/ItemDataSource';
 
 @Component({
   selector: 'app-select-items-dialog',
@@ -21,12 +18,16 @@ export class SelectItemsDialogComponent implements OnInit {
 
   public headline: string;
 
+  public onlyKnownItems: boolean = false;
+
   public refreshAutocompleteItems: EventEmitter<void> = new EventEmitter();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public dialogData: SelectItemsDialogData) { 
+
+  constructor(@Inject(MAT_DIALOG_DATA) public dialogData: SelectItemsDialogData) {
     this.headline = dialogData.headline;
     this.data = dialogData.data;
     this.tableDataSource = new ItemDataSource(this.data);
+    this.onlyKnownItems = dialogData.onlyAllowKnownItems ?? false;
   }
 
   ngOnInit(): void {
