@@ -1,10 +1,17 @@
 <div class="container">
-    <h2 mat-dialog-title>{{title}}</h2>
-    <mat-dialog-content>
-        {{content}}
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>Yes</button>
-        <button mat-button mat-dialog-close color="warn">No</button>
-    </mat-dialog-actions>
+  <h2 mat-dialog-title>{{ title }}</h2>
+  <mat-dialog-content>
+    {{ content }}
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+      mat-button
+      [mat-dialog-close]="true"
+      color="primary"
+      cdkFocusInitial
+    >
+      Yes
+    </button>
+    <button mat-button mat-dialog-close color="warn">No</button>
+  </mat-dialog-actions>
 </div>

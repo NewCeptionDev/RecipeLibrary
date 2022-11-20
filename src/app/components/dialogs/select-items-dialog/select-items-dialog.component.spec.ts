@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectItemsDialogComponent } from './select-items-dialog.component';
+import {SelectItemsDialogComponent} from './select-items-dialog.component';
 
 describe('SelectItemsDialogComponent', () => {
   let component: SelectItemsDialogComponent;
@@ -8,9 +8,8 @@ describe('SelectItemsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectItemsDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [SelectItemsDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SelectItemsDialogComponent);
     component = fixture.componentInstance;

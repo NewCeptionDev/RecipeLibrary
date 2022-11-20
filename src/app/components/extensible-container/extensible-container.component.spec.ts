@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ExtensibleContainerComponent } from './extensible-container.component';
+import {ExtensibleContainerComponent} from './extensible-container.component';
 
 describe('ExtensibleContainerComponent', () => {
   let component: ExtensibleContainerComponent;
@@ -8,9 +8,8 @@ describe('ExtensibleContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExtensibleContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [ExtensibleContainerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ExtensibleContainerComponent);
     component = fixture.componentInstance;

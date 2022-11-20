@@ -1,15 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-extensible-container',
   templateUrl: './extensible-container.component.html',
-  styleUrls: ['./extensible-container.component.scss']
+  styleUrls: ['./extensible-container.component.scss'],
 })
 export class ExtensibleContainerComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

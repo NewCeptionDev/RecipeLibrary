@@ -1,30 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
-import { Recipe } from 'src/app/models/recipe';
-import { RecipeService } from 'src/app/services/recipe.service';
-import { AutocompleteWithAddFunctionComponent } from '../autocomplete-with-add-function/autocomplete-with-add-function.component';
+import {Component, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Recipe} from 'src/app/models/recipe';
+import {RecipeService} from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-recipe-form',
   templateUrl: './recipe-form.component.html',
-  styleUrls: ['./recipe-form.component.scss']
+  styleUrls: ['./recipe-form.component.scss'],
 })
 export class RecipeFormComponent implements OnInit {
-
   defaultRecipe: Recipe = {
     id: -1,
-    recipeName: "",
-    cookbook: "",
+    recipeName: '',
+    cookbook: '',
     ingredients: [],
     categories: [],
-    rating: -1
+    rating: -1,
   };
 
   @Input()
   recipeInput: Recipe | undefined;
 
-  recipe: Recipe = {...this.defaultRecipe};
+  recipe: Recipe = { ...this.defaultRecipe };
 
   editing: boolean = false;
 
@@ -43,17 +40,17 @@ export class RecipeFormComponent implements OnInit {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks();
     this.knownIngredients = this.recipeService.getAllKnownIngredients();
     this.knownCategories = this.recipeService.getAllKnownCategories();
-   }
+  }
 
   ngOnInit(): void {
-    if(this.recipeInput) {     
+    if (this.recipeInput) {
       this.editing = true;
-      this.recipe = {...this.recipeInput};
+      this.recipe = { ...this.recipeInput };
     }
   }
 
   public updateRating(newRating: number) {
-      this.recipe.rating = newRating;
+    this.recipe.rating = newRating;
   }
 
   public updateSelectedIngredients(ingredientList: string[]) {
@@ -69,7 +66,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   public finalizeRecipe() {
-    if(this.editing && this.recipeInput) {
+    if (this.editing && this.recipeInput) {
       this.recipeService.updateRecipe(this.recipeInput.id, this.recipe);
     } else {
       this.recipeService.addRecipe(this.recipe);

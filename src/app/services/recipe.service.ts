@@ -1,35 +1,37 @@
-import { Injectable } from '@angular/core';
-import { Recipe } from '../models/recipe';
+import {Injectable} from '@angular/core';
+import {Recipe} from '../models/recipe';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecipeService {
-
   private static lastUsedRecipeId = 0;
 
-  private recipes: Recipe[] = [{
-    id: 9990,
-    recipeName: "Pizza",
-    cookbook: "Kopf",
-    ingredients: ["Teig", "Tomatensoße", "Streukäse", "Salami"],
-    categories: ["Fleisch"],
-    rating: 5
-  }, {
-    id: 9991,
-    recipeName: "Nudelteig",
-    cookbook: "Kopf",
-    ingredients: ["Mehl", "Wasser", "Olivenöl", "Hefe"],
-    categories: ["Vegetarisch"],
-    rating: 2
-  }];
+  private recipes: Recipe[] = [
+    {
+      id: 9990,
+      recipeName: 'Pizza',
+      cookbook: 'Kopf',
+      ingredients: ['Teig', 'Tomatensoße', 'Streukäse', 'Salami'],
+      categories: ['Fleisch'],
+      rating: 5,
+    },
+    {
+      id: 9991,
+      recipeName: 'Nudelteig',
+      cookbook: 'Kopf',
+      ingredients: ['Mehl', 'Wasser', 'Olivenöl', 'Hefe'],
+      categories: ['Vegetarisch'],
+      rating: 2,
+    },
+  ];
 
   private knownCookbooks: string[] = [];
 
   private knownIngredients: string[] = [];
 
   private knownCategories: string[] = [];
-  constructor() { }
+  constructor() {}
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks;
@@ -44,7 +46,7 @@ export class RecipeService {
   }
 
   public addRecipe(recipe: Recipe) {
-    if(recipe.id < 0) {
+    if (recipe.id < 0) {
       recipe.id = RecipeService.getNextRecipeId();
     }
 
@@ -53,36 +55,56 @@ export class RecipeService {
   }
 
   private updateKnown(recipe: Recipe) {
-    if(!this.knownCookbooks.includes(recipe.cookbook)) {
+    if (!this.knownCookbooks.includes(recipe.cookbook)) {
       this.knownCookbooks.push(recipe.cookbook);
     }
 
-    this.knownIngredients.push(...recipe.ingredients.filter(ingredient => !this.knownIngredients.includes(ingredient)))
-    this.knownCategories.push(...recipe.categories.filter(category => !this.knownCategories.includes(category)))
+    this.knownIngredients.push(
+      ...recipe.ingredients.filter(
+        (ingredient) => !this.knownIngredients.includes(ingredient)
+      )
+    );
+    this.knownCategories.push(
+      ...recipe.categories.filter(
+        (category) => !this.knownCategories.includes(category)
+      )
+    );
   }
 
   private removeFromKnown(removedRecipe: Recipe) {
-    if(!this.recipes.some(recipe => recipe.cookbook === removedRecipe.cookbook)) {
-        this.knownCookbooks.splice(this.knownCookbooks.indexOf(removedRecipe.cookbook),1);
+    if (
+      !this.recipes.some((recipe) => recipe.cookbook === removedRecipe.cookbook)
+    ) {
+      this.knownCookbooks.splice(
+        this.knownCookbooks.indexOf(removedRecipe.cookbook),
+        1
+      );
     }
 
-    for(let ingredient of removedRecipe.ingredients) {
-      if(!this.recipes.some(recipe => recipe.ingredients.includes(ingredient))) {
-        this.knownIngredients.splice(this.knownIngredients.indexOf(ingredient),1);
+    for (let ingredient of removedRecipe.ingredients) {
+      if (
+        !this.recipes.some((recipe) => recipe.ingredients.includes(ingredient))
+      ) {
+        this.knownIngredients.splice(
+          this.knownIngredients.indexOf(ingredient),
+          1
+        );
       }
     }
 
-    for(let category of removedRecipe.categories) {
-      if(!this.recipes.some(recipe => recipe.categories.includes(category))) {
-        this.knownCategories.splice(this.knownCategories.indexOf(category),1);
+    for (let category of removedRecipe.categories) {
+      if (
+        !this.recipes.some((recipe) => recipe.categories.includes(category))
+      ) {
+        this.knownCategories.splice(this.knownCategories.indexOf(category), 1);
       }
     }
   }
 
   public removeRecipe(recipeId: number) {
-    const recipe = this.recipes.find(recipe => recipe.id === recipeId);
-    
-    if(recipe) {
+    const recipe = this.recipes.find((recipe) => recipe.id === recipeId);
+
+    if (recipe) {
       this.recipes.splice(this.recipes.indexOf(recipe), 1);
       this.removeFromKnown(recipe);
     }
@@ -93,9 +115,9 @@ export class RecipeService {
   }
 
   public updateRecipe(recipeId: number, newRecipe: Recipe) {
-    const oldRecipe = this.recipes.find(recipe => recipe.id === recipeId);
-    
-    if(oldRecipe) {
+    const oldRecipe = this.recipes.find((recipe) => recipe.id === recipeId);
+
+    if (oldRecipe) {
       const index = this.recipes.indexOf(oldRecipe);
 
       this.recipes.splice(index, 1, newRecipe);

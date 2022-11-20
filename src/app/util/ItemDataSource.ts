@@ -1,22 +1,21 @@
-import { DataSource } from "@angular/cdk/collections";
-import { Observable, ReplaySubject } from "rxjs";
+import {DataSource} from '@angular/cdk/collections';
+import {Observable, ReplaySubject} from 'rxjs';
 
 export class ItemDataSource<T> extends DataSource<T> {
-    private dataStream = new ReplaySubject<T[]>();
-  
-    constructor(initialData: T[]) {
-      super();
-      this.setData(initialData);
-    }
-  
-    connect(): Observable<T[]> {
-      return this.dataStream;
-    }
-  
-    disconnect() {
-    }
-  
-    setData(data: T[]) {
-      this.dataStream.next(data);
-    }
+  private dataStream = new ReplaySubject<T[]>();
+
+  constructor(initialData: T[]) {
+    super();
+    this.setData(initialData);
   }
+
+  connect(): Observable<T[]> {
+    return this.dataStream;
+  }
+
+  disconnect() {}
+
+  setData(data: T[]) {
+    this.dataStream.next(data);
+  }
+}

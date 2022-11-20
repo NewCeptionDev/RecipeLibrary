@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AutocompleteWithAddFunctionComponent } from './autocomplete-with-add-function.component';
+import {AutocompleteWithAddFunctionComponent} from './autocomplete-with-add-function.component';
 
 describe('AutocompleteWithAddFunctionComponent', () => {
   let component: AutocompleteWithAddFunctionComponent;
@@ -8,9 +8,8 @@ describe('AutocompleteWithAddFunctionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AutocompleteWithAddFunctionComponent ]
-    })
-    .compileComponents();
+      declarations: [AutocompleteWithAddFunctionComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AutocompleteWithAddFunctionComponent);
     component = fixture.componentInstance;

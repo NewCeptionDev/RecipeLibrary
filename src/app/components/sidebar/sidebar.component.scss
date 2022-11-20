@@ -1,46 +1,46 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 }
 
 .recipeButtons {
-    margin-top: 2vh;
+  margin-top: 2vh;
 
-    button {
-        margin-bottom: 2vh;
-    }
+  button {
+    margin-bottom: 2vh;
+  }
 }
 
 mat-icon {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .settings-icon {
-    font-size: 3.5rem;
-    line-height: 3.5rem !important;
+  font-size: 3.5rem;
+  line-height: 3.5rem !important;
 }
 
 .add-icon {
-    font-size: 4rem;
-    line-height: 4rem !important;
+  font-size: 4rem;
+  line-height: 4rem !important;
 }
 
 .edit-icon {
-    font-size: 3rem;
-    line-height: 3rem !important;
+  font-size: 3rem;
+  line-height: 3rem !important;
 }
 
 button {
-    width: 100%;
-    height: 10%;
-    margin-bottom: 1.5vh;
+  width: 100%;
+  height: 10%;
+  margin-bottom: 1.5vh;
 }
 
 .mat-icon-button {
-    height: auto;
-    border-radius: 0;
+  height: auto;
+  border-radius: 0;
 }

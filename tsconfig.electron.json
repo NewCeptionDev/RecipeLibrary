@@ -1,4 +1,4 @@
-{ 
+{
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",
@@ -8,12 +8,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "types": [
-        "node"
-    ]
+    "types": ["node"]
   },
-  "files": [
-    "app/main.ts"
-  ],
-  "exclude": [ "node_modules" ] 
+  "files": ["app/main.ts"],
+  "exclude": ["node_modules"]
 }

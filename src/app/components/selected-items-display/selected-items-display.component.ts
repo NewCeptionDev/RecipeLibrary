@@ -7,20 +7,19 @@ import {SelectItemsDialogComponent} from '../dialogs/select-items-dialog/select-
 @Component({
   selector: 'app-selected-items-display',
   templateUrl: './selected-items-display.component.html',
-  styleUrls: ['./selected-items-display.component.scss']
+  styleUrls: ['./selected-items-display.component.scss'],
 })
 export class SelectedItemsDisplayComponent implements OnInit {
-
   @Input()
   public editable: boolean = true;
 
   @Input()
-  public data: string[] = []
+  public data: string[] = [];
 
-  public columns: string[] = ["name", "action"]
+  public columns: string[] = ['name', 'action'];
 
   @Input()
-  public headline: string = "Items";
+  public headline: string = 'Items';
 
   @Input()
   public knownItems: string[] = [];
@@ -35,30 +34,31 @@ export class SelectedItemsDisplayComponent implements OnInit {
 
   constructor(public dialogService: DialogsService) {
     this.tableDataSource = new ItemDataSource(this.data);
-   }
+  }
 
   ngOnInit(): void {
-    if(this.data.length > 0) {
+    if (this.data.length > 0) {
       this.tableDataSource.setData(this.data);
     }
   }
 
   public openDialog() {
-    if(this.editable) {
-      const dialogRef: MatDialogRef<SelectItemsDialogComponent> = this.dialogService.openSelectItemsDialog({
-        data: [...this.data],
-        headline: this.headline,
-        knownItems: this.knownItems,
-        onlyAllowKnownItems: this.onlyKnownItemsSelectable
-      })
+    if (this.editable) {
+      const dialogRef: MatDialogRef<SelectItemsDialogComponent> =
+        this.dialogService.openSelectItemsDialog({
+          data: [...this.data],
+          headline: this.headline,
+          knownItems: this.knownItems,
+          onlyAllowKnownItems: this.onlyKnownItemsSelectable,
+        });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
           this.data = result;
           this.tableDataSource.setData(this.data);
           this.onUpdateData.emit(result);
         }
-      })
+      });
     }
   }
 }

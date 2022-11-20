@@ -50,9 +50,9 @@ import {SearchOptionsComponent} from './components/search/search-options/search-
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

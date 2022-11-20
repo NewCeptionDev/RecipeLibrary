@@ -5,15 +5,14 @@ import {map, Observable, startWith} from 'rxjs';
 @Component({
   selector: 'app-autocomplete-with-add-function',
   templateUrl: './autocomplete-with-add-function.component.html',
-  styleUrls: ['./autocomplete-with-add-function.component.scss']
+  styleUrls: ['./autocomplete-with-add-function.component.scss'],
 })
 export class AutocompleteWithAddFunctionComponent implements OnInit {
+  @Input()
+  public labelName: string = 'Add new';
 
   @Input()
-  public labelName: string = "Add new"
-
-  @Input()
-  public itemName: string = "Items";
+  public itemName: string = 'Items';
 
   @Input()
   public knownItems: string[] = [];
@@ -40,21 +39,21 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()
   public disableAddFunction: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    if(this.startValue) {
+    if (this.startValue) {
       this.itemSelect.setValue(this.startValue);
     }
 
     this.filteredItems = this.itemSelect.valueChanges.pipe(
       startWith(''),
-      map(value => this.filterItems(value || ""))
-    )
+      map((value) => this.filterItems(value || ''))
+    );
 
     this.refreshFilteredItems.subscribe(() => {
-      this.itemSelect.setValue("");
-    })
+      this.itemSelect.setValue('');
+    });
   }
 
   private filterItems(value: string): string[] {
@@ -62,17 +61,26 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
 
     const itemsToFilter = [...this.knownItems];
 
-    if(!this.disableAddFunction && !itemsToFilter.includes(value) && !itemsToFilter.includes(filterValue) && value.length > 0) {
+    if (
+      !this.disableAddFunction &&
+      !itemsToFilter.includes(value) &&
+      !itemsToFilter.includes(filterValue) &&
+      value.length > 0
+    ) {
       itemsToFilter.push(value);
     }
 
-    return itemsToFilter.filter(option => option.toLowerCase().includes(filterValue) && (this.filterFunction === undefined || this.filterFunction(option)));
+    return itemsToFilter.filter(
+      (option) =>
+        option.toLowerCase().includes(filterValue) &&
+        (this.filterFunction === undefined || this.filterFunction(option))
+    );
   }
 
   public onItemSelect(value: string) {
     this.onItemSelected.emit(value);
-    if(this.clearOnSelect) {
-      this.itemSelect.setValue("");
+    if (this.clearOnSelect) {
+      this.itemSelect.setValue('');
     }
   }
 }

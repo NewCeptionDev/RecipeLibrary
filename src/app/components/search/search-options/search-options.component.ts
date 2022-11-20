@@ -1,21 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {RecipeService} from "../../../services/recipe.service";
-import {SearchOptions} from "../../../models/searchOptions";
+import {RecipeService} from '../../../services/recipe.service';
+import {SearchOptions} from '../../../models/searchOptions';
 
 @Component({
   selector: 'app-search-options',
   templateUrl: './search-options.component.html',
-  styleUrls: ['./search-options.component.scss']
+  styleUrls: ['./search-options.component.scss'],
 })
 export class SearchOptionsComponent implements OnInit {
-
   selectedOptions: SearchOptions = {
-    searchTerm: "",
+    searchTerm: '',
     minimumRating: -1,
     includedCategories: [],
     includedCookbooks: [],
-    requiredIngredients: []
-  }
+    requiredIngredients: [],
+  };
 
   knownCookbooks: string[];
 
@@ -31,8 +30,7 @@ export class SearchOptionsComponent implements OnInit {
     this.selectedOptions.includedCookbooks = this.knownCookbooks;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public onNewRatingSelected(newRating: number) {
     this.selectedOptions.minimumRating = newRating;

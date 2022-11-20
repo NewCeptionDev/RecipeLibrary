@@ -1,12 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-
   @Output()
   public onAddRecipe: EventEmitter<void> = new EventEmitter();
 
@@ -16,10 +15,9 @@ export class SidebarComponent implements OnInit {
   @Output()
   public onSettings: EventEmitter<void> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addRecipe() {
     this.onAddRecipe.emit();
@@ -32,5 +30,4 @@ export class SidebarComponent implements OnInit {
   settings() {
     this.onSettings.emit();
   }
-
 }
