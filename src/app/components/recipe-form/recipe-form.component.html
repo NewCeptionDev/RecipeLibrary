@@ -45,6 +45,11 @@
     >
       {{ editing ? "Update" : "Add" }}
     </button>
-    <button mat-raised-button (click)="onRecipeChange.emit()">Cancel</button>
+    <button
+      mat-raised-button
+      (click)="onRecipeChange.emit()"
+    >
+      Cancel
+    </button>
   </div>
 </div>

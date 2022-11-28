@@ -5,7 +5,10 @@
     (onEditRecipes)="toggleEditRecipes()"
     (onSettings)="toggleSettings()"
   ></app-sidebar>
-  <app-extensible-container class="positionIndex0" *ngIf="showEditRecipes()">
+  <app-extensible-container
+    class="positionIndex0"
+    *ngIf="showEditRecipes()"
+  >
     <app-edit-recipes
       *ngIf="showEditRecipes()"
       [reloadRecipes]="recipeEdited.asObservable()"

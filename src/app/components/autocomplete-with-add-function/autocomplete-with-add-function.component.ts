@@ -1,65 +1,65 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {map, Observable, startWith} from 'rxjs';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
+import {FormControl} from "@angular/forms"
+import {map, Observable, startWith} from "rxjs"
 
 @Component({
-  selector: 'app-autocomplete-with-add-function',
-  templateUrl: './autocomplete-with-add-function.component.html',
-  styleUrls: ['./autocomplete-with-add-function.component.scss'],
+  selector: "app-autocomplete-with-add-function",
+  templateUrl: "./autocomplete-with-add-function.component.html",
+  styleUrls: ["./autocomplete-with-add-function.component.scss"],
 })
 export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()
-  public labelName: string = 'Add new';
+  public labelName: string = "Add new"
 
   @Input()
-  public itemName: string = 'Items';
+  public itemName: string = "Items"
 
   @Input()
-  public knownItems: string[] = [];
+  public knownItems: string[] = []
 
   @Input()
-  public startValue: string | undefined;
+  public startValue: string | undefined
 
   @Input()
-  public clearOnSelect: boolean = true;
+  public clearOnSelect: boolean = true
 
-  itemSelect: FormControl = new FormControl();
+  itemSelect: FormControl = new FormControl()
 
-  filteredItems: Observable<string[]> = new Observable();
+  filteredItems: Observable<string[]> = new Observable()
 
   @Output()
-  public onItemSelected: EventEmitter<string> = new EventEmitter();
+  public onItemSelected: EventEmitter<string> = new EventEmitter()
 
   @Input()
-  public filterFunction: ((val: string) => boolean) | undefined = undefined;
+  public filterFunction: ((val: string) => boolean) | undefined = undefined
 
   @Input()
-  public refreshFilteredItems: Observable<void> = new Observable();
+  public refreshFilteredItems: Observable<void> = new Observable()
 
   @Input()
-  public disableAddFunction: boolean = false;
+  public disableAddFunction: boolean = false
 
   constructor() {}
 
   ngOnInit(): void {
     if (this.startValue) {
-      this.itemSelect.setValue(this.startValue);
+      this.itemSelect.setValue(this.startValue)
     }
 
     this.filteredItems = this.itemSelect.valueChanges.pipe(
-      startWith(''),
-      map((value) => this.filterItems(value || ''))
-    );
+      startWith(""),
+      map((value) => this.filterItems(value || ""))
+    )
 
     this.refreshFilteredItems.subscribe(() => {
-      this.itemSelect.setValue('');
-    });
+      this.itemSelect.setValue("")
+    })
   }
 
   private filterItems(value: string): string[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value.toLowerCase()
 
-    const itemsToFilter = [...this.knownItems];
+    const itemsToFilter = [...this.knownItems]
 
     if (
       !this.disableAddFunction &&
@@ -67,20 +67,20 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
       !itemsToFilter.includes(filterValue) &&
       value.length > 0
     ) {
-      itemsToFilter.push(value);
+      itemsToFilter.push(value)
     }
 
     return itemsToFilter.filter(
       (option) =>
         option.toLowerCase().includes(filterValue) &&
         (this.filterFunction === undefined || this.filterFunction(option))
-    );
+    )
   }
 
   public onItemSelect(value: string) {
-    this.onItemSelected.emit(value);
+    this.onItemSelected.emit(value)
     if (this.clearOnSelect) {
-      this.itemSelect.setValue('');
+      this.itemSelect.setValue("")
     }
   }
 }
