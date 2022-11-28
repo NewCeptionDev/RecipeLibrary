@@ -1,0 +1,6 @@
+node_modules/*
+.angular/
+.vscode/
+.idea/
+
+src/karma.conf.js

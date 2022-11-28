@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
-import {FormControl} from "@angular/forms"
-import {map, Observable, startWith} from "rxjs"
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { FormControl } from "@angular/forms"
+import { Observable, map, startWith } from "rxjs"
 
 @Component({
   selector: "app-autocomplete-with-add-function",

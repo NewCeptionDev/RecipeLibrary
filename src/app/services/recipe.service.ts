@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core"
-import {Recipe} from "../models/recipe"
+import { Injectable } from "@angular/core"
+import { Recipe } from "../models/recipe"
 
 @Injectable({
   providedIn: "root",
@@ -31,6 +31,7 @@ export class RecipeService {
   private knownIngredients: string[] = []
 
   private knownCategories: string[] = []
+
   constructor() {}
 
   public getAllKnownCookbooks(): string[] {
@@ -72,13 +73,13 @@ export class RecipeService {
       this.knownCookbooks.splice(this.knownCookbooks.indexOf(removedRecipe.cookbook), 1)
     }
 
-    for (let ingredient of removedRecipe.ingredients) {
+    for (const ingredient of removedRecipe.ingredients) {
       if (!this.recipes.some((recipe) => recipe.ingredients.includes(ingredient))) {
         this.knownIngredients.splice(this.knownIngredients.indexOf(ingredient), 1)
       }
     }
 
-    for (let category of removedRecipe.categories) {
+    for (const category of removedRecipe.categories) {
       if (!this.recipes.some((recipe) => recipe.categories.includes(category))) {
         this.knownCategories.splice(this.knownCategories.indexOf(category), 1)
       }

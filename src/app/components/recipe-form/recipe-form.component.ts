@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
-import {Observable} from "rxjs"
-import {Recipe} from "src/app/models/recipe"
-import {RecipeService} from "src/app/services/recipe.service"
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { Observable } from "rxjs"
+import { Recipe } from "src/app/models/recipe"
+import { RecipeService } from "src/app/services/recipe.service"
 
 @Component({
   selector: "app-recipe-form",

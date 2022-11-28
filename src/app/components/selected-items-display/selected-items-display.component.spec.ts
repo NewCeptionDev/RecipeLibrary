@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import {SelectedItemsDisplayComponent} from "./selected-items-display.component"
+import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
 
 describe("SelectedItemsDisplayComponent", () => {
   let component: SelectedItemsDisplayComponent

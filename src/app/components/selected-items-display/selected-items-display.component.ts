@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
-import {MatDialogRef} from "@angular/material/dialog"
-import {DialogsService} from "src/app/services/dialogs.service"
-import {ItemDataSource} from "src/app/util/ItemDataSource"
-import {SelectItemsDialogComponent} from "../dialogs/select-items-dialog/select-items-dialog.component"
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { MatDialogRef } from "@angular/material/dialog"
+import { DialogsService } from "src/app/services/dialogs.service"
+import { ItemDataSource } from "src/app/util/ItemDataSource"
+import { SelectItemsDialogComponent } from "../dialogs/select-items-dialog/select-items-dialog.component"
 
 @Component({
   selector: "app-selected-items-display",

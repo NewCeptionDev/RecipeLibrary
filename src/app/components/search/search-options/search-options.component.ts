@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core"
-import {RecipeService} from "../../../services/recipe.service"
-import {SearchOptions} from "../../../models/searchOptions"
+import { Component, OnInit } from "@angular/core"
+import { RecipeService } from "../../../services/recipe.service"
+import { SearchOptions } from "../../../models/searchOptions"
 
 @Component({
   selector: "app-search-options",

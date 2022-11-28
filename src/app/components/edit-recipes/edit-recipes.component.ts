@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
-import {Observable} from "rxjs"
-import {Recipe} from "src/app/models/recipe"
-import {DialogsService} from "src/app/services/dialogs.service"
-import {RecipeService} from "src/app/services/recipe.service"
-import {ItemDataSource} from "src/app/util/ItemDataSource"
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { Observable } from "rxjs"
+import { Recipe } from "src/app/models/recipe"
+import { DialogsService } from "src/app/services/dialogs.service"
+import { RecipeService } from "src/app/services/recipe.service"
+import { ItemDataSource } from "src/app/util/ItemDataSource"
 
 @Component({
   selector: "app-edit-recipes",
@@ -32,9 +32,7 @@ export class EditRecipesComponent implements OnInit {
     this.dialogService
       .openTwoButtonDialog(
         "Delete recipe",
-        "Are you sure that you want to delete Recipe " +
-          recipe.recipeName +
-          "?\nA deleted recipe cannot be recovered."
+        `Are you sure that you want to delete Recipe ${recipe.recipeName}?\nA deleted recipe cannot be recovered.`
       )
       .afterClosed()
       .subscribe((result) => {

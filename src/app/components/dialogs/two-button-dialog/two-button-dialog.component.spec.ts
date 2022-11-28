@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import {TwoButtonDialogComponent} from "./two-button-dialog.component"
+import { TwoButtonDialogComponent } from "./two-button-dialog.component"
 
 describe("TwoButtonDialogComponent", () => {
   let component: TwoButtonDialogComponent

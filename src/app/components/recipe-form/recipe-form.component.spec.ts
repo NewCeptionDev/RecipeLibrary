@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import {RecipeFormComponent} from "./recipe-form.component"
+import { RecipeFormComponent } from "./recipe-form.component"
 
 describe("AddRecipeComponent", () => {
   let component: RecipeFormComponent

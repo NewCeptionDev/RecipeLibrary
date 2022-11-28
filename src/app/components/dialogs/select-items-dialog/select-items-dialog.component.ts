@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Inject, OnInit} from "@angular/core"
-import {MAT_DIALOG_DATA} from "@angular/material/dialog"
-import {SelectItemsDialogData} from "src/app/models/selectItemsDialogData"
-import {ItemDataSource} from "src/app/util/ItemDataSource"
+import { Component, EventEmitter, Inject, OnInit } from "@angular/core"
+import { MAT_DIALOG_DATA } from "@angular/material/dialog"
+import { SelectItemsDialogData } from "src/app/models/selectItemsDialogData"
+import { ItemDataSource } from "src/app/util/ItemDataSource"
 
 @Component({
   selector: "app-select-items-dialog",
@@ -30,9 +30,7 @@ export class SelectItemsDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  notAlreadyIncludedInData = (val: string): boolean => {
-    return !this.data.includes(val)
-  }
+  notAlreadyIncludedInData = (val: string): boolean => !this.data.includes(val)
 
   public onItemSelect(value: string) {
     if (!this.data.includes(value)) {

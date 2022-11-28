@@ -1,5 +1,5 @@
-import {DataSource} from "@angular/cdk/collections"
-import {Observable, ReplaySubject} from "rxjs"
+import { DataSource } from "@angular/cdk/collections"
+import { Observable, ReplaySubject } from "rxjs"
 
 export class ItemDataSource<T> extends DataSource<T> {
   private dataStream = new ReplaySubject<T[]>()

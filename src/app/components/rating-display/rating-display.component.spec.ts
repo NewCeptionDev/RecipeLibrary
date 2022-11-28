@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import {RatingDisplayComponent} from "./rating-display.component"
+import { RatingDisplayComponent } from "./rating-display.component"
 
 describe("RatingDisplayComponent", () => {
   let component: RatingDisplayComponent

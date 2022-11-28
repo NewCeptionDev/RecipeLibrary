@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import {AutocompleteWithAddFunctionComponent} from "./autocomplete-with-add-function.component"
+import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
 
 describe("AutocompleteWithAddFunctionComponent", () => {
   let component: AutocompleteWithAddFunctionComponent
