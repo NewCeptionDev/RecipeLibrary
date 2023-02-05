@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
+import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component";
 
 describe("AutocompleteWithAddFunctionComponent", () => {
-  let component: AutocompleteWithAddFunctionComponent
-  let fixture: ComponentFixture<AutocompleteWithAddFunctionComponent>
+  let component: AutocompleteWithAddFunctionComponent;
+  let fixture: ComponentFixture<AutocompleteWithAddFunctionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AutocompleteWithAddFunctionComponent],
-    }).compileComponents()
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(AutocompleteWithAddFunctionComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    fixture = TestBed.createComponent(AutocompleteWithAddFunctionComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it("should create", () => {
-    expect(component).toBeTruthy()
-  })
-})
+    expect(component).toBeTruthy();
+  });
+});

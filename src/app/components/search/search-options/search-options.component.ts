@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core"
-import { RecipeService } from "../../../services/recipe.service"
-import { SearchOptions } from "../../../models/searchOptions"
+import { Component, OnInit } from "@angular/core";
+import { RecipeService } from "../../../services/recipe.service";
+import { SearchOptions } from "../../../models/searchOptions";
 
 @Component({
   selector: "app-search-options",
@@ -14,37 +14,37 @@ export class SearchOptionsComponent implements OnInit {
     includedCategories: [],
     includedCookbooks: [],
     requiredIngredients: [],
-  }
+  };
 
-  knownCookbooks: string[]
+  knownCookbooks: string[];
 
-  knownIngredients: string[]
+  knownIngredients: string[];
 
-  knownCategories: string[]
+  knownCategories: string[];
 
   constructor(private recipeService: RecipeService) {
-    this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
-    this.knownIngredients = this.recipeService.getAllKnownIngredients()
-    this.knownCategories = this.recipeService.getAllKnownCategories()
+    this.knownCookbooks = this.recipeService.getAllKnownCookbooks();
+    this.knownIngredients = this.recipeService.getAllKnownIngredients();
+    this.knownCategories = this.recipeService.getAllKnownCategories();
 
-    this.selectedOptions.includedCookbooks = this.knownCookbooks
+    this.selectedOptions.includedCookbooks = this.knownCookbooks;
   }
 
   ngOnInit(): void {}
 
   public onNewRatingSelected(newRating: number) {
-    this.selectedOptions.minimumRating = newRating
+    this.selectedOptions.minimumRating = newRating;
   }
 
   public updateRequiredIngredients(selectedItems: string[]) {
-    this.selectedOptions.requiredIngredients = selectedItems
+    this.selectedOptions.requiredIngredients = selectedItems;
   }
 
   public updateIncludedCategories(selectedItems: string[]) {
-    this.selectedOptions.includedCategories = selectedItems
+    this.selectedOptions.includedCategories = selectedItems;
   }
 
   public updateIncludedCookbooks(selectedItems: string[]) {
-    this.selectedOptions.includedCookbooks = selectedItems
+    this.selectedOptions.includedCookbooks = selectedItems;
   }
 }

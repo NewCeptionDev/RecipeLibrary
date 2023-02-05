@@ -1,11 +1,11 @@
 module.exports = {
   ...require("@newceptiondev/prettier-config"),
-  "overrides": [
+  overrides: [
     {
-      "files": "*.html",
-      "options": {
-        "parser": "angular"
-      }
-    }
+      files: "*.html",
+      options: {
+        parser: "angular",
+      },
+    },
   ],
-};
+}

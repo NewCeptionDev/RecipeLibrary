@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
+import { SelectedItemsDisplayComponent } from "./selected-items-display.component";
 
 describe("SelectedItemsDisplayComponent", () => {
-  let component: SelectedItemsDisplayComponent
-  let fixture: ComponentFixture<SelectedItemsDisplayComponent>
+  let component: SelectedItemsDisplayComponent;
+  let fixture: ComponentFixture<SelectedItemsDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SelectedItemsDisplayComponent],
-    }).compileComponents()
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectedItemsDisplayComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    fixture = TestBed.createComponent(SelectedItemsDisplayComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it("should create", () => {
-    expect(component).toBeTruthy()
-  })
-})
+    expect(component).toBeTruthy();
+  });
+});

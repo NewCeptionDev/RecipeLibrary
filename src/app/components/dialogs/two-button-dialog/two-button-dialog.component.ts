@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from "@angular/core"
-import { MAT_DIALOG_DATA } from "@angular/material/dialog"
+import { Component, Inject, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
   selector: "app-two-button-dialog",
@@ -7,16 +7,16 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog"
   styleUrls: ["./two-button-dialog.component.scss"],
 })
 export class TwoButtonDialogComponent implements OnInit {
-  public title: string = ""
+  public title: string = "";
 
-  public content: string = ""
+  public content: string = "";
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public dialogData: { title: string; content: string }
+    public dialogData: { title: string; content: string },
   ) {
-    this.title = dialogData.title
-    this.content = dialogData.content
+    this.title = dialogData.title;
+    this.content = dialogData.content;
   }
 
   ngOnInit(): void {}
