@@ -1,8 +1,23 @@
 {
-  "extends": ["@newceptiondev", "prettier"],
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": ["*.ts"]
+      "files": ["*.ts"],
+      "extends": [
+        "@newceptiondev",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:prettier/recommended"],
+      "rules": {
+      }
     }
   ]
 }
