@@ -3,27 +3,27 @@
     headline="Required Ingredients"
     [knownItems]="knownIngredients"
     [data]="selectedOptions.requiredIngredients"
-    (onUpdateData)="updateRequiredIngredients($event)"
+    (updateData)="updateRequiredIngredients($event)"
     [onlyKnownItemsSelectable]="true"
   ></app-selected-items-display>
   <app-selected-items-display
     headline="Categories"
     [knownItems]="knownCategories"
     [data]="selectedOptions.includedCategories"
-    (onUpdateData)="updateIncludedCategories($event)"
+    (updateData)="updateIncludedCategories($event)"
     [onlyKnownItemsSelectable]="true"
   ></app-selected-items-display>
   <app-selected-items-display
     headline="Cookbooks"
     [knownItems]="knownCookbooks"
     [data]="selectedOptions.includedCookbooks"
-    (onUpdateData)="updateIncludedCookbooks($event)"
+    (updateData)="updateIncludedCookbooks($event)"
     [onlyKnownItemsSelectable]="true"
   ></app-selected-items-display>
   <app-rating-display
     [editable]="true"
     [rating]="selectedOptions.minimumRating"
-    (onNewRating)="onNewRatingSelected($event)"
+    (newRating)="onNewRatingSelected($event)"
     labelAddition="Minimum"
   ></app-rating-display>
 </div>

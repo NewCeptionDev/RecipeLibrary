@@ -14,25 +14,25 @@
       [knownItems]="knownCookbooks"
       labelName="Cookbook"
       [clearOnSelect]="false"
-      (onItemSelected)="updateCookbookName($event)"
+      (itemSelected)="updateCookbookName($event)"
       [startValue]="recipe.cookbook.length > 0 ? recipe.cookbook : undefined"
     ></app-autocomplete-with-add-function>
     <app-selected-items-display
       headline="Ingredients"
       [knownItems]="knownIngredients"
       [data]="recipe.ingredients"
-      (onUpdateData)="updateSelectedIngredients($event)"
+      (updateData)="updateSelectedIngredients($event)"
     ></app-selected-items-display>
     <br />
     <app-selected-items-display
       headline="Categories"
       [knownItems]="knownCategories"
       [data]="recipe.categories"
-      (onUpdateData)="updateSelectedCategories($event)"
+      (updateData)="updateSelectedCategories($event)"
     ></app-selected-items-display>
     <app-rating-display
       [editable]="true"
-      (onNewRating)="updateRating($event)"
+      (newRating)="updateRating($event)"
       [rating]="recipe.rating"
     ></app-rating-display>
   </div>
@@ -47,7 +47,7 @@
     </button>
     <button
       mat-raised-button
-      (click)="onRecipeChange.emit()"
+      (click)="recipeChange.emit()"
     >
       Cancel
     </button>

@@ -4,7 +4,7 @@
     <app-autocomplete-with-add-function
       [knownItems]="dialogData.knownItems"
       [filterFunction]="notAlreadyIncludedInData"
-      (onItemSelected)="onItemSelect($event)"
+      (itemSelected)="onItemSelect($event)"
       [itemName]="headline"
       [refreshFilteredItems]="refreshAutocompleteItems.asObservable()"
       [disableAddFunction]="onlyKnownItems"

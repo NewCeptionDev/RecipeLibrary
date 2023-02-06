@@ -1,35 +1,29 @@
-import {
-  Component, EventEmitter, OnInit, Output,
-} from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core"
 
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
   styleUrls: ["./sidebar.component.scss"],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   @Output()
-  public onAddRecipe: EventEmitter<void> = new EventEmitter();
-
-  @Output()
-  public onEditRecipes: EventEmitter<void> = new EventEmitter();
+  public addRecipe: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public onSettings: EventEmitter<void> = new EventEmitter();
+  public editRecipes: EventEmitter<void> = new EventEmitter()
 
-  constructor() {}
+  @Output()
+  public settings: EventEmitter<void> = new EventEmitter()
 
-  ngOnInit(): void {}
-
-  addRecipe() {
-    this.onAddRecipe.emit();
+  addRecipeTrigger() {
+    this.addRecipe.emit()
   }
 
-  editRecipes() {
-    this.onEditRecipes.emit();
+  editRecipesTrigger() {
+    this.editRecipes.emit()
   }
 
-  settings() {
-    this.onSettings.emit();
+  settingsTrigger() {
+    this.settings.emit()
   }
 }

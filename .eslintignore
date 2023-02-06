@@ -4,3 +4,4 @@ node_modules/*
 .idea/
 
 src/karma.conf.js
+src/polyfills.ts

@@ -1,10 +1,8 @@
-import {
-  Component, EventEmitter, Input, OnInit, Output,
-} from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
-import { DialogsService } from "src/app/services/dialogs.service";
-import { ItemDataSource } from "src/app/util/ItemDataSource";
-import { SelectItemsDialogComponent } from "../dialogs/select-items-dialog/select-items-dialog.component";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { MatDialogRef } from "@angular/material/dialog"
+import { DialogsService } from "src/app/services/dialogs.service"
+import { ItemDataSource } from "src/app/util/ItemDataSource"
+import { SelectItemsDialogComponent } from "../dialogs/select-items-dialog/select-items-dialog.component"
 
 @Component({
   selector: "app-selected-items-display",
@@ -13,53 +11,54 @@ import { SelectItemsDialogComponent } from "../dialogs/select-items-dialog/selec
 })
 export class SelectedItemsDisplayComponent implements OnInit {
   @Input()
-  public editable: boolean = true;
+  public editable: boolean = true
 
   @Input()
-  public data: string[] = [];
+  public data: string[] = []
 
-  public columns: string[] = ["name", "action"];
-
-  @Input()
-  public headline: string = "Items";
+  public columns: string[] = ["name", "action"]
 
   @Input()
-  public knownItems: string[] = [];
+  public headline: string = "Items"
 
   @Input()
-  public onlyKnownItemsSelectable: boolean = false;
+  public knownItems: string[] = []
+
+  @Input()
+  public onlyKnownItemsSelectable: boolean = false
 
   @Output()
-  public onUpdateData: EventEmitter<string[]> = new EventEmitter();
+  public updateData: EventEmitter<string[]> = new EventEmitter()
 
-  public tableDataSource: ItemDataSource<string>;
+  public tableDataSource: ItemDataSource<string>
 
   constructor(public dialogService: DialogsService) {
-    this.tableDataSource = new ItemDataSource(this.data);
+    this.tableDataSource = new ItemDataSource(this.data)
   }
 
   ngOnInit(): void {
     if (this.data.length > 0) {
-      this.tableDataSource.setData(this.data);
+      this.tableDataSource.setData(this.data)
     }
   }
 
   public openDialog() {
     if (this.editable) {
-      const dialogRef: MatDialogRef<SelectItemsDialogComponent> = this.dialogService.openSelectItemsDialog({
-        data: [...this.data],
-        headline: this.headline,
-        knownItems: this.knownItems,
-        onlyAllowKnownItems: this.onlyKnownItemsSelectable,
-      });
+      const dialogRef: MatDialogRef<SelectItemsDialogComponent> =
+        this.dialogService.openSelectItemsDialog({
+          data: [...this.data],
+          headline: this.headline,
+          knownItems: this.knownItems,
+          onlyAllowKnownItems: this.onlyKnownItemsSelectable,
+        })
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          this.data = result;
-          this.tableDataSource.setData(this.data);
-          this.onUpdateData.emit(result);
+          this.data = result
+          this.tableDataSource.setData(this.data)
+          this.updateData.emit(result)
         }
-      });
+      })
     }
   }
 }
