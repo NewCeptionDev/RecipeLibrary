@@ -4,26 +4,22 @@
     [knownItems]="knownIngredients"
     [data]="selectedOptions.requiredIngredients"
     (updateData)="updateRequiredIngredients($event)"
-    [onlyKnownItemsSelectable]="true"
-  ></app-selected-items-display>
+    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
   <app-selected-items-display
     headline="Categories"
     [knownItems]="knownCategories"
     [data]="selectedOptions.includedCategories"
     (updateData)="updateIncludedCategories($event)"
-    [onlyKnownItemsSelectable]="true"
-  ></app-selected-items-display>
+    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
   <app-selected-items-display
     headline="Cookbooks"
     [knownItems]="knownCookbooks"
     [data]="selectedOptions.includedCookbooks"
     (updateData)="updateIncludedCookbooks($event)"
-    [onlyKnownItemsSelectable]="true"
-  ></app-selected-items-display>
+    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
   <app-rating-display
     [editable]="true"
     [rating]="selectedOptions.minimumRating"
     (newRating)="onNewRatingSelected($event)"
-    labelAddition="Minimum"
-  ></app-rating-display>
+    labelAddition="Minimum"></app-rating-display>
 </div>

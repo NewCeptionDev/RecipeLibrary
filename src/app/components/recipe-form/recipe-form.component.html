@@ -6,8 +6,7 @@
       <input
         matInput
         placeholder="Name of recipe"
-        [(ngModel)]="recipe.recipeName"
-      />
+        [(ngModel)]="recipe.recipeName" />
     </mat-form-field>
     <app-autocomplete-with-add-function
       itemName="Cookbook"
@@ -15,40 +14,36 @@
       labelName="Cookbook"
       [clearOnSelect]="false"
       (itemSelected)="updateCookbookName($event)"
-      [startValue]="recipe.cookbook.length > 0 ? recipe.cookbook : undefined"
-    ></app-autocomplete-with-add-function>
+      [startValue]="
+        recipe.cookbook.length > 0 ? recipe.cookbook : undefined
+      "></app-autocomplete-with-add-function>
     <app-selected-items-display
       headline="Ingredients"
       [knownItems]="knownIngredients"
       [data]="recipe.ingredients"
-      (updateData)="updateSelectedIngredients($event)"
-    ></app-selected-items-display>
+      (updateData)="updateSelectedIngredients($event)"></app-selected-items-display>
     <br />
     <app-selected-items-display
       headline="Categories"
       [knownItems]="knownCategories"
       [data]="recipe.categories"
-      (updateData)="updateSelectedCategories($event)"
-    ></app-selected-items-display>
+      (updateData)="updateSelectedCategories($event)"></app-selected-items-display>
     <app-rating-display
       [editable]="true"
       (newRating)="updateRating($event)"
-      [rating]="recipe.rating"
-    ></app-rating-display>
+      [rating]="recipe.rating"></app-rating-display>
   </div>
   <div class="buttons">
     <button
       mat-raised-button
       color="primary"
       cdkFocusInitial
-      (click)="finalizeRecipe()"
-    >
+      (click)="finalizeRecipe()">
       {{ editing ? "Update" : "Add" }}
     </button>
     <button
       mat-raised-button
-      (click)="recipeChange.emit()"
-    >
+      (click)="recipeChange.emit()">
       Cancel
     </button>
   </div>

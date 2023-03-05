@@ -6,14 +6,12 @@
       placeholder="Pick from existing {{ itemName }} or add a new one"
       matInput
       [formControl]="itemSelect"
-      [matAutocomplete]="auto"
-    />
+      [matAutocomplete]="auto" />
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
         *ngFor="let item of filteredItems | async"
         [value]="item"
-        (click)="onItemSelect(item)"
-      >
+        (click)="onItemSelect(item)">
         <mat-icon *ngIf="item === itemSelect.value && !knownItems.includes(item)">add</mat-icon>
         {{ item }}
       </mat-option>

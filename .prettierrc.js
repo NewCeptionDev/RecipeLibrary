@@ -5,6 +5,7 @@ module.exports = {
       files: "*.html",
       options: {
         parser: "angular",
+        bracketSameLine: true,
       },
     },
   ],

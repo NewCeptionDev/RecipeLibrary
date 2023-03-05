@@ -3,29 +3,24 @@
   <app-sidebar
     (addRecipe)="toggleAddRecipe()"
     (editRecipes)="toggleEditRecipes()"
-    (settings)="toggleSettings()"
-  ></app-sidebar>
+    (settings)="toggleSettings()"></app-sidebar>
   <app-extensible-container
     class="positionIndex0"
-    *ngIf="showEditRecipes()"
-  >
+    *ngIf="showEditRecipes()">
     <app-edit-recipes
       *ngIf="showEditRecipes()"
       [reloadRecipes]="recipeEdited.asObservable()"
-      (editRecipe)="editRecipe($event)"
-    ></app-edit-recipes>
+      (editRecipe)="editRecipe($event)"></app-edit-recipes>
   </app-extensible-container>
   <app-extensible-container
     *ngIf="showAddRecipe() || showEditRecipe()"
     [ngClass]="{
       positionIndex0: showAddRecipe(),
       positionIndex1: showEditRecipe()
-    }"
-  >
+    }">
     <app-recipe-form
       *ngIf="showAddRecipe() || showEditRecipe()"
       (recipeChange)="recipeChange()"
-      [recipeInput]="currentlyEditedRecipe"
-    ></app-recipe-form>
+      [recipeInput]="currentlyEditedRecipe"></app-recipe-form>
   </app-extensible-container>
 </div>
