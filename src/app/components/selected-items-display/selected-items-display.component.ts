@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { MatDialogRef } from "@angular/material/dialog"
 import { DialogsService } from "src/app/services/dialogs.service"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
-import { SelectItemsDialogComponent } from "../dialogs/select-items-dialog/select-items-dialog.component"
 
 @Component({
   selector: "app-selected-items-display",
@@ -42,23 +41,18 @@ export class SelectedItemsDisplayComponent implements OnInit {
     }
   }
 
-  public openDialog() {
-    if (this.editable) {
-      const dialogRef: MatDialogRef<SelectItemsDialogComponent> =
-        this.dialogService.openSelectItemsDialog({
-          data: [...this.data],
-          headline: this.headline,
-          knownItems: this.knownItems,
-          onlyAllowKnownItems: this.onlyKnownItemsSelectable,
-        })
+  notAlreadyIncludedInData = (val: string): boolean => !this.data.includes(val)
 
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.data = result
-          this.tableDataSource.setData(this.data)
-          this.updateData.emit(result)
-        }
-      })
+  public onItemSelect(value: string) {
+    if (!this.data.includes(value)) {
+      this.data.push(value)
+      this.tableDataSource.setData(this.data)
     }
+  }
+
+  public removeElement(element: string) {
+    this.data.splice(this.data.indexOf(element), 1)
+    this.tableDataSource.setData(this.data)
+    this.updateData.emit(this.data)
   }
 }

@@ -1,15 +1,25 @@
 <div class="container">
-  <div class="searchElements">
-    <mat-form-field
-      class="searchTermInput"
-      appearance="fill">
-      <mat-label>Search</mat-label>
-      <input
-        matInput
-        placeholder="Insert Search terms here"
-        value="" />
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-    <app-search-options class="searchOptions"></app-search-options>
-  </div>
+  <app-selected-items-display
+    headline="Required Ingredients"
+    [knownItems]="knownIngredients"
+    [data]="selectedOptions.requiredIngredients"
+    (updateData)="updateRequiredIngredients($event)"
+    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
+  <app-selected-items-display
+    headline="Categories"
+    [knownItems]="knownCategories"
+    [data]="selectedOptions.includedCategories"
+    (updateData)="updateIncludedCategories($event)"
+    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
+  <app-selected-items-display
+    headline="Cookbooks"
+    [knownItems]="knownCookbooks"
+    [data]="selectedOptions.includedCookbooks"
+    (updateData)="updateIncludedCookbooks($event)"
+    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
+  <app-rating-display
+    [editable]="true"
+    [rating]="selectedOptions.minimumRating"
+    (newRating)="onNewRatingSelected($event)"
+    labelAddition="Minimum"></app-rating-display>
 </div>

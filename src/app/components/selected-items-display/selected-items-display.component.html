@@ -1,62 +1,81 @@
-<div class="container tableBackground">
-  <table
-    mat-table
-    [dataSource]="tableDataSource">
-    <ng-container matColumnDef="name">
-      <th
-        mat-header-cell
-        *matHeaderCellDef>
-        {{ headline }}
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let element">
-        {{ element }}
-      </td>
-    </ng-container>
+<div class="container">
+  <h3>{{headline}}</h3>
 
-    <ng-container
-      matColumnDef="action"
-      *ngIf="editable">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        class="action">
-        <button
-          mat-icon-button
-          disableRipple
-          *ngIf="data.length === 0"
-          (click)="openDialog()">
-          <mat-icon>add</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          disableRipple
-          *ngIf="data.length > 0"
-          (click)="openDialog()">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </th>
-      <td
-        mat-cell
-        *matCellDef
-        class="action"></td>
-    </ng-container>
 
-    <tr
-      mat-header-row
-      *matHeaderRowDef="columns; sticky: true"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: columns"></tr>
-    <tr
-      class="mat-row"
-      *matNoDataRow>
-      <td
-        class="mat-cell"
-        [attr.colspan]="columns.length">
-        No items added
-      </td>
-    </tr>
-  </table>
+  <div class="table tableBackground">
+    <table
+      mat-table
+      [dataSource]="tableDataSource">
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+          {{ headline }}
+          <app-autocomplete-with-add-function
+            class="input"
+            [knownItems]="knownItems"
+            [labelName]="headline"
+            [clearOnSelect]="true"
+            [itemName]="headline"
+            (itemSelected)="onItemSelect($event)"
+            [filterFunction]="notAlreadyIncludedInData"
+          ></app-autocomplete-with-add-function>
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element">
+          {{ element }}
+        </td>
+      </ng-container>
+
+      <ng-container
+        matColumnDef="action"
+        *ngIf="editable">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="action">
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="action">
+          <button
+            mat-icon-button
+            disableRipple
+            (click)="removeElement(element)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="columns; sticky: true"></tr>
+      <tr
+      mat-header-row>
+        <app-autocomplete-with-add-function
+          class="input"
+          [knownItems]="knownItems"
+          [labelName]="headline"
+          [clearOnSelect]="true"
+          [itemName]="headline"
+          (itemSelected)="onItemSelect($event)"
+          [filterFunction]="notAlreadyIncludedInData"
+        ></app-autocomplete-with-add-function>
+      </tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: columns"></tr>
+      <tr
+        class="mat-row"
+        *matNoDataRow>
+        <td
+          class="mat-cell"
+          [attr.colspan]="columns.length">
+          No items added
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

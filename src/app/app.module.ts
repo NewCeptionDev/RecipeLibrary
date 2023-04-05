@@ -16,12 +16,10 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete"
 import { RatingDisplayComponent } from "./components/rating-display/rating-display.component"
 import { SelectedItemsDisplayComponent } from "./components/selected-items-display/selected-items-display.component"
 import { MatTableModule } from "@angular/material/table"
-import { SelectItemsDialogComponent } from "./components/dialogs/select-items-dialog/select-items-dialog.component"
 import { MatDialogModule } from "@angular/material/dialog"
 import { AutocompleteWithAddFunctionComponent } from "./components/autocomplete-with-add-function/autocomplete-with-add-function.component"
 import { EditRecipesComponent } from "./components/edit-recipes/edit-recipes.component"
 import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component"
-import { SearchOptionsComponent } from "./components/search/search-options/search-options.component"
 
 @NgModule({
   declarations: [
@@ -32,11 +30,9 @@ import { SearchOptionsComponent } from "./components/search/search-options/searc
     RecipeFormComponent,
     RatingDisplayComponent,
     SelectedItemsDisplayComponent,
-    SelectItemsDialogComponent,
     AutocompleteWithAddFunctionComponent,
     EditRecipesComponent,
     TwoButtonDialogComponent,
-    SearchOptionsComponent,
   ],
   imports: [
     BrowserModule,
