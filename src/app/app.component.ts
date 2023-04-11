@@ -40,7 +40,7 @@ export class AppComponent {
   }
 
   public toggleSearch() {
-    if(this.extended === ExtendedOption.SEARCH) {
+    if (this.extended === ExtendedOption.SEARCH) {
       this.extended = ExtendedOption.NONE
     } else {
       this.currentlyEditedRecipe = undefined

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core"
-import { SearchOptions } from "../../models/searchOptions";
-import { RecipeService } from "../../services/recipe.service";
+import { SearchOptions } from "../../models/searchOptions"
+import { RecipeService } from "../../services/recipe.service"
 
 @Component({
   selector: "app-search",
@@ -8,7 +8,6 @@ import { RecipeService } from "../../services/recipe.service";
   styleUrls: ["./search.component.scss"],
 })
 export class SearchComponent {
-
   selectedOptions: SearchOptions = {
     searchTerm: "",
     minimumRating: -1,

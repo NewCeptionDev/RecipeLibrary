@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
-import { MatDialogRef } from "@angular/material/dialog"
 import { DialogsService } from "src/app/services/dialogs.service"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
 

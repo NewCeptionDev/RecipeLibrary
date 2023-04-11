@@ -2,6 +2,8 @@ node_modules/*
 .angular/
 .vscode/
 .idea/
+dist/
+app/
 
 src/karma.conf.js
 src/polyfills.ts
