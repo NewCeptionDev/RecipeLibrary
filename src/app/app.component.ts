@@ -35,6 +35,19 @@ export class AppComponent {
     return this.extended === ExtendedOption.EDITRECIPE
   }
 
+  public showSearch() {
+    return this.extended === ExtendedOption.SEARCH
+  }
+
+  public toggleSearch() {
+    if(this.extended === ExtendedOption.SEARCH) {
+      this.extended = ExtendedOption.NONE
+    } else {
+      this.currentlyEditedRecipe = undefined
+      this.extended = ExtendedOption.SEARCH
+    }
+  }
+
   public toggleAddRecipe() {
     if (this.extended === ExtendedOption.ADD) {
       this.extended = ExtendedOption.NONE
@@ -94,6 +107,7 @@ export class AppComponent {
 
 enum ExtendedOption {
   NONE,
+  SEARCH,
   ADD,
   EDIT,
   EDITRECIPE,

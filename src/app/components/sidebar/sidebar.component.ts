@@ -15,6 +15,9 @@ export class SidebarComponent {
   @Output()
   public settings: EventEmitter<void> = new EventEmitter()
 
+  @Output()
+  public search: EventEmitter<void> = new EventEmitter()
+
   addRecipeTrigger() {
     this.addRecipe.emit()
   }
@@ -25,5 +28,9 @@ export class SidebarComponent {
 
   settingsTrigger() {
     this.settings.emit()
+  }
+
+  searchTrigger() {
+    this.search.emit()
   }
 }
