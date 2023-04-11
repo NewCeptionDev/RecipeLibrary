@@ -1,8 +1,17 @@
-<div class="container">
+<div class="container tableBackground">
   <h3>{{headline}}</h3>
 
+  <app-autocomplete-with-add-function
+    class="input"
+    [knownItems]="knownItems"
+    [labelName]="'Add / Select ' + headline"
+    [clearOnSelect]="true"
+    [itemName]="headline"
+    (itemSelected)="onItemSelect($event)"
+    [filterFunction]="notAlreadyIncludedInData"
+  ></app-autocomplete-with-add-function>
 
-  <div class="table tableBackground">
+  <div class="table">
     <table
       mat-table
       [dataSource]="tableDataSource">
@@ -10,16 +19,6 @@
         <th
           mat-header-cell
           *matHeaderCellDef>
-          {{ headline }}
-          <app-autocomplete-with-add-function
-            class="input"
-            [knownItems]="knownItems"
-            [labelName]="headline"
-            [clearOnSelect]="true"
-            [itemName]="headline"
-            (itemSelected)="onItemSelect($event)"
-            [filterFunction]="notAlreadyIncludedInData"
-          ></app-autocomplete-with-add-function>
         </th>
         <td
           mat-cell
@@ -49,21 +48,9 @@
         </td>
       </ng-container>
 
-      <tr
-        mat-header-row
-        *matHeaderRowDef="columns; sticky: true"></tr>
-      <tr
-      mat-header-row>
-        <app-autocomplete-with-add-function
-          class="input"
-          [knownItems]="knownItems"
-          [labelName]="headline"
-          [clearOnSelect]="true"
-          [itemName]="headline"
-          (itemSelected)="onItemSelect($event)"
-          [filterFunction]="notAlreadyIncludedInData"
-        ></app-autocomplete-with-add-function>
-      </tr>
+<!--      <tr-->
+<!--        mat-header-row-->
+<!--        *matHeaderRowDef="columns; sticky: true"></tr>-->
       <tr
         mat-row
         *matRowDef="let row; columns: columns"></tr>
