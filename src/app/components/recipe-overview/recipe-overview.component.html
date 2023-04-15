@@ -1,0 +1,9 @@
+<div class="container" *ngIf="recipe">
+  <div class="mainInformation">
+    <h1>{{recipe.recipeName}}</h1>
+    <h4>Cookbook: {{recipe.cookbook}}</h4>
+  </div>
+  <div class="additionalInformation">
+    <app-rating-display [editable]="false" [rating]="recipe.rating"></app-rating-display>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container" *ngIf="recipe">
+  <div class="title">
+    <h1>{{recipe.recipeName}}</h1>
+    <h4>Cookbook: {{recipe.cookbook}}</h4>
+  </div>
+  <div class="additionalInformation">
+    <app-selected-items-display
+      headline="Ingredients"
+      [data]="recipe.ingredients"
+      [editable]="false"></app-selected-items-display>
+    <br />
+    <app-selected-items-display
+      headline="Categories"
+      [data]="recipe.categories"
+      [editable]="false"></app-selected-items-display>
+    <app-rating-display [editable]="false" [rating]="recipe.rating"></app-rating-display>
+  </div>
+</div>

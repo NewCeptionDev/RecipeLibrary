@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-radius: 2px;
+}
+
+h1 {
+  font-size: 5rem;
+  line-height: 5rem;
+  margin: 0;
+}
+
+h4 {
+  margin: 0;
+}
+
+.container > * {
+  margin: 0 3%;
+}
+
+.mainInformation {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.additionalInformation {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  position: relative;
+  align-items: end;
+
+  app-rating-display {
+    position: absolute;
+    bottom: 0;
+  }
+}
+

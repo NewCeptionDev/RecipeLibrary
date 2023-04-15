@@ -38,6 +38,10 @@ export class SelectedItemsDisplayComponent implements OnInit {
     if (this.data.length > 0) {
       this.tableDataSource.setData(this.data)
     }
+
+    if(!this.editable) {
+      this.columns.splice(1, 1)
+    }
   }
 
   notAlreadyIncludedInData = (val: string): boolean => !this.data.includes(val)

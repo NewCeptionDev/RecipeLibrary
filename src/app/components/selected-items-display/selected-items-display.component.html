@@ -2,6 +2,7 @@
   <h3>{{ headline }}</h3>
 
   <app-autocomplete-with-add-function
+    *ngIf="editable"
     class="input"
     [knownItems]="knownItems"
     [labelName]="'Add / Select ' + headline"

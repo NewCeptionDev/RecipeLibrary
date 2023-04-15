@@ -19,7 +19,10 @@ import { MatTableModule } from "@angular/material/table"
 import { MatDialogModule } from "@angular/material/dialog"
 import { AutocompleteWithAddFunctionComponent } from "./components/autocomplete-with-add-function/autocomplete-with-add-function.component"
 import { EditRecipesComponent } from "./components/edit-recipes/edit-recipes.component"
-import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component"
+import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component";
+import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
+import { RecipeOverviewComponent } from './components/recipe-overview/recipe-overview.component';
+import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component'
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog
     AutocompleteWithAddFunctionComponent,
     EditRecipesComponent,
     TwoButtonDialogComponent,
+    RecipeListComponent,
+    RecipeOverviewComponent,
+    RecipeDetailComponent,
   ],
   imports: [
     BrowserModule,
