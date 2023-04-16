@@ -22,7 +22,8 @@ import { EditRecipesComponent } from "./components/edit-recipes/edit-recipes.com
 import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component";
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { RecipeOverviewComponent } from './components/recipe-overview/recipe-overview.component';
-import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component'
+import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
+import { BackdropComponent } from './components/backdrop/backdrop.component'
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.
     RecipeListComponent,
     RecipeOverviewComponent,
     RecipeDetailComponent,
+    BackdropComponent,
   ],
   imports: [
     BrowserModule,
