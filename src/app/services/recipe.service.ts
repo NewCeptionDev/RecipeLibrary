@@ -98,6 +98,10 @@ export class RecipeService {
     return [...this.recipes]
   }
 
+  public getRecipeCount() {
+    return this.recipes.length
+  }
+
   public updateRecipe(recipeId: number, newRecipe: Recipe) {
     const oldRecipe = this.recipes.find((recipe) => recipe.id === recipeId)
 

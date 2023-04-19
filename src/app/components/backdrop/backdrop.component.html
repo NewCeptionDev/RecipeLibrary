@@ -1,5 +1,5 @@
 <div class="container">
   <h1>RecipeLibrary</h1>
-  <p *ngIf="false">No Recipes found! You can add a recipe via the <mat-icon>plus</mat-icon> sign or by importing a recipe list from the settings <mat-icon>gear</mat-icon></p>
-  <p *ngIf="true">Found {{2}} recipes! Start searching <mat-icon>search</mat-icon> to discover them.</p>
+  <p *ngIf="foundRecipes === 0">No Recipes found! You can add a recipe via the <mat-icon>add</mat-icon> sign or by importing a recipe list from the settings <mat-icon>settings</mat-icon></p>
+  <p *ngIf="foundRecipes > 0">Found {{foundRecipes}} recipes! Start searching <mat-icon>search</mat-icon> to discover them.</p>
 </div>

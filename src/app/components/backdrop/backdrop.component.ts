@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeService } from "../../services/recipe.service";
 
 @Component({
   selector: 'app-backdrop',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BackdropComponent implements OnInit {
 
-  constructor() { }
+  public foundRecipes: number
+
+  constructor(private recipeService: RecipeService) {
+    this.foundRecipes = this.recipeService.getRecipeCount()
+  }
 
   ngOnInit(): void {
   }
