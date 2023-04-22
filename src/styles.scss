@@ -68,6 +68,7 @@ body {
 app-sidebar {
   background-color: map.get(palette.$recipe-black-palette, 600);
 }
+
 app-extensible-container {
   background-color: map.get(palette.$recipe-black-palette, 700);
 }
@@ -75,7 +76,12 @@ app-extensible-container {
 .tableBackground {
   background-color: #424242;
 }
+
 app-search {
+  background-color: map.get(palette.$recipe-black-palette, 600);
+}
+
+app-settings {
   background-color: map.get(palette.$recipe-black-palette, 600);
 }
 

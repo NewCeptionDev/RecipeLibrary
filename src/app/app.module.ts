@@ -23,7 +23,8 @@ import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { RecipeOverviewComponent } from './components/recipe-overview/recipe-overview.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
-import { BackdropComponent } from './components/backdrop/backdrop.component'
+import { BackdropComponent } from './components/backdrop/backdrop.component';
+import { SettingsComponent } from './components/settings/settings.component'
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BackdropComponent } from './components/backdrop/backdrop.component'
     RecipeOverviewComponent,
     RecipeDetailComponent,
     BackdropComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

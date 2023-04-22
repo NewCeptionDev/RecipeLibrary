@@ -39,6 +39,10 @@ export class AppComponent {
     return this.extended === ExtendedOption.SEARCH
   }
 
+  public showSettings() {
+    return this.extended === ExtendedOption.SETTINGS
+  }
+
   public toggleSearch() {
     if (this.extended === ExtendedOption.SEARCH) {
       this.extended = ExtendedOption.NONE

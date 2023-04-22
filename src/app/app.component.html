@@ -8,16 +8,13 @@
     (search)="toggleSearch()"></app-sidebar>
   <app-extensible-container
     class="positionIndex0"
-    *ngIf="showSearch()">
-    <app-search *ngIf="showSearch()"></app-search>
-  </app-extensible-container>
-  <app-extensible-container
-    class="positionIndex0"
-    *ngIf="showEditRecipes()">
+    *ngIf="showEditRecipes() || showSettings() || showSearch()">
     <app-edit-recipes
       *ngIf="showEditRecipes()"
       [reloadRecipes]="recipeEdited.asObservable()"
       (editRecipe)="editRecipe($event)"></app-edit-recipes>
+    <app-settings *ngIf="showSettings()"></app-settings>
+    <app-search *ngIf="showSearch()"></app-search>
   </app-extensible-container>
   <app-extensible-container
     *ngIf="showAddRecipe() || showEditRecipe()"
