@@ -1,7 +1,7 @@
 import { Component } from "@angular/core"
-import { SearchOptions } from "../../models/searchOptions"
-import { RecipeService } from "../../services/recipe.service"
-import { SearchService } from "../../services/search.service";
+import { SearchOptions } from "../../../models/searchOptions"
+import { RecipeService } from "../../../services/recipe.service"
+import { SearchService } from "../../../services/search.service"
 
 @Component({
   selector: "app-search",

@@ -1,0 +1,15 @@
+<div
+  class="container"
+  *ngIf="showSearchResults">
+  <div
+    *ngFor="let recipe of shownRecipes"
+    [ngClass]="{ overview: selectedRecipe !== recipe.id, detail: selectedRecipe === recipe.id }"
+    (click)="selectRecipe(recipe.id)">
+    <app-recipe-overview
+      *ngIf="selectedRecipe !== recipe.id"
+      [recipe]="recipe"></app-recipe-overview>
+    <app-recipe-detail
+      *ngIf="selectedRecipe === recipe.id"
+      [recipe]="recipe"></app-recipe-detail>
+  </div>
+</div>

@@ -8,23 +8,23 @@ import { MatButtonModule } from "@angular/material/button"
 import { MatInputModule } from "@angular/material/input"
 
 import { SidebarComponent } from "./components/sidebar/sidebar.component"
-import { SearchComponent } from "./components/search/search.component"
-import { ExtensibleContainerComponent } from "./components/extensible-container/extensible-container.component"
-import { RecipeFormComponent } from "./components/recipe-form/recipe-form.component"
+import { SearchComponent } from "./components/sidebar/search/search.component"
+import { ExtensibleContainerComponent } from "./components/util/extensible-container/extensible-container.component"
+import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocompleteModule } from "@angular/material/autocomplete"
-import { RatingDisplayComponent } from "./components/rating-display/rating-display.component"
-import { SelectedItemsDisplayComponent } from "./components/selected-items-display/selected-items-display.component"
+import { RatingDisplayComponent } from "./components/util/rating-display/rating-display.component"
+import { SelectedItemsDisplayComponent } from "./components/util/selected-items-display/selected-items-display.component"
 import { MatTableModule } from "@angular/material/table"
 import { MatDialogModule } from "@angular/material/dialog"
-import { AutocompleteWithAddFunctionComponent } from "./components/autocomplete-with-add-function/autocomplete-with-add-function.component"
-import { EditRecipesComponent } from "./components/edit-recipes/edit-recipes.component"
-import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component";
-import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
-import { RecipeOverviewComponent } from './components/recipe-overview/recipe-overview.component';
-import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
-import { BackdropComponent } from './components/backdrop/backdrop.component';
-import { SettingsComponent } from './components/settings/settings.component'
+import { EditRecipesComponent } from "./components/sidebar/edit-recipes/edit-recipes.component"
+import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component"
+import { RecipeListComponent } from "./components/content/recipe-list/recipe-list.component"
+import { RecipeOverviewComponent } from "./components/content/recipe-overview/recipe-overview.component"
+import { RecipeDetailComponent } from "./components/content/recipe-detail/recipe-detail.component"
+import { BackdropComponent } from "./components/content/backdrop/backdrop.component"
+import { SettingsComponent } from "./components/sidebar/settings/settings.component"
+import { AutocompleteWithAddFunctionComponent } from "./components/util/autocomplete-with-add-function/autocomplete-with-add-function.component"
 
 @NgModule({
   declarations: [

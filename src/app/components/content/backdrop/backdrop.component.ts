@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { RecipeService } from "../../services/recipe.service";
-import { SearchService } from "../../services/search.service";
+import { Component, OnInit } from "@angular/core"
+import { RecipeService } from "../../../services/recipe.service"
+import { SearchService } from "../../../services/search.service"
 
 @Component({
-  selector: 'app-backdrop',
-  templateUrl: './backdrop.component.html',
-  styleUrls: ['./backdrop.component.scss']
+  selector: "app-backdrop",
+  templateUrl: "./backdrop.component.html",
+  styleUrls: ["./backdrop.component.scss"],
 })
 export class BackdropComponent implements OnInit {
-
   public foundRecipes: number
 
   public showBackdrop = true
@@ -17,8 +16,8 @@ export class BackdropComponent implements OnInit {
 
   constructor(private recipeService: RecipeService, private searchService: SearchService) {
     this.foundRecipes = this.recipeService.getRecipeCount()
-    this.searchService.getSearchResultsEventEmitter().subscribe(result => {
-      if(result.length > 0) {
+    this.searchService.getSearchResultsEventEmitter().subscribe((result) => {
+      if (result.length > 0) {
         this.showBackdrop = false
       } else {
         this.showBackdrop = true
@@ -27,7 +26,5 @@ export class BackdropComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

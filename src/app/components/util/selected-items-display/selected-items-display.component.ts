@@ -39,7 +39,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
       this.tableDataSource.setData(this.data)
     }
 
-    if(!this.editable) {
+    if (!this.editable) {
       this.columns.splice(1, 1)
     }
   }

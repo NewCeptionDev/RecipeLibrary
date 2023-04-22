@@ -1,5 +1,5 @@
 import { Component, EventEmitter, ViewChild } from "@angular/core"
-import { RecipeFormComponent } from "./components/recipe-form/recipe-form.component"
+import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
 import { Recipe } from "./models/recipe"
 
 @Component({
