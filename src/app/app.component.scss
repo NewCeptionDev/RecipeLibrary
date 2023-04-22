@@ -2,6 +2,18 @@
   display: flex;
   width: 100%;
   height: 100%;
+  flex-direction: column;
+}
+
+.windowContent {
+  display: flex;
+  width: 100%;
+  height: 97%;
+}
+
+app-toolbar {
+  width: 100%;
+  height: 3%;
 }
 
 app-recipe-list {
@@ -11,7 +23,7 @@ app-recipe-list {
 
 app-backdrop {
   width: 96vw;
-  height: 100%;
+  height: 97%;
   position: absolute;
   z-index: -1;
 }
@@ -23,7 +35,7 @@ app-sidebar {
 
 app-extensible-container {
   width: 20vw;
-  height: 100vh;
+  height: 97%;
   z-index: 1;
   position: absolute;
 }

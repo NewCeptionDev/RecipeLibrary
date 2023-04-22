@@ -65,6 +65,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+app-toolbar {
+  background-color: map.get(palette.$recipe-black-palette, 900);
+}
+
 app-sidebar {
   background-color: map.get(palette.$recipe-black-palette, 600);
 }

@@ -1,30 +1,33 @@
 <div class="container">
-  <app-backdrop></app-backdrop>
-  <app-recipe-list></app-recipe-list>
-  <app-sidebar
-    (addRecipe)="toggleAddRecipe()"
-    (editRecipes)="toggleEditRecipes()"
-    (settings)="toggleSettings()"
-    (search)="toggleSearch()"></app-sidebar>
-  <app-extensible-container
-    class="positionIndex0"
-    *ngIf="showEditRecipes() || showSettings() || showSearch()">
-    <app-edit-recipes
-      *ngIf="showEditRecipes()"
-      [reloadRecipes]="recipeEdited.asObservable()"
-      (editRecipe)="editRecipe($event)"></app-edit-recipes>
-    <app-settings *ngIf="showSettings()"></app-settings>
-    <app-search *ngIf="showSearch()"></app-search>
-  </app-extensible-container>
-  <app-extensible-container
-    *ngIf="showAddRecipe() || showEditRecipe()"
-    [ngClass]="{
+  <app-toolbar></app-toolbar>
+  <div class="windowContent">
+    <app-backdrop></app-backdrop>
+    <app-recipe-list></app-recipe-list>
+    <app-sidebar
+      (addRecipe)="toggleAddRecipe()"
+      (editRecipes)="toggleEditRecipes()"
+      (settings)="toggleSettings()"
+      (search)="toggleSearch()"></app-sidebar>
+    <app-extensible-container
+      class="positionIndex0"
+      *ngIf="showEditRecipes() || showSettings() || showSearch()">
+      <app-edit-recipes
+        *ngIf="showEditRecipes()"
+        [reloadRecipes]="recipeEdited.asObservable()"
+        (editRecipe)="editRecipe($event)"></app-edit-recipes>
+      <app-settings *ngIf="showSettings()"></app-settings>
+      <app-search *ngIf="showSearch()"></app-search>
+    </app-extensible-container>
+    <app-extensible-container
+      *ngIf="showAddRecipe() || showEditRecipe()"
+      [ngClass]="{
       positionIndex0: showAddRecipe(),
       positionIndex1: showEditRecipe()
     }">
-    <app-recipe-form
-      *ngIf="showAddRecipe() || showEditRecipe()"
-      (recipeChange)="recipeChange()"
-      [recipeInput]="currentlyEditedRecipe"></app-recipe-form>
-  </app-extensible-container>
+      <app-recipe-form
+        *ngIf="showAddRecipe() || showEditRecipe()"
+        (recipeChange)="recipeChange()"
+        [recipeInput]="currentlyEditedRecipe"></app-recipe-form>
+    </app-extensible-container>
+  </div>
 </div>
