@@ -1,4 +1,4 @@
-import { BrowserWindow, app, screen } from "electron"
+import { BrowserWindow, app, screen, ipcMain } from "electron"
 import * as path from "path"
 import * as fs from "fs"
 
@@ -13,14 +13,17 @@ function createWindow(): BrowserWindow {
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    // width: size.width,
+    // height: size.height,
+    width: 1920,
+    height: 1080,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: serve,
       contextIsolation: false, // false if you want to run e2e test with Spectron
       devTools: true,
     },
+    titleBarStyle: "hidden",
   })
 
   if (serve) {
@@ -92,3 +95,8 @@ try {
    * throw ignore;
    */
 }
+
+ipcMain.on("close", () => {
+  console.log("Received close request");
+  app.quit()
+})

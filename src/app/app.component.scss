@@ -9,11 +9,17 @@
   display: flex;
   width: 100%;
   height: 97%;
+  -webkit-app-region: no-drag;
 }
 
 app-toolbar {
   width: 100%;
   height: 3%;
+  -webkit-app-region: drag;
+
+  button {
+    -webkit-app-region: no-drag;
+  }
 }
 
 app-recipe-list {
