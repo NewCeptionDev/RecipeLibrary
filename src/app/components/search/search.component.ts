@@ -1,6 +1,7 @@
 import { Component } from "@angular/core"
 import { SearchOptions } from "../../models/searchOptions"
 import { RecipeService } from "../../services/recipe.service"
+import { SearchService } from "../../services/search.service";
 
 @Component({
   selector: "app-search",
@@ -9,7 +10,6 @@ import { RecipeService } from "../../services/recipe.service"
 })
 export class SearchComponent {
   selectedOptions: SearchOptions = {
-    searchTerm: "",
     minimumRating: -1,
     includedCategories: [],
     includedCookbooks: [],
@@ -22,7 +22,7 @@ export class SearchComponent {
 
   knownCategories: string[]
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private searchService: SearchService) {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
     this.knownIngredients = this.recipeService.getAllKnownIngredients()
     this.knownCategories = this.recipeService.getAllKnownCategories()
@@ -44,5 +44,9 @@ export class SearchComponent {
 
   public updateIncludedCookbooks(selectedItems: string[]) {
     this.selectedOptions.includedCookbooks = selectedItems
+  }
+
+  public onSearch(): void {
+    this.searchService.search(this.selectedOptions)
   }
 }

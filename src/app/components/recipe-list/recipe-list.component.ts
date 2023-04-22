@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from "../../services/recipe.service";
 import { Recipe } from "../../models/recipe";
+import { SearchService } from "../../services/search.service";
 
 @Component({
   selector: 'app-recipe-list',
@@ -9,15 +10,20 @@ import { Recipe } from "../../models/recipe";
 })
 export class RecipeListComponent implements OnInit {
 
+  public showSearchResults = false
+
   public selectedRecipe: number = -1
 
-  constructor(private recipeService: RecipeService) { }
+  public shownRecipes: Recipe[] = []
 
-  ngOnInit(): void {
+  constructor(private searchService: SearchService) {
+    this.searchService.getSearchResultsEventEmitter().subscribe(newSearchResults => {
+      this.showSearchResults = true
+      this.shownRecipes = newSearchResults
+    })
   }
 
-  getRecipes(): Recipe[] {
-    return this.recipeService.getAllRecipes()
+  ngOnInit(): void {
   }
 
   selectRecipe(selectedRecipe: number): void {
