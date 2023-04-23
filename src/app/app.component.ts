@@ -21,8 +21,8 @@ export class AppComponent {
   recipeForm!: RecipeFormComponent
 
   constructor(private dialogService: DialogsService) {
-    window.addEventListener("keyup", async (event) => {
-      if(event.key === "Escape") {
+    window.addEventListener("keydown", async (event) => {
+      if(event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
         switch (this.extended) {
           case ExtendedOption.EDITRECIPE:
             await this.toggleEditRecipes()
@@ -33,10 +33,9 @@ export class AppComponent {
           default:
             this.extended = ExtendedOption.NONE
         }
+        event.preventDefault()
       }
-
-      event.preventDefault()
-    }, true)
+    })
 
   }
 
