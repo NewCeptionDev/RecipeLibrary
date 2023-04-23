@@ -39,16 +39,12 @@ export class AppComponent {
 
   }
 
-  public showExtensibleContainer() {
-    return this.extended !== ExtendedOption.NONE
-  }
-
   public showAddRecipe() {
     return this.extended === ExtendedOption.ADD
   }
 
   public showEditRecipes() {
-    return this.extended === ExtendedOption.EDIT || this.extended === ExtendedOption.EDITRECIPE
+    return this.extended === ExtendedOption.EDIT
   }
 
   public showEditRecipe() {
@@ -103,25 +99,26 @@ export class AppComponent {
     }
   }
 
-  public clearExtended() {
-    this.extended = ExtendedOption.NONE
-  }
-
   public async toggleEditRecipes() {
     if (this.extended === ExtendedOption.EDIT || this.extended === ExtendedOption.EDITRECIPE) {
       let closed: boolean
       if(this.extended === ExtendedOption.EDITRECIPE) {
         if(this.recipeForm.hasRecipeChanged()) {
           closed = await this.dialogService.discardNewRecipe()
+
+          if(closed) {
+            this.extended = ExtendedOption.EDIT
+          }
         } else {
           closed = true
+          this.extended = ExtendedOption.EDIT
         }
       } else {
         closed = true
+        this.extended = ExtendedOption.NONE
       }
 
       if(closed) {
-        this.extended = ExtendedOption.NONE
         this.currentlyEditedRecipe = undefined
       }
     } else {
@@ -148,6 +145,8 @@ export class AppComponent {
       this.extended = ExtendedOption.EDITRECIPE
     }
   }
+
+  protected readonly undefined = undefined;
 }
 
 enum ExtendedOption {

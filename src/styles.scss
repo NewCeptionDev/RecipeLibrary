@@ -70,23 +70,19 @@ app-toolbar {
 }
 
 app-sidebar {
-  background-color: map.get(palette.$recipe-black-palette, 600);
-}
-
-app-extensible-container {
   background-color: map.get(palette.$recipe-black-palette, 700);
 }
 
+app-extensible-container {
+  background-color: map.get(palette.$recipe-black-palette, 600);
+}
+
 .tableBackground {
-  background-color: #424242;
+  background-color: map.get(palette.$recipe-black-palette, 700);
 }
 
-app-search {
-  background-color: map.get(palette.$recipe-black-palette, 600);
-}
-
-app-settings {
-  background-color: map.get(palette.$recipe-black-palette, 600);
+tr {
+  background-color: map.get(palette.$recipe-black-palette, 700) !important;
 }
 
 app-recipe-overview > .container {
