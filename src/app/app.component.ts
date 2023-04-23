@@ -63,22 +63,46 @@ export class AppComponent {
     if (this.extended === ExtendedOption.SEARCH) {
       this.extended = ExtendedOption.NONE
     } else {
-      this.currentlyEditedRecipe = undefined
       this.extended = ExtendedOption.SEARCH
+    }
+  }
+
+  public async viewSelected(newView: ExtendedOption) {
+    let switchView = false
+    if(this.extended === ExtendedOption.ADD || this.extended === ExtendedOption.EDITRECIPE) {
+      if(this.recipeForm.hasRecipeChanged()) {
+        const confirmedClose = await this.dialogService.discardNewRecipe()
+
+        if(confirmedClose) {
+          switchView = true
+        }
+      } else {
+        switchView = true
+      }
+    } else {
+      switchView = true
+    }
+
+    if(switchView) {
+      if(newView !== ExtendedOption.EDITRECIPE) {
+        this.currentlyEditedRecipe = undefined
+      }
+
+      if(newView === this.extended) {
+        this.extended = ExtendedOption.NONE
+      } else if(newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
+        setTimeout(() => {
+          this.extended = newView
+        }, 1)
+      } else {
+        this.extended = newView
+      }
     }
   }
 
   public async toggleAddRecipe() {
     if (this.extended === ExtendedOption.ADD) {
-      if(this.recipeForm.hasRecipeChanged()) {
-        const confirmedClose = await this.dialogService.discardNewRecipe()
 
-        if(confirmedClose) {
-          this.extended = ExtendedOption.NONE
-        }
-      } else {
-        this.extended = ExtendedOption.NONE
-      }
     } else {
       this.currentlyEditedRecipe = undefined
       this.extended = ExtendedOption.NONE
@@ -134,19 +158,12 @@ export class AppComponent {
     }
   }
 
-  public editRecipe(recipe: Recipe) {
+  public async editRecipe(recipe: Recipe) {
     this.currentlyEditedRecipe = recipe
-    if (this.extended === ExtendedOption.EDITRECIPE) {
-      this.extended = ExtendedOption.EDIT
-      setTimeout(() => {
-        this.extended = ExtendedOption.EDITRECIPE
-      }, 1)
-    } else {
-      this.extended = ExtendedOption.EDITRECIPE
-    }
+    await this.viewSelected(ExtendedOption.EDITRECIPE)
   }
 
-  protected readonly undefined = undefined;
+  protected readonly ExtendedOption = ExtendedOption;
 }
 
 enum ExtendedOption {

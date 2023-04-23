@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { Component, EventEmitter, Output } from "@angular/core";
 import { SearchOptions } from "../../../models/searchOptions"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
@@ -21,6 +21,9 @@ export class SearchComponent {
   knownIngredients: string[]
 
   knownCategories: string[]
+
+  @Output()
+  onSearchStarted: EventEmitter<void> = new EventEmitter()
 
   constructor(private recipeService: RecipeService, private searchService: SearchService) {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
@@ -48,5 +51,6 @@ export class SearchComponent {
 
   public onSearch(): void {
     this.searchService.search(this.selectedOptions)
+    this.onSearchStarted.emit()
   }
 }

@@ -5,7 +5,7 @@
     *ngIf="editable"
     class="input"
     [knownItems]="knownItems"
-    [labelName]="'Add / Select ' + headline"
+    [labelName]="(onlyKnownItemsSelectable ? '' : 'Add / ') +  'Select ' + headline"
     [clearOnSelect]="true"
     [itemName]="headline"
     (itemSelected)="onItemSelect($event)"

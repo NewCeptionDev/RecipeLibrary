@@ -86,7 +86,7 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   }
 
   public handleKeyUpEvent(keyUpEvent: KeyboardEvent) {
-    if(keyUpEvent.key === "Enter") {
+    if(keyUpEvent.key === "Enter" && !this.disableAddFunction) {
       const value = this.autocompleteInputElement.nativeElement.value
       this.onItemSelect(value)
 
