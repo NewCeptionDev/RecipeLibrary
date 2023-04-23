@@ -73,4 +73,8 @@ export class RecipeFormComponent implements OnInit {
     }
     this.recipeChange.emit()
   }
+
+  public hasRecipeChanged() {
+    return this.recipeInput ? !Recipe.equals(this.recipeInput, this.recipe) : !Recipe.equals(this.recipe, this.defaultRecipe)
+  }
 }

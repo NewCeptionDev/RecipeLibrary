@@ -28,19 +28,13 @@ export class EditRecipesComponent implements OnInit {
     this.updateShownRecipes()
   }
 
-  public openDeleteDialog(recipe: Recipe) {
-    this.dialogService
-      .openTwoButtonDialog(
-        "Delete recipe",
-        `Are you sure that you want to delete Recipe ${recipe.recipeName}?\nA deleted recipe cannot be recovered.`
-      )
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.recipeService.removeRecipe(recipe.id)
-          this.updateShownRecipes()
-        }
-      })
+  public async openDeleteDialog(recipe: Recipe) {
+    const confirmDelete = await this.dialogService.deleteRecipe(recipe.recipeName)
+
+    if (confirmDelete) {
+      this.recipeService.removeRecipe(recipe.id)
+      this.updateShownRecipes()
+    }
   }
 
   ngOnInit(): void {

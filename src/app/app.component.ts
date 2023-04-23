@@ -1,6 +1,7 @@
-import { Component, EventEmitter, ViewChild } from "@angular/core"
-import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
-import { Recipe } from "./models/recipe"
+import { Component, EventEmitter, ViewChild } from "@angular/core";
+import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component";
+import { Recipe } from "./models/recipe";
+import { DialogsService } from "./services/dialogs.service";
 
 @Component({
   selector: "app-root",
@@ -18,6 +19,26 @@ export class AppComponent {
 
   @ViewChild(RecipeFormComponent)
   recipeForm!: RecipeFormComponent
+
+  constructor(private dialogService: DialogsService) {
+    window.addEventListener("keyup", async (event) => {
+      if(event.key === "Escape") {
+        switch (this.extended) {
+          case ExtendedOption.EDITRECIPE:
+            await this.toggleEditRecipes()
+            break;
+          case ExtendedOption.ADD:
+            await this.toggleAddRecipe()
+            break;
+          default:
+            this.extended = ExtendedOption.NONE
+        }
+      }
+
+      event.preventDefault()
+    }, true)
+
+  }
 
   public showExtensibleContainer() {
     return this.extended !== ExtendedOption.NONE
@@ -52,9 +73,17 @@ export class AppComponent {
     }
   }
 
-  public toggleAddRecipe() {
+  public async toggleAddRecipe() {
     if (this.extended === ExtendedOption.ADD) {
-      this.extended = ExtendedOption.NONE
+      if(this.recipeForm.hasRecipeChanged()) {
+        const confirmedClose = await this.dialogService.discardNewRecipe()
+
+        if(confirmedClose) {
+          this.extended = ExtendedOption.NONE
+        }
+      } else {
+        this.extended = ExtendedOption.NONE
+      }
     } else {
       this.currentlyEditedRecipe = undefined
       this.extended = ExtendedOption.NONE
@@ -79,10 +108,23 @@ export class AppComponent {
     this.extended = ExtendedOption.NONE
   }
 
-  public toggleEditRecipes() {
+  public async toggleEditRecipes() {
     if (this.extended === ExtendedOption.EDIT || this.extended === ExtendedOption.EDITRECIPE) {
-      this.extended = ExtendedOption.NONE
-      this.currentlyEditedRecipe = undefined
+      let closed: boolean
+      if(this.extended === ExtendedOption.EDITRECIPE) {
+        if(this.recipeForm.hasRecipeChanged()) {
+          closed = await this.dialogService.discardNewRecipe()
+        } else {
+          closed = true
+        }
+      } else {
+        closed = true
+      }
+
+      if(closed) {
+        this.extended = ExtendedOption.NONE
+        this.currentlyEditedRecipe = undefined
+      }
     } else {
       this.extended = ExtendedOption.EDIT
     }
