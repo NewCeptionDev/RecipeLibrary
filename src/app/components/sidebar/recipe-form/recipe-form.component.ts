@@ -21,7 +21,7 @@ export class RecipeFormComponent implements OnInit {
   @Input()
   recipeInput: Recipe | undefined
 
-  recipe: Recipe = { ...this.defaultRecipe }
+  recipe: Recipe = structuredClone(this.defaultRecipe)
 
   editing: boolean = false
 

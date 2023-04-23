@@ -50,6 +50,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
     if (!this.data.includes(value)) {
       this.data.push(value)
       this.tableDataSource.setData(this.data)
+      this.updateData.emit(this.data)
     }
   }
 

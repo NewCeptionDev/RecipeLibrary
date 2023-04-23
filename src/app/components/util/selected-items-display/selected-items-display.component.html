@@ -9,6 +9,7 @@
     [clearOnSelect]="true"
     [itemName]="headline"
     (itemSelected)="onItemSelect($event)"
+    [disableAddFunction]="onlyKnownItemsSelectable"
     [filterFunction]="notAlreadyIncludedInData"></app-autocomplete-with-add-function>
 
   <div class="table">

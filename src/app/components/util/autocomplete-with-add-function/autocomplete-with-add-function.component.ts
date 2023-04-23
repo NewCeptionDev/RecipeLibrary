@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms"
 import { Observable, map, startWith } from "rxjs"
 
@@ -38,6 +38,9 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
 
   @Input()
   public disableAddFunction: boolean = false
+
+  @ViewChild('autoCompleteInputField')
+  private autocompleteInputElement!: ElementRef<HTMLInputElement>
 
   ngOnInit(): void {
     if (this.startValue) {
@@ -79,6 +82,15 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
     this.itemSelected.emit(value)
     if (this.clearOnSelect) {
       this.itemSelect.setValue("")
+    }
+  }
+
+  public handleKeyUpEvent(keyUpEvent: KeyboardEvent) {
+    if(keyUpEvent.key === "Enter") {
+      const value = this.autocompleteInputElement.nativeElement.value
+      this.onItemSelect(value)
+
+      keyUpEvent.preventDefault()
     }
   }
 }
