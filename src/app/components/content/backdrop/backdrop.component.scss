@@ -9,4 +9,24 @@
 
 mat-icon {
   vertical-align: bottom;
+  font-size: 1.6rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+h1 {
+  font-size: 6rem;
+  margin-bottom: 6vh;
+  font-family: 'JetBrains Mono', serif;
+  color: #262626;
+  text-shadow: 0 4px 4px #313131, 0 0 0 #000, 0 4px 4px #313131;
+  text-align: center;
+}
+
+p {
+  font-size: 1.5rem;
 }
