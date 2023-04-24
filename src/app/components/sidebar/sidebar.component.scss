@@ -1,3 +1,6 @@
+@use 'src/palette';
+@use "sass:map";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,7 +14,12 @@
 
   button {
     margin-bottom: 2vh;
+    height: 5vh;
   }
+}
+
+button:focus-visible {
+  border-left: 4px solid white;
 }
 
 mat-icon {
@@ -21,7 +29,7 @@ mat-icon {
 
 .settings-icon {
   font-size: 3.5rem;
-  line-height: 3.5rem !important;
+  line-height: 4rem !important;
 }
 
 .add-icon {
@@ -31,16 +39,17 @@ mat-icon {
 
 .edit-icon {
   font-size: 3rem;
-  line-height: 3rem !important;
+  line-height: 4rem !important;
 }
 
 button {
   width: 100%;
-  height: 10%;
   margin-bottom: 1.5vh;
+  height: 5vh;
+  align-content: center;
+  text-align: center;
 }
 
 .mat-icon-button {
-  height: auto;
   border-radius: 0;
 }

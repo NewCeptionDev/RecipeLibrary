@@ -75,6 +75,10 @@ app-sidebar {
   background-color: map.get(palette.$recipe-black-palette, 700);
 }
 
+.mat-button-focus-overlay {
+  background-color: transparent!important;
+}
+
 app-extensible-container {
   background-color: map.get(palette.$recipe-black-palette, 600);
 }
