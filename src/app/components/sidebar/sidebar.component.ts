@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from "@angular/core"
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ExtendedOption } from "../../models/extendedOption";
 
 @Component({
   selector: "app-sidebar",
@@ -18,6 +19,9 @@ export class SidebarComponent {
   @Output()
   public search: EventEmitter<void> = new EventEmitter()
 
+  @Input()
+  public activeRef: ExtendedOption | undefined
+
   addRecipeTrigger() {
     this.addRecipe.emit()
   }
@@ -32,5 +36,23 @@ export class SidebarComponent {
 
   searchTrigger() {
     this.search.emit()
+  }
+
+  protected readonly ExtendedOption = ExtendedOption;
+
+  public searchRefActive() {
+    return this.activeRef === ExtendedOption.SEARCH
+  }
+
+  public addRefActive() {
+    return this.activeRef === ExtendedOption.ADD
+  }
+
+  public editRefActive() {
+    return this.activeRef === ExtendedOption.EDIT || this.activeRef === ExtendedOption.EDITRECIPE
+  }
+
+  public settingsRefActive() {
+    return this.activeRef === ExtendedOption.SETTINGS
   }
 }

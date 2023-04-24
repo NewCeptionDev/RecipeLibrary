@@ -22,6 +22,10 @@ button:focus-visible {
   border-left: 4px solid white;
 }
 
+button.active {
+  border-left: 4px solid white;
+}
+
 mat-icon {
   width: 100%;
   height: 100%;

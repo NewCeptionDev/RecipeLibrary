@@ -7,7 +7,8 @@
       (addRecipe)="viewSelected(ExtendedOption.ADD)"
       (editRecipes)="viewSelected(ExtendedOption.EDIT)"
       (settings)="viewSelected(ExtendedOption.SETTINGS)"
-      (search)="viewSelected(ExtendedOption.SEARCH)"></app-sidebar>
+      (search)="viewSelected(ExtendedOption.SEARCH)"
+      [activeRef]="extended"></app-sidebar>
     <app-extensible-container
       class="positionIndex0"
       *ngIf="showEditRecipes() || showSettings() || showSearch() || showAddRecipe() || showEditRecipe()">

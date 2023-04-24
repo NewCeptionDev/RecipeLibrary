@@ -2,6 +2,7 @@ import { Component, EventEmitter, ViewChild } from "@angular/core";
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component";
 import { Recipe } from "./models/recipe";
 import { DialogsService } from "./services/dialogs.service";
+import { ExtendedOption } from "./models/extendedOption";
 
 @Component({
   selector: "app-root",
@@ -164,13 +165,4 @@ export class AppComponent {
   }
 
   protected readonly ExtendedOption = ExtendedOption;
-}
-
-enum ExtendedOption {
-  NONE,
-  SEARCH,
-  ADD,
-  EDIT,
-  EDITRECIPE,
-  SETTINGS,
 }

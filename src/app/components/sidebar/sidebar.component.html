@@ -3,26 +3,30 @@
     <button
       mat-icon-button
       disableRipple
-      (click)="searchTrigger()">
+      (click)="searchTrigger()"
+      [ngClass]="{ active: searchRefActive() }">
       <mat-icon class="add-icon">search</mat-icon>
     </button>
     <button
       mat-icon-button
       disableRipple
-      (click)="addRecipeTrigger()">
+      (click)="addRecipeTrigger()"
+      [ngClass]="{ active: addRefActive() }">
       <mat-icon class="add-icon">add</mat-icon>
     </button>
     <button
       mat-icon-button
       disableRipple
-      (click)="editRecipesTrigger()">
+      (click)="editRecipesTrigger()"
+      [ngClass]="{ active: editRefActive() }">
       <mat-icon class="edit-icon">edit</mat-icon>
     </button>
   </div>
   <button
     mat-icon-button
     disableRipple
-    (click)="settingsTrigger()">
+    (click)="settingsTrigger()"
+    [ngClass]="{ active: settingsRefActive() }">
     <mat-icon class="settings-icon">settings</mat-icon>
   </button>
 </div>
