@@ -1,8 +1,10 @@
 <div class="container">
   <app-toolbar></app-toolbar>
   <div class="windowContent">
-    <app-backdrop></app-backdrop>
-    <app-recipe-list></app-recipe-list>
+    <div class="content" (click)="closeExtensibleContainer()">
+      <app-backdrop></app-backdrop>
+      <app-recipe-list></app-recipe-list>
+    </div>
     <app-sidebar
       (addRecipe)="viewSelected(ExtendedOption.ADD)"
       (editRecipes)="viewSelected(ExtendedOption.EDIT)"

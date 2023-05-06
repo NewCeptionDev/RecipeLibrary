@@ -24,20 +24,23 @@ export class AppComponent {
   constructor(private dialogService: DialogsService) {
     window.addEventListener("keydown", async (event) => {
       if(event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
-        switch (this.extended) {
-          case ExtendedOption.EDITRECIPE:
-            await this.toggleEditRecipes()
-            break;
-          case ExtendedOption.ADD:
-            await this.toggleAddRecipe()
-            break;
-          default:
-            this.extended = ExtendedOption.NONE
-        }
+        await this.closeExtensibleContainer()
         event.preventDefault()
       }
     })
+  }
 
+  public async closeExtensibleContainer() {
+    switch (this.extended) {
+      case ExtendedOption.EDITRECIPE:
+        await this.toggleEditRecipes()
+        break;
+      case ExtendedOption.ADD:
+        await this.toggleAddRecipe()
+        break;
+      default:
+        this.extended = ExtendedOption.NONE
+    }
   }
 
   public showAddRecipe() {
@@ -103,7 +106,15 @@ export class AppComponent {
 
   public async toggleAddRecipe() {
     if (this.extended === ExtendedOption.ADD) {
+      if(this.recipeForm.hasRecipeChanged()) {
+        let closed = await this.dialogService.discardNewRecipe()
 
+        if(closed) {
+          this.extended = ExtendedOption.NONE
+        }
+      } else {
+        this.extended = ExtendedOption.NONE
+      }
     } else {
       this.currentlyEditedRecipe = undefined
       this.extended = ExtendedOption.NONE
