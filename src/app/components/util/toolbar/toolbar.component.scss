@@ -6,7 +6,21 @@
   justify-content: space-between;
 
   button {
-    padding-right: 2%;
+    padding-right: 15px;
     -webkit-app-region: no-drag;
+    height: 20px;
+    margin: 0;
+
+    span {
+      padding: 0;
+    }
+  }
+
+  .minimize {
+    vertical-align: text-bottom;
+  }
+
+  .close {
+    font-size: 1.2rem;
   }
 }
