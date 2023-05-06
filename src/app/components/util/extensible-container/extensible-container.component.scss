@@ -1,0 +1,13 @@
+/**
+  Scrollbar
+ */
+*::-webkit-scrollbar-track {
+  background: #484848;
+}
+
+/**
+  Scrollbar Firefox
+ */
+* {
+  scrollbar-color: #d65a31 #484848;
+}

@@ -99,4 +99,20 @@ app-recipe-detail > .container {
   background-color: map.get(palette.$recipe-black-palette, 700);
 }
 
-// D65A31
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #d65a31 #484848;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #d65a31;
+  border-radius: 10px;
+  border: 3px none #ffffff;
+}

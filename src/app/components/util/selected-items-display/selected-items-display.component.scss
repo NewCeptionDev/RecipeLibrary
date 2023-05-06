@@ -32,3 +32,17 @@ h3 {
   height: 75%;
   overflow-y: auto;
 }
+
+/**
+  Scrollbar
+ */
+*::-webkit-scrollbar-track {
+  background: #3d3d3d;
+}
+
+/**
+  Scrollbar Firefox
+ */
+* {
+  scrollbar-color: #d65a31 #3d3d3d;
+}
