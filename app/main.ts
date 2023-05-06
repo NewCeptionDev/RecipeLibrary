@@ -11,8 +11,6 @@ function createWindow(): BrowserWindow {
 
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
     // width: size.width,
     // height: size.height,
     width: 1920,
@@ -24,6 +22,8 @@ function createWindow(): BrowserWindow {
       devTools: true,
     },
     titleBarStyle: "hidden",
+    minWidth: 1000,
+    minHeight: 800
   })
 
   if (serve) {
