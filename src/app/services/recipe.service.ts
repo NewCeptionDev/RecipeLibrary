@@ -44,6 +44,10 @@ export class RecipeService {
     return this.knownCategories
   }
 
+  public initializeRecipeLibrary(fileContent: string) {
+
+  }
+
   public addRecipe(recipe: Recipe) {
     if (recipe.id < 0) {
       // eslint-disable-next-line no-param-reassign

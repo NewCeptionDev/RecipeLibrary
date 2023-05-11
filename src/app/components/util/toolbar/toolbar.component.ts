@@ -16,4 +16,12 @@ export class ToolbarComponent implements OnInit {
   public close() {
     this.electronService.closeApp()
   }
+
+  public minimize() {
+    this.electronService.minimizeApp()
+  }
+
+  public maximize() {
+    this.electronService.maximizeApp()
+  }
 }

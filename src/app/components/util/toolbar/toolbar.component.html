@@ -2,10 +2,10 @@
   <!-- Spacer -->
   <div></div>
   <div class="toolbarActions">
-    <button class="minimize" mat-icon-button disableRipple>
+    <button class="minimize" mat-icon-button disableRipple (click)="minimize()">
       <mat-icon inline="true">minimize</mat-icon>
     </button>
-    <button mat-icon-button disableRipple>
+    <button mat-icon-button disableRipple (click)="maximize()">
       <mat-icon inline="true">web_asset</mat-icon>
     </button>
     <button class="close" mat-icon-button disableRipple (click)="close()">

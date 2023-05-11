@@ -97,6 +97,17 @@ try {
 }
 
 ipcMain.on("close", () => {
-  console.log("Received close request");
   app.quit()
+})
+
+ipcMain.on("minimize", () => {
+  win?.minimize()
+})
+
+ipcMain.on("maximize", () => {
+  if(win?.isMaximized()) {
+    win?.unmaximize()
+  } else {
+    win?.maximize()
+  }
 })
