@@ -22,8 +22,8 @@ function createWindow(): BrowserWindow {
       devTools: true,
     },
     titleBarStyle: "hidden",
-    minWidth: 1000,
-    minHeight: 800
+    minWidth: 1280,
+    minHeight: 720
   })
 
   if (serve) {

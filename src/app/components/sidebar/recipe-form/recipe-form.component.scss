@@ -48,3 +48,10 @@ app-selected-items-display {
   min-height: 30vh;
   max-height: 30vh;
 }
+
+@media screen and (max-height: 720px){
+  app-selected-items-display {
+    min-height: 40vh;
+    max-height: 50vh;
+  }
+}

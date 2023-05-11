@@ -10,6 +10,7 @@
     margin-bottom: 3vh;
     font-family: 'JetBrains Mono', serif;
     font-size: 1.6rem;
+    text-align: center;
   }
 }
 
@@ -25,5 +26,17 @@
   table {
     overflow-y: auto;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .tableContainer {
+    height: 86%;
+  }
+}
+
+@media screen and (max-width: 1630px) {
+  .tableContainer {
+    height: 86%;
   }
 }

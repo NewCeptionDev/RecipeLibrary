@@ -41,6 +41,11 @@ mat-icon {
   line-height: 4rem !important;
 }
 
+.search-icon {
+  font-size: 4rem;
+  line-height: 4rem !important;
+}
+
 .edit-icon {
   font-size: 3rem;
   line-height: 4rem !important;
@@ -56,4 +61,26 @@ button {
 
 .mat-icon-button {
   border-radius: 0;
+}
+
+@media screen and (max-height: 1000px) {
+  .settings-icon {
+    font-size: 2.2rem;
+    line-height: 2.5rem !important;
+  }
+
+  .add-icon {
+    font-size: 2.7rem;
+    line-height: 3rem !important;
+  }
+
+  .search-icon {
+    font-size: 2.2rem;
+    line-height: 2.5rem !important;
+  }
+
+  .edit-icon {
+    font-size: 1.8rem;
+    line-height: 2.5rem !important;
+  }
 }
