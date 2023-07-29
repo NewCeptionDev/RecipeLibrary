@@ -1,24 +1,27 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { RecipeService } from "./recipe.service";
+import { FileService } from "./file.service";
+import { Library } from "../models/library";
+import {  IpcRendererEvent } from 'electron';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElectronService {
 
-  // @ts-ignore
-  private ipc: Electron.IpcRenderer | undefined = undefined;
+  private readonly ipc: Electron.IpcRenderer | undefined = undefined;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private fileService: FileService) {
+    this.fileService.registerElectronService(this)
 
     if(window.require) {
       this.ipc = window.require("electron").ipcRenderer
-    }
 
-    this.ipc.on("fileLoaded", (event: Electron.IpcRendererEvent, message: string) => {
-      this.recipeService.initializeRecipeLibrary(message)
-    })
+      this.ipc.on("fileLoaded", (event: IpcRendererEvent, message: string) => {
+        this.fileService.processSaveFile(message)
+      })
+
+      this.requestLoadFile()
+    }
   }
 
   public closeApp() {
@@ -36,6 +39,18 @@ export class ElectronService {
   public maximizeApp() {
     if(this.ipc) {
       this.ipc.send("maximize")
+    }
+  }
+
+  public saveRecipesToFile(saveObject: Library) {
+    if(this.ipc) {
+      this.ipc.send("saveFile", JSON.stringify(saveObject))
+    }
+  }
+
+  public requestLoadFile() {
+    if(this.ipc) {
+      this.ipc.send("loadFile")
     }
   }
 }

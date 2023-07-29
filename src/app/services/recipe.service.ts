@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { EventEmitter, Injectable } from "@angular/core";
 import { Recipe } from "../models/recipe"
 
 @Injectable({
@@ -7,30 +7,15 @@ import { Recipe } from "../models/recipe"
 export class RecipeService {
   private static lastUsedRecipeId = 0
 
-  private recipes: Recipe[] = [
-    {
-      id: 9990,
-      recipeName: "Pizza",
-      cookbook: "Kopf",
-      ingredients: ["Teig", "Tomatensoße", "Streukäse", "Salami"],
-      categories: ["Fleisch"],
-      rating: 5,
-    },
-    {
-      id: 9991,
-      recipeName: "Nudelteig",
-      cookbook: "Kopf",
-      ingredients: ["Mehl", "Wasser", "Olivenöl", "Hefe"],
-      categories: ["Vegetarisch"],
-      rating: 2,
-    },
-  ]
+  private recipes: Recipe[] = []
 
   private knownCookbooks: string[] = []
 
   private knownIngredients: string[] = []
 
   private knownCategories: string[] = []
+
+  private _recipeChangeEvent: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks
@@ -44,8 +29,23 @@ export class RecipeService {
     return this.knownCategories
   }
 
-  public initializeRecipeLibrary(fileContent: string) {
+  public initializeRecipeLibrary(recipes: Recipe[]) {
+    this.recipes = recipes
+    this.recipes.forEach(recipe => {
+      if(!this.knownCookbooks.includes(recipe.cookbook)) {
+        this.knownCookbooks.push(recipe.cookbook)
+      }
 
+      this.knownIngredients.push(
+        ...recipe.ingredients.filter((ingredient) => !this.knownIngredients.includes(ingredient))
+      )
+      this.knownCategories.push(
+        ...recipe.categories.filter((category) => !this.knownCategories.includes(category))
+      )
+    })
+
+    RecipeService.lastUsedRecipeId = this.recipes.map(recipe => recipe.id).sort((a, b) => b - a)[0]
+    this.recipeChanged();
   }
 
   public addRecipe(recipe: Recipe) {
@@ -56,6 +56,7 @@ export class RecipeService {
 
     this.recipes.push(recipe)
     this.updateKnown(recipe)
+    this.recipeChanged()
   }
 
   private updateKnown(recipe: Recipe) {
@@ -95,6 +96,7 @@ export class RecipeService {
     if (recipe) {
       this.recipes.splice(this.recipes.indexOf(recipe), 1)
       this.removeFromKnown(recipe)
+      this.recipeChanged()
     }
   }
 
@@ -116,6 +118,7 @@ export class RecipeService {
 
       this.updateKnown(newRecipe)
       this.removeFromKnown(oldRecipe)
+      this.recipeChanged()
     }
   }
 
@@ -123,5 +126,13 @@ export class RecipeService {
     this.lastUsedRecipeId++
 
     return this.lastUsedRecipeId
+  }
+
+  private recipeChanged() {
+    this._recipeChangeEvent.emit()
+  }
+
+  get recipeChangeEvent(): EventEmitter<Recipe[]> {
+    return this._recipeChangeEvent;
   }
 }

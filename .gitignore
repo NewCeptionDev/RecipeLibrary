@@ -44,3 +44,5 @@ Thumbs.db
 # Build JS
 app/main.js
 app/main.js.map
+
+recipes.json

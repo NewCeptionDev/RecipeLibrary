@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core"
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
 
@@ -8,14 +8,13 @@ import { SearchService } from "../../../services/search.service"
   styleUrls: ["./backdrop.component.scss"],
 })
 export class BackdropComponent implements OnInit {
-  public foundRecipes: number
+  public foundRecipes: number = 0
 
   public showBackdrop = true
 
   public noSearchResults = false
 
-  constructor(private recipeService: RecipeService, private searchService: SearchService) {
-    this.foundRecipes = this.recipeService.getRecipeCount()
+  constructor(private recipeService: RecipeService, private searchService: SearchService, private changeDetector: ChangeDetectorRef) {
     this.searchService.getSearchResultsEventEmitter().subscribe((result) => {
       if (result.length > 0) {
         this.showBackdrop = false
@@ -23,6 +22,11 @@ export class BackdropComponent implements OnInit {
         this.showBackdrop = true
         this.noSearchResults = true
       }
+    })
+
+    this.recipeService.recipeChangeEvent.subscribe(() => {
+      this.foundRecipes = this.recipeService.getRecipeCount();
+      this.changeDetector.detectChanges()
     })
   }
 
