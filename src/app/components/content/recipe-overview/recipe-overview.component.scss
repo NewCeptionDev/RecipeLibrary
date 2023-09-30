@@ -8,9 +8,13 @@
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3rem;
   line-height: 5rem;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
   margin: 0;
+  font-family: 'JetBrains Mono', serif;
 }
 
 h4 {
@@ -22,7 +26,7 @@ h4 {
 }
 
 .mainInformation {
-  width: 80%;
+  width: 75%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

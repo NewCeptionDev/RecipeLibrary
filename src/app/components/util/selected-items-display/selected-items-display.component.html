@@ -1,5 +1,5 @@
 <div class="container tableBackground">
-  <h3>{{ headline }}</h3>
+  <h3 [ngClass]="{ underlined : underlinedHeadline }">{{ headline }}</h3>
 
   <app-autocomplete-with-add-function
     *ngIf="editable"

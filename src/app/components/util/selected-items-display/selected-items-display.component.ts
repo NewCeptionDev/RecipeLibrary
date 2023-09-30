@@ -20,6 +20,9 @@ export class SelectedItemsDisplayComponent implements OnInit {
   public headline: string = "Items"
 
   @Input()
+  public underlinedHeadline: boolean = false
+
+  @Input()
   public knownItems: string[] = []
 
   @Input()

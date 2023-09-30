@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms"
 import { Observable, map, startWith } from "rxjs"
+import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete";
 
 @Component({
   selector: "app-autocomplete-with-add-function",
@@ -41,6 +42,9 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
 
   @ViewChild('autoCompleteInputField')
   private autocompleteInputElement!: ElementRef<HTMLInputElement>
+
+  @ViewChild('autoCompleteInputField', {read: MatAutocompleteTrigger})
+  private autocompleteTrigger!: MatAutocompleteTrigger
 
   ngOnInit(): void {
     if (this.startValue) {
@@ -88,7 +92,14 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   public handleKeyUpEvent(keyUpEvent: KeyboardEvent) {
     if(keyUpEvent.key === "Enter" && !this.disableAddFunction) {
       const value = this.autocompleteInputElement.nativeElement.value
-      this.onItemSelect(value)
+
+      if(value.trim() === "") {
+        return;
+      }
+
+      this.onItemSelect(value.trim())
+      this.autocompleteTrigger.closePanel()
+      console.log("triggered");
 
       keyUpEvent.preventDefault()
     }

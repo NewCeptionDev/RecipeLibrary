@@ -30,7 +30,7 @@ export class SearchComponent {
     this.knownIngredients = this.recipeService.getAllKnownIngredients()
     this.knownCategories = this.recipeService.getAllKnownCategories()
 
-    this.selectedOptions.includedCookbooks = this.knownCookbooks
+    this.selectedOptions.includedCookbooks = [...this.knownCookbooks]
   }
 
   public onNewRatingSelected(newRating: number) {

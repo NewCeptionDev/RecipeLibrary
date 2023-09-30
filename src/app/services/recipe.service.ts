@@ -1,5 +1,7 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { Recipe } from "../models/recipe"
+import { Recipe } from "../models/recipe";
+import { RecipeChangeEvent } from "../models/recipeChangeEvent";
+import { RecipeAction } from "../models/recipeAction";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +17,7 @@ export class RecipeService {
 
   private knownCategories: string[] = []
 
-  private _recipeChangeEvent: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
+  private _recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks
@@ -45,7 +47,7 @@ export class RecipeService {
     })
 
     RecipeService.lastUsedRecipeId = this.recipes.map(recipe => recipe.id).sort((a, b) => b - a)[0]
-    this.recipeChanged();
+    this.initialLoad();
   }
 
   public addRecipe(recipe: Recipe) {
@@ -56,7 +58,7 @@ export class RecipeService {
 
     this.recipes.push(recipe)
     this.updateKnown(recipe)
-    this.recipeChanged()
+    this.recipeChanged(recipe, RecipeAction.ADD)
   }
 
   private updateKnown(recipe: Recipe) {
@@ -96,7 +98,7 @@ export class RecipeService {
     if (recipe) {
       this.recipes.splice(this.recipes.indexOf(recipe), 1)
       this.removeFromKnown(recipe)
-      this.recipeChanged()
+      this.recipeChanged(recipe, RecipeAction.DELETE)
     }
   }
 
@@ -118,7 +120,7 @@ export class RecipeService {
 
       this.updateKnown(newRecipe)
       this.removeFromKnown(oldRecipe)
-      this.recipeChanged()
+      this.recipeChanged(newRecipe, RecipeAction.EDIT)
     }
   }
 
@@ -128,11 +130,15 @@ export class RecipeService {
     return this.lastUsedRecipeId
   }
 
-  private recipeChanged() {
+  private initialLoad() {
     this._recipeChangeEvent.emit()
   }
 
-  get recipeChangeEvent(): EventEmitter<Recipe[]> {
+  private recipeChanged(recipe: Recipe, event: RecipeAction) {
+    this._recipeChangeEvent.emit({recipe, event})
+  }
+
+  get recipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
     return this._recipeChangeEvent;
   }
 }
