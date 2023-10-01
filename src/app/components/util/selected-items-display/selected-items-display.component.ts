@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { DialogsService } from "src/app/services/dialogs.service"
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ItemDataSource } from "src/app/util/ItemDataSource"
 
 @Component({

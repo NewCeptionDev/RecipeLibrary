@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms"
 import { Observable, map, startWith } from "rxjs"
-import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete";
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
 
 @Component({
   selector: "app-autocomplete-with-add-function",

@@ -3,7 +3,6 @@ import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-for
 import { Recipe } from "./models/recipe";
 import { DialogsService } from "./services/dialogs.service";
 import { ExtendedOption } from "./models/extendedOption";
-import { SearchOptions } from "./models/searchOptions";
 
 @Component({
   selector: "app-root",
