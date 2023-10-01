@@ -99,7 +99,6 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
 
       this.onItemSelect(value.trim())
       this.autocompleteTrigger.closePanel()
-      console.log("triggered");
 
       keyUpEvent.preventDefault()
     }

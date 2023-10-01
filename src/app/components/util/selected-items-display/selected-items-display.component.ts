@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DialogsService } from "src/app/services/dialogs.service"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
 
@@ -28,12 +28,15 @@ export class SelectedItemsDisplayComponent implements OnInit {
   @Input()
   public onlyKnownItemsSelectable: boolean = false
 
+  @Input()
+  public triggerRefresh: EventEmitter<void> | undefined
+
   @Output()
   public updateData: EventEmitter<string[]> = new EventEmitter()
 
   public tableDataSource: ItemDataSource<string>
 
-  constructor(public dialogService: DialogsService) {
+  constructor() {
     this.tableDataSource = new ItemDataSource(this.data)
   }
 
@@ -44,6 +47,10 @@ export class SelectedItemsDisplayComponent implements OnInit {
 
     if (!this.editable) {
       this.columns.splice(1, 1)
+    }
+
+    if(this.triggerRefresh) {
+      this.triggerRefresh.subscribe(() => this.refreshTableData())
     }
   }
 
@@ -61,5 +68,9 @@ export class SelectedItemsDisplayComponent implements OnInit {
     this.data.splice(this.data.indexOf(element), 1)
     this.tableDataSource.setData(this.data)
     this.updateData.emit(this.data)
+  }
+
+  public refreshTableData() {
+    this.tableDataSource.setData(this.data)
   }
 }

@@ -30,6 +30,17 @@ app-rating-display {
   }
 }
 
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 3%;
+
+  button {
+    width: 30%;
+  }
+}
+
 @media screen and (max-height: 720px){
   app-selected-items-display {
     min-height: 35vh;

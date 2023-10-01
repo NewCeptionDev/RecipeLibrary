@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
 import { SearchOptions } from "../../../models/searchOptions"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
@@ -9,12 +9,14 @@ import { SearchService } from "../../../services/search.service"
   styleUrls: ["./search.component.scss"],
 })
 export class SearchComponent {
-  selectedOptions: SearchOptions = {
+  defaultSearchOptions: SearchOptions = {
     minimumRating: -1,
     includedCategories: [],
     includedCookbooks: [],
     requiredIngredients: [],
   }
+
+  selectedOptions: SearchOptions = this.defaultSearchOptions;
 
   knownCookbooks: string[]
 
@@ -22,15 +24,24 @@ export class SearchComponent {
 
   knownCategories: string[]
 
+  refreshTableData: EventEmitter<void>;
+
   @Output()
   onSearchStarted: EventEmitter<void> = new EventEmitter()
 
-  constructor(private recipeService: RecipeService, private searchService: SearchService) {
+  constructor(private recipeService: RecipeService, private searchService: SearchService, private changeDetector: ChangeDetectorRef) {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
     this.knownIngredients = this.recipeService.getAllKnownIngredients()
     this.knownCategories = this.recipeService.getAllKnownCategories()
 
     this.selectedOptions.includedCookbooks = [...this.knownCookbooks]
+
+    this.refreshTableData = new EventEmitter()
+
+    const lastSearchOptions = this.searchService.getLastSearchOptions()
+    if(lastSearchOptions) {
+      this.selectedOptions = lastSearchOptions
+    }
   }
 
   public onNewRatingSelected(newRating: number) {
@@ -52,5 +63,12 @@ export class SearchComponent {
   public onSearch(): void {
     this.searchService.search(this.selectedOptions)
     this.onSearchStarted.emit()
+  }
+
+  public clear(): void {
+    this.selectedOptions = this.defaultSearchOptions
+    this.selectedOptions.includedCookbooks = [...this.knownCookbooks]
+    this.changeDetector.detectChanges()
+    this.refreshTableData.emit()
   }
 }

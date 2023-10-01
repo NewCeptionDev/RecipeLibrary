@@ -3,6 +3,7 @@ import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-for
 import { Recipe } from "./models/recipe";
 import { DialogsService } from "./services/dialogs.service";
 import { ExtendedOption } from "./models/extendedOption";
+import { SearchOptions } from "./models/searchOptions";
 
 @Component({
   selector: "app-root",
@@ -89,7 +90,6 @@ export class AppComponent {
 
     if(switchView) {
       if(newView !== ExtendedOption.EDITRECIPE) {
-        console.log("reset recipe");
         this.currentlyEditedRecipe = undefined
       }
 
@@ -98,7 +98,6 @@ export class AppComponent {
       } else if(newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
         this.extended = ExtendedOption.NONE
         setTimeout(() => {
-          console.log("called after timeout");
           this.extended = newView
         }, 1)
       } else {

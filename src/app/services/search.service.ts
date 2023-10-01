@@ -18,6 +18,10 @@ export class SearchService {
   private lastSearchResults: Recipe[] = [];
   private lastSearchOptions: SearchOptions | undefined;
 
+  public getLastSearchOptions(): SearchOptions | undefined {
+    return this.lastSearchOptions
+  }
+
   public getSearchResultsEventEmitter(): EventEmitter<Recipe[]> {
     return this.publishSearchResults
   }
