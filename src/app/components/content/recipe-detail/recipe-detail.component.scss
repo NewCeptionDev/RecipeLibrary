@@ -9,7 +9,7 @@
 
 h1 {
   font-size: 3rem;
-  line-height: 5rem;
+  line-height: 3rem;
   margin: 0;
   font-family: 'JetBrains Mono', serif;
 }
@@ -40,5 +40,12 @@ h4 {
     min-height: 30vh;
     max-height: 30vh;
     width: 25%;
+  }
+
+  @media screen and (max-height: 800px) {
+    app-selected-items-display {
+      min-height: 20vh;
+      max-height: 20vh;
+    }
   }
 }

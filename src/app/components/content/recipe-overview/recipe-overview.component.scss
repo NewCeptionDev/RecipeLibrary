@@ -9,9 +9,10 @@
 
 h1 {
   font-size: 3rem;
-  line-height: 5rem;
+  line-height: 3rem;
   text-overflow: ellipsis;
   overflow-x: hidden;
+  overflow-y: hidden;
   white-space: nowrap;
   margin: 0;
   font-family: 'JetBrains Mono', serif;

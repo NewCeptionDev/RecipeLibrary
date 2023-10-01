@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { Recipe } from "../models/recipe";
 import { RecipeChangeEvent } from "../models/recipeChangeEvent";
 import { RecipeAction } from "../models/recipeAction";
+import { SnackbarService } from "./snackbar.service";
 
 @Injectable({
   providedIn: "root",
@@ -18,6 +19,9 @@ export class RecipeService {
   private knownCategories: string[] = []
 
   private _recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
+
+  constructor(private snackbarService: SnackbarService) {
+  }
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks
@@ -59,6 +63,7 @@ export class RecipeService {
     this.recipes.push(recipe)
     this.updateKnown(recipe)
     this.recipeChanged(recipe, RecipeAction.ADD)
+    this.snackbarService.recipeAddedFeedback()
   }
 
   private updateKnown(recipe: Recipe) {
@@ -99,6 +104,7 @@ export class RecipeService {
       this.recipes.splice(this.recipes.indexOf(recipe), 1)
       this.removeFromKnown(recipe)
       this.recipeChanged(recipe, RecipeAction.DELETE)
+      this.snackbarService.recipeRemovedFeedback()
     }
   }
 
@@ -121,6 +127,7 @@ export class RecipeService {
       this.updateKnown(newRecipe)
       this.removeFromKnown(oldRecipe)
       this.recipeChanged(newRecipe, RecipeAction.EDIT)
+      this.snackbarService.recipeEditedFeedback()
     }
   }
 

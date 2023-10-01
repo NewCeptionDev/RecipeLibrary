@@ -25,7 +25,9 @@ import { RecipeDetailComponent } from "./components/content/recipe-detail/recipe
 import { BackdropComponent } from "./components/content/backdrop/backdrop.component"
 import { SettingsComponent } from "./components/sidebar/settings/settings.component"
 import { AutocompleteWithAddFunctionComponent } from "./components/util/autocomplete-with-add-function/autocomplete-with-add-function.component";
-import { ToolbarComponent } from './components/util/toolbar/toolbar.component'
+import { ToolbarComponent } from './components/util/toolbar/toolbar.component';
+import { SnackbarComponent } from './components/util/snackbar/snackbar.component'
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { ToolbarComponent } from './components/util/toolbar/toolbar.component'
     BackdropComponent,
     SettingsComponent,
     ToolbarComponent,
+    SnackbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { ToolbarComponent } from './components/util/toolbar/toolbar.component'
     ReactiveFormsModule,
     MatTableModule,
     MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

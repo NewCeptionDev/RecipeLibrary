@@ -89,13 +89,16 @@ export class AppComponent {
 
     if(switchView) {
       if(newView !== ExtendedOption.EDITRECIPE) {
+        console.log("reset recipe");
         this.currentlyEditedRecipe = undefined
       }
 
       if(newView === this.extended) {
         this.extended = ExtendedOption.NONE
       } else if(newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
+        this.extended = ExtendedOption.NONE
         setTimeout(() => {
+          console.log("called after timeout");
           this.extended = newView
         }, 1)
       } else {
