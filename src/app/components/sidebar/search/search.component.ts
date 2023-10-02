@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core"
 import { SearchOptions } from "../../../models/searchOptions"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
@@ -16,7 +16,7 @@ export class SearchComponent {
     requiredIngredients: [],
   }
 
-  selectedOptions: SearchOptions = this.defaultSearchOptions;
+  selectedOptions: SearchOptions = this.defaultSearchOptions
 
   knownCookbooks: string[]
 
@@ -24,12 +24,16 @@ export class SearchComponent {
 
   knownCategories: string[]
 
-  refreshTableData: EventEmitter<void>;
+  refreshTableData: EventEmitter<void>
 
   @Output()
   onSearchStarted: EventEmitter<void> = new EventEmitter()
 
-  constructor(private recipeService: RecipeService, private searchService: SearchService, private changeDetector: ChangeDetectorRef) {
+  constructor(
+    private recipeService: RecipeService,
+    private searchService: SearchService,
+    private changeDetector: ChangeDetectorRef
+  ) {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
     this.knownIngredients = this.recipeService.getAllKnownIngredients()
     this.knownCategories = this.recipeService.getAllKnownCategories()
@@ -39,7 +43,7 @@ export class SearchComponent {
     this.refreshTableData = new EventEmitter()
 
     const lastSearchOptions = this.searchService.getLastSearchOptions()
-    if(lastSearchOptions) {
+    if (lastSearchOptions) {
       this.selectedOptions = lastSearchOptions
     }
   }

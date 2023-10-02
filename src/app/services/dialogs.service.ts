@@ -1,14 +1,13 @@
 import { Injectable } from "@angular/core"
 import { MatDialog, MatDialogRef } from "@angular/material/dialog"
 import { TwoButtonDialogComponent } from "../components/dialogs/two-button-dialog/two-button-dialog.component"
-import { finalize, firstValueFrom, Observable } from "rxjs";
-import { Recipe } from "../models/recipe";
+import { finalize, firstValueFrom, Observable } from "rxjs"
+import { Recipe } from "../models/recipe"
 
 @Injectable({
   providedIn: "root",
 })
 export class DialogsService {
-
   dialogOpen = false
 
   constructor(public dialog: MatDialog) {
@@ -20,7 +19,10 @@ export class DialogsService {
   }
 
   public discardNewRecipe(): Promise<boolean> {
-    const dialog = this.openTwoButtonDialog("Discard Changes", "Closing this window will discard your changes.\nAre you sure that you want to close the window?")
+    const dialog = this.openTwoButtonDialog(
+      "Discard Changes",
+      "Closing this window will discard your changes.\nAre you sure that you want to close the window?"
+    )
 
     return firstValueFrom(dialog.afterClosed())
   }
@@ -48,7 +50,7 @@ export class DialogsService {
     })
 
     dialogReference.afterClosed().subscribe(() => {
-      this.dialogOpen = false;
+      this.dialogOpen = false
     })
 
     return dialogReference

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
 
 @Component({
@@ -48,7 +48,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
       this.columns.splice(1, 1)
     }
 
-    if(this.triggerRefresh) {
+    if (this.triggerRefresh) {
       this.triggerRefresh.subscribe(() => this.refreshTableData())
     }
   }

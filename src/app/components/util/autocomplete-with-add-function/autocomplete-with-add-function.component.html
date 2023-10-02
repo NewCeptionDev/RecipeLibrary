@@ -3,7 +3,9 @@
     <mat-label>{{ labelName }}</mat-label>
     <input
       type="text"
-      placeholder="Pick from existing {{ itemName }}{{disableAddFunction ? '' : ' or add a new one'}}"
+      placeholder="Pick from existing {{ itemName }}{{
+        disableAddFunction ? '' : ' or add a new one'
+      }}"
       matInput
       #autoCompleteInputField
       (keyup)="handleKeyUpEvent($event)"

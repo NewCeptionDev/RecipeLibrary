@@ -1,11 +1,11 @@
 <div class="container tableBackground">
-  <h3 [ngClass]="{ underlined : underlinedHeadline }">{{ headline }}</h3>
+  <h3 [ngClass]="{ underlined: underlinedHeadline }">{{ headline }}</h3>
 
   <app-autocomplete-with-add-function
     *ngIf="editable"
     class="input"
     [knownItems]="knownItems"
-    [labelName]="(onlyKnownItemsSelectable ? '' : 'Add / ') +  'Select ' + headline"
+    [labelName]="(onlyKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
     [clearOnSelect]="true"
     [itemName]="headline"
     (itemSelected)="onItemSelect($event)"

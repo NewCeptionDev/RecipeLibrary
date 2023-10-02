@@ -1,7 +1,15 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core"
 import { FormControl } from "@angular/forms"
 import { Observable, map, startWith } from "rxjs"
-import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete"
 
 @Component({
   selector: "app-autocomplete-with-add-function",
@@ -40,10 +48,10 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()
   public disableAddFunction: boolean = false
 
-  @ViewChild('autoCompleteInputField')
+  @ViewChild("autoCompleteInputField")
   private autocompleteInputElement!: ElementRef<HTMLInputElement>
 
-  @ViewChild('autoCompleteInputField', {read: MatAutocompleteTrigger})
+  @ViewChild("autoCompleteInputField", { read: MatAutocompleteTrigger })
   private autocompleteTrigger!: MatAutocompleteTrigger
 
   ngOnInit(): void {
@@ -90,11 +98,11 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   }
 
   public handleKeyUpEvent(keyUpEvent: KeyboardEvent) {
-    if(keyUpEvent.key === "Enter" && !this.disableAddFunction) {
+    if (keyUpEvent.key === "Enter" && !this.disableAddFunction) {
       const value = this.autocompleteInputElement.nativeElement.value
 
-      if(value.trim() === "") {
-        return;
+      if (value.trim() === "") {
+        return
       }
 
       this.onItemSelect(value.trim())

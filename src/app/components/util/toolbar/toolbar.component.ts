@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ElectronService } from "../../../services/electron.service";
+import { Component, OnInit } from "@angular/core"
+import { ElectronService } from "../../../services/electron.service"
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  selector: "app-toolbar",
+  templateUrl: "./toolbar.component.html",
+  styleUrls: ["./toolbar.component.scss"],
 })
 export class ToolbarComponent implements OnInit {
+  constructor(private electronService: ElectronService) {}
 
-  constructor(private electronService: ElectronService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public close() {
     this.electronService.closeApp()

@@ -1,8 +1,8 @@
-import { EventEmitter, Injectable } from "@angular/core";
-import { Recipe } from "../models/recipe";
-import { RecipeChangeEvent } from "../models/recipeChangeEvent";
-import { RecipeAction } from "../models/recipeAction";
-import { SnackbarService } from "./snackbar.service";
+import { EventEmitter, Injectable } from "@angular/core"
+import { Recipe } from "../models/recipe"
+import { RecipeChangeEvent } from "../models/recipeChangeEvent"
+import { RecipeAction } from "../models/recipeAction"
+import { SnackbarService } from "./snackbar.service"
 
 @Injectable({
   providedIn: "root",
@@ -18,10 +18,10 @@ export class RecipeService {
 
   private knownCategories: string[] = []
 
-  private _recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
+  private _recipeChangeEvent: EventEmitter<RecipeChangeEvent> =
+    new EventEmitter<RecipeChangeEvent>()
 
-  constructor(private snackbarService: SnackbarService) {
-  }
+  constructor(private snackbarService: SnackbarService) {}
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks
@@ -37,8 +37,8 @@ export class RecipeService {
 
   public initializeRecipeLibrary(recipes: Recipe[]) {
     this.recipes = recipes
-    this.recipes.forEach(recipe => {
-      if(!this.knownCookbooks.includes(recipe.cookbook)) {
+    this.recipes.forEach((recipe) => {
+      if (!this.knownCookbooks.includes(recipe.cookbook)) {
         this.knownCookbooks.push(recipe.cookbook)
       }
 
@@ -50,8 +50,10 @@ export class RecipeService {
       )
     })
 
-    RecipeService.lastUsedRecipeId = this.recipes.map(recipe => recipe.id).sort((a, b) => b - a)[0]
-    this.initialLoad();
+    RecipeService.lastUsedRecipeId = this.recipes
+      .map((recipe) => recipe.id)
+      .sort((a, b) => b - a)[0]
+    this.initialLoad()
   }
 
   public addRecipe(recipe: Recipe) {
@@ -142,10 +144,10 @@ export class RecipeService {
   }
 
   private recipeChanged(recipe: Recipe, event: RecipeAction) {
-    this._recipeChangeEvent.emit({recipe, event})
+    this._recipeChangeEvent.emit({ recipe, event })
   }
 
   get recipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
-    return this._recipeChangeEvent;
+    return this._recipeChangeEvent
   }
 }

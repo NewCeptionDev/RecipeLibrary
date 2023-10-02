@@ -1,8 +1,8 @@
-import { Component, EventEmitter, ViewChild } from "@angular/core";
-import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component";
-import { Recipe } from "./models/recipe";
-import { DialogsService } from "./services/dialogs.service";
-import { ExtendedOption } from "./models/extendedOption";
+import { Component, EventEmitter, ViewChild } from "@angular/core"
+import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
+import { Recipe } from "./models/recipe"
+import { DialogsService } from "./services/dialogs.service"
+import { ExtendedOption } from "./models/extendedOption"
 
 @Component({
   selector: "app-root",
@@ -23,7 +23,7 @@ export class AppComponent {
 
   constructor(private dialogService: DialogsService) {
     window.addEventListener("keydown", async (event) => {
-      if(event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
+      if (event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
         await this.closeExtensibleContainer()
         event.preventDefault()
       }
@@ -34,10 +34,10 @@ export class AppComponent {
     switch (this.extended) {
       case ExtendedOption.EDITRECIPE:
         await this.toggleEditRecipes()
-        break;
+        break
       case ExtendedOption.ADD:
         await this.toggleAddRecipe()
-        break;
+        break
       default:
         this.extended = ExtendedOption.NONE
     }
@@ -73,11 +73,11 @@ export class AppComponent {
 
   public async viewSelected(newView: ExtendedOption) {
     let switchView = false
-    if(this.extended === ExtendedOption.ADD || this.extended === ExtendedOption.EDITRECIPE) {
-      if(this.recipeForm.hasRecipeChanged()) {
+    if (this.extended === ExtendedOption.ADD || this.extended === ExtendedOption.EDITRECIPE) {
+      if (this.recipeForm.hasRecipeChanged()) {
         const confirmedClose = await this.dialogService.discardNewRecipe()
 
-        if(confirmedClose) {
+        if (confirmedClose) {
           switchView = true
         }
       } else {
@@ -87,14 +87,14 @@ export class AppComponent {
       switchView = true
     }
 
-    if(switchView) {
-      if(newView !== ExtendedOption.EDITRECIPE) {
+    if (switchView) {
+      if (newView !== ExtendedOption.EDITRECIPE) {
         this.currentlyEditedRecipe = undefined
       }
 
-      if(newView === this.extended) {
+      if (newView === this.extended) {
         this.extended = ExtendedOption.NONE
-      } else if(newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
+      } else if (newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
         this.extended = ExtendedOption.NONE
         setTimeout(() => {
           this.extended = newView
@@ -107,10 +107,10 @@ export class AppComponent {
 
   public async toggleAddRecipe() {
     if (this.extended === ExtendedOption.ADD) {
-      if(this.recipeForm.hasRecipeChanged()) {
+      if (this.recipeForm.hasRecipeChanged()) {
         let closed = await this.dialogService.discardNewRecipe()
 
-        if(closed) {
+        if (closed) {
           this.extended = ExtendedOption.NONE
         }
       } else {
@@ -139,11 +139,11 @@ export class AppComponent {
   public async toggleEditRecipes() {
     if (this.extended === ExtendedOption.EDIT || this.extended === ExtendedOption.EDITRECIPE) {
       let closed: boolean
-      if(this.extended === ExtendedOption.EDITRECIPE) {
-        if(this.recipeForm.hasRecipeChanged()) {
+      if (this.extended === ExtendedOption.EDITRECIPE) {
+        if (this.recipeForm.hasRecipeChanged()) {
           closed = await this.dialogService.discardNewRecipe()
 
-          if(closed) {
+          if (closed) {
             this.extended = ExtendedOption.EDIT
           }
         } else {
@@ -155,7 +155,7 @@ export class AppComponent {
         this.extended = ExtendedOption.NONE
       }
 
-      if(closed) {
+      if (closed) {
         this.currentlyEditedRecipe = undefined
       }
     } else {
@@ -176,5 +176,5 @@ export class AppComponent {
     await this.viewSelected(ExtendedOption.EDITRECIPE)
   }
 
-  protected readonly ExtendedOption = ExtendedOption;
+  protected readonly ExtendedOption = ExtendedOption
 }

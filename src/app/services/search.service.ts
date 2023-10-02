@@ -1,9 +1,9 @@
-import { EventEmitter, Injectable } from "@angular/core";
-import { Recipe } from "../models/recipe";
-import { RecipeService } from "./recipe.service";
-import { SearchOptions } from "../models/searchOptions";
-import { RecipeAction } from "../models/recipeAction";
-import { RecipeChangeEvent } from "../models/recipeChangeEvent";
+import { EventEmitter, Injectable } from "@angular/core"
+import { Recipe } from "../models/recipe"
+import { RecipeService } from "./recipe.service"
+import { SearchOptions } from "../models/searchOptions"
+import { RecipeAction } from "../models/recipeAction"
+import { RecipeChangeEvent } from "../models/recipeChangeEvent"
 
 @Injectable({
   providedIn: "root",
@@ -12,11 +12,13 @@ export class SearchService {
   private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
 
   constructor(private recipeService: RecipeService) {
-    this.recipeService.recipeChangeEvent.subscribe(changeEvent => this.adjustSearchResultsIfNeeded(changeEvent))
+    this.recipeService.recipeChangeEvent.subscribe((changeEvent) =>
+      this.adjustSearchResultsIfNeeded(changeEvent)
+    )
   }
 
-  private lastSearchResults: Recipe[] = [];
-  private lastSearchOptions: SearchOptions | undefined;
+  private lastSearchResults: Recipe[] = []
+  private lastSearchOptions: SearchOptions | undefined
 
   public getLastSearchOptions(): SearchOptions | undefined {
     return this.lastSearchOptions
@@ -27,26 +29,32 @@ export class SearchService {
   }
 
   public adjustSearchResultsIfNeeded(recipeChangeEvent: RecipeChangeEvent) {
-    if(!this.lastSearchOptions) {
+    if (!this.lastSearchOptions) {
       return
     }
 
-    const recipeInSearch = this.getFilteredRecipes([recipeChangeEvent.recipe], this.lastSearchOptions).length > 0
+    const recipeInSearch =
+      this.getFilteredRecipes([recipeChangeEvent.recipe], this.lastSearchOptions).length > 0
 
-    if(recipeChangeEvent.event === RecipeAction.ADD && recipeInSearch) {
+    if (recipeChangeEvent.event === RecipeAction.ADD && recipeInSearch) {
       this.lastSearchResults.push(recipeChangeEvent.recipe)
     }
 
-    if((recipeChangeEvent.event === RecipeAction.EDIT || recipeChangeEvent.event === RecipeAction.DELETE)
-      && this.lastSearchResults.length > 0) {
-      const index = this.lastSearchResults.findIndex(recipeFromList => recipeFromList.id === recipeChangeEvent.recipe.id)
-      if(index !== -1) {
-        if(recipeChangeEvent.event === RecipeAction.EDIT && recipeInSearch) {
+    if (
+      (recipeChangeEvent.event === RecipeAction.EDIT ||
+        recipeChangeEvent.event === RecipeAction.DELETE) &&
+      this.lastSearchResults.length > 0
+    ) {
+      const index = this.lastSearchResults.findIndex(
+        (recipeFromList) => recipeFromList.id === recipeChangeEvent.recipe.id
+      )
+      if (index !== -1) {
+        if (recipeChangeEvent.event === RecipeAction.EDIT && recipeInSearch) {
           this.lastSearchResults.splice(index, 1, recipeChangeEvent.recipe)
         } else {
           this.lastSearchResults.splice(index, 1)
         }
-      } else if(recipeInSearch) {
+      } else if (recipeInSearch) {
         this.lastSearchResults.push(recipeChangeEvent.recipe)
       }
     }

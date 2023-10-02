@@ -1,7 +1,7 @@
 <div
   class="container"
   *ngIf="showSearchResults">
-  <p *ngIf="shownRecipes.length > 0">Found {{shownRecipes.length}} Recipes</p>
+  <p *ngIf="shownRecipes.length > 0">Found {{ shownRecipes.length }} Recipes</p>
   <div
     *ngFor="let recipe of shownRecipes"
     [ngClass]="{ overview: selectedRecipe !== recipe.id, detail: selectedRecipe === recipe.id }"

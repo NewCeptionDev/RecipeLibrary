@@ -24,9 +24,10 @@ mat-icon {
 h1 {
   font-size: 6rem;
   margin-bottom: 6vh;
-  font-family: 'JetBrains Mono', serif;
+  font-family: "JetBrains Mono", serif;
   color: map.get(palette.$recipe-black-palette, 900);
-  text-shadow: 0 4px 4px map.get(palette.$recipe-black-palette, 800), 0 0 0 #000, 0 4px 4px map.get(palette.$recipe-black-palette, 800);
+  text-shadow: 0 4px 4px map.get(palette.$recipe-black-palette, 800), 0 0 0 #000,
+    0 4px 4px map.get(palette.$recipe-black-palette, 800);
   text-align: center;
 }
 

@@ -10,7 +10,7 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap");
 
 $RecipeLibrary-dark-primary: mat.define-palette(palette.$recipe-green-palette, 500, 300, 700);
 $RecipeLibrary-dark-accent: mat.define-palette(palette.$recipe-yellow-palette, 300);
@@ -76,7 +76,7 @@ app-sidebar {
 }
 
 .mat-button-focus-overlay {
-  background-color: transparent!important;
+  background-color: transparent !important;
 }
 
 app-extensible-container {
@@ -124,5 +124,5 @@ app-toolbar .mat-icon-button {
 .mat-snack-bar-container {
   background-color: #6ba862;
   color: white;
-  width: 100%
+  width: 100%;
 }

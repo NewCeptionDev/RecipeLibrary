@@ -24,10 +24,10 @@ import { RecipeOverviewComponent } from "./components/content/recipe-overview/re
 import { RecipeDetailComponent } from "./components/content/recipe-detail/recipe-detail.component"
 import { BackdropComponent } from "./components/content/backdrop/backdrop.component"
 import { SettingsComponent } from "./components/sidebar/settings/settings.component"
-import { AutocompleteWithAddFunctionComponent } from "./components/util/autocomplete-with-add-function/autocomplete-with-add-function.component";
-import { ToolbarComponent } from './components/util/toolbar/toolbar.component';
-import { SnackbarComponent } from './components/util/snackbar/snackbar.component'
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { AutocompleteWithAddFunctionComponent } from "./components/util/autocomplete-with-add-function/autocomplete-with-add-function.component"
+import { ToolbarComponent } from "./components/util/toolbar/toolbar.component"
+import { SnackbarComponent } from "./components/util/snackbar/snackbar.component"
+import { MatSnackBarModule } from "@angular/material/snack-bar"
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     ReactiveFormsModule,
     MatTableModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

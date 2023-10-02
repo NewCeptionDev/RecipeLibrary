@@ -1,6 +1,6 @@
-import { Recipe } from "./recipe";
+import { Recipe } from "./recipe"
 
 export interface Library {
-  version: number,
+  version: number
   recipes: Recipe[]
 }

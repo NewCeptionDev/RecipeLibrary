@@ -1,7 +1,9 @@
 <div class="container">
   <app-toolbar></app-toolbar>
   <div class="windowContent">
-    <div class="content" (click)="closeExtensibleContainer()">
+    <div
+      class="content"
+      (click)="closeExtensibleContainer()">
       <app-backdrop></app-backdrop>
       <app-recipe-list></app-recipe-list>
     </div>
@@ -13,14 +15,17 @@
       [activeRef]="extended"></app-sidebar>
     <app-extensible-container
       class="positionIndex0"
-      *ngIf="showEditRecipes() || showSettings() || showSearch() || showAddRecipe() || showEditRecipe()">
+      *ngIf="
+        showEditRecipes() || showSettings() || showSearch() || showAddRecipe() || showEditRecipe()
+      ">
       <app-edit-recipes
         *ngIf="showEditRecipes()"
         [reloadRecipes]="recipeEdited.asObservable()"
         (editRecipe)="editRecipe($event)"></app-edit-recipes>
       <app-settings *ngIf="showSettings()"></app-settings>
-      <app-search *ngIf="showSearch()"
-      (onSearchStarted)="toggleSearch()"></app-search>
+      <app-search
+        *ngIf="showSearch()"
+        (onSearchStarted)="toggleSearch()"></app-search>
       <app-recipe-form
         *ngIf="showAddRecipe() || showEditRecipe()"
         (recipeChange)="recipeChange()"
