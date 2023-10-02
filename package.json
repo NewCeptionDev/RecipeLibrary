@@ -1,14 +1,17 @@
 {
   "name": "recipe-library",
-  "version": "0.0.1",
+  "productName": "Recipe Library",
+  "version": "0.9.0",
   "author": {
     "name": "Julius Schmidt",
     "email": "newceptiondev@googlemail.com"
   },
+  "description": "Recipe Library, making it easy to find Recipes based on Ingredients, Cookbook or Categories",
   "main": "app/main.js",
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all -p electron:serve ng:serve",
+    "start:local": "npm-run-all -p electron:serve ng:serve",
+    "start": "electron-forge start",
     "ng:serve": "ng serve -o",
     "build": "npm run electron:serve-tsc && ng build --base-href ./",
     "watch": "ng build --watch --configuration development",
@@ -21,7 +24,9 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "format": "npm run prettier && npm run eslint:fix",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "private": true,
   "dependencies": {
@@ -35,12 +40,13 @@
     "@angular/platform-browser": "^14.0.0-next.0",
     "@angular/platform-browser-dynamic": "^14.0.0-next.0",
     "@angular/router": "^14.0.0-next.0",
+    "electron-squirrel-startup": "^1.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.0",
+    "@angular-devkit/build-angular": "^14.2.10",
     "@angular-eslint/builder": "14.4.0",
     "@angular-eslint/eslint-plugin": "14.4.0",
     "@angular-eslint/eslint-plugin-template": "14.4.0",
@@ -48,13 +54,19 @@
     "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "~14.2.0",
     "@angular/compiler-cli": "^14.0.0-next.0",
+    "@electron-forge/cli": "^6.4.2",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
     "@newceptiondev/eslint-config": "1.0.2",
     "@newceptiondev/prettier-config": "1.0.4",
     "@types/electron": "^1.6.10",
     "@types/jasmine": "~4.0.0",
     "@typescript-eslint/eslint-plugin": "5.43.0",
     "@typescript-eslint/parser": "5.43.0",
-    "electron": "^22.2.0",
+    "electron": "^22.3.23",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "jasmine-core": "~4.3.0",

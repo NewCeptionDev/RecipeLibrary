@@ -2,9 +2,80 @@ import { BrowserWindow, app, screen, ipcMain } from "electron"
 import * as path from "path"
 import * as fs from "fs"
 
+// this should be placed at top of main.js to handle setup events quickly
+if (handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  // @ts-ignore TS1108
+  return
+}
+
 let win: BrowserWindow | null = null
 const args = process.argv.slice(1)
 const serve = args.some((val) => val === "--serve")
+
+function handleSquirrelEvent() {
+  if (process.argv.length === 1) {
+    return false;
+  }
+
+  const ChildProcess = require('child_process');
+  const path = require('path');
+
+  const appFolder = path.resolve(process.execPath, '..');
+  const rootAtomFolder = path.resolve(appFolder, '..');
+  const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
+  const exeName = path.basename(process.execPath);
+
+  const spawn = function(command: any, args: any) {
+    let spawnedProcess, error;
+
+    try {
+      spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
+    } catch (error) {}
+
+    return spawnedProcess;
+  };
+
+  const spawnUpdate = function(args: any) {
+    return spawn(updateDotExe, args);
+  };
+
+  const squirrelEvent = process.argv[1];
+  switch (squirrelEvent) {
+    case '--squirrel-install':
+    case '--squirrel-updated':
+      // Optionally do things such as:
+      // - Add your .exe to the PATH
+      // - Write to the registry for things like file associations and
+      //   explorer context menus
+
+      // Install desktop and start menu shortcuts
+      spawnUpdate(['--createShortcut', exeName]);
+
+      setTimeout(app.quit, 1000);
+      return true;
+
+    case '--squirrel-uninstall':
+      // Undo anything you did in the --squirrel-install and
+      // --squirrel-updated handlers
+
+      // Remove desktop and start menu shortcuts
+      spawnUpdate(['--removeShortcut', exeName]);
+
+      setTimeout(app.quit, 1000);
+      return true;
+
+    case '--squirrel-obsolete':
+      // This is called on the outgoing version of your app before
+      // we update to the new version - it's the opposite of
+      // --squirrel-updated
+
+      app.quit();
+      return true;
+  }
+
+  return false;
+}
 
 function createWindow(): BrowserWindow {
   const size = screen.getPrimaryDisplay().workAreaSize
@@ -113,12 +184,12 @@ ipcMain.on("maximize", () => {
 })
 
 ipcMain.on("saveFile", (event, object) => {
-  fs.writeFileSync(app.getAppPath() + "/recipes.json", object, {encoding: "utf-8"})
+  fs.writeFileSync(app.getPath("userData") + "/recipes.json", object, {encoding: "utf-8"})
 })
 
 ipcMain.on("loadFile", event => {
-  if(fs.existsSync(app.getAppPath() + "/recipes.json")) {
-    const recipes = fs.readFileSync(app.getAppPath() + "/recipes.json", {encoding: "utf-8"})
+  if(fs.existsSync(app.getPath("userData") + "/recipes.json")) {
+    const recipes = fs.readFileSync(app.getPath("userData") + "/recipes.json", {encoding: "utf-8"})
 
     event.sender.send("fileLoaded", recipes)
   }
