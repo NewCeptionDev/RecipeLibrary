@@ -15,7 +15,7 @@ export class FileService {
     this.recipeService.recipeChangeEvent.subscribe(() => this.saveLibrary())
   }
 
-  public processSaveFile(fileContent: string) {
+  public processSaveFile(fileContent: string, initial: boolean) {
     const object = JSON.parse(fileContent)
 
     let library: Library
@@ -26,7 +26,11 @@ export class FileService {
       library = <Library>object
     }
 
-    this.recipeService.initializeRecipeLibrary(library.recipes)
+    if(initial) {
+      this.recipeService.initializeRecipeLibrary(library.recipes)
+    } else {
+      this.recipeService.importLibrary(library.recipes)
+    }
   }
 
   public saveLibrary() {

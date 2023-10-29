@@ -1,6 +1,7 @@
 import { BrowserWindow, app, screen, ipcMain } from "electron"
 import * as path from "path"
 import * as fs from "fs"
+import * as electron from "electron";
 
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
@@ -194,5 +195,22 @@ ipcMain.on("loadFile", (event) => {
     })
 
     event.sender.send("fileLoaded", recipes)
+  }
+})
+
+ipcMain.on("importLibrary", async (event) => {
+  if(!win) {
+    return
+  }
+
+  const selectionResult = electron.dialog.showOpenDialogSync(win, { title: "Recipe Library - Select Library File", properties: ['openFile'] })
+
+  if(selectionResult && fs.existsSync(selectionResult[0])) {
+    const recipes = fs.readFileSync(selectionResult[0], {
+      encoding: "utf-8",
+    })
+
+    event.sender.send("importLibraryFile", recipes)
+    app.focus()
   }
 })

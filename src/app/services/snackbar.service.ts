@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { SnackbarComponent } from "../components/util/snackbar/snackbar.component"
 
@@ -18,6 +18,10 @@ export class SnackbarService {
 
   public recipeRemovedFeedback() {
     this.openSnackBar("Recipe removed")
+  }
+
+  public libraryImportedFeedback() {
+    this.openSnackBar("Library imported")
   }
 
   private openSnackBar(content: string) {

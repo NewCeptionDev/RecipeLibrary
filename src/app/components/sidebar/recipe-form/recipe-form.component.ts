@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { Observable } from "rxjs"
 import { Recipe } from "src/app/models/recipe"
 import { RecipeService } from "src/app/services/recipe.service"
+import { FormControl, FormControlState, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-recipe-form",
@@ -33,6 +34,8 @@ export class RecipeFormComponent implements OnInit {
 
   filteredCookbooks: Observable<string[]> = new Observable()
 
+  recipeFormControl: FormControl = new FormControl(this.recipe.recipeName, Validators.required)
+
   @Output()
   public recipeChange: EventEmitter<void> = new EventEmitter()
 
@@ -40,6 +43,8 @@ export class RecipeFormComponent implements OnInit {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
     this.knownIngredients = this.recipeService.getAllKnownIngredients()
     this.knownCategories = this.recipeService.getAllKnownCategories()
+
+    this.recipeFormControl.valueChanges.subscribe(value => this.recipe.recipeName = value)
   }
 
   ngOnInit(): void {
@@ -66,6 +71,11 @@ export class RecipeFormComponent implements OnInit {
   }
 
   public finalizeRecipe() {
+    if (this.recipeFormControl.invalid) {
+      this.recipeFormControl.markAsTouched()
+      return
+    }
+
     if (this.editing && this.recipeInput) {
       this.recipeService.updateRecipe(this.recipeInput.id, this.recipe)
     } else {

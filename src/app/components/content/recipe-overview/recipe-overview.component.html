@@ -3,7 +3,7 @@
   *ngIf="recipe">
   <div class="mainInformation">
     <h1>{{ recipe.recipeName }}</h1>
-    <h4>Cookbook: {{ recipe.cookbook }}</h4>
+    <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
   </div>
   <div class="additionalInformation">
     <app-rating-display

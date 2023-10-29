@@ -6,21 +6,24 @@
     [data]="selectedOptions.requiredIngredients"
     (updateData)="updateRequiredIngredients($event)"
     [triggerRefresh]="refreshTableData"
-    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
+    [onlyKnownItemsSelectable]="true"
+    noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
   <app-selected-items-display
     headline="Categories"
     [knownItems]="knownCategories"
     [data]="selectedOptions.includedCategories"
     (updateData)="updateIncludedCategories($event)"
     [triggerRefresh]="refreshTableData"
-    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
+    [onlyKnownItemsSelectable]="true"
+    noItemsAddedDescription="No Categories added"></app-selected-items-display>
   <app-selected-items-display
     headline="Cookbooks"
     [knownItems]="knownCookbooks"
     [data]="selectedOptions.includedCookbooks"
     (updateData)="updateIncludedCookbooks($event)"
     [triggerRefresh]="refreshTableData"
-    [onlyKnownItemsSelectable]="true"></app-selected-items-display>
+    [onlyKnownItemsSelectable]="true"
+    noItemsAddedDescription="No Cookbooks added"></app-selected-items-display>
   <app-rating-display
     [editable]="true"
     [rating]="selectedOptions.minimumRating"

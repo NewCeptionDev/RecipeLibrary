@@ -56,6 +56,16 @@ export class RecipeService {
     this.initialLoad()
   }
 
+  public importLibrary(recipes: Recipe[]) {
+    recipes.forEach(recipe => {
+      recipe.id = RecipeService.getNextRecipeId()
+      this.recipes.push(recipe)
+      this.updateKnown(recipe)
+    })
+    this.recipeChanged(undefined, RecipeAction.ADD)
+    this.snackbarService.libraryImportedFeedback()
+  }
+
   public addRecipe(recipe: Recipe) {
     if (recipe.id < 0) {
       // eslint-disable-next-line no-param-reassign
@@ -143,7 +153,7 @@ export class RecipeService {
     this._recipeChangeEvent.emit()
   }
 
-  private recipeChanged(recipe: Recipe, event: RecipeAction) {
+  private recipeChanged(recipe: Recipe | undefined, event: RecipeAction) {
     this._recipeChangeEvent.emit({ recipe, event })
   }
 

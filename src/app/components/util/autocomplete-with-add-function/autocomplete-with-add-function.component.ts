@@ -87,7 +87,7 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
       (option) =>
         option.toLowerCase().includes(filterValue) &&
         (this.filterFunction === undefined || this.filterFunction(option))
-    )
+    ).sort((a, b) => a < b ? -1 : 1)
   }
 
   public onItemSelect(value: string) {

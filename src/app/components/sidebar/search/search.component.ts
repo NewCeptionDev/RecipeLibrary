@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core"
-import { SearchOptions } from "../../../models/searchOptions"
-import { RecipeService } from "../../../services/recipe.service"
-import { SearchService } from "../../../services/search.service"
+import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core";
+import { SearchOptions } from "../../../models/searchOptions";
+import { RecipeService } from "../../../services/recipe.service";
+import { SearchService } from "../../../services/search.service";
+import { SortOptions } from "../../../models/sortOptions";
+import { SortDirection } from "../../../models/sortDirection";
 
 @Component({
   selector: "app-search",
@@ -14,6 +16,8 @@ export class SearchComponent {
     includedCategories: [],
     includedCookbooks: [],
     requiredIngredients: [],
+    sortOption: SortOptions.ALPHABET,
+    sortDirection: SortDirection.ASC
   }
 
   selectedOptions: SearchOptions = this.defaultSearchOptions

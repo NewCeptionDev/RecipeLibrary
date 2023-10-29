@@ -1,12 +1,15 @@
 <div class="container">
   <h1>{{ editing ? "Edit Recipe" : "Add a Recipe" }}</h1>
   <div class="inputs">
-    <mat-form-field>
+    <mat-form-field [hideRequiredMarker]="true">
       <mat-label>Recipe Name</mat-label>
       <input
         matInput
         placeholder="Name of recipe"
-        [(ngModel)]="recipe.recipeName" />
+        [formControl]="recipeFormControl">
+      <mat-error *ngIf="recipeFormControl.hasError('required')">
+        The recipe name needs to be filled
+      </mat-error>
     </mat-form-field>
     <app-autocomplete-with-add-function
       itemName="Cookbook"
@@ -21,13 +24,15 @@
       headline="Ingredients"
       [knownItems]="knownIngredients"
       [data]="recipe.ingredients"
-      (updateData)="updateSelectedIngredients($event)"></app-selected-items-display>
+      (updateData)="updateSelectedIngredients($event)"
+      noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
     <br />
     <app-selected-items-display
       headline="Categories"
       [knownItems]="knownCategories"
       [data]="recipe.categories"
-      (updateData)="updateSelectedCategories($event)"></app-selected-items-display>
+      (updateData)="updateSelectedCategories($event)"
+      noItemsAddedDescription="No Categories added"></app-selected-items-display>
     <app-rating-display
       [editable]="true"
       (newRating)="updateRating($event)"

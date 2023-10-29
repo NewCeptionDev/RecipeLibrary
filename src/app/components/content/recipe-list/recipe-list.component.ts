@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core"
-import { RecipeService } from "../../../services/recipe.service"
-import { Recipe } from "../../../models/recipe"
-import { SearchService } from "../../../services/search.service"
+import { Component, OnInit } from "@angular/core";
+import { Recipe } from "../../../models/recipe";
+import { SearchService } from "../../../services/search.service";
+import { SortOptions } from "../../../models/sortOptions";
+import { SortDirection } from "../../../models/sortDirection";
 
 @Component({
   selector: "app-recipe-list",
@@ -14,6 +15,8 @@ export class RecipeListComponent implements OnInit {
   public selectedRecipe: number = -1
 
   public shownRecipes: Recipe[] = []
+
+  public currentSortOption: SortOptions = SortOptions.ALPHABET
 
   constructor(private searchService: SearchService) {
     this.searchService.getSearchResultsEventEmitter().subscribe((newSearchResults) => {
@@ -30,5 +33,12 @@ export class RecipeListComponent implements OnInit {
     } else {
       this.selectedRecipe = selectedRecipe
     }
+  }
+
+  protected readonly SortOptions = SortOptions;
+
+  public sortOptionAdjusted(sortOption: SortOptions, direction: SortDirection) {
+    this.currentSortOption = sortOption
+    this.searchService.adjustSortFilter(sortOption, direction)
   }
 }

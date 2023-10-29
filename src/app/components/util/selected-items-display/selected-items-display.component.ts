@@ -33,6 +33,9 @@ export class SelectedItemsDisplayComponent implements OnInit {
   @Output()
   public updateData: EventEmitter<string[]> = new EventEmitter()
 
+  @Input()
+  public noItemsAddedDescription: string = "No items added"
+
   public tableDataSource: ItemDataSource<string>
 
   constructor() {
@@ -58,6 +61,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   public onItemSelect(value: string) {
     if (!this.data.includes(value)) {
       this.data.push(value)
+      this.data.sort((a, b) => a < b ? -1 : 1)
       this.tableDataSource.setData(this.data)
       this.updateData.emit(this.data)
     }
