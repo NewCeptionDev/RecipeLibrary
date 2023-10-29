@@ -61,7 +61,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   public onItemSelect(value: string) {
     if (!this.data.includes(value)) {
       this.data.push(value)
-      this.data.sort((a, b) => a < b ? -1 : 1)
+      this.data.sort((a, b) => (a < b ? -1 : 1))
       this.tableDataSource.setData(this.data)
       this.updateData.emit(this.data)
     }

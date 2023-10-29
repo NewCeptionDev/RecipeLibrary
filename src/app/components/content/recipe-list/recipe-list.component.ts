@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { Recipe } from "../../../models/recipe";
-import { SearchService } from "../../../services/search.service";
-import { SortOptions } from "../../../models/sortOptions";
-import { SortDirection } from "../../../models/sortDirection";
+import { Component, OnInit } from "@angular/core"
+import { Recipe } from "../../../models/recipe"
+import { SearchService } from "../../../services/search.service"
+import { SortOptions } from "../../../models/sortOptions"
+import { SortDirection } from "../../../models/sortDirection"
 
 @Component({
   selector: "app-recipe-list",
@@ -35,7 +35,7 @@ export class RecipeListComponent implements OnInit {
     }
   }
 
-  protected readonly SortOptions = SortOptions;
+  protected readonly SortOptions = SortOptions
 
   public sortOptionAdjusted(sortOption: SortOptions, direction: SortDirection) {
     this.currentSortOption = sortOption

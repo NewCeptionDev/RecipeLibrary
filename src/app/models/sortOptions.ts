@@ -1,4 +1,4 @@
 export enum SortOptions {
   ALPHABET,
-  RATING
+  RATING,
 }

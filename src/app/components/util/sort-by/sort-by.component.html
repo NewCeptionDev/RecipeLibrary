@@ -1,0 +1,17 @@
+<div
+  class="container"
+  (click)="adjustSortDirection()">
+  <mat-icon
+    class="sortOption"
+    [ngClass]="{ disabled: this.disabled }">
+    {{ sortOptionIcon }}</mat-icon
+  >
+  <div class="sortDirection">
+    <mat-icon [ngClass]="{ disabled: this.disabled || this.sortDirection !== SortDirection.ASC }"
+      >expand_less</mat-icon
+    >
+    <mat-icon [ngClass]="{ disabled: this.disabled || this.sortDirection !== SortDirection.DESC }"
+      >expand_more</mat-icon
+    >
+  </div>
+</div>

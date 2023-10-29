@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sortDirection {
+  display: flex;
+  flex-direction: column;
+}
+
+.sortDirection > *:first-child {
+  margin-bottom: -1vh;
+}
+
+.sortOption {
+  scale: 1.2;
+  vertical-align: middle;
+}
+
+mat-icon.disabled {
+  color: grey;
+}

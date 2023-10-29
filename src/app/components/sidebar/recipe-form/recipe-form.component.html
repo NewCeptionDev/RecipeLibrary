@@ -6,7 +6,7 @@
       <input
         matInput
         placeholder="Name of recipe"
-        [formControl]="recipeFormControl">
+        [formControl]="recipeFormControl" />
       <mat-error *ngIf="recipeFormControl.hasError('required')">
         The recipe name needs to be filled
       </mat-error>

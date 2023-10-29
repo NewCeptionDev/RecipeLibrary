@@ -1,10 +1,16 @@
-import { ChangeDetectorRef, Component, EventEmitter, ViewChild, ViewContainerRef } from "@angular/core";
-import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component";
-import { Recipe } from "./models/recipe";
-import { DialogsService } from "./services/dialogs.service";
-import { ExtendedOption } from "./models/extendedOption";
-import { SearchComponent } from "./components/sidebar/search/search.component";
-import { SnackbarService } from "./services/snackbar.service";
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  ViewChild,
+  ViewContainerRef,
+} from "@angular/core"
+import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
+import { Recipe } from "./models/recipe"
+import { DialogsService } from "./services/dialogs.service"
+import { ExtendedOption } from "./models/extendedOption"
+import { SearchComponent } from "./components/sidebar/search/search.component"
+import { SnackbarService } from "./services/snackbar.service"
 
 @Component({
   selector: "app-root",
@@ -31,7 +37,7 @@ export class AppComponent {
       if (event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
         await this.closeExtensibleContainer()
         event.preventDefault()
-      } else if(event.key === "Enter" && this.extended === ExtendedOption.SEARCH) {
+      } else if (event.key === "Enter" && this.extended === ExtendedOption.SEARCH) {
         this.searchComponent.onSearch()
         event.preventDefault()
       }
@@ -184,5 +190,5 @@ export class AppComponent {
     await this.viewSelected(ExtendedOption.EDITRECIPE)
   }
 
-  protected readonly ExtendedOption = ExtendedOption;
+  protected readonly ExtendedOption = ExtendedOption
 }

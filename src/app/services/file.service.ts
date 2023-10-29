@@ -26,7 +26,7 @@ export class FileService {
       library = <Library>object
     }
 
-    if(initial) {
+    if (initial) {
       this.recipeService.initializeRecipeLibrary(library.recipes)
     } else {
       this.recipeService.importLibrary(library.recipes)

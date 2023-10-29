@@ -1,5 +1,5 @@
-import { SortOptions } from "./sortOptions";
-import { SortDirection } from "./sortDirection";
+import { SortOptions } from "./sortOptions"
+import { SortDirection } from "./sortDirection"
 
 export interface SearchOptions {
   minimumRating: number

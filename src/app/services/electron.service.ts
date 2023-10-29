@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, NgZone } from "@angular/core";
+import { EventEmitter, Injectable, NgZone } from "@angular/core"
 import { FileService } from "./file.service"
 import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
@@ -60,7 +60,7 @@ export class ElectronService {
   }
 
   public requestImportLibrary() {
-    if(this.ipc) {
+    if (this.ipc) {
       this.ipc!.send("importLibrary")
     }
   }

@@ -3,11 +3,19 @@
   *ngIf="showSearchResults">
   <div class="optionRow">
     <p *ngIf="shownRecipes.length > 0">Found {{ shownRecipes.length }} Recipes</p>
-    <div *ngIf="shownRecipes.length > 0" class="sortOptions">
-      <app-sort-by [disabled]="this.currentSortOption !== SortOptions.ALPHABET" [selectedSortOption]="SortOptions.ALPHABET"
-        (sortDirectionChanged)="this.sortOptionAdjusted(SortOptions.ALPHABET, $event)"></app-sort-by>
-      <app-sort-by [disabled]="this.currentSortOption !== SortOptions.RATING" [selectedSortOption]="SortOptions.RATING"
-                   (sortDirectionChanged)="this.sortOptionAdjusted(SortOptions.RATING, $event)"></app-sort-by>
+    <div
+      *ngIf="shownRecipes.length > 0"
+      class="sortOptions">
+      <app-sort-by
+        [disabled]="this.currentSortOption !== SortOptions.ALPHABET"
+        [selectedSortOption]="SortOptions.ALPHABET"
+        (sortDirectionChanged)="
+          this.sortOptionAdjusted(SortOptions.ALPHABET, $event)
+        "></app-sort-by>
+      <app-sort-by
+        [disabled]="this.currentSortOption !== SortOptions.RATING"
+        [selectedSortOption]="SortOptions.RATING"
+        (sortDirectionChanged)="this.sortOptionAdjusted(SortOptions.RATING, $event)"></app-sort-by>
     </div>
   </div>
   <div class="resultList">

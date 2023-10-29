@@ -57,7 +57,7 @@ export class RecipeService {
   }
 
   public importLibrary(recipes: Recipe[]) {
-    recipes.forEach(recipe => {
+    recipes.forEach((recipe) => {
       recipe.id = RecipeService.getNextRecipeId()
       this.recipes.push(recipe)
       this.updateKnown(recipe)

@@ -1,11 +1,11 @@
-import { EventEmitter, Injectable } from "@angular/core";
-import { Recipe } from "../models/recipe";
-import { RecipeService } from "./recipe.service";
-import { SearchOptions } from "../models/searchOptions";
-import { RecipeAction } from "../models/recipeAction";
-import { RecipeChangeEvent } from "../models/recipeChangeEvent";
-import { SortDirection } from "../models/sortDirection";
-import { SortOptions } from "../models/sortOptions";
+import { EventEmitter, Injectable } from "@angular/core"
+import { Recipe } from "../models/recipe"
+import { RecipeService } from "./recipe.service"
+import { SearchOptions } from "../models/searchOptions"
+import { RecipeAction } from "../models/recipeAction"
+import { RecipeChangeEvent } from "../models/recipeChangeEvent"
+import { SortDirection } from "../models/sortDirection"
+import { SortOptions } from "../models/sortOptions"
 
 @Injectable({
   providedIn: "root",
@@ -35,7 +35,7 @@ export class SearchService {
       return
     }
 
-    if(recipeChangeEvent.recipe === undefined) {
+    if (recipeChangeEvent.recipe === undefined) {
       this.search(this.lastSearchOptions)
     } else {
       const recipeInSearch =
@@ -73,8 +73,12 @@ export class SearchService {
 
     let resultList = this.getFilteredRecipes(allRecipes, searchOptions)
 
-    if(searchOptions.sortOption !== undefined && searchOptions.sortDirection !== undefined) {
-      resultList = this.sortResultList(searchOptions.sortOption, searchOptions.sortDirection, resultList)
+    if (searchOptions.sortOption !== undefined && searchOptions.sortDirection !== undefined) {
+      resultList = this.sortResultList(
+        searchOptions.sortOption,
+        searchOptions.sortDirection,
+        resultList
+      )
     }
 
     this.lastSearchResults = resultList
@@ -101,16 +105,20 @@ export class SearchService {
       )
   }
 
-  private sortResultList(sortOption: SortOptions, direction: SortDirection, list: Recipe[]): Recipe[]  {
+  private sortResultList(
+    sortOption: SortOptions,
+    direction: SortDirection,
+    list: Recipe[]
+  ): Recipe[] {
     switch (sortOption) {
       case SortOptions.ALPHABET:
-        if(direction === SortDirection.ASC) {
-          return list.sort((a, b) => a.recipeName < b.recipeName ? -1 : 1)
+        if (direction === SortDirection.ASC) {
+          return list.sort((a, b) => (a.recipeName < b.recipeName ? -1 : 1))
         } else {
-          return list.sort((a, b) => a.recipeName < b.recipeName ? 1 : -1)
+          return list.sort((a, b) => (a.recipeName < b.recipeName ? 1 : -1))
         }
       case SortOptions.RATING:
-        if(direction === SortDirection.ASC) {
+        if (direction === SortDirection.ASC) {
           return list.sort((a, b) => a.rating - b.rating)
         } else {
           return list.sort((a, b) => b.rating - a.rating)
@@ -119,7 +127,7 @@ export class SearchService {
   }
 
   public adjustSortFilter(newSortOption: SortOptions, newSortDirection: SortDirection) {
-    if(!this.lastSearchOptions) {
+    if (!this.lastSearchOptions) {
       throw new Error("Should not be called without a previous search")
     }
 

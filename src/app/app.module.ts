@@ -27,8 +27,8 @@ import { SettingsComponent } from "./components/sidebar/settings/settings.compon
 import { AutocompleteWithAddFunctionComponent } from "./components/util/autocomplete-with-add-function/autocomplete-with-add-function.component"
 import { ToolbarComponent } from "./components/util/toolbar/toolbar.component"
 import { SnackbarComponent } from "./components/util/snackbar/snackbar.component"
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { SortByComponent } from './components/util/sort-by/sort-by.component'
+import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { SortByComponent } from "./components/util/sort-by/sort-by.component"
 
 @NgModule({
   declarations: [
