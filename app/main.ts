@@ -226,6 +226,7 @@ ipcMain.on("importLibrary", async (event) => {
   const selectionResult = electron.dialog.showOpenDialogSync(win, {
     title: "Recipe Library - Select Library File",
     properties: ["openFile"],
+    defaultPath: app.getPath("documents")
   })
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {
@@ -246,11 +247,11 @@ ipcMain.on("newFileSavePath", async (event) => {
   const selectionResult = electron.dialog.showOpenDialogSync(win, {
     title: "Recipe Library - Select Folder for Save File",
     properties: ["openDirectory"],
+    defaultPath: app.getPath("documents")
   })
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {
     const recipes = loadRecipes()
-    console.log("recipes", recipes)
     recipeSavePath = path.resolve(selectionResult[0], "recipes.json")
     saveSettings()
     saveRecipes(recipes)
