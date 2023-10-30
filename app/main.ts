@@ -1,8 +1,8 @@
-import * as electron from "electron";
-import { app, BrowserWindow, ipcMain } from "electron";
-import * as path from "path";
-import * as fs from "fs";
-import { Settings } from "./settings";
+import * as electron from "electron"
+import { app, BrowserWindow, ipcMain } from "electron"
+import * as path from "path"
+import * as fs from "fs"
+import { Settings } from "./settings"
 
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
@@ -167,7 +167,11 @@ try {
    */
 }
 
-const defaultRecipeSavePath = path.resolve(app.getPath("documents"), "RecipeLibrary", "recipes.json")
+const defaultRecipeSavePath = path.resolve(
+  app.getPath("documents"),
+  "RecipeLibrary",
+  "recipes.json"
+)
 let recipeSavePath: string = defaultRecipeSavePath
 const settingsFilePath = app.getPath("userData") + "/settings.json"
 
@@ -191,7 +195,7 @@ ipcMain.on("maximize", () => {
 })
 
 ipcMain.on("saveFile", (event, object) => {
-    saveRecipes(object)
+  saveRecipes(object)
 })
 
 ipcMain.on("loadFile", (event) => {
@@ -233,7 +237,7 @@ ipcMain.on("newFileSavePath", async (event) => {
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {
     const recipes = loadRecipes()
-    console.log("recipes", recipes);
+    console.log("recipes", recipes)
     recipeSavePath = path.resolve(selectionResult[0], "recipes.json")
     saveSettings()
     saveRecipes(recipes)
@@ -249,7 +253,7 @@ function loadSettings() {
 
     const settings: Settings = JSON.parse(settingsFile)
 
-    if(settings.recipeSavePath) {
+    if (settings.recipeSavePath) {
       recipeSavePath = settings.recipeSavePath
     }
   } else {
@@ -259,14 +263,14 @@ function loadSettings() {
 
 function saveSettings() {
   const settings: Settings = {
-    recipeSavePath: recipeSavePath
+    recipeSavePath: recipeSavePath,
   }
 
   fs.writeFileSync(settingsFilePath, JSON.stringify(settings), { encoding: "utf-8" })
 }
 
 function saveRecipes(recipes: any) {
-  if(recipeSavePath === defaultRecipeSavePath && !fs.existsSync(recipeSavePath)) {
+  if (recipeSavePath === defaultRecipeSavePath && !fs.existsSync(recipeSavePath)) {
     const folder = defaultRecipeSavePath.substring(0, defaultRecipeSavePath.length - 13)
     fs.mkdirSync(folder)
   }
@@ -286,7 +290,7 @@ function loadRecipes(): any {
 
 function sendSettingsToFrontend(sender: Electron.WebContents) {
   const settings: Settings = {
-    recipeSavePath: recipeSavePath
+    recipeSavePath: recipeSavePath,
   }
 
   sender.send("settings", settings)
