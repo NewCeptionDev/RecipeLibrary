@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { EventEmitter, Injectable } from "@angular/core";
 import { Library } from "../models/library"
 import { RecipeService } from "./recipe.service"
 import { ElectronService } from "./electron.service"
@@ -10,6 +10,10 @@ export class FileService {
   private readonly CURRENT_FILE_VERSION = 1
 
   private electronService: ElectronService | undefined
+
+  private _savePath: string = ""
+
+  public settingsChangedEvent: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private recipeService: RecipeService) {
     this.recipeService.recipeChangeEvent.subscribe(() => this.saveLibrary())
@@ -53,5 +57,15 @@ export class FileService {
 
   public registerElectronService(electronService: ElectronService) {
     this.electronService = electronService
+  }
+
+
+  get savePath(): string {
+    return this._savePath;
+  }
+
+  set savePath(value: string) {
+    this._savePath = value;
+    this.settingsChangedEvent.emit()
   }
 }

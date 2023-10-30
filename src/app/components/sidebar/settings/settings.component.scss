@@ -13,3 +13,27 @@
     font-size: 1.6rem;
   }
 }
+
+.settingContainer {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  border-radius: 10px;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  margin-bottom: 3vh;
+
+  > * {
+    margin-left: 5%;
+  }
+
+  button {
+    align-self: center;
+  }
+
+  p {
+    overflow-wrap: break-word;
+    margin: 0 7% 2vh;
+  }
+}
+

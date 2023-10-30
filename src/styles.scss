@@ -87,6 +87,10 @@ app-extensible-container {
   background-color: map.get(palette.$recipe-black-palette, 700);
 }
 
+.settingContainer {
+  background-color: map.get(palette.$recipe-black-palette, 700);
+}
+
 tr {
   background-color: map.get(palette.$recipe-black-palette, 700) !important;
 }

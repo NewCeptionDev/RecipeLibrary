@@ -1,7 +1,8 @@
-import { BrowserWindow, app, screen, ipcMain } from "electron"
-import * as path from "path"
-import * as fs from "fs"
-import * as electron from "electron"
+import * as electron from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import * as path from "path";
+import * as fs from "fs";
+import { Settings } from "./settings";
 
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
@@ -79,8 +80,6 @@ function handleSquirrelEvent() {
 }
 
 function createWindow(): BrowserWindow {
-  const size = screen.getPrimaryDisplay().workAreaSize
-
   // Create the browser window.
   win = new BrowserWindow({
     // width: size.width,
@@ -168,6 +167,13 @@ try {
    */
 }
 
+const defaultRecipeSavePath = path.resolve(app.getPath("documents"), "RecipeLibrary", "recipes.json")
+let recipeSavePath: string = defaultRecipeSavePath
+const settingsFilePath = app.getPath("userData") + "/settings.json"
+
+// Load settings
+loadSettings()
+
 ipcMain.on("close", () => {
   app.quit()
 })
@@ -185,17 +191,15 @@ ipcMain.on("maximize", () => {
 })
 
 ipcMain.on("saveFile", (event, object) => {
-  fs.writeFileSync(app.getPath("userData") + "/recipes.json", object, { encoding: "utf-8" })
+    saveRecipes(object)
 })
 
 ipcMain.on("loadFile", (event) => {
-  if (fs.existsSync(app.getPath("userData") + "/recipes.json")) {
-    const recipes = fs.readFileSync(app.getPath("userData") + "/recipes.json", {
-      encoding: "utf-8",
-    })
+  event.sender.send("fileLoaded", loadRecipes())
+})
 
-    event.sender.send("fileLoaded", recipes)
-  }
+ipcMain.on("getSettings", (event) => {
+  sendSettingsToFrontend(event.sender)
 })
 
 ipcMain.on("importLibrary", async (event) => {
@@ -214,6 +218,76 @@ ipcMain.on("importLibrary", async (event) => {
     })
 
     event.sender.send("importLibraryFile", recipes)
-    app.focus()
   }
 })
+
+ipcMain.on("newFileSavePath", async (event) => {
+  if (!win) {
+    return
+  }
+
+  const selectionResult = electron.dialog.showOpenDialogSync(win, {
+    title: "Recipe Library - Select Folder for Save File",
+    properties: ["openDirectory"],
+  })
+
+  if (selectionResult && fs.existsSync(selectionResult[0])) {
+    const recipes = loadRecipes()
+    console.log("recipes", recipes);
+    recipeSavePath = path.resolve(selectionResult[0], "recipes.json")
+    saveSettings()
+    saveRecipes(recipes)
+    sendSettingsToFrontend(event.sender)
+  }
+})
+
+function loadSettings() {
+  if (fs.existsSync(settingsFilePath)) {
+    const settingsFile = fs.readFileSync(settingsFilePath, {
+      encoding: "utf-8",
+    })
+
+    const settings: Settings = JSON.parse(settingsFile)
+
+    if(settings.recipeSavePath) {
+      recipeSavePath = settings.recipeSavePath
+    }
+  } else {
+    saveSettings()
+  }
+}
+
+function saveSettings() {
+  const settings: Settings = {
+    recipeSavePath: recipeSavePath
+  }
+
+  fs.writeFileSync(settingsFilePath, JSON.stringify(settings), { encoding: "utf-8" })
+}
+
+function saveRecipes(recipes: any) {
+  if(recipeSavePath === defaultRecipeSavePath && !fs.existsSync(recipeSavePath)) {
+    const folder = defaultRecipeSavePath.substring(0, defaultRecipeSavePath.length - 13)
+    fs.mkdirSync(folder)
+  }
+
+  fs.writeFileSync(recipeSavePath, recipes, { encoding: "utf-8" })
+}
+
+function loadRecipes(): any {
+  if (fs.existsSync(recipeSavePath)) {
+    return fs.readFileSync(recipeSavePath, {
+      encoding: "utf-8",
+    })
+  } else {
+    return []
+  }
+}
+
+function sendSettingsToFrontend(sender: Electron.WebContents) {
+  const settings: Settings = {
+    recipeSavePath: recipeSavePath
+  }
+
+  sender.send("settings", settings)
+}

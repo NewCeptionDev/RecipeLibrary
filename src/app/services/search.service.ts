@@ -113,7 +113,7 @@ export class SearchService {
     switch (sortOption) {
       case SortOptions.ALPHABET:
         if (direction === SortDirection.ASC) {
-          return list.sort((a, b) => (a.recipeName < b.recipeName ? -1 : 1))
+          return list.sort((a, b) => (a.recipeName.toLowerCase() < b.recipeName.toLowerCase() ? -1 : 1))
         } else {
           return list.sort((a, b) => (a.recipeName < b.recipeName ? 1 : -1))
         }

@@ -1,9 +1,17 @@
 <div class="container">
   <h1>Settings</h1>
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="importLibrary()">
-    Import Library
-  </button>
+  <div class="settingContainer">
+    <h3>Import Recipes from Save File</h3>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="importLibrary()">
+      Import Library
+    </button>
+  </div>
+  <div class="settingContainer">
+    <h3>Change Path of Save File</h3>
+    <p>Current Path:<br><i>{{ getCurrentSavePath() }}</i></p>
+    <button mat-raised-button color="accent" (click)="changeSavePath()">Change Path</button>
+  </div>
 </div>

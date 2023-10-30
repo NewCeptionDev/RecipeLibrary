@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, NgZone } from "@angular/core"
 import { FileService } from "./file.service"
 import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
+import { Settings } from "../../../app/settings";
 
 @Injectable({
   providedIn: "root",
@@ -19,12 +20,17 @@ export class ElectronService {
         this.fileService.processSaveFile(message, true)
       })
 
-      this.ipc?.on("importLibraryFile", (event: IpcRendererEvent, message: string) => {
+      this.ipc.on("importLibraryFile", (event: IpcRendererEvent, message: string) => {
         this.zone.run(() => {
           this.fileService.processSaveFile(message, false)
         })
       })
 
+      this.ipc.on("settings", (event, settings: Settings) => {
+        this.fileService.savePath = settings.recipeSavePath
+      })
+
+      this.requestSettingsInformation()
       this.requestLoadFile()
     }
   }
@@ -59,9 +65,21 @@ export class ElectronService {
     }
   }
 
+  public requestSettingsInformation() {
+    if (this.ipc) {
+      this.ipc.send("getSettings")
+    }
+  }
+
   public requestImportLibrary() {
     if (this.ipc) {
-      this.ipc!.send("importLibrary")
+      this.ipc.send("importLibrary")
+    }
+  }
+
+  public requestNewFileSavePath() {
+    if (this.ipc) {
+      this.ipc.send("newFileSavePath")
     }
   }
 }
