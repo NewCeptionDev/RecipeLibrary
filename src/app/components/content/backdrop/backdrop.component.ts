@@ -26,6 +26,7 @@ export class BackdropComponent implements OnInit {
         this.showBackdrop = true
         this.noSearchResults = true
       }
+      this.changeDetector.detectChanges()
     })
 
     this.recipeService.recipeChangeEvent.subscribe(() => {

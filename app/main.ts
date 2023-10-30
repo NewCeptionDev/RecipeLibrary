@@ -2,7 +2,6 @@ import * as electron from "electron"
 import { app, BrowserWindow, ipcMain } from "electron"
 import * as path from "path"
 import * as fs from "fs"
-import { Settings } from "./settings"
 
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
@@ -90,7 +89,7 @@ function createWindow(): BrowserWindow {
       nodeIntegration: true,
       allowRunningInsecureContent: serve,
       contextIsolation: false, // false if you want to run e2e test with Spectron
-      devTools: true,
+      devTools: false,
     },
     titleBarStyle: "hidden",
     minWidth: 1280,
@@ -103,7 +102,6 @@ function createWindow(): BrowserWindow {
      * debug();
      */
 
-    // require('electron-reloader')(module);
     win.loadURL("http://localhost:4200")
   } else {
     // Path when running electron executable
@@ -178,14 +176,24 @@ const settingsFilePath = app.getPath("userData") + "/settings.json"
 // Load settings
 loadSettings()
 
+
+/**
+ *
+ * Event Handling
+ *
+ */
+
+// Close Window
 ipcMain.on("close", () => {
   app.quit()
 })
 
+// Minimize Window
 ipcMain.on("minimize", () => {
   win?.minimize()
 })
 
+// Maximize Window
 ipcMain.on("maximize", () => {
   if (win?.isMaximized()) {
     win?.unmaximize()
@@ -194,18 +202,22 @@ ipcMain.on("maximize", () => {
   }
 })
 
+// Save recipes to file
 ipcMain.on("saveFile", (event, object) => {
   saveRecipes(object)
 })
 
+// Load recipes from file
 ipcMain.on("loadFile", (event) => {
   event.sender.send("fileLoaded", loadRecipes())
 })
 
+// Send settings to frontend
 ipcMain.on("getSettings", (event) => {
   sendSettingsToFrontend(event.sender)
 })
 
+// Select and read file and return recipes read to frontend
 ipcMain.on("importLibrary", async (event) => {
   if (!win) {
     return
@@ -225,6 +237,7 @@ ipcMain.on("importLibrary", async (event) => {
   }
 })
 
+// Select folder to be new save path, change settings and save recipes at new path
 ipcMain.on("newFileSavePath", async (event) => {
   if (!win) {
     return
@@ -244,6 +257,12 @@ ipcMain.on("newFileSavePath", async (event) => {
     sendSettingsToFrontend(event.sender)
   }
 })
+
+/**
+ *
+ * Common functions  and interfaces
+ *
+ */
 
 function loadSettings() {
   if (fs.existsSync(settingsFilePath)) {
@@ -294,4 +313,8 @@ function sendSettingsToFrontend(sender: Electron.WebContents) {
   }
 
   sender.send("settings", settings)
+}
+
+export interface Settings {
+  recipeSavePath: string
 }
