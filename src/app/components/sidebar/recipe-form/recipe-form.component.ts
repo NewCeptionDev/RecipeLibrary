@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { Observable } from "rxjs"
 import { Recipe } from "src/app/models/recipe"
 import { RecipeService } from "src/app/services/recipe.service"
-import { FormControl  , Validators } from "@angular/forms"
+import { FormControl, Validators } from "@angular/forms"
 
 @Component({
   selector: "app-recipe-form",

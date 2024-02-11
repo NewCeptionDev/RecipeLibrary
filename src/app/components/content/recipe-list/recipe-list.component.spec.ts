@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeListComponent } from "./recipe-list.component"
-import { Recipe } from "../../../models/recipe";
-import { EventEmitter } from "@angular/core";
-import { SearchService } from "../../../services/search.service";
+import { Recipe } from "../../../models/recipe"
+import { EventEmitter } from "@angular/core"
+import { SearchService } from "../../../services/search.service"
 
 const testRecipe: Recipe = {
   id: 1,
@@ -11,7 +11,7 @@ const testRecipe: Recipe = {
   rating: 5,
   cookbook: "",
   categories: [],
-  ingredients: []
+  ingredients: [],
 }
 
 class SearchServiceMock {
@@ -29,7 +29,7 @@ describe("RecipeListComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeListComponent],
-      providers: [{provide: SearchService, useClass: SearchServiceMock}],
+      providers: [{ provide: SearchService, useClass: SearchServiceMock }],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeListComponent)

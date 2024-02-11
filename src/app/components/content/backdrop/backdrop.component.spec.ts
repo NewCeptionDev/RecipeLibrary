@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import { BackdropComponent } from "./backdrop.component";
-import { RecipeService } from "../../../services/recipe.service";
-import { SearchService } from "../../../services/search.service";
-import { EventEmitter } from "@angular/core";
-import { Recipe } from "../../../models/recipe";
-import { RecipeChangeEvent } from "../../../models/recipeChangeEvent";
-import { MatIconModule } from "@angular/material/icon";
-import { RecipeAction } from "../../../models/recipeAction";
+import { BackdropComponent } from "./backdrop.component"
+import { RecipeService } from "../../../services/recipe.service"
+import { SearchService } from "../../../services/search.service"
+import { EventEmitter } from "@angular/core"
+import { Recipe } from "../../../models/recipe"
+import { RecipeChangeEvent } from "../../../models/recipeChangeEvent"
+import { MatIconModule } from "@angular/material/icon"
+import { RecipeAction } from "../../../models/recipeAction"
 
 const testRecipe: Recipe = {
   id: 1,
@@ -15,7 +15,7 @@ const testRecipe: Recipe = {
   rating: 5,
   cookbook: "",
   categories: [],
-  ingredients: []
+  ingredients: [],
 }
 
 class RecipeServiceMock {
@@ -36,7 +36,7 @@ class RecipeServiceMock {
     this.recipes.push(recipe)
     this.recipeChangeEvent.emit({
       recipe: recipe,
-      event: RecipeAction.ADD
+      event: RecipeAction.ADD,
     })
   }
 }
@@ -59,9 +59,9 @@ describe("BackdropComponent", () => {
       declarations: [BackdropComponent],
       providers: [
         { provide: RecipeService, useClass: RecipeServiceMock },
-        { provide: SearchService, useClass: SearchServiceMock }
+        { provide: SearchService, useClass: SearchServiceMock },
       ],
-      imports: [MatIconModule]
+      imports: [MatIconModule],
     }).compileComponents()
 
     fixture = TestBed.createComponent(BackdropComponent)

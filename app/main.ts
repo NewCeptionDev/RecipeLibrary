@@ -176,7 +176,6 @@ const settingsFilePath = app.getPath("userData") + "/settings.json"
 // Load settings
 loadSettings()
 
-
 /**
  *
  * Event Handling
@@ -226,7 +225,7 @@ ipcMain.on("importLibrary", async (event) => {
   const selectionResult = electron.dialog.showOpenDialogSync(win, {
     title: "Recipe Library - Select Library File",
     properties: ["openFile"],
-    defaultPath: app.getPath("documents")
+    defaultPath: app.getPath("documents"),
   })
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {
@@ -247,7 +246,7 @@ ipcMain.on("newFileSavePath", async (event) => {
   const selectionResult = electron.dialog.showOpenDialogSync(win, {
     title: "Recipe Library - Select Folder for Save File",
     properties: ["openDirectory"],
-    defaultPath: app.getPath("documents")
+    defaultPath: app.getPath("documents"),
   })
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {

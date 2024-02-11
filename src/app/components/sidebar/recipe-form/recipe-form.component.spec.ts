@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeFormComponent } from "./recipe-form.component"
-import { Recipe } from "../../../models/recipe";
-import { RecipeService } from "../../../services/recipe.service";
+import { Recipe } from "../../../models/recipe"
+import { RecipeService } from "../../../services/recipe.service"
 
 class RecipeServiceMock {
   private recipes: Recipe[] = []
@@ -23,11 +23,9 @@ class RecipeServiceMock {
     return []
   }
 
-  public addRecipe(recipe: Recipe) {
-  }
+  public addRecipe(recipe: Recipe) {}
 
-  public updateRecipe(id: number, recipe: Recipe) {
-  }
+  public updateRecipe(id: number, recipe: Recipe) {}
 }
 
 describe("AddRecipeComponent", () => {
@@ -38,9 +36,7 @@ describe("AddRecipeComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeFormComponent],
-      providers: [
-        {provide: RecipeService, useClass: RecipeServiceMock},
-      ]
+      providers: [{ provide: RecipeService, useClass: RecipeServiceMock }],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeFormComponent)
@@ -89,7 +85,7 @@ describe("AddRecipeComponent", () => {
   it("should mark formControl as touched if invalid", () => {
     const recipeChangeEmitSpy = spyOn(component.recipeChange, "emit")
     expect(component.recipeFormControl.touched).toBe(false)
-    component.recipeFormControl.setErrors({'incorrect': true})
+    component.recipeFormControl.setErrors({ incorrect: true })
 
     component.finalizeRecipe()
 
@@ -164,7 +160,7 @@ describe("AddRecipeComponent", () => {
     component.recipe = component.defaultRecipe
     component.recipeInput = component.defaultRecipe
 
-    expect(component.hasRecipeChanged()). toBe(false)
+    expect(component.hasRecipeChanged()).toBe(false)
   })
 
   it("should have editing headline in html when editing", () => {

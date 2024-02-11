@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { EditRecipesComponent } from "./edit-recipes.component"
-import { Recipe } from "../../../models/recipe";
-import { RecipeService } from "../../../services/recipe.service";
-import { DialogsService } from "../../../services/dialogs.service";
-import { MatTableModule } from "@angular/material/table";
-import { EventEmitter } from "@angular/core";
-import { MatIconModule } from "@angular/material/icon";
+import { Recipe } from "../../../models/recipe"
+import { RecipeService } from "../../../services/recipe.service"
+import { DialogsService } from "../../../services/dialogs.service"
+import { MatTableModule } from "@angular/material/table"
+import { EventEmitter } from "@angular/core"
+import { MatIconModule } from "@angular/material/icon"
 
 const testRecipe: Recipe = {
   id: 1,
@@ -14,7 +14,7 @@ const testRecipe: Recipe = {
   rating: 5,
   cookbook: "",
   categories: [],
-  ingredients: []
+  ingredients: [],
 }
 
 class RecipeServiceMock {
@@ -29,9 +29,7 @@ class RecipeServiceMock {
   }
 }
 
-class DialogServiceMock {
-
-}
+class DialogServiceMock {}
 
 describe("EditRecipesComponent", () => {
   let component: EditRecipesComponent
@@ -42,10 +40,10 @@ describe("EditRecipesComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [EditRecipesComponent],
       providers: [
-        {provide: RecipeService, useClass: RecipeServiceMock},
-        {provide: DialogsService, useClass: DialogServiceMock},
+        { provide: RecipeService, useClass: RecipeServiceMock },
+        { provide: DialogsService, useClass: DialogServiceMock },
       ],
-      imports: [MatTableModule, MatIconModule]
+      imports: [MatTableModule, MatIconModule],
     }).compileComponents()
 
     fixture = TestBed.createComponent(EditRecipesComponent)
@@ -68,9 +66,9 @@ describe("EditRecipesComponent", () => {
 
   it("should not show no recipes note if recipes were added", () => {
     recipeService.addRecipe(testRecipe)
-      const editRecipes: HTMLElement = fixture.nativeElement
+    const editRecipes: HTMLElement = fixture.nativeElement
 
-    const reloadRecipesCaller: EventEmitter<void>  = new EventEmitter()
+    const reloadRecipesCaller: EventEmitter<void> = new EventEmitter()
     component.reloadRecipes = reloadRecipesCaller.asObservable()
     component.ngOnInit()
     reloadRecipesCaller.emit()

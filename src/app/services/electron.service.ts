@@ -2,7 +2,7 @@ import { Injectable, NgZone } from "@angular/core"
 import { FileService } from "./file.service"
 import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
-import { Settings } from "../../../app/main";
+import { Settings } from "../../../app/main"
 
 @Injectable({
   providedIn: "root",

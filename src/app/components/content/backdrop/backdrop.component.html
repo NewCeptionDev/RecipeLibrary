@@ -7,7 +7,8 @@
     recipe list from the settings <mat-icon>settings</mat-icon>
   </p>
   <p *ngIf="!noSearchResults && foundRecipes > 0">
-    Found {{ foundRecipes }} recipe{{foundRecipes > 1 ? "s" : ""}}! Start searching <mat-icon>search</mat-icon> to discover them.
+    Found {{ foundRecipes }} recipe{{ foundRecipes > 1 ? "s" : "" }}! Start searching
+    <mat-icon>search</mat-icon> to discover them.
   </p>
   <p *ngIf="noSearchResults && foundRecipes > 0">There were no results found for your search.</p>
 </div>

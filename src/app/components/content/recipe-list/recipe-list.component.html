@@ -1,10 +1,11 @@
 <div
   class="container"
   *ngIf="showSearchResults">
-  <div class="optionRow" *ngIf="shownRecipes.length > 0">
-    <p >Found {{ shownRecipes.length }} Recipe{{shownRecipes.length > 1 ? "s" : ""}}</p>
-    <div
-      class="sortOptions">
+  <div
+    class="optionRow"
+    *ngIf="shownRecipes.length > 0">
+    <p>Found {{ shownRecipes.length }} Recipe{{ shownRecipes.length > 1 ? "s" : "" }}</p>
+    <div class="sortOptions">
       <app-sort-by
         [disabled]="this.currentSortOption !== SortOptions.ALPHABET"
         [selectedSortOption]="SortOptions.ALPHABET"

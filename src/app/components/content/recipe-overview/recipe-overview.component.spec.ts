@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeOverviewComponent } from "./recipe-overview.component"
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon"
 
 describe("RecipeOverviewComponent", () => {
   let component: RecipeOverviewComponent
@@ -10,7 +10,7 @@ describe("RecipeOverviewComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeOverviewComponent],
-      imports: [MatIconModule]
+      imports: [MatIconModule],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeOverviewComponent)
