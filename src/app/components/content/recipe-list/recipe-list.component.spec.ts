@@ -4,9 +4,6 @@ import { RecipeListComponent } from "./recipe-list.component"
 import { Recipe } from "../../../models/recipe";
 import { EventEmitter } from "@angular/core";
 import { SearchService } from "../../../services/search.service";
-import { SortByComponent } from "../../util/sort-by/sort-by.component";
-import { RecipeOverviewComponent } from "../recipe-overview/recipe-overview.component";
-import { RecipeDetailComponent } from "../recipe-detail/recipe-detail.component";
 
 const testRecipe: Recipe = {
   id: 1,
@@ -33,7 +30,6 @@ describe("RecipeListComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeListComponent],
       providers: [{provide: SearchService, useClass: SearchServiceMock}],
-
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeListComponent)
