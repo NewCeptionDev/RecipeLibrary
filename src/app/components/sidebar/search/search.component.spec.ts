@@ -1,16 +1,15 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SearchComponent } from "./search.component"
-import { SearchService } from "../../../services/search.service";
-import { Recipe } from "../../../models/recipe";
-import { RecipeService } from "../../../services/recipe.service";
-import { SearchOptions } from "../../../models/searchOptions";
-import { SortOptions } from "../../../models/sortOptions";
-import { SortDirection } from "../../../models/sortDirection";
+import { SearchService } from "../../../services/search.service"
+import { Recipe } from "../../../models/recipe"
+import { RecipeService } from "../../../services/recipe.service"
+import { SearchOptions } from "../../../models/searchOptions"
+import { SortOptions } from "../../../models/sortOptions"
+import { SortDirection } from "../../../models/sortDirection"
 
 class SearchServiceMock {
-  public search(options: never) {
-  }
+  public search(options: never) {}
 
   public getLastSearchOptions() {
     return {
@@ -50,7 +49,8 @@ describe("SearchComponent", () => {
       declarations: [SearchComponent],
       providers: [
         { provide: SearchService, useClass: SearchServiceMock },
-        { provide: RecipeService, useClass: RecipeServiceMock }],
+        { provide: RecipeService, useClass: RecipeServiceMock },
+      ],
     }).compileComponents()
 
     fixture = TestBed.createComponent(SearchComponent)
@@ -67,7 +67,7 @@ describe("SearchComponent", () => {
     component.selectedOptions.minimumRating = 1
     component.onNewRatingSelected(4)
 
-    expect(component.selectedOptions.minimumRating = 4)
+    expect((component.selectedOptions.minimumRating = 4))
   })
 
   it("should update ingredient", () => {
