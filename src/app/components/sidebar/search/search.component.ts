@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core"
+  import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core"
 import { SearchOptions } from "../../../models/searchOptions"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"

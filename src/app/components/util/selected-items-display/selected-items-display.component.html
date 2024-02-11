@@ -5,11 +5,11 @@
     *ngIf="editable"
     class="input"
     [knownItems]="knownItems"
-    [labelName]="(onlyKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
+    [labelName]="(justKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
     [clearOnSelect]="true"
     [itemName]="headline"
     (itemSelected)="onItemSelect($event)"
-    [disableAddFunction]="onlyKnownItemsSelectable"
+    [disableAddFunction]="justKnownItemsSelectable"
     [filterFunction]="notAlreadyIncludedInData"></app-autocomplete-with-add-function>
 
   <div class="table">

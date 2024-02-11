@@ -25,7 +25,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   public knownItems: string[] = []
 
   @Input()
-  public onlyKnownItemsSelectable: boolean = false
+  public justKnownItemsSelectable: boolean = false
 
   @Input()
   public triggerRefresh: EventEmitter<void> | undefined
