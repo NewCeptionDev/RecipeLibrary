@@ -1,4 +1,4 @@
-import {
+  import {
   Component,
   ElementRef,
   EventEmitter,
@@ -73,11 +73,12 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
     const filterValue = value.toLowerCase()
 
     const itemsToFilter = [...this.knownItems]
+    const lowerCaseItemsToFilter = itemsToFilter.map(item => item.toLowerCase())
 
     if (
       !this.disableAddFunction &&
-      !itemsToFilter.includes(value) &&
-      !itemsToFilter.includes(filterValue) &&
+      !lowerCaseItemsToFilter.includes(value) &&
+      !lowerCaseItemsToFilter.includes(filterValue) &&
       value.length > 0
     ) {
       itemsToFilter.push(value)
