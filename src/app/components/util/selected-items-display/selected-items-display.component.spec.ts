@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
+import { MatTableModule } from "@angular/material/table";
 
 describe("SelectedItemsDisplayComponent", () => {
   let component: SelectedItemsDisplayComponent
@@ -9,6 +10,7 @@ describe("SelectedItemsDisplayComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SelectedItemsDisplayComponent],
+      imports: [MatTableModule]
     }).compileComponents()
 
     fixture = TestBed.createComponent(SelectedItemsDisplayComponent)
@@ -20,21 +22,32 @@ describe("SelectedItemsDisplayComponent", () => {
     expect(component).toBeTruthy()
   })
 
-  // it("should show correct label justKnownItemsSelectable is true", () => {
-  //   const display = fixture.nativeElement
-  //   const autocomplete = display.querySelector("app-autocomplete-with-add-function")!
-  //   autocomplete.la
-  // })
-  //
-  // it("should show no recipes note if no recipes were added", () => {
-  //   component.columns = []
-  //   const display: HTMLElement = fixture.nativeElement
-  //   const tableCell = display.querySelector(".mat-cell")!
-  //   component.ngOnInit()
-  //   fixture.detectChanges()
-  //
-  //   expect(tableCell.textContent).toBe(component.noItemsAddedDescription)
-  // })
+  it("should show correct label if justKnownItemsSelectable is true", () => {
+    component.justKnownItemsSelectable = true;
+    component.headline = "Items"
+    const display = fixture.nativeElement
+    const autocomplete = display.querySelector("app-autocomplete-with-add-function")!
+    autocomplete.label = "Select Items"
+  })
+
+  it("should show correct label if justKnownItemsSelectable is false", () => {
+    component.justKnownItemsSelectable = false;
+    component.headline = "Items"
+    const display = fixture.nativeElement
+    const autocomplete = display.querySelector("app-autocomplete-with-add-function")!
+    autocomplete.label = "Add / Select Items"
+  })
+
+  it("should show no recipes note if no recipes were added", () => {
+    component.ngOnInit()
+    component.data = []
+    component.refreshTableData()
+    fixture.detectChanges()
+    const display: HTMLElement = fixture.nativeElement
+    const tableCell = display.querySelector(".mat-cell")!
+
+    expect(tableCell.textContent!.trim()).toBe(component.noItemsAddedDescription)
+  })
 
   it("should add item on itemSelect", () => {
     const addItem = "newItem"
