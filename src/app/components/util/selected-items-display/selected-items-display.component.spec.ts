@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
-import { MatTableModule } from "@angular/material/table";
+import { MatTableModule } from "@angular/material/table"
 
 describe("SelectedItemsDisplayComponent", () => {
   let component: SelectedItemsDisplayComponent
@@ -10,7 +10,7 @@ describe("SelectedItemsDisplayComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SelectedItemsDisplayComponent],
-      imports: [MatTableModule]
+      imports: [MatTableModule],
     }).compileComponents()
 
     fixture = TestBed.createComponent(SelectedItemsDisplayComponent)
@@ -23,7 +23,7 @@ describe("SelectedItemsDisplayComponent", () => {
   })
 
   it("should show correct label if justKnownItemsSelectable is true", () => {
-    component.justKnownItemsSelectable = true;
+    component.justKnownItemsSelectable = true
     component.headline = "Items"
     const display = fixture.nativeElement
     const autocomplete = display.querySelector("app-autocomplete-with-add-function")!
@@ -31,7 +31,7 @@ describe("SelectedItemsDisplayComponent", () => {
   })
 
   it("should show correct label if justKnownItemsSelectable is false", () => {
-    component.justKnownItemsSelectable = false;
+    component.justKnownItemsSelectable = false
     component.headline = "Items"
     const display = fixture.nativeElement
     const autocomplete = display.querySelector("app-autocomplete-with-add-function")!
@@ -69,7 +69,7 @@ describe("SelectedItemsDisplayComponent", () => {
   })
 
   it("should remove element on removeElement", () => {
-    const removalItem = "items";
+    const removalItem = "items"
     component.data = ["test", removalItem, "entries"]
 
     component.removeElement(removalItem)

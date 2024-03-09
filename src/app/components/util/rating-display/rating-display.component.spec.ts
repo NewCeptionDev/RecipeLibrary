@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RatingDisplayComponent } from "./rating-display.component"
-import * as trace_events from "trace_events";
+import * as trace_events from "trace_events"
 
 describe("RatingDisplayComponent", () => {
   let component: RatingDisplayComponent

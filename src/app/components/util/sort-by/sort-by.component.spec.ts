@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import { SortByComponent } from "./sort-by.component";
-import { SortDirection } from "../../../models/sortDirection";
+import { SortByComponent } from "./sort-by.component"
+import { SortDirection } from "../../../models/sortDirection"
 
 describe("SortByComponent", () => {
   let component: SortByComponent

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatAutocompleteModule } from "@angular/material/autocomplete"
 
 describe("AutocompleteWithAddFunctionComponent", () => {
   let component: AutocompleteWithAddFunctionComponent
@@ -10,7 +10,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AutocompleteWithAddFunctionComponent],
-      imports: [MatAutocompleteModule]
+      imports: [MatAutocompleteModule],
     }).compileComponents()
 
     fixture = TestBed.createComponent(AutocompleteWithAddFunctionComponent)
@@ -52,7 +52,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   it("should add query to result if not included", () => {
     component.knownItems = ["FilterTest1", "FilterTest2", "DifferentTest"]
 
-    const query = "Filter";
+    const query = "Filter"
     // @ts-expect-error
     const result = component.filterItems(query)
 
@@ -107,7 +107,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     const container: HTMLElement = fixture.nativeElement
     const inputElement = container.querySelector("input")!
 
-    inputElement.dispatchEvent(new KeyboardEvent("keyup", {key: "Enter"}))
+    inputElement.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter" }))
 
     expect(handleKeyEventSpy).toHaveBeenCalled()
   })

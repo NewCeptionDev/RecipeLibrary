@@ -1,4 +1,4 @@
-  import {
+import {
   Component,
   ElementRef,
   EventEmitter,
@@ -73,7 +73,7 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
     const filterValue = value.toLowerCase()
 
     const itemsToFilter = [...this.knownItems]
-    const lowerCaseItemsToFilter = itemsToFilter.map(item => item.toLowerCase())
+    const lowerCaseItemsToFilter = itemsToFilter.map((item) => item.toLowerCase())
 
     if (
       !this.disableAddFunction &&
