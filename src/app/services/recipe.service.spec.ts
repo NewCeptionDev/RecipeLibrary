@@ -1,9 +1,9 @@
 import { TestBed } from "@angular/core/testing"
 
 import { RecipeService } from "./recipe.service"
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { Recipe } from "../models/recipe";
-import { SnackbarService } from "./snackbar.service";
+import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { Recipe } from "../models/recipe"
+import { SnackbarService } from "./snackbar.service"
 
 class SnackbarServiceMock {
   libraryImportedFeedback = () => {}
@@ -24,14 +24,12 @@ describe("RecipeService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        {provide: SnackbarService, useClass: SnackbarServiceMock}
-      ],
-      imports: [MatSnackBarModule]
+      providers: [{ provide: SnackbarService, useClass: SnackbarServiceMock }],
+      imports: [MatSnackBarModule],
     })
     service = TestBed.inject(RecipeService)
     // @ts-ignore
-    RecipeService.lastUsedRecipeId = 0;
+    RecipeService.lastUsedRecipeId = 0
     snackBarService = TestBed.inject(SnackbarService)
 
     recipeList = [
@@ -41,7 +39,7 @@ describe("RecipeService", () => {
         cookbook: "Cookbook 1",
         categories: ["Vegetarian"],
         ingredients: ["Paprika", "Tomato"],
-        rating: 1
+        rating: 1,
       },
       {
         id: 2,
@@ -49,7 +47,7 @@ describe("RecipeService", () => {
         cookbook: "Cookbook 1",
         categories: ["Meat"],
         ingredients: ["Sausage", "Tomato"],
-        rating: 1
+        rating: 1,
       },
       {
         id: 3,
@@ -57,7 +55,7 @@ describe("RecipeService", () => {
         cookbook: "Cookbook 2",
         categories: ["Vegan"],
         ingredients: ["Salad", "Olives"],
-        rating: 1
+        rating: 1,
       },
       {
         id: 4,
@@ -65,8 +63,8 @@ describe("RecipeService", () => {
         cookbook: "Cookbook 3",
         categories: ["Vegetarian"],
         ingredients: ["Cheese", "Milk"],
-        rating: 1
-      }
+        rating: 1,
+      },
     ]
   })
 
@@ -79,21 +77,21 @@ describe("RecipeService", () => {
     // @ts-ignore
     service.knownCookbooks = cookbooks
     expect(service.getAllKnownCookbooks()).toBe(cookbooks)
-  });
+  })
 
   it("should return all ingredients when getAllIngredients", () => {
     const ingredients = ["Paprika", "Olives", "Peperoni"]
     // @ts-ignore
     service.knownIngredients = ingredients
     expect(service.getAllKnownIngredients()).toBe(ingredients)
-  });
+  })
 
   it("should return all categories when getAllCategories", () => {
     const categories = ["Vegan", "Vegetarian", "Low Carb", "Meat"]
     // @ts-ignore
     service.knownCategories = categories
     expect(service.getAllKnownCategories()).toBe(categories)
-  });
+  })
 
   it("should add recipes correctly when initializeRecipeLibrary", () => {
     service.initializeRecipeLibrary([...recipeList])
@@ -103,9 +101,9 @@ describe("RecipeService", () => {
     expect(service.getAllKnownIngredients()).toEqual(ingredients)
     expect(service.getAllKnownCookbooks()).toEqual(cookBooks)
     expect(service.getAllRecipes()).toEqual(recipeList)
-   // @ts-ignore
+    // @ts-ignore
     expect(RecipeService.lastUsedRecipeId).toBe(4)
-  });
+  })
 
   it("should add recipes correctly when importLibrary", () => {
     const libraryImportedFeedbackSpy = spyOn(snackBarService, "libraryImportedFeedback")
@@ -121,7 +119,7 @@ describe("RecipeService", () => {
     // @ts-ignore
     expect(RecipeService.lastUsedRecipeId).toBe(4)
     expect(libraryImportedFeedbackSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should correctly add recipe and update known when addRecipe", () => {
     const recipeAddedFeedbackSpy = spyOn(snackBarService, "recipeAddedFeedback")
@@ -138,20 +136,20 @@ describe("RecipeService", () => {
     expect(service.getAllKnownIngredients()).toEqual([...recipe.ingredients])
     expect(service.getAllKnownCategories()).toEqual([...recipe.categories])
     expect(recipeAddedFeedbackSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should return all recipes when getAllRecipes", () => {
     // @ts-ignore
     service.recipes = recipeList
     expect(service.getAllRecipes()).toEqual(recipeList)
-  });
+  })
 
   it("should return correct recipeCount when getRecipeCount", () => {
     expect(service.getRecipeCount()).toBe(0)
     // @ts-ignore
     service.recipes = recipeList
     expect(service.getRecipeCount()).toBe(recipeList.length)
-  });
+  })
 
   it("should correctly remove recipe and update known when removeRecipe", () => {
     const recipeRemovedFeedbackSpy = spyOn(snackBarService, "recipeRemovedFeedback")
@@ -161,7 +159,7 @@ describe("RecipeService", () => {
     service.removeRecipe(1)
 
     // then
-    expect(service.getAllRecipes().find(recipe => recipe.id === 1)).toBeUndefined()
+    expect(service.getAllRecipes().find((recipe) => recipe.id === 1)).toBeUndefined()
     // Cookbook 1 is still known due to recipe 2
     expect(service.getAllKnownCookbooks()).toContain("Cookbook 1")
     // Paprika is only known in recipe 1 and should therefore be removed
@@ -178,7 +176,7 @@ describe("RecipeService", () => {
     expect(service.getAllKnownCategories()).not.toContain("Vegetarian")
 
     expect(recipeRemovedFeedbackSpy).toHaveBeenCalledTimes(3)
-  });
+  })
 
   it("should correctly update recipe and update known when updateRecipe", () => {
     const recipeEditedFeedbackSpy = spyOn(snackBarService, "recipeEditedFeedback")
@@ -188,11 +186,11 @@ describe("RecipeService", () => {
       cookbook: "Cookbook 4",
       categories: ["Meat"],
       ingredients: ["Pork"],
-      rating: 1
+      rating: 1,
     }
     service.initializeRecipeLibrary([...recipeList])
 
-    console.log(service.getAllRecipes());
+    console.log(service.getAllRecipes())
     // when
     service.updateRecipe(1, adjustedRecipe)
 
@@ -202,5 +200,5 @@ describe("RecipeService", () => {
     expect(service.getAllKnownCategories()).toEqual(categories)
     expect(service.getAllKnownIngredients()).toEqual([...ingredients.slice(1), "Pork"])
     expect(recipeEditedFeedbackSpy).toHaveBeenCalled()
-  });
+  })
 })
