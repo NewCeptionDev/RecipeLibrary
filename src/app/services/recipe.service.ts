@@ -59,6 +59,7 @@ export class RecipeService {
   public importLibrary(recipes: Recipe[]) {
     recipes.forEach((recipe) => {
       recipe.id = RecipeService.getNextRecipeId()
+      console.log("set recipe id to", recipe.id);
       this.recipes.push(recipe)
       this.updateKnown(recipe)
     })
@@ -145,7 +146,6 @@ export class RecipeService {
 
   static getNextRecipeId(): number {
     this.lastUsedRecipeId++
-
     return this.lastUsedRecipeId
   }
 
