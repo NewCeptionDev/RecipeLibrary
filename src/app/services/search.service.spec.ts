@@ -9,6 +9,7 @@ import { SortOptions } from "../models/sortOptions";
 import { Recipe } from "../models/recipe";
 import { RecipeService } from "./recipe.service";
 import { EventEmitter } from "@angular/core";
+import { RecipeAction } from "../models/recipeAction";
 
 class RecipeServiceMock {
   recipeChangeEvent = new EventEmitter()
@@ -65,6 +66,12 @@ describe("SearchService", () => {
     expect(service).toBeTruthy()
   })
 
+  it("should call adjustSearchResultsIfNeeded when recipeChangeEvent", () => {
+    const adjustSearchResultsSpy = spyOn(service, "adjustSearchResultsIfNeeded")
+    recipeService.recipeChangeEvent.emit({recipe: undefined, event: RecipeAction.ADD})
+    expect(adjustSearchResultsSpy).toHaveBeenCalled()
+  });
+
   it("should return last search options when getLastSearchOptions", () => {
     const searchOptions: SearchOptions = {
       includedCookbooks: [],
@@ -77,15 +84,195 @@ describe("SearchService", () => {
     expect(service.getLastSearchOptions()).toEqual(searchOptions)
   })
 
-  // adjust search result if needed
-    // correctly adjust results without defined recipe
-    // add event, not added
-    // add event, added
-    // edit recipe, replace
-    // edit recipe, remove
-    // edit recipe nothing happens
-    // remove recipe, remove
-    // remove recipe, nothing happens
+  it("should do nothing if no lastSearchOptions when adjustSearchResult", () => {
+    let resultReceived = false
+    service.getSearchResultsEventEmitter().subscribe(() => {
+      resultReceived = true
+    })
+    service.adjustSearchResultsIfNeeded({recipe: undefined, event: RecipeAction.ADD})
+    expect(resultReceived).toBeFalse()
+  });
+
+  it("should call search when adjustSearchResult without Recipe in event", () => {
+    const searchSpy = spyOn(service, "search")
+    // @ts-ignore
+    service.lastSearchOptions = {
+      minimumRating: 1,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    service.adjustSearchResultsIfNeeded({recipe: undefined, event: RecipeAction.ADD})
+    expect(searchSpy).toHaveBeenCalled()
+  });
+
+  it("should add recipe to lastRecipesList when adjustSearchResult given recipe matches filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 1,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    const recipeToAdd: Recipe = {
+      id: 99,
+      recipeName: "Added Recipe",
+      rating: 2,
+      ingredients: [],
+      categories: [],
+      cookbook: "Cookbook 5"
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults).not.toContain(recipeToAdd)
+    service.adjustSearchResultsIfNeeded({recipe: recipeToAdd, event: RecipeAction.ADD})
+    // @ts-ignore
+    expect(service.lastSearchResults).toContain(recipeToAdd)
+  })
+
+  it("should do nothing when adjustSearchResult given add event and recipe does not match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 3,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    const recipeToAdd: Recipe = {
+      id: 99,
+      recipeName: "Added Recipe",
+      rating: 2,
+      ingredients: [],
+      categories: [],
+      cookbook: "Cookbook 5"
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults).not.toContain(recipeToAdd)
+    service.adjustSearchResultsIfNeeded({recipe: recipeToAdd, event: RecipeAction.ADD})
+    // @ts-ignore
+    expect(service.lastSearchResults).not.toContain(recipeToAdd)
+  })
+
+  it("should replace recipe in lastSearchResults when adjustSearchResult given edit event and before and after recipe match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 1,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    const recipeToUpdate: Recipe = {
+      id: 2,
+      recipeName: "Updated Recipe",
+      rating: 2,
+      ingredients: [],
+      categories: [],
+      cookbook: "Cookbook 5"
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)?.recipeName).toBe("Second Recipe")
+    service.adjustSearchResultsIfNeeded({recipe: recipeToUpdate, event: RecipeAction.EDIT})
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)?.recipeName).toBe("Updated Recipe")
+  })
+
+  it("should remove recipe in lastSearchResults when adjustSearchResult given edit event and only before recipe match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 1,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: ["Cookbook 1"]
+    }
+    const recipeToUpdate: Recipe = {
+      id: 2,
+      recipeName: "Updated Recipe",
+      rating: 2,
+      ingredients: [],
+      categories: [],
+      cookbook: "Cookbook 5"
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)?.recipeName).toBe("Second Recipe")
+    service.adjustSearchResultsIfNeeded({recipe: recipeToUpdate, event: RecipeAction.EDIT})
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+  })
+
+  it("should add recipe in lastSearchResults when adjustSearchResult given edit event and only after recipe match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 3,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    const recipeToUpdate: Recipe = {
+      id: 2,
+      recipeName: "Updated Recipe",
+      rating: 4,
+      ingredients: [],
+      categories: [],
+      cookbook: "Cookbook 5"
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+    service.adjustSearchResultsIfNeeded({recipe: recipeToUpdate, event: RecipeAction.EDIT})
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)?.recipeName).toBe("Updated Recipe")
+  })
+
+  it("should do nothing when adjustSearchResult given edit event and recipe does not match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 3,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    const recipeToUpdate: Recipe = {
+      id: 2,
+      recipeName: "Updated Recipe",
+      rating: 2,
+      ingredients: [],
+      categories: [],
+      cookbook: "Cookbook 5"
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+    service.adjustSearchResultsIfNeeded({recipe: recipeToUpdate, event: RecipeAction.EDIT})
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+  })
+
+  it("should remove recipe in lastSearchResults when adjustSearchResult given delete event and recipe match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 1,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).not.toBeUndefined()
+    service.adjustSearchResultsIfNeeded({recipe: recipeService.getAllRecipes()[1], event: RecipeAction.DELETE})
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+  })
+
+  it("should do nothing when adjustSearchResult given delete event and recipe does not match filter", () => {
+    const searchOptions: SearchOptions = {
+      minimumRating: 3,
+      includedCategories: [],
+      requiredIngredients: [],
+      includedCookbooks: []
+    }
+    service.search(searchOptions)
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+    service.adjustSearchResultsIfNeeded({recipe: recipeService.getAllRecipes()[1], event: RecipeAction.DELETE})
+    // @ts-ignore
+    expect(service.lastSearchResults.find(recipe => recipe.id === 2)).toBeUndefined()
+  })
 
   it("should return correctly filtered list when search by rating", () => {
     const searchOptions: SearchOptions = {

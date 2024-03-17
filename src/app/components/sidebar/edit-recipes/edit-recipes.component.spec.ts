@@ -61,7 +61,7 @@ describe("EditRecipesComponent", () => {
     const editRecipes: HTMLElement = fixture.nativeElement
     const tableCell = editRecipes.querySelector(".mat-cell")!
 
-    expect(tableCell.textContent).toBe("No Recipes added yet")
+    expect(tableCell.textContent!.trim()).toBe("No Recipes added yet")
   })
 
   it("should not show no recipes note if recipes were added", () => {
