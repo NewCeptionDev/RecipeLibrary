@@ -1,16 +1,13 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   ViewChild,
-  ViewContainerRef,
 } from "@angular/core"
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
 import { Recipe } from "./models/recipe"
 import { DialogsService } from "./services/dialogs.service"
 import { ExtendedOption } from "./models/extendedOption"
 import { SearchComponent } from "./components/sidebar/search/search.component"
-import { SnackbarService } from "./services/snackbar.service"
 
 @Component({
   selector: "app-root",
@@ -32,7 +29,7 @@ export class AppComponent {
   @ViewChild(SearchComponent)
   searchComponent!: SearchComponent
 
-  constructor(private dialogService: DialogsService, private snackbarService: SnackbarService) {
+  constructor(private dialogService: DialogsService) {
     window.addEventListener("keydown", async (event) => {
       if (event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
         await this.closeExtensibleContainer()
@@ -110,6 +107,7 @@ export class AppComponent {
         this.extended = ExtendedOption.NONE
       } else if (newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
         this.extended = ExtendedOption.NONE
+        // Update after one tick, so the recipeForm gets destroyed and re-initiated with the new values
         setTimeout(() => {
           this.extended = newView
         }, 1)
@@ -133,7 +131,7 @@ export class AppComponent {
     } else {
       this.currentlyEditedRecipe = undefined
       this.extended = ExtendedOption.NONE
-      // Update after one Tick, so the recipeform gets destroyed and reinitiated with the new values
+      // Update after one tick, so the recipeForm gets destroyed and re-initiated with the new values
       setTimeout(() => {
         this.extended = ExtendedOption.ADD
       }, 1)

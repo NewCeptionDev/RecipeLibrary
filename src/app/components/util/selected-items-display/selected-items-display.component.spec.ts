@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
 import { MatTableModule } from "@angular/material/table"
+import { EventEmitter } from "@angular/core";
 
 describe("SelectedItemsDisplayComponent", () => {
   let component: SelectedItemsDisplayComponent
@@ -77,4 +78,41 @@ describe("SelectedItemsDisplayComponent", () => {
     expect(component.data.length).toBe(2)
     expect(component.data).not.toContain(removalItem)
   })
+
+  it("should correctly initialize component given data length larger 0", () => {
+    const data = ["Data"]
+    component.data = data
+
+    let triggered = false
+    component.tableDataSource.connect().subscribe(val => {
+      triggered = true
+      expect(val).toBe(data)
+    })
+
+    component.ngOnInit()
+
+    expect(triggered).toBeTrue()
+  });
+
+  it("should correctly initialize component given editable is false", () => {
+    component.editable = false
+
+    component.ngOnInit()
+
+    expect(component.columns).toHaveSize(1)
+    expect(component.columns[0]).toBe("name")
+  });
+
+  it("should correctly initialize component given triggerRefresh is set", () => {
+    const eventEmitter = new EventEmitter<void>()
+    component.triggerRefresh = eventEmitter
+    const refreshTableSpy = spyOn(component, "refreshTableData")
+
+    component.ngOnInit()
+
+    // Should cause refreshTableData to be called
+    eventEmitter.emit()
+
+    expect(refreshTableSpy).toHaveBeenCalled()
+  });
 })

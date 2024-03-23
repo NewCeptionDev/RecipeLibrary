@@ -196,4 +196,23 @@ describe("AddRecipeComponent", () => {
 
     expect(component.recipeFormControl.getError("required")).toBeNull()
   })
+
+  it("should correctly initialize component if recipeInput is true", () => {
+    const recipe: Recipe = {
+     id: 1,
+     recipeName: "Test Recipe",
+     rating: 2,
+     ingredients: [],
+     categories: [],
+     cookbook: "Test Cookbook"
+    }
+    component.recipeInput = recipe
+
+    expect(component.editing).toBeFalse()
+
+    component.ngOnInit()
+
+    expect(component.editing).toBeTrue()
+    expect(component.recipeInput).toBe(recipe)
+  });
 })

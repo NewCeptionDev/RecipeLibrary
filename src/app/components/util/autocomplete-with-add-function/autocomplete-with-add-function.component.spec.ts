@@ -111,4 +111,6 @@ describe("AutocompleteWithAddFunctionComponent", () => {
 
     expect(handleKeyEventSpy).toHaveBeenCalled()
   })
+
+  // TODO Add test for ngInit and handlekeyEvent
 })

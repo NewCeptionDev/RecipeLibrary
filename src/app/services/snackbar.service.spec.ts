@@ -24,8 +24,8 @@ describe("SnackbarService", () => {
     service.recipeAddedFeedback()
     // @ts-ignore
     expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    // @ts-ignore
     expect(
+      // @ts-ignore
       service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
     ).toBe("Recipe added")
   })
@@ -36,8 +36,8 @@ describe("SnackbarService", () => {
     service.recipeEditedFeedback()
     // @ts-ignore
     expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    // @ts-ignore
     expect(
+      // @ts-ignore
       service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
     ).toBe("Recipe changed")
   })
@@ -48,8 +48,8 @@ describe("SnackbarService", () => {
     service.recipeRemovedFeedback()
     // @ts-ignore
     expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    // @ts-ignore
     expect(
+      // @ts-ignore
       service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
     ).toBe("Recipe removed")
   })
@@ -60,8 +60,8 @@ describe("SnackbarService", () => {
     service.libraryImportedFeedback()
     // @ts-ignore
     expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    // @ts-ignore
     expect(
+      // @ts-ignore
       service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
     ).toBe("Library imported")
   })

@@ -21,4 +21,6 @@ describe("SettingsComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy()
   })
+
+  // TODO add tests
 })

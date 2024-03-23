@@ -4,6 +4,8 @@ import { RecipeListComponent } from "./recipe-list.component"
 import { Recipe } from "../../../models/recipe"
 import { EventEmitter } from "@angular/core"
 import { SearchService } from "../../../services/search.service"
+import { SortOptions } from "../../../models/sortOptions";
+import { SortDirection } from "../../../models/sortDirection";
 
 const testRecipe: Recipe = {
   id: 1,
@@ -19,6 +21,8 @@ class SearchServiceMock {
   public getSearchResultsEventEmitter(): EventEmitter<Recipe[]> {
     return this.publishSearchResults
   }
+
+  public adjustSortFilter(newSortOption: SortOptions, newSortDirection: SortDirection) {}
 }
 
 describe("RecipeListComponent", () => {
@@ -85,4 +89,15 @@ describe("RecipeListComponent", () => {
     const amountNote = recipeList.querySelector(".optionRow > p")!
     expect(amountNote.textContent).toBe("Found 2 Recipes")
   })
+
+  it("should update sortOption when sortOptionAdjusted", () => {
+    const adjustSortFiltersSpy = spyOn(searchService, "adjustSortFilter")
+    const sortOption = SortOptions.RATING
+    const direction = SortDirection.ASC
+
+    component.sortOptionAdjusted(sortOption, direction)
+
+    expect(component.currentSortOption).toBe(sortOption)
+    expect(adjustSortFiltersSpy).toHaveBeenCalledWith(sortOption, direction)
+  });
 })

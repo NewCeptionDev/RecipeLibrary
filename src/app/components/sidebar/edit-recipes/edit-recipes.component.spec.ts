@@ -27,14 +27,28 @@ class RecipeServiceMock {
   public addRecipe(recipe: Recipe) {
     this.recipes.push(recipe)
   }
+
+  public removeRecipe(recipeId: number) {}
 }
 
-class DialogServiceMock {}
+class DialogServiceMock {
+  deleteRecipe = () => {}
+}
+
+const RECIPE: Recipe = {
+  id: 1,
+  recipeName: "Test Recipe",
+  rating: 1,
+  cookbook: "Test Cookbook",
+  categories: [],
+  ingredients: []
+}
 
 describe("EditRecipesComponent", () => {
   let component: EditRecipesComponent
   let fixture: ComponentFixture<EditRecipesComponent>
   let recipeService: RecipeService
+  let dialogService: DialogsService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,6 +64,7 @@ describe("EditRecipesComponent", () => {
     component = fixture.componentInstance
     fixture.detectChanges()
     recipeService = TestBed.inject(RecipeService)
+    dialogService = TestBed.inject(DialogsService)
   })
 
   it("should create", () => {
@@ -79,4 +94,36 @@ describe("EditRecipesComponent", () => {
 
     expect(tableCell.textContent).not.toBe("No Recipes added yet")
   })
+
+  it("should emit recipe on editRecipeTrigger", () => {
+    let triggered = false
+    component.editRecipe.subscribe(val => {
+      expect(val).toBe(RECIPE)
+      triggered = true
+    })
+
+    component.editRecipeTrigger(RECIPE)
+
+    expect(triggered).toBeTrue()
+  });
+
+  it("should do nothing when onDeleteDialog given dialog returns false", () => {
+    const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(false)
+    const recipeDeleteSpy = spyOn(recipeService, "removeRecipe")
+
+    component.openDeleteDialog(RECIPE)
+
+    expect(openDialogSpy).toHaveBeenCalled()
+    expect(recipeDeleteSpy).not.toHaveBeenCalled()
+  });
+
+  it("should call removeRecipe when onDeleteDialog given dialog returns true", async () => {
+    const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(true)
+    const recipeDeleteSpy = spyOn(recipeService, "removeRecipe")
+
+    await component.openDeleteDialog(RECIPE)
+
+    expect(openDialogSpy).toHaveBeenCalled()
+    expect(recipeDeleteSpy).toHaveBeenCalled()
+  });
 })

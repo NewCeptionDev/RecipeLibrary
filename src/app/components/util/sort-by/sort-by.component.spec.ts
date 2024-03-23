@@ -46,4 +46,6 @@ describe("SortByComponent", () => {
     expect(expandLessIcon).toHaveClass("disabled")
     expect(expandMoreIcon).not.toHaveClass("disabled")
   })
+
+  // TODO Add tests
 })
