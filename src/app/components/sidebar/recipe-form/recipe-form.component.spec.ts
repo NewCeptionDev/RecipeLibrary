@@ -1,32 +1,9 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeFormComponent } from "./recipe-form.component"
-import { Recipe } from "../../../models/recipe"
 import { RecipeService } from "../../../services/recipe.service"
-
-class RecipeServiceMock {
-  private recipes: Recipe[] = []
-
-  public getAllRecipes() {
-    return this.recipes
-  }
-
-  public getAllKnownCookbooks() {
-    return []
-  }
-
-  public getAllKnownIngredients() {
-    return []
-  }
-
-  public getAllKnownCategories() {
-    return []
-  }
-
-  public addRecipe(recipe: Recipe) {}
-
-  public updateRecipe(id: number, recipe: Recipe) {}
-}
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
 
 describe("AddRecipeComponent", () => {
   let component: RecipeFormComponent
@@ -198,21 +175,13 @@ describe("AddRecipeComponent", () => {
   })
 
   it("should correctly initialize component if recipeInput is true", () => {
-    const recipe: Recipe = {
-     id: 1,
-     recipeName: "Test Recipe",
-     rating: 2,
-     ingredients: [],
-     categories: [],
-     cookbook: "Test Cookbook"
-    }
-    component.recipeInput = recipe
+    component.recipeInput = RecipeBuilder.defaultRecipe()
 
     expect(component.editing).toBeFalse()
 
     component.ngOnInit()
 
     expect(component.editing).toBeTrue()
-    expect(component.recipeInput).toBe(recipe)
+    expect(component.recipeInput).toBe(RecipeBuilder.defaultRecipe())
   });
 })

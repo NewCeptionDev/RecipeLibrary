@@ -1,48 +1,14 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { EditRecipesComponent } from "./edit-recipes.component"
-import { Recipe } from "../../../models/recipe"
 import { RecipeService } from "../../../services/recipe.service"
 import { DialogsService } from "../../../services/dialogs.service"
 import { MatTableModule } from "@angular/material/table"
 import { EventEmitter } from "@angular/core"
 import { MatIconModule } from "@angular/material/icon"
-
-const testRecipe: Recipe = {
-  id: 1,
-  recipeName: "Test Recipe",
-  rating: 5,
-  cookbook: "",
-  categories: [],
-  ingredients: [],
-}
-
-class RecipeServiceMock {
-  private recipes: Recipe[] = []
-
-  public getAllRecipes() {
-    return this.recipes
-  }
-
-  public addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe)
-  }
-
-  public removeRecipe(recipeId: number) {}
-}
-
-class DialogServiceMock {
-  deleteRecipe = () => {}
-}
-
-const RECIPE: Recipe = {
-  id: 1,
-  recipeName: "Test Recipe",
-  rating: 1,
-  cookbook: "Test Cookbook",
-  categories: [],
-  ingredients: []
-}
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
+import { DialogServiceMock } from "../../../../tests/mocks/DialogServiceMock";
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
 
 describe("EditRecipesComponent", () => {
   let component: EditRecipesComponent
@@ -80,7 +46,7 @@ describe("EditRecipesComponent", () => {
   })
 
   it("should not show no recipes note if recipes were added", () => {
-    recipeService.addRecipe(testRecipe)
+    recipeService.addRecipe(RecipeBuilder.defaultRecipe())
     const editRecipes: HTMLElement = fixture.nativeElement
 
     const reloadRecipesCaller: EventEmitter<void> = new EventEmitter()
@@ -98,11 +64,11 @@ describe("EditRecipesComponent", () => {
   it("should emit recipe on editRecipeTrigger", () => {
     let triggered = false
     component.editRecipe.subscribe(val => {
-      expect(val).toBe(RECIPE)
+      expect(val).toEqual(RecipeBuilder.defaultRecipe())
       triggered = true
     })
 
-    component.editRecipeTrigger(RECIPE)
+    component.editRecipeTrigger(RecipeBuilder.defaultRecipe())
 
     expect(triggered).toBeTrue()
   });
@@ -111,7 +77,7 @@ describe("EditRecipesComponent", () => {
     const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(false)
     const recipeDeleteSpy = spyOn(recipeService, "removeRecipe")
 
-    component.openDeleteDialog(RECIPE)
+    component.openDeleteDialog(RecipeBuilder.defaultRecipe())
 
     expect(openDialogSpy).toHaveBeenCalled()
     expect(recipeDeleteSpy).not.toHaveBeenCalled()
@@ -121,7 +87,7 @@ describe("EditRecipesComponent", () => {
     const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(true)
     const recipeDeleteSpy = spyOn(recipeService, "removeRecipe")
 
-    await component.openDeleteDialog(RECIPE)
+    await component.openDeleteDialog(RecipeBuilder.defaultRecipe())
 
     expect(openDialogSpy).toHaveBeenCalled()
     expect(recipeDeleteSpy).toHaveBeenCalled()

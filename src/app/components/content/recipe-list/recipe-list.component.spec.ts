@@ -1,29 +1,11 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeListComponent } from "./recipe-list.component"
-import { Recipe } from "../../../models/recipe"
-import { EventEmitter } from "@angular/core"
 import { SearchService } from "../../../services/search.service"
 import { SortOptions } from "../../../models/sortOptions";
 import { SortDirection } from "../../../models/sortDirection";
-
-const testRecipe: Recipe = {
-  id: 1,
-  recipeName: "Test Recipe",
-  rating: 5,
-  cookbook: "",
-  categories: [],
-  ingredients: [],
-}
-
-class SearchServiceMock {
-  private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
-  public getSearchResultsEventEmitter(): EventEmitter<Recipe[]> {
-    return this.publishSearchResults
-  }
-
-  public adjustSortFilter(newSortOption: SortOptions, newSortDirection: SortDirection) {}
-}
+import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock";
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
 
 describe("RecipeListComponent", () => {
   let component: RecipeListComponent
@@ -59,7 +41,7 @@ describe("RecipeListComponent", () => {
   })
 
   it("should show amount of found recipes and sortFilters given search found results", () => {
-    searchService.getSearchResultsEventEmitter().emit([testRecipe])
+    searchService.getSearchResultsEventEmitter().emit([RecipeBuilder.defaultRecipe()])
     fixture.detectChanges()
     const recipeList: HTMLElement = fixture.nativeElement
     const optionsRow = recipeList.querySelector(".optionRow")!
@@ -75,7 +57,7 @@ describe("RecipeListComponent", () => {
   })
 
   it("should show amount of found recipes without recipe plural given search found one result", () => {
-    searchService.getSearchResultsEventEmitter().emit([testRecipe])
+    searchService.getSearchResultsEventEmitter().emit([RecipeBuilder.defaultRecipe()])
     fixture.detectChanges()
     const recipeList: HTMLElement = fixture.nativeElement
     const amountNote = recipeList.querySelector(".optionRow > p")!
@@ -83,7 +65,7 @@ describe("RecipeListComponent", () => {
   })
 
   it("should show amount of found recipes with recipe plural given search found two result", () => {
-    searchService.getSearchResultsEventEmitter().emit([testRecipe, testRecipe])
+    searchService.getSearchResultsEventEmitter().emit([RecipeBuilder.defaultRecipe(), RecipeBuilder.defaultRecipe()])
     fixture.detectChanges()
     const recipeList: HTMLElement = fixture.nativeElement
     const amountNote = recipeList.querySelector(".optionRow > p")!

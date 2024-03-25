@@ -3,50 +3,10 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { BackdropComponent } from "./backdrop.component"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
-import { EventEmitter } from "@angular/core"
-import { Recipe } from "../../../models/recipe"
-import { RecipeChangeEvent } from "../../../models/recipeChangeEvent"
 import { MatIconModule } from "@angular/material/icon"
-import { RecipeAction } from "../../../models/recipeAction"
-
-const testRecipe: Recipe = {
-  id: 1,
-  recipeName: "Test Recipe",
-  rating: 5,
-  cookbook: "",
-  categories: [],
-  ingredients: [],
-}
-
-class RecipeServiceMock {
-  private recipes: Recipe[] = []
-
-  private _recipeChangeEvent: EventEmitter<RecipeChangeEvent> =
-    new EventEmitter<RecipeChangeEvent>()
-
-  get recipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
-    return this._recipeChangeEvent
-  }
-
-  public getRecipeCount() {
-    return this.recipes.length
-  }
-
-  public addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe)
-    this.recipeChangeEvent.emit({
-      recipe: recipe,
-      event: RecipeAction.ADD,
-    })
-  }
-}
-
-class SearchServiceMock {
-  private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
-  public getSearchResultsEventEmitter(): EventEmitter<Recipe[]> {
-    return this.publishSearchResults
-  }
-}
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
+import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock";
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
 
 describe("BackdropComponent", () => {
   let component: BackdropComponent
@@ -83,7 +43,7 @@ describe("BackdropComponent", () => {
   })
 
   it("Should show amount of recipes found note without plural given one recipe added", () => {
-    recipeService.addRecipe(testRecipe)
+    recipeService.addRecipe(RecipeBuilder.defaultRecipe())
     const backdropElement: HTMLElement = fixture.nativeElement
     const note = backdropElement.querySelector("p")!
     expect(note).not.toBeNull()
@@ -91,8 +51,8 @@ describe("BackdropComponent", () => {
   })
 
   it("Should show amount of recipes found note with plural given two recipes added", () => {
-    recipeService.addRecipe(testRecipe)
-    recipeService.addRecipe(testRecipe)
+    recipeService.addRecipe(RecipeBuilder.defaultRecipeWithoutId())
+    recipeService.addRecipe(RecipeBuilder.defaultRecipeWithoutId())
     const backdropElement: HTMLElement = fixture.nativeElement
     const note = backdropElement.querySelector("p")!
     expect(note).not.toBeNull()
@@ -100,7 +60,7 @@ describe("BackdropComponent", () => {
   })
 
   it("Should show no results found note given search with no results", () => {
-    recipeService.addRecipe(testRecipe)
+    recipeService.addRecipe(RecipeBuilder.defaultRecipe())
     searchService.getSearchResultsEventEmitter().emit([])
     const backdropElement: HTMLElement = fixture.nativeElement
     const note = backdropElement.querySelector("p")!
@@ -109,7 +69,7 @@ describe("BackdropComponent", () => {
   })
 
   it("Should show no note given search results", () => {
-    searchService.getSearchResultsEventEmitter().emit([testRecipe])
+    searchService.getSearchResultsEventEmitter().emit([RecipeBuilder.defaultRecipe()])
     const backdropElement: HTMLElement = fixture.nativeElement
     const note = backdropElement.querySelector("p")!
     expect(note).toBeNull()

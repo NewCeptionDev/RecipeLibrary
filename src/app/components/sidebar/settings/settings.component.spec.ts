@@ -4,17 +4,8 @@ import { SettingsComponent } from "./settings.component"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { FileService } from "../../../services/file.service";
 import { ElectronService } from "../../../services/electron.service";
-import { EventEmitter } from "@angular/core";
-
-class FileServiceMock {
-  savePath = "MockSavePath"
-  settingsChangedEvent = new EventEmitter().asObservable()
-}
-
-class ElectronServiceMock {
-  requestImportLibrary = () => {}
-  requestNewFileSavePath = () => {}
-}
+import { FileServiceMock } from "../../../../tests/mocks/FileServiceMock";
+import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock";
 
 describe("SettingsComponent", () => {
   let component: SettingsComponent

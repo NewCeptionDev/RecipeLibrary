@@ -2,47 +2,17 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SearchComponent } from "./search.component"
 import { SearchService } from "../../../services/search.service"
-import { Recipe } from "../../../models/recipe"
 import { RecipeService } from "../../../services/recipe.service"
-import { SearchOptions } from "../../../models/searchOptions"
-import { SortOptions } from "../../../models/sortOptions"
-import { SortDirection } from "../../../models/sortDirection"
+import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock";
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
 
-class SearchServiceMock {
-  public search(options: never) {}
-
-  public getLastSearchOptions() {
-    return {
-      minimumRating: 1,
-      includedCategories: [],
-      includedCookbooks: [],
-      requiredIngredients: [],
-      sortOption: SortOptions.RATING,
-      sortDirection: SortDirection.DESC,
-    }
-  }
-}
-
-const knownCookbook = "KnownCookbook"
-
-class RecipeServiceMock {
-  public getAllKnownCookbooks() {
-    return [knownCookbook]
-  }
-
-  public getAllKnownIngredients() {
-    return []
-  }
-
-  public getAllKnownCategories() {
-    return []
-  }
-}
+const KNOWN_COOKBOOK = "KnownCookbook"
 
 describe("SearchComponent", () => {
   let component: SearchComponent
   let fixture: ComponentFixture<SearchComponent>
   let searchService: SearchService
+  let recipeService: RecipeService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -53,10 +23,14 @@ describe("SearchComponent", () => {
       ],
     }).compileComponents()
 
+    searchService = TestBed.inject(SearchService)
+    recipeService = TestBed.inject(RecipeService)
+    // override mock functions
+    spyOn(recipeService, "getAllKnownCookbooks").and.returnValue([KNOWN_COOKBOOK])
+
     fixture = TestBed.createComponent(SearchComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-    searchService = TestBed.inject(SearchService)
   })
 
   it("should create", () => {
@@ -116,7 +90,7 @@ describe("SearchComponent", () => {
     component.clear()
 
     expect(component.selectedOptions).toBe(component.defaultSearchOptions)
-    expect(component.selectedOptions.includedCookbooks).toEqual([knownCookbook])
+    expect(component.selectedOptions.includedCookbooks).toEqual([KNOWN_COOKBOOK])
     expect(refreshTableDataSpy).toHaveBeenCalled()
   })
 })
