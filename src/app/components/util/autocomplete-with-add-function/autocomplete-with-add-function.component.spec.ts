@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
 import { MatAutocompleteModule } from "@angular/material/autocomplete"
+import { EventEmitter } from "@angular/core";
 
 describe("AutocompleteWithAddFunctionComponent", () => {
   let component: AutocompleteWithAddFunctionComponent
@@ -112,5 +113,52 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     expect(handleKeyEventSpy).toHaveBeenCalled()
   })
 
-  // TODO Add test for ngInit and handlekeyEvent
+  it("should do nothing when handleKeyUpEvent given key is not entere", () => {
+    const onSelectSpy = spyOn(component, "onItemSelect")
+    component.handleKeyUpEvent(new KeyboardEvent("space"))
+    expect(onSelectSpy).not.toHaveBeenCalled()
+  })
+
+  it("should do nothing when handleKeyUpEvent given disableAddFunction is true", () => {
+    const onSelectSpy = spyOn(component, "onItemSelect")
+    component.disableAddFunction = true
+    component.handleKeyUpEvent(new KeyboardEvent("enter"))
+    expect(onSelectSpy).not.toHaveBeenCalled()
+  })
+
+  it("should do nothing when handleKeyUpEvent given value is empty", () => {
+    const onSelectSpy = spyOn(component, "onItemSelect")
+    // @ts-ignore
+    component.autocompleteInputElement.nativeElement.value = ""
+    component.handleKeyUpEvent(new KeyboardEvent("enter"))
+    expect(onSelectSpy).not.toHaveBeenCalled()
+  })
+
+  it("should call onItemSelect when handleKeyUpEvent given enter key and value is not empty", () => {
+    const onSelectSpy = spyOn(component, "onItemSelect")
+    const keyEvent = new KeyboardEvent("enter")
+    const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
+    const value = "Test"
+    // @ts-ignore
+    component.autocompleteInputElement.nativeElement.value = value
+    component.handleKeyUpEvent(keyEvent)
+    expect(onSelectSpy).toHaveBeenCalledWith(value)
+    expect(keyUpDefaultSpy).toHaveBeenCalled()
+  })
+
+  it("should correctly set itemSelect value when ngOnInit given startValue", () => {
+    const startValue = "Test"
+    component.startValue = startValue
+    component.ngOnInit()
+    expect(component.itemSelect.value).toBe(startValue)
+  });
+
+  it("should clear itemSelect value when refreshFilteredItems is triggered", () => {
+    const eventEmitter = new EventEmitter()
+    component.itemSelect.setValue("Test")
+    component.refreshFilteredItems = eventEmitter.asObservable()
+    component.ngOnInit()
+    eventEmitter.emit()
+    expect(component.itemSelect.value).toBe("")
+  });
 })

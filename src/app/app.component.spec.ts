@@ -381,6 +381,7 @@ describe("AppComponent", () => {
 
   it("should add eventlistener to window", () => {
     const windowRequireSpy = spyOn(window, "addEventListener")
+    // Needs to be created for constructor to be called
     const component = TestBed.createComponent(AppComponent).componentInstance
     expect(windowRequireSpy).toHaveBeenCalledWith("keydown", any(Function))
   });

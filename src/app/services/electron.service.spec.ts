@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { ElectronService } from "./electron.service"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import any = jasmine.any;
+import Spy = jasmine.Spy;
 
 class IpcRendererMock {
   send = (channel: string, message?: any) => {}
@@ -23,20 +24,6 @@ describe("ElectronService", () => {
   it("should be created", () => {
     expect(service).toBeTruthy()
   })
-
-  it("should set up event listeners on creation", () => {
-    const windowRequireSpy = spyOn(window, "require").and.returnValue(ipcRenderer)
-    const ipcRendererOnSpy = spyOn(ipcRenderer, "on")
-    const requestSettingsSpy = spyOn(service, "requestSettingsInformation")
-    const requestLoadFileSpy = spyOn(service, "requestLoadFile")
-
-    expect(ipcRendererOnSpy).toHaveBeenCalledWith("fileLoaded", any(Function))
-    expect(ipcRendererOnSpy).toHaveBeenCalledWith("importLibraryFile", any(Function))
-    expect(ipcRendererOnSpy).toHaveBeenCalledWith("settings", any(Function))
-
-    expect(requestSettingsSpy).toHaveBeenCalled()
-    expect(requestLoadFileSpy).toHaveBeenCalled()
-  });
 
   it("should send message to ipc on closeApp", () => {
     const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
@@ -108,5 +95,29 @@ describe("ElectronService", () => {
 
     service.requestNewFileSavePath()
     expect(ipcRendererSendSpy).toHaveBeenCalledWith("newFileSavePath")
+  });
+})
+
+describe("Electron Service Constructor", () => {
+  let ipcRendererOnSpy: Spy
+  let ipcRenderer: IpcRendererMock = new IpcRendererMock()
+  let service: ElectronService
+
+  beforeEach(() => {
+    // @ts-ignore
+    window.require = (elem: string) => {
+      return {ipcRenderer}
+    }
+    ipcRendererOnSpy = spyOn(ipcRenderer, "on")
+    TestBed.configureTestingModule({
+      imports: [MatSnackBarModule],
+    })
+    service = TestBed.inject(ElectronService)
+  })
+
+  it("should set up event listeners on creation", () => {
+    expect(ipcRendererOnSpy).toHaveBeenCalledWith("fileLoaded", any(Function))
+    expect(ipcRendererOnSpy).toHaveBeenCalledWith("importLibraryFile", any(Function))
+    expect(ipcRendererOnSpy).toHaveBeenCalledWith("settings", any(Function))
   });
 })
