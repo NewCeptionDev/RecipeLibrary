@@ -100,7 +100,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     expect(component.itemSelect.value).toBe("Test")
   })
 
-  it("should handleKeyEvent on keyboard enter", () => {
+  it("should handleKeyEvent on keyboard Enter", () => {
     const handleKeyEventSpy = spyOn(component, "handleKeyUpEvent")
     // @ts-expect-error
     component.autocompleteInputElement.nativeElement.value = "Test"
@@ -113,16 +113,16 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     expect(handleKeyEventSpy).toHaveBeenCalled()
   })
 
-  it("should do nothing when handleKeyUpEvent given key is not entere", () => {
+  it("should do nothing when handleKeyUpEvent given key is not enter", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
-    component.handleKeyUpEvent(new KeyboardEvent("space"))
+    component.handleKeyUpEvent(new KeyboardEvent("keyup", {key: "space"}))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
   it("should do nothing when handleKeyUpEvent given disableAddFunction is true", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
     component.disableAddFunction = true
-    component.handleKeyUpEvent(new KeyboardEvent("enter"))
+    component.handleKeyUpEvent(new KeyboardEvent("keyup", {key: "Enter"}))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
@@ -130,13 +130,13 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
     // @ts-ignore
     component.autocompleteInputElement.nativeElement.value = ""
-    component.handleKeyUpEvent(new KeyboardEvent("enter"))
+    component.handleKeyUpEvent(new KeyboardEvent("keyup", {key: "Enter"}))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
   it("should call onItemSelect when handleKeyUpEvent given enter key and value is not empty", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
-    const keyEvent = new KeyboardEvent("enter")
+    const keyEvent = new KeyboardEvent("keyup", {key: "Enter"})
     const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
     const value = "Test"
     // @ts-ignore

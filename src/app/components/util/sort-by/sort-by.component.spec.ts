@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SortByComponent } from "./sort-by.component"
-import { SortDirection } from "../../../models/sortDirection"
+import { SortByComponent } from "./sort-by.component";
+import { SortDirection } from "../../../models/sortDirection";
+import { SortOptions } from "../../../models/sortOptions";
 
 describe("SortByComponent", () => {
   let component: SortByComponent
@@ -47,5 +48,60 @@ describe("SortByComponent", () => {
     expect(expandMoreIcon).not.toHaveClass("disabled")
   })
 
-  // TODO Add tests
+  it("should select abc icon when ngOnInit given selected SortOption is ALPHABET", () => {
+    component.selectedSortOption = SortOptions.ALPHABET
+    component.ngOnInit()
+    expect(component.sortOptionIcon).toBe("abc")
+  });
+
+  it("should select star icon when ngOnInit given selected SortOption is RATING", () => {
+    component.selectedSortOption = SortOptions.RATING
+    component.ngOnInit()
+    expect(component.sortOptionIcon).toBe("star")
+  });
+
+  it("should enable sorting and sort ascending when adjustSortDirection given disabled", () => {
+    component.disabled = true
+    let triggered = false
+    component.sortDirectionChanged.subscribe((val) => {
+      triggered = true
+      expect(val).toBe(SortDirection.ASC)
+    })
+
+    component.adjustSortDirection()
+    expect(component.disabled).toBeFalse()
+    expect(component.sortDirection).toBe(SortDirection.ASC)
+    expect(triggered).toBeTrue()
+  });
+
+  it("should switch to desc sorting when adjustSortDirection given asc sorting", () => {
+    component.sortDirection = SortDirection.ASC
+    component.disabled = false
+    let triggered = false
+    component.sortDirectionChanged.subscribe((val) => {
+      triggered = true
+      expect(val).toBe(SortDirection.DESC)
+    })
+
+    component.adjustSortDirection()
+    // @ts-ignore
+    expect(component.sortDirection).toBe(SortDirection.DESC)
+    expect(triggered).toBeTrue()
+  });
+
+  it("should switch to asc sorting when adjustSortDirection given desc sorting", () => {
+    component.sortDirection = SortDirection.DESC
+    component.disabled = false
+    let triggered = false
+    component.sortDirectionChanged.subscribe((val) => {
+      triggered = true
+      expect(val).toBe(SortDirection.ASC)
+    })
+
+    component.adjustSortDirection()
+    expect(component.disabled).toBeFalse()
+    // @ts-ignore
+    expect(component.sortDirection).toBe(SortDirection.ASC)
+    expect(triggered).toBeTrue()
+  });
 })

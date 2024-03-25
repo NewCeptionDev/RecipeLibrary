@@ -80,18 +80,12 @@ describe("SelectedItemsDisplayComponent", () => {
   })
 
   it("should correctly initialize component given data length larger 0", () => {
-    const data = ["Data"]
-    component.data = data
-
-    let triggered = false
-    component.tableDataSource.connect().subscribe(val => {
-      triggered = true
-      expect(val).toBe(data)
-    })
+    component.data = ["Data"]
+    const setDataSpy = spyOn(component.tableDataSource, "setData")
 
     component.ngOnInit()
 
-    expect(triggered).toBeTrue()
+    expect(setDataSpy).toHaveBeenCalled()
   });
 
   it("should correctly initialize component given editable is false", () => {

@@ -44,6 +44,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.length > 0) {
+      console.log(this.data);
       this.tableDataSource.setData(this.data)
     }
 
