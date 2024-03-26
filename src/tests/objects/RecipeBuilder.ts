@@ -80,6 +80,15 @@ export class RecipeBuilder {
       .withRating(1)
       .build()
 
+  static e2eRecipe = (): Recipe =>
+    new RecipeBuilder()
+      .withRecipeName("Salami & Mushroom Pizza")
+      .withCookbook("myrecipes.com{enter}")
+      .withIngredients(["Pizza Dough","Olive Oil","Mushrooms","Pizza Sauce","Salami","Mozzarella Cheese"])
+      .withCategories(["Meat","Cheese","Fast"])
+      .withRating(3)
+      .build()
+
   static listOfRecipes = (): Recipe[] => [
     new RecipeBuilder()
       .withId(1)

@@ -3,6 +3,7 @@
     <button
       mat-icon-button
       disableRipple
+      id="searchSidebarButton"
       (click)="searchTrigger()"
       [ngClass]="{ active: searchRefActive() }">
       <mat-icon class="search-icon">search</mat-icon>
@@ -10,6 +11,7 @@
     <button
       mat-icon-button
       disableRipple
+      id="addSidebarButton"
       (click)="addRecipeTrigger()"
       [ngClass]="{ active: addRefActive() }">
       <mat-icon class="add-icon">add</mat-icon>
@@ -17,6 +19,7 @@
     <button
       mat-icon-button
       disableRipple
+      id="editSidebarButton"
       (click)="editRecipesTrigger()"
       [ngClass]="{ active: editRefActive() }">
       <mat-icon class="edit-icon">edit</mat-icon>
@@ -25,6 +28,7 @@
   <button
     mat-icon-button
     disableRipple
+    id="settingsSidebarButton"
     (click)="settingsTrigger()"
     [ngClass]="{ active: settingsRefActive() }">
     <mat-icon class="settings-icon">settings</mat-icon>

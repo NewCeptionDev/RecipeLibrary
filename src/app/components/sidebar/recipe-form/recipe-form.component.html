@@ -5,6 +5,7 @@
       <mat-label>Recipe Name</mat-label>
       <input
         matInput
+        id="recipeName"
         placeholder="Name of recipe"
         [formControl]="recipeFormControl" />
       <mat-error *ngIf="recipeFormControl.hasError('required')">
@@ -15,6 +16,7 @@
       itemName="Cookbook"
       [knownItems]="knownCookbooks"
       labelName="Cookbook"
+      id="cookbookSelect"
       [clearOnSelect]="false"
       (itemSelected)="updateCookbookName($event)"
       [startValue]="
@@ -22,6 +24,7 @@
       "></app-autocomplete-with-add-function>
     <app-selected-items-display
       headline="Ingredients"
+      id="ingredientSelect"
       [knownItems]="knownIngredients"
       [data]="recipe.ingredients"
       (updateData)="updateSelectedIngredients($event)"
@@ -29,6 +32,7 @@
     <br />
     <app-selected-items-display
       headline="Categories"
+      id="categorySelect"
       [knownItems]="knownCategories"
       [data]="recipe.categories"
       (updateData)="updateSelectedCategories($event)"
@@ -43,11 +47,13 @@
       mat-raised-button
       color="primary"
       cdkFocusInitial
+      id="submitRecipeFormAction"
       (click)="finalizeRecipe()">
       {{ editing ? "Update" : "Add" }}
     </button>
     <button
       mat-raised-button
+      id="cancelRecipeFormAction"
       (click)="recipeChange.emit()">
       Cancel
     </button>
