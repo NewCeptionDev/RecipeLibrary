@@ -10,9 +10,15 @@ export class SearchServiceMock {
     return this.publishSearchResults
   }
 
-  public adjustSortFilter(newSortOption: SortOptions, newSortDirection: SortDirection) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public adjustSortFilter(newSortOption: SortOptions, newSortDirection: SortDirection) {
+    // Mock implementation
+  }
 
-  public search(options: never) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public search(options: never) {
+    // Mock implementation
+  }
 
   public getLastSearchOptions() {
     return {

@@ -24,9 +24,15 @@ export class RecipeServiceMock {
     })
   }
 
-  public removeRecipe(recipeId: number) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public removeRecipe(recipeId: number) {
+    // Mock implementation
+  }
 
-  public updateRecipe(id: number, recipe: Recipe) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public updateRecipe(id: number, recipe: Recipe) {
+    // Mock implementation
+  }
 
   public getAllRecipes() {
     return this.recipes
@@ -44,7 +50,13 @@ export class RecipeServiceMock {
     return []
   }
 
-  initializeRecipeLibrary = (recipes: Recipe[]) => {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  initializeRecipeLibrary = (recipes: Recipe[]) => {
+    // Mock implementation
+  }
 
-  importLibrary = (recipes: Recipe[]) => {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  importLibrary = (recipes: Recipe[]) => {
+    // Mock implementation
+  }
 }

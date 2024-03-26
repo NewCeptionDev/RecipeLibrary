@@ -113,7 +113,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     const discardDialogSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
     component.extended = ExtendedOption.ADD
     await component.viewSelected(ExtendedOption.NONE)
     expect(discardDialogSpy).toHaveBeenCalled()
@@ -124,7 +124,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     const discardDialogSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
     component.extended = ExtendedOption.EDITRECIPE
     await component.viewSelected(ExtendedOption.NONE)
     expect(discardDialogSpy).toHaveBeenCalled()
@@ -158,7 +158,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
     await component.viewSelected(ExtendedOption.SETTINGS)
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.SETTINGS)
@@ -216,7 +216,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
@@ -227,8 +227,8 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
@@ -239,8 +239,8 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.ADD)
@@ -283,7 +283,7 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
     component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
     const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe")
     await component.toggleEditRecipes()
     expect(component.currentlyEditedRecipe).toBeUndefined()
@@ -298,7 +298,7 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
     component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
     const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
     await component.toggleEditRecipes()
     expect(component.currentlyEditedRecipe).toBeUndefined()
@@ -313,8 +313,8 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
     component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-    const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
+    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
     await component.toggleEditRecipes()
     expect(component.extended).toBe(ExtendedOption.EDITRECIPE)
     expect(component.currentlyEditedRecipe).not.toBeUndefined()

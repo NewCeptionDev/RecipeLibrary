@@ -6,9 +6,15 @@ import any = jasmine.any
 import Spy = jasmine.Spy
 
 class IpcRendererMock {
-  send = (channel: string, message?: any) => {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  send = (channel: string, message?: any) => {
+    // Mock implementation
+  }
 
-  on = (channel: string, listener: any) => {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  on = (channel: string, listener: any) => {
+    // Mock implementation
+  }
 }
 
 describe("ElectronService", () => {
@@ -102,16 +108,16 @@ describe("ElectronService", () => {
 describe("Electron Service Constructor", () => {
   let ipcRendererOnSpy: Spy
   const ipcRenderer: IpcRendererMock = new IpcRendererMock()
-  let service: ElectronService
 
   beforeEach(() => {
     // @ts-ignore
-    window.require = (elem: string) => ({ ipcRenderer })
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    window.require = (requiredElement: never) => ({ ipcRenderer })
     ipcRendererOnSpy = spyOn(ipcRenderer, "on")
     TestBed.configureTestingModule({
       imports: [MatSnackBarModule],
     })
-    service = TestBed.inject(ElectronService)
+    TestBed.inject(ElectronService)
   })
 
   it("should set up event listeners on creation", () => {

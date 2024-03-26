@@ -1,13 +1,26 @@
 export class ElectronServiceMock {
-  requestImportLibrary = () => {}
+  requestImportLibrary = () => {
+    // Mock implementation
+  }
 
-  requestNewFileSavePath = () => {}
+  requestNewFileSavePath = () => {
+    // Mock implementation
+  }
 
-  closeApp = () => {}
+  closeApp = () => {
+    // Mock implementation
+  }
 
-  minimizeApp = () => {}
+  minimizeApp = () => {
+    // Mock implementation
+  }
 
-  maximizeApp = () => {}
+  maximizeApp = () => {
+    // Mock implementation
+  }
 
-  saveRecipesToFile = (toSave: never) => {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  saveRecipesToFile = (toSave: never) => {
+    // Mock implementation
+  }
 }

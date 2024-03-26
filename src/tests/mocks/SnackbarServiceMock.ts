@@ -1,9 +1,17 @@
 export class SnackbarServiceMock {
-  libraryImportedFeedback = () => {}
+  libraryImportedFeedback = () => {
+    // Mock implementation
+  }
 
-  recipeAddedFeedback = () => {}
+  recipeAddedFeedback = () => {
+    // Mock implementation
+  }
 
-  recipeRemovedFeedback = () => {}
+  recipeRemovedFeedback = () => {
+    // Mock implementation
+  }
 
-  recipeEditedFeedback = () => {}
+  recipeEditedFeedback = () => {
+    // Mock implementation
+  }
 }
