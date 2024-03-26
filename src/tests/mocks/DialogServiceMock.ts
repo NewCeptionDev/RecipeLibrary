@@ -1,4 +1,5 @@
 export class DialogServiceMock {
-  deleteRecipe = () => {};
+  deleteRecipe = () => {}
+
   discardNewRecipe = () => {}
 }

@@ -4,9 +4,9 @@ import { BackdropComponent } from "./backdrop.component"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
 import { MatIconModule } from "@angular/material/icon"
-import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
-import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock";
-import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
+import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock"
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
 
 describe("BackdropComponent", () => {
   let component: BackdropComponent

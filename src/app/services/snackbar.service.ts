@@ -28,7 +28,7 @@ export class SnackbarService {
     this._snackBar.openFromComponent(SnackbarComponent, {
       duration: 1000,
       data: {
-        content: content,
+        content,
       },
       horizontalPosition: "left",
       verticalPosition: "bottom",

@@ -6,9 +6,9 @@ import { DialogsService } from "../../../services/dialogs.service"
 import { MatTableModule } from "@angular/material/table"
 import { EventEmitter } from "@angular/core"
 import { MatIconModule } from "@angular/material/icon"
-import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
-import { DialogServiceMock } from "../../../../tests/mocks/DialogServiceMock";
-import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
+import { DialogServiceMock } from "../../../../tests/mocks/DialogServiceMock"
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
 
 describe("EditRecipesComponent", () => {
   let component: EditRecipesComponent
@@ -63,7 +63,7 @@ describe("EditRecipesComponent", () => {
 
   it("should emit recipe on editRecipeTrigger", () => {
     let triggered = false
-    component.editRecipe.subscribe(val => {
+    component.editRecipe.subscribe((val) => {
       expect(val).toEqual(RecipeBuilder.defaultRecipe())
       triggered = true
     })
@@ -71,7 +71,7 @@ describe("EditRecipesComponent", () => {
     component.editRecipeTrigger(RecipeBuilder.defaultRecipe())
 
     expect(triggered).toBeTrue()
-  });
+  })
 
   it("should do nothing when onDeleteDialog given dialog returns false", () => {
     const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(false)
@@ -81,7 +81,7 @@ describe("EditRecipesComponent", () => {
 
     expect(openDialogSpy).toHaveBeenCalled()
     expect(recipeDeleteSpy).not.toHaveBeenCalled()
-  });
+  })
 
   it("should call removeRecipe when onDeleteDialog given dialog returns true", async () => {
     const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(true)
@@ -91,5 +91,5 @@ describe("EditRecipesComponent", () => {
 
     expect(openDialogSpy).toHaveBeenCalled()
     expect(recipeDeleteSpy).toHaveBeenCalled()
-  });
+  })
 })

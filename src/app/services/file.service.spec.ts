@@ -3,8 +3,8 @@ import { TestBed } from "@angular/core/testing"
 import { FileService } from "./file.service"
 import { RecipeService } from "./recipe.service"
 import { ElectronService } from "./electron.service"
-import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock";
-import { ElectronServiceMock } from "../../tests/mocks/ElectronServiceMock";
+import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock"
+import { ElectronServiceMock } from "../../tests/mocks/ElectronServiceMock"
 
 const BASIC_SAVE_OBJECT: string = '{"version":1,"recipes":[]}'
 
@@ -71,5 +71,5 @@ describe("FileService", () => {
     // @ts-ignore
     expect(service._savePath).toBe(path)
     expect(triggered).toBeTrue()
-  });
+  })
 })

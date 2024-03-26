@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { AppComponent } from "./app.component";
-import { MatDialogModule } from "@angular/material/dialog";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { ExtendedOption } from "./models/extendedOption";
-import { DialogsService } from "./services/dialogs.service";
-import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component";
-import { Recipe } from "./models/recipe";
-import any = jasmine.any;
-import { DialogServiceMock } from "../tests/mocks/DialogServiceMock";
-import { RecipeBuilder } from "../tests/objects/RecipeBuilder";
+import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { AppComponent } from "./app.component"
+import { MatDialogModule } from "@angular/material/dialog"
+import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { ExtendedOption } from "./models/extendedOption"
+import { DialogsService } from "./services/dialogs.service"
+import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
+import { Recipe } from "./models/recipe"
+import any = jasmine.any
+import { DialogServiceMock } from "../tests/mocks/DialogServiceMock"
+import { RecipeBuilder } from "../tests/objects/RecipeBuilder"
 
 describe("AppComponent", () => {
   let dialogService: DialogsService
@@ -17,7 +17,7 @@ describe("AppComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent, RecipeFormComponent],
       imports: [MatDialogModule, MatSnackBarModule],
-      providers: [{provide: DialogsService, useClass: DialogServiceMock}]
+      providers: [{ provide: DialogsService, useClass: DialogServiceMock }],
     }).compileComponents()
     fixture = TestBed.createComponent(AppComponent)
     dialogService = TestBed.inject(DialogsService)
@@ -43,7 +43,7 @@ describe("AppComponent", () => {
 
     expect(toggleEditRecipesSpy).toHaveBeenCalled()
     expect(toggleAddRecipesSpy).not.toHaveBeenCalledWith()
-  });
+  })
 
   it("should close extensibleContainer correctly when closeExtensibleContainer given ExtendendOption.ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -55,7 +55,7 @@ describe("AppComponent", () => {
 
     expect(toggleEditRecipesSpy).not.toHaveBeenCalled()
     expect(toggleAddRecipesSpy).toHaveBeenCalledWith()
-  });
+  })
 
   it("should close extensibleContainer correctly when closeExtensibleContainer", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -69,7 +69,7 @@ describe("AppComponent", () => {
     expect(toggleAddRecipesSpy).not.toHaveBeenCalledWith()
     // @ts-ignore
     expect(component.extended).toEqual(ExtendedOption.NONE)
-  });
+  })
 
   it("should return correct boolean for show functions", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -88,7 +88,7 @@ describe("AppComponent", () => {
     expect(component.showSearch()).toBe(false)
     component.extended = ExtendedOption.SEARCH
     expect(component.showSearch()).toBe(true)
-  });
+  })
 
   it("should correctly toggle search when toggleSearch", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -97,7 +97,7 @@ describe("AppComponent", () => {
     expect(component.extended).toBe(ExtendedOption.SEARCH)
     component.toggleSearch()
     expect(component.extended).toBe(ExtendedOption.NONE)
-  });
+  })
 
   it("should correctly toggle search when toggleSettings", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -117,7 +117,7 @@ describe("AppComponent", () => {
     component.extended = ExtendedOption.ADD
     await component.viewSelected(ExtendedOption.NONE)
     expect(discardDialogSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should ask for confirmation on changes when viewSelected given ExtendedOption.EDITRECIPE", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -128,7 +128,7 @@ describe("AppComponent", () => {
     component.extended = ExtendedOption.EDITRECIPE
     await component.viewSelected(ExtendedOption.NONE)
     expect(discardDialogSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should clear currentlyEditedRecipe when viewSelected", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -137,7 +137,7 @@ describe("AppComponent", () => {
     await component.viewSelected(ExtendedOption.NONE)
 
     expect(component.currentlyEditedRecipe).toBeUndefined()
-  });
+  })
 
   it("should set extended to none when viewSelected given view is already selected", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -145,13 +145,13 @@ describe("AppComponent", () => {
     await component.viewSelected(ExtendedOption.SETTINGS)
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
-  });
+  })
 
   it("should switch to new view when viewSelected", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
     await component.viewSelected(ExtendedOption.SETTINGS)
     expect(component.extended).toBe(ExtendedOption.SETTINGS)
-  });
+  })
 
   it("should switch to new view when viewSelected and no changes", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -162,7 +162,7 @@ describe("AppComponent", () => {
     await component.viewSelected(ExtendedOption.SETTINGS)
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.SETTINGS)
-  });
+  })
 
   it("should switch to new view with delay when viewSelected and newView ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -171,7 +171,7 @@ describe("AppComponent", () => {
     setTimeout(() => {
       expect(component.extended).toBe(ExtendedOption.ADD)
     }, 1)
-  });
+  })
 
   it("should switch to new view with delay when viewSelected and newView EDITRECIPE", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -180,7 +180,7 @@ describe("AppComponent", () => {
     setTimeout(() => {
       expect(component.extended).toBe(ExtendedOption.EDITRECIPE)
     }, 1)
-  });
+  })
 
   it("should correctly set currentlyEditedRecipe and switch to EDITRECIPE view when editRecipe", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -190,7 +190,7 @@ describe("AppComponent", () => {
     setTimeout(() => {
       expect(component.extended).toBe(ExtendedOption.EDITRECIPE)
     }, 1)
-  });
+  })
 
   it("should switch to extended none when recipeChange given currentlyEditedRecipe is undefined", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -199,7 +199,7 @@ describe("AppComponent", () => {
     component.recipeChange()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
-  });
+  })
 
   it("should switch to edit when recipeChange given currentlyEditedRecipe is not undefined", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -209,7 +209,7 @@ describe("AppComponent", () => {
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.EDIT)
     expect(component.currentlyEditedRecipe).toBeUndefined()
-  });
+  })
 
   it("should switch to extend none when toggleAddRecipe given no changes and current view is ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -220,7 +220,7 @@ describe("AppComponent", () => {
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
-  });
+  })
 
   it("should switch to extend none when toggleAddRecipe given changes and current view is ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -232,10 +232,9 @@ describe("AppComponent", () => {
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
-  });
+  })
 
   it("should do nothing when toggleAddRecipe given changes and current view is ADD and action is cancelled", async () => {
-
     const component = TestBed.createComponent(AppComponent).componentInstance
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
@@ -245,12 +244,12 @@ describe("AppComponent", () => {
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.ADD)
-  });
+  })
 
   it("should switch to ADD view when toggleAddRecipe given current view is not ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-   component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-   component.extended = ExtendedOption.SEARCH
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
+    component.extended = ExtendedOption.SEARCH
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
@@ -258,7 +257,7 @@ describe("AppComponent", () => {
     setTimeout(() => {
       expect(component.extended).toBe(ExtendedOption.ADD)
     }, 1)
-  });
+  })
 
   it("should switch view to EDIT when toggleEditRecipes given current view is not EDIT or EDITRECIPE", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -266,7 +265,7 @@ describe("AppComponent", () => {
     await component.toggleEditRecipes()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.EDIT)
-  });
+  })
 
   it("should switch view to none when toggleEditRecipes given current view is EDIT", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -276,7 +275,7 @@ describe("AppComponent", () => {
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
     expect(component.currentlyEditedRecipe).toBeUndefined()
-  });
+  })
 
   it("should switch view to EDIT when toggleEditRecipes given no changes and current view is EDITRECIPE", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -291,7 +290,7 @@ describe("AppComponent", () => {
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.EDIT)
     expect(discardRecipeSpy).not.toHaveBeenCalled()
-  });
+  })
 
   it("should switch view to EDIT when toggleEditRecipes given changes and current view is EDITRECIPE", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -306,7 +305,7 @@ describe("AppComponent", () => {
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.EDIT)
     expect(discardRecipeSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should do nothing when toggleEditRecipes given changes and current view is EDITRECIPE and action is cancelled", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
@@ -319,12 +318,12 @@ describe("AppComponent", () => {
     await component.toggleEditRecipes()
     expect(component.extended).toBe(ExtendedOption.EDITRECIPE)
     expect(component.currentlyEditedRecipe).not.toBeUndefined()
-  });
+  })
 
   it("should add eventlistener to window", () => {
     const windowRequireSpy = spyOn(window, "addEventListener")
     // Needs to be created for constructor to be called
     TestBed.createComponent(AppComponent)
     expect(windowRequireSpy).toHaveBeenCalledWith("keydown", any(Function))
-  });
+  })
 })

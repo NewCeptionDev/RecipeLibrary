@@ -1,7 +1,12 @@
-import { Observable } from "rxjs";
+import { Observable } from "rxjs"
 
 export class TestUtil {
-  static observableShouldBeCalledAndIncludeValue<T>(observable: Observable<T>, expectedValue: T, functionCall: Function, ...args: any[]) {
+  static observableShouldBeCalledAndIncludeValue<T>(
+    observable: Observable<T>,
+    expectedValue: T,
+    functionCall: Function,
+    ...args: any[]
+  ) {
     let triggered = false
     observable.subscribe((val) => {
       triggered = true

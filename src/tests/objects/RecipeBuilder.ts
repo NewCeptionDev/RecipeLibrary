@@ -1,4 +1,4 @@
-import { Recipe } from "../../app/models/recipe";
+import { Recipe } from "../../app/models/recipe"
 
 export class RecipeBuilder {
   private id: number = -1
@@ -44,23 +44,25 @@ export class RecipeBuilder {
   }
 
   build = (): Recipe => ({
-      id: this.id,
-      recipeName: this.recipeName,
-      cookbook: this.cookbook,
-      ingredients: this.ingredients,
-      categories: this.categories,
-      rating: this.rating
+    id: this.id,
+    recipeName: this.recipeName,
+    cookbook: this.cookbook,
+    ingredients: this.ingredients,
+    categories: this.categories,
+    rating: this.rating,
   })
 
-  defaultRecipe = (): RecipeBuilder =>  new RecipeBuilder()
-    .withId(1)
-    .withRecipeName("Test Recipe")
-    .withCookbook("Test Cookbook")
-    .withIngredients(["Test Ingredient"])
-    .withCategories(["Test Category"])
-    .withRating(1)
+  defaultRecipe = (): RecipeBuilder =>
+    new RecipeBuilder()
+      .withId(1)
+      .withRecipeName("Test Recipe")
+      .withCookbook("Test Cookbook")
+      .withIngredients(["Test Ingredient"])
+      .withCategories(["Test Category"])
+      .withRating(1)
 
-  static defaultRecipe = (): Recipe => new RecipeBuilder()
+  static defaultRecipe = (): Recipe =>
+    new RecipeBuilder()
       .withId(1)
       .withRecipeName("Test Recipe")
       .withCookbook("Test Cookbook")
@@ -69,15 +71,16 @@ export class RecipeBuilder {
       .withRating(1)
       .build()
 
-  static defaultRecipeWithoutId = (): Recipe => new RecipeBuilder()
-    .withRecipeName("Test Recipe")
-    .withCookbook("Test Cookbook")
-    .withIngredients(["Test Ingredient"])
-    .withCategories(["Test Category"])
-    .withRating(1)
-    .build()
+  static defaultRecipeWithoutId = (): Recipe =>
+    new RecipeBuilder()
+      .withRecipeName("Test Recipe")
+      .withCookbook("Test Cookbook")
+      .withIngredients(["Test Ingredient"])
+      .withCategories(["Test Category"])
+      .withRating(1)
+      .build()
 
-  static listOfRecipes = (): Recipe[] => ([
+  static listOfRecipes = (): Recipe[] => [
     new RecipeBuilder()
       .withId(1)
       .withRecipeName("First Recipe")
@@ -110,5 +113,5 @@ export class RecipeBuilder {
       .withIngredients(["Cheese", "Milk"])
       .withRating(4)
       .build(),
-  ])
+  ]
 }

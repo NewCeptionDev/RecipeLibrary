@@ -23,7 +23,7 @@
     "prettier": "prettier --write .",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
-    "format": "npm run prettier && npm run eslint:fix",
+    "format": "npm run prettier && npm run eslint:fix && npm run prettier",
     "lint": "ng lint",
     "package": "electron-forge package",
     "make": "electron-forge make"

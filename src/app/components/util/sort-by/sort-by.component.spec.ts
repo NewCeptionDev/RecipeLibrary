@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import { SortByComponent } from "./sort-by.component";
-import { SortDirection } from "../../../models/sortDirection";
-import { SortOptions } from "../../../models/sortOptions";
-import { TestUtil } from "../../../../tests/testUtil";
+import { SortByComponent } from "./sort-by.component"
+import { SortDirection } from "../../../models/sortDirection"
+import { SortOptions } from "../../../models/sortOptions"
+import { TestUtil } from "../../../../tests/testUtil"
 
 describe("SortByComponent", () => {
   let component: SortByComponent
@@ -53,37 +53,49 @@ describe("SortByComponent", () => {
     component.selectedSortOption = SortOptions.ALPHABET
     component.ngOnInit()
     expect(component.sortOptionIcon).toBe("abc")
-  });
+  })
 
   it("should select star icon when ngOnInit given selected SortOption is RATING", () => {
     component.selectedSortOption = SortOptions.RATING
     component.ngOnInit()
     expect(component.sortOptionIcon).toBe("star")
-  });
+  })
 
   it("should enable sorting and sort ascending when adjustSortDirection given disabled", () => {
     component.disabled = true
-    TestUtil.observableShouldBeCalledAndIncludeValue(component.sortDirectionChanged, SortDirection.ASC, component.adjustSortDirection.bind(component))
+    TestUtil.observableShouldBeCalledAndIncludeValue(
+      component.sortDirectionChanged,
+      SortDirection.ASC,
+      component.adjustSortDirection.bind(component)
+    )
 
     expect(component.disabled).toBeFalse()
     expect(component.sortDirection).toBe(SortDirection.ASC)
-  });
+  })
 
   it("should switch to desc sorting when adjustSortDirection given asc sorting", () => {
     component.sortDirection = SortDirection.ASC
     component.disabled = false
-    TestUtil.observableShouldBeCalledAndIncludeValue(component.sortDirectionChanged, SortDirection.DESC, component.adjustSortDirection.bind(component))
+    TestUtil.observableShouldBeCalledAndIncludeValue(
+      component.sortDirectionChanged,
+      SortDirection.DESC,
+      component.adjustSortDirection.bind(component)
+    )
     // @ts-ignore
     expect(component.sortDirection).toBe(SortDirection.DESC)
-  });
+  })
 
   it("should switch to asc sorting when adjustSortDirection given desc sorting", () => {
     component.sortDirection = SortDirection.DESC
     component.disabled = false
-    TestUtil.observableShouldBeCalledAndIncludeValue(component.sortDirectionChanged, SortDirection.ASC, component.adjustSortDirection.bind(component))
+    TestUtil.observableShouldBeCalledAndIncludeValue(
+      component.sortDirectionChanged,
+      SortDirection.ASC,
+      component.adjustSortDirection.bind(component)
+    )
 
     expect(component.disabled).toBeFalse()
     // @ts-ignore
     expect(component.sortDirection).toBe(SortDirection.ASC)
-  });
+  })
 })

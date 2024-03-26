@@ -20,6 +20,7 @@ export class SearchService {
   }
 
   private lastSearchResults: Recipe[] = []
+
   private lastSearchOptions: SearchOptions | undefined
 
   public getLastSearchOptions(): SearchOptions | undefined {
@@ -116,15 +117,14 @@ export class SearchService {
           return list.sort((a, b) =>
             a.recipeName.toLowerCase() < b.recipeName.toLowerCase() ? -1 : 1
           )
-        } else {
-          return list.sort((a, b) => (a.recipeName < b.recipeName ? 1 : -1))
         }
+        return list.sort((a, b) => (a.recipeName < b.recipeName ? 1 : -1))
+
       case SortOptions.RATING:
         if (direction === SortDirection.ASC) {
           return list.sort((a, b) => a.rating - b.rating)
-        } else {
-          return list.sort((a, b) => b.rating - a.rating)
         }
+        return list.sort((a, b) => b.rating - a.rating)
     }
   }
 

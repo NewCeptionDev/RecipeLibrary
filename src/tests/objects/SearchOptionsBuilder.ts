@@ -1,6 +1,6 @@
-import { SortOptions } from "../../app/models/sortOptions";
-import { SortDirection } from "../../app/models/sortDirection";
-import { SearchOptions } from "../../app/models/searchOptions";
+import { SortOptions } from "../../app/models/sortOptions"
+import { SortDirection } from "../../app/models/sortDirection"
+import { SearchOptions } from "../../app/models/searchOptions"
 
 export class SearchOptionsBuilder {
   private minimumRating: number = 1
@@ -16,8 +16,8 @@ export class SearchOptionsBuilder {
   private sortDirection?: SortDirection
 
   withMinimumRating = (rating: number): SearchOptionsBuilder => {
-   this.minimumRating = rating
-   return this
+    this.minimumRating = rating
+    return this
   }
 
   withRequiredIngredients = (ingredients: string[]): SearchOptionsBuilder => {
@@ -46,13 +46,13 @@ export class SearchOptionsBuilder {
   }
 
   build = (): SearchOptions => ({
-      minimumRating: this.minimumRating,
-      requiredIngredients: this.requiredIngredients,
-      includedCategories: this.includedCategories,
-      includedCookbooks: this.includedCookbooks,
-      sortOption: this.sortOption,
-      sortDirection: this.sortDirection
-    })
+    minimumRating: this.minimumRating,
+    requiredIngredients: this.requiredIngredients,
+    includedCategories: this.includedCategories,
+    includedCookbooks: this.includedCookbooks,
+    sortOption: this.sortOption,
+    sortDirection: this.sortDirection,
+  })
 
   static emptyOptions = () => new SearchOptionsBuilder().build()
 }

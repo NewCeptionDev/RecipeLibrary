@@ -1,8 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  ViewChild,
-} from "@angular/core"
+import { Component, EventEmitter, ViewChild } from "@angular/core"
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
 import { Recipe } from "./models/recipe"
 import { DialogsService } from "./services/dialogs.service"
@@ -120,7 +116,7 @@ export class AppComponent {
   public async toggleAddRecipe() {
     if (this.extended === ExtendedOption.ADD) {
       if (this.recipeForm.hasRecipeChanged()) {
-        let closed = await this.dialogService.discardNewRecipe()
+        const closed = await this.dialogService.discardNewRecipe()
 
         if (closed) {
           this.extended = ExtendedOption.NONE

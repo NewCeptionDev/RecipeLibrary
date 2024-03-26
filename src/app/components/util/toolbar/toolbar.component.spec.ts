@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { ToolbarComponent } from "./toolbar.component"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
-import { ElectronService } from "../../../services/electron.service";
-import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock";
+import { ElectronService } from "../../../services/electron.service"
+import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock"
 
 describe("ToolbarComponent", () => {
   let component: ToolbarComponent
@@ -14,7 +14,7 @@ describe("ToolbarComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [ToolbarComponent],
       imports: [MatSnackBarModule],
-      providers: [{provide: ElectronService, useClass: ElectronServiceMock}]
+      providers: [{ provide: ElectronService, useClass: ElectronServiceMock }],
     }).compileComponents()
 
     fixture = TestBed.createComponent(ToolbarComponent)
@@ -31,17 +31,17 @@ describe("ToolbarComponent", () => {
     const closeSpy = spyOn(electronService, "closeApp")
     component.close()
     expect(closeSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should call electronService minimizeApp when minimize", () => {
     const minimizeSpy = spyOn(electronService, "minimizeApp")
     component.minimize()
     expect(minimizeSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should call electronService maximizeApp when maximize", () => {
     const maximizeSpy = spyOn(electronService, "maximizeApp")
     component.maximize()
     expect(maximizeSpy).toHaveBeenCalled()
-  });
+  })
 })

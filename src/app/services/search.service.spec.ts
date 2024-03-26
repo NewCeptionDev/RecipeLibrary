@@ -1,17 +1,17 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing"
 
-import { SearchService } from "./search.service";
+import { SearchService } from "./search.service"
 
-import { SearchOptions } from "../models/searchOptions";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { SortDirection } from "../models/sortDirection";
-import { SortOptions } from "../models/sortOptions";
-import { Recipe } from "../models/recipe";
-import { RecipeService } from "./recipe.service";
-import { RecipeAction } from "../models/recipeAction";
-import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock";
-import { RecipeBuilder } from "../../tests/objects/RecipeBuilder";
-import { SearchOptionsBuilder } from "../../tests/objects/SearchOptionsBuilder";
+import { SearchOptions } from "../models/searchOptions"
+import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { SortDirection } from "../models/sortDirection"
+import { SortOptions } from "../models/sortOptions"
+import { Recipe } from "../models/recipe"
+import { RecipeService } from "./recipe.service"
+import { RecipeAction } from "../models/recipeAction"
+import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock"
+import { RecipeBuilder } from "../../tests/objects/RecipeBuilder"
+import { SearchOptionsBuilder } from "../../tests/objects/SearchOptionsBuilder"
 
 describe("SearchService", () => {
   let service: SearchService
@@ -64,7 +64,12 @@ describe("SearchService", () => {
 
   it("should add recipe to lastRecipesList when adjustSearchResult given recipe matches filter", () => {
     const searchOptions: SearchOptions = SearchOptionsBuilder.emptyOptions()
-    const recipeToAdd: Recipe = new RecipeBuilder().withId(99).withRecipeName("Added Recipe").withRating(2).withCookbook("Cookbook 5").build()
+    const recipeToAdd: Recipe = new RecipeBuilder()
+      .withId(99)
+      .withRecipeName("Added Recipe")
+      .withRating(2)
+      .withCookbook("Cookbook 5")
+      .build()
     service.search(searchOptions)
     // @ts-ignore
     expect(service.lastSearchResults).not.toContain(recipeToAdd)
@@ -75,7 +80,12 @@ describe("SearchService", () => {
 
   it("should do nothing when adjustSearchResult given add event and recipe does not match filter", () => {
     const searchOptions: SearchOptions = new SearchOptionsBuilder().withMinimumRating(3).build()
-    const recipeToAdd: Recipe = new RecipeBuilder().withId(99).withRecipeName("Added Recipe").withRating(2).withCookbook("Cookbook 5").build()
+    const recipeToAdd: Recipe = new RecipeBuilder()
+      .withId(99)
+      .withRecipeName("Added Recipe")
+      .withRating(2)
+      .withCookbook("Cookbook 5")
+      .build()
 
     service.search(searchOptions)
     // @ts-ignore
@@ -87,7 +97,12 @@ describe("SearchService", () => {
 
   it("should replace recipe in lastSearchResults when adjustSearchResult given edit event and before and after recipe match filter", () => {
     const searchOptions: SearchOptions = SearchOptionsBuilder.emptyOptions()
-    const recipeToUpdate: Recipe = new RecipeBuilder().withId(2).withRecipeName("Updated Recipe").withRating(2).withCookbook("Cookbook 5").build()
+    const recipeToUpdate: Recipe = new RecipeBuilder()
+      .withId(2)
+      .withRecipeName("Updated Recipe")
+      .withRating(2)
+      .withCookbook("Cookbook 5")
+      .build()
 
     service.search(searchOptions)
     // @ts-ignore
@@ -102,8 +117,15 @@ describe("SearchService", () => {
   })
 
   it("should remove recipe in lastSearchResults when adjustSearchResult given edit event and only before recipe match filter", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withIncludedCookbooks(["Cookbook 1"]).build()
-    const recipeToUpdate: Recipe = new RecipeBuilder().withId(2).withRecipeName("Updated Recipe").withRating(2).withCookbook("Cookbook 5").build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withIncludedCookbooks(["Cookbook 1"])
+      .build()
+    const recipeToUpdate: Recipe = new RecipeBuilder()
+      .withId(2)
+      .withRecipeName("Updated Recipe")
+      .withRating(2)
+      .withCookbook("Cookbook 5")
+      .build()
 
     service.search(searchOptions)
     // @ts-ignore
@@ -117,7 +139,12 @@ describe("SearchService", () => {
 
   it("should add recipe in lastSearchResults when adjustSearchResult given edit event and only after recipe match filter", () => {
     const searchOptions: SearchOptions = new SearchOptionsBuilder().withMinimumRating(3).build()
-    const recipeToUpdate: Recipe = new RecipeBuilder().withId(2).withRecipeName("Updated Recipe").withRating(4).withCookbook("Cookbook 5").build()
+    const recipeToUpdate: Recipe = new RecipeBuilder()
+      .withId(2)
+      .withRecipeName("Updated Recipe")
+      .withRating(4)
+      .withCookbook("Cookbook 5")
+      .build()
 
     service.search(searchOptions)
     // @ts-ignore
@@ -131,7 +158,12 @@ describe("SearchService", () => {
 
   it("should do nothing when adjustSearchResult given edit event and recipe does not match filter", () => {
     const searchOptions: SearchOptions = new SearchOptionsBuilder().withMinimumRating(3).build()
-    const recipeToUpdate: Recipe = new RecipeBuilder().withId(2).withRecipeName("Updated Recipe").withRating(2).withCookbook("Cookbook 5").build()
+    const recipeToUpdate: Recipe = new RecipeBuilder()
+      .withId(2)
+      .withRecipeName("Updated Recipe")
+      .withRating(2)
+      .withCookbook("Cookbook 5")
+      .build()
 
     service.search(searchOptions)
     // @ts-ignore
@@ -180,7 +212,9 @@ describe("SearchService", () => {
   })
 
   it("should return correctly filtered list when search by cookbook", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withIncludedCookbooks(["Cookbook 1"]).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withIncludedCookbooks(["Cookbook 1"])
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -192,7 +226,9 @@ describe("SearchService", () => {
   })
 
   it("should return correctly filtered list when search by category", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withIncludedCategories(["Vegetarian"]).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withIncludedCategories(["Vegetarian"])
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -208,7 +244,9 @@ describe("SearchService", () => {
   })
 
   it("should return correctly filtered list when search by ingredients", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withRequiredIngredients(["Tomato"]).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withRequiredIngredients(["Tomato"])
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -224,7 +262,10 @@ describe("SearchService", () => {
   })
 
   it("should correctly update last used when search", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withRequiredIngredients(["Tomato"]).withSortOption(SortOptions.RATING).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withRequiredIngredients(["Tomato"])
+      .withSortOption(SortOptions.RATING)
+      .build()
     // @ts-ignore
     expect(service.lastSearchResults).toHaveSize(0)
     service.search(searchOptions)
@@ -234,7 +275,10 @@ describe("SearchService", () => {
   })
 
   it("should return correctly sorted result list when search with sortOption Rating DESC", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withSortOption(SortOptions.RATING).withSortDirection(SortDirection.DESC).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.RATING)
+      .withSortDirection(SortDirection.DESC)
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -245,7 +289,10 @@ describe("SearchService", () => {
   })
 
   it("should return correctly sorted result list when search with sortOption Rating ASC", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withSortOption(SortOptions.RATING).withSortDirection(SortDirection.ASC).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.RATING)
+      .withSortDirection(SortDirection.ASC)
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -256,7 +303,10 @@ describe("SearchService", () => {
   })
 
   it("should return correctly sorted result list when search with sortOption Alphabet DESC", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withSortOption(SortOptions.ALPHABET).withSortDirection(SortDirection.DESC).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.ALPHABET)
+      .withSortDirection(SortDirection.DESC)
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -269,7 +319,10 @@ describe("SearchService", () => {
   })
 
   it("should return correctly sorted result list when search with sortOption Alphabet ASC", () => {
-    const searchOptions: SearchOptions = new SearchOptionsBuilder().withSortOption(SortOptions.ALPHABET).withSortDirection(SortDirection.ASC).build()
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.ALPHABET)
+      .withSortDirection(SortDirection.ASC)
+      .build()
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
@@ -290,7 +343,10 @@ describe("SearchService", () => {
   it("should adjust sortFilter when adjustSortFilter", () => {
     const searchSpy = spyOn(service, "search")
     // @ts-ignore
-    service.lastSearchOptions = new SearchOptionsBuilder().withSortOption(SortOptions.RATING).withSortDirection(SortDirection.DESC).build()
+    service.lastSearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.RATING)
+      .withSortDirection(SortDirection.DESC)
+      .build()
 
     service.adjustSortFilter(SortOptions.ALPHABET, SortDirection.ASC)
 

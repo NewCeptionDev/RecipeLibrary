@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
 import { MatTableModule } from "@angular/material/table"
-import { EventEmitter } from "@angular/core";
+import { EventEmitter } from "@angular/core"
 
 describe("SelectedItemsDisplayComponent", () => {
   let component: SelectedItemsDisplayComponent
@@ -86,7 +86,7 @@ describe("SelectedItemsDisplayComponent", () => {
     component.ngOnInit()
 
     expect(setDataSpy).toHaveBeenCalled()
-  });
+  })
 
   it("should correctly initialize component given editable is false", () => {
     component.editable = false
@@ -95,7 +95,7 @@ describe("SelectedItemsDisplayComponent", () => {
 
     expect(component.columns).toHaveSize(1)
     expect(component.columns[0]).toBe("name")
-  });
+  })
 
   it("should correctly initialize component given triggerRefresh is set", () => {
     const eventEmitter = new EventEmitter<void>()
@@ -108,5 +108,5 @@ describe("SelectedItemsDisplayComponent", () => {
     eventEmitter.emit()
 
     expect(refreshTableSpy).toHaveBeenCalled()
-  });
+  })
 })

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { SearchComponent } from "./search.component"
 import { SearchService } from "../../../services/search.service"
 import { RecipeService } from "../../../services/recipe.service"
-import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock";
-import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
+import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock"
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
 
 const KNOWN_COOKBOOK = "KnownCookbook"
 

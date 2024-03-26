@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeFormComponent } from "./recipe-form.component"
 import { RecipeService } from "../../../services/recipe.service"
-import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock";
-import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
+import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
 
 describe("AddRecipeComponent", () => {
   let component: RecipeFormComponent
@@ -183,5 +183,5 @@ describe("AddRecipeComponent", () => {
 
     expect(component.editing).toBeTrue()
     expect(component.recipeInput).toBe(RecipeBuilder.defaultRecipe())
-  });
+  })
 })

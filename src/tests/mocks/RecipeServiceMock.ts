@@ -1,13 +1,12 @@
-import { Recipe } from "../../app/models/recipe";
-import { EventEmitter } from "@angular/core";
-import { RecipeChangeEvent } from "../../app/models/recipeChangeEvent";
-import { RecipeAction } from "../../app/models/recipeAction";
+import { Recipe } from "../../app/models/recipe"
+import { EventEmitter } from "@angular/core"
+import { RecipeChangeEvent } from "../../app/models/recipeChangeEvent"
+import { RecipeAction } from "../../app/models/recipeAction"
 
 export class RecipeServiceMock {
   private recipes: Recipe[] = []
 
-  _recipeChangeEvent: EventEmitter<RecipeChangeEvent> =
-    new EventEmitter<RecipeChangeEvent>()
+  _recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
 
   get recipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
     return this._recipeChangeEvent

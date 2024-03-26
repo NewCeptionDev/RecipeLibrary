@@ -4,8 +4,8 @@ import { RecipeService } from "./recipe.service"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { Recipe } from "../models/recipe"
 import { SnackbarService } from "./snackbar.service"
-import { SnackbarServiceMock } from "../../tests/mocks/SnackbarServiceMock";
-import { RecipeBuilder } from "../../tests/objects/RecipeBuilder";
+import { SnackbarServiceMock } from "../../tests/mocks/SnackbarServiceMock"
+import { RecipeBuilder } from "../../tests/objects/RecipeBuilder"
 
 describe("RecipeService", () => {
   let service: RecipeService
@@ -28,9 +28,9 @@ describe("RecipeService", () => {
     snackBarService = TestBed.inject(SnackbarService)
 
     recipeList = RecipeBuilder.listOfRecipes()
-    cookBooks = [...new Set(recipeList.map(recipe => recipe.cookbook))]
-    categories = [...new Set(recipeList.flatMap(recipe => recipe.categories))]
-    ingredients = [... new Set(recipeList.flatMap(recipe => recipe.ingredients))]
+    cookBooks = [...new Set(recipeList.map((recipe) => recipe.cookbook))]
+    categories = [...new Set(recipeList.flatMap((recipe) => recipe.categories))]
+    ingredients = [...new Set(recipeList.flatMap((recipe) => recipe.ingredients))]
   })
 
   it("should be created", () => {
@@ -140,13 +140,13 @@ describe("RecipeService", () => {
   it("should correctly update recipe and update known when updateRecipe", () => {
     const recipeEditedFeedbackSpy = spyOn(snackBarService, "recipeEditedFeedback")
     const adjustedRecipe: Recipe = new RecipeBuilder()
-        .withId(1)
-        .withRecipeName("First Recipe Updated")
-        .withCookbook("Cookbook 4")
-        .withCategories(["Meat"])
-        .withIngredients(["Pork"])
-        .withRating(1)
-        .build()
+      .withId(1)
+      .withRecipeName("First Recipe Updated")
+      .withCookbook("Cookbook 4")
+      .withCategories(["Meat"])
+      .withIngredients(["Pork"])
+      .withRating(1)
+      .build()
 
     service.initializeRecipeLibrary([...recipeList])
 

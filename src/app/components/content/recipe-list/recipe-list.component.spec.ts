@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { RecipeListComponent } from "./recipe-list.component"
 import { SearchService } from "../../../services/search.service"
-import { SortOptions } from "../../../models/sortOptions";
-import { SortDirection } from "../../../models/sortDirection";
-import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock";
-import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder";
+import { SortOptions } from "../../../models/sortOptions"
+import { SortDirection } from "../../../models/sortDirection"
+import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock"
+import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
 
 describe("RecipeListComponent", () => {
   let component: RecipeListComponent
@@ -65,7 +65,9 @@ describe("RecipeListComponent", () => {
   })
 
   it("should show amount of found recipes with recipe plural given search found two result", () => {
-    searchService.getSearchResultsEventEmitter().emit([RecipeBuilder.defaultRecipe(), RecipeBuilder.defaultRecipe()])
+    searchService
+      .getSearchResultsEventEmitter()
+      .emit([RecipeBuilder.defaultRecipe(), RecipeBuilder.defaultRecipe()])
     fixture.detectChanges()
     const recipeList: HTMLElement = fixture.nativeElement
     const amountNote = recipeList.querySelector(".optionRow > p")!
@@ -81,5 +83,5 @@ describe("RecipeListComponent", () => {
 
     expect(component.currentSortOption).toBe(sortOption)
     expect(adjustSortFiltersSpy).toHaveBeenCalledWith(sortOption, direction)
-  });
+  })
 })

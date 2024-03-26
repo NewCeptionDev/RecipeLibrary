@@ -1,7 +1,7 @@
-import { EventEmitter } from "@angular/core";
-import { Recipe } from "../../app/models/recipe";
-import { SortOptions } from "../../app/models/sortOptions";
-import { SortDirection } from "../../app/models/sortDirection";
+import { EventEmitter } from "@angular/core"
+import { Recipe } from "../../app/models/recipe"
+import { SortOptions } from "../../app/models/sortOptions"
+import { SortDirection } from "../../app/models/sortDirection"
 
 export class SearchServiceMock {
   private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()

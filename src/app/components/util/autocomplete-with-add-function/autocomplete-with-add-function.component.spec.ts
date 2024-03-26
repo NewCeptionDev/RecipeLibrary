@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
 import { MatAutocompleteModule } from "@angular/material/autocomplete"
-import { EventEmitter } from "@angular/core";
+import { EventEmitter } from "@angular/core"
 
 describe("AutocompleteWithAddFunctionComponent", () => {
   let component: AutocompleteWithAddFunctionComponent
@@ -115,14 +115,14 @@ describe("AutocompleteWithAddFunctionComponent", () => {
 
   it("should do nothing when handleKeyUpEvent given key is not enter", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
-    component.handleKeyUpEvent(new KeyboardEvent("keyup", {key: "space"}))
+    component.handleKeyUpEvent(new KeyboardEvent("keyup", { key: "space" }))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
   it("should do nothing when handleKeyUpEvent given disableAddFunction is true", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
     component.disableAddFunction = true
-    component.handleKeyUpEvent(new KeyboardEvent("keyup", {key: "Enter"}))
+    component.handleKeyUpEvent(new KeyboardEvent("keyup", { key: "Enter" }))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
@@ -130,13 +130,13 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
     // @ts-ignore
     component.autocompleteInputElement.nativeElement.value = ""
-    component.handleKeyUpEvent(new KeyboardEvent("keyup", {key: "Enter"}))
+    component.handleKeyUpEvent(new KeyboardEvent("keyup", { key: "Enter" }))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
   it("should call onItemSelect when handleKeyUpEvent given enter key and value is not empty", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
-    const keyEvent = new KeyboardEvent("keyup", {key: "Enter"})
+    const keyEvent = new KeyboardEvent("keyup", { key: "Enter" })
     const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
     const value = "Test"
     // @ts-ignore
@@ -151,7 +151,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     component.startValue = startValue
     component.ngOnInit()
     expect(component.itemSelect.value).toBe(startValue)
-  });
+  })
 
   it("should clear itemSelect value when refreshFilteredItems is triggered", () => {
     const eventEmitter = new EventEmitter()
@@ -160,5 +160,5 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     component.ngOnInit()
     eventEmitter.emit()
     expect(component.itemSelect.value).toBe("")
-  });
+  })
 })
