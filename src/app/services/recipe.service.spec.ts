@@ -4,13 +4,8 @@ import { RecipeService } from "./recipe.service"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { Recipe } from "../models/recipe"
 import { SnackbarService } from "./snackbar.service"
-
-class SnackbarServiceMock {
-  libraryImportedFeedback = () => {}
-  recipeAddedFeedback = () => {}
-  recipeRemovedFeedback = () => {}
-  recipeEditedFeedback = () => {}
-}
+import { SnackbarServiceMock } from "../../tests/mocks/SnackbarServiceMock";
+import { RecipeBuilder } from "../../tests/objects/RecipeBuilder";
 
 describe("RecipeService", () => {
   let service: RecipeService
@@ -18,9 +13,9 @@ describe("RecipeService", () => {
 
   let recipeList: Recipe[] = []
 
-  const cookBooks = ["Cookbook 1", "Cookbook 2", "Cookbook 3"]
-  const categories = ["Vegetarian", "Meat", "Vegan"]
-  const ingredients = ["Paprika", "Tomato", "Sausage", "Salad", "Olives", "Cheese", "Milk"]
+  let cookBooks: string[]
+  let categories: string[]
+  let ingredients: string[]
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,40 +27,10 @@ describe("RecipeService", () => {
     RecipeService.lastUsedRecipeId = 0
     snackBarService = TestBed.inject(SnackbarService)
 
-    recipeList = [
-      {
-        id: 1,
-        recipeName: "First Recipe",
-        cookbook: "Cookbook 1",
-        categories: ["Vegetarian"],
-        ingredients: ["Paprika", "Tomato"],
-        rating: 1,
-      },
-      {
-        id: 2,
-        recipeName: "Second Recipe",
-        cookbook: "Cookbook 1",
-        categories: ["Meat"],
-        ingredients: ["Sausage", "Tomato"],
-        rating: 1,
-      },
-      {
-        id: 3,
-        recipeName: "Third Recipe",
-        cookbook: "Cookbook 2",
-        categories: ["Vegan"],
-        ingredients: ["Salad", "Olives"],
-        rating: 1,
-      },
-      {
-        id: 4,
-        recipeName: "Fourth Recipe",
-        cookbook: "Cookbook 3",
-        categories: ["Vegetarian"],
-        ingredients: ["Cheese", "Milk"],
-        rating: 1,
-      },
-    ]
+    recipeList = RecipeBuilder.listOfRecipes()
+    cookBooks = [...new Set(recipeList.map(recipe => recipe.cookbook))]
+    categories = [...new Set(recipeList.flatMap(recipe => recipe.categories))]
+    ingredients = [... new Set(recipeList.flatMap(recipe => recipe.ingredients))]
   })
 
   it("should be created", () => {
@@ -80,27 +45,24 @@ describe("RecipeService", () => {
   })
 
   it("should return all ingredients when getAllIngredients", () => {
-    const ingredients = ["Paprika", "Olives", "Peperoni"]
+    const expectedIngredients = ["Paprika", "Olives", "Peperoni"]
     // @ts-ignore
-    service.knownIngredients = ingredients
-    expect(service.getAllKnownIngredients()).toBe(ingredients)
+    service.knownIngredients = expectedIngredients
+    expect(service.getAllKnownIngredients()).toBe(expectedIngredients)
   })
 
   it("should return all categories when getAllCategories", () => {
-    const categories = ["Vegan", "Vegetarian", "Low Carb", "Meat"]
+    const expectedCategories = ["Vegan", "Vegetarian", "Low Carb", "Meat"]
     // @ts-ignore
-    service.knownCategories = categories
-    expect(service.getAllKnownCategories()).toBe(categories)
+    service.knownCategories = expectedCategories
+    expect(service.getAllKnownCategories()).toBe(expectedCategories)
   })
 
   it("should add recipes correctly when initializeRecipeLibrary", () => {
     service.initializeRecipeLibrary([...recipeList])
 
     // then
-    expect(service.getAllKnownCategories()).toEqual(categories)
-    expect(service.getAllKnownIngredients()).toEqual(ingredients)
-    expect(service.getAllKnownCookbooks()).toEqual(cookBooks)
-    expect(service.getAllRecipes()).toEqual(recipeList)
+    expectGetAllsToEqualDefinedLists()
     // @ts-ignore
     expect(RecipeService.lastUsedRecipeId).toBe(4)
   })
@@ -112,10 +74,7 @@ describe("RecipeService", () => {
     service.importLibrary([...recipeList])
 
     // then
-    expect(service.getAllKnownCategories()).toEqual(categories)
-    expect(service.getAllKnownIngredients()).toEqual(ingredients)
-    expect(service.getAllKnownCookbooks()).toEqual(cookBooks)
-    expect(service.getAllRecipes()).toEqual(recipeList)
+    expectGetAllsToEqualDefinedLists()
     // @ts-ignore
     expect(RecipeService.lastUsedRecipeId).toBe(4)
     expect(libraryImportedFeedbackSpy).toHaveBeenCalled()
@@ -180,17 +139,17 @@ describe("RecipeService", () => {
 
   it("should correctly update recipe and update known when updateRecipe", () => {
     const recipeEditedFeedbackSpy = spyOn(snackBarService, "recipeEditedFeedback")
-    const adjustedRecipe: Recipe = {
-      id: 1,
-      recipeName: "First Recipe Updated",
-      cookbook: "Cookbook 4",
-      categories: ["Meat"],
-      ingredients: ["Pork"],
-      rating: 1,
-    }
+    const adjustedRecipe: Recipe = new RecipeBuilder()
+        .withId(1)
+        .withRecipeName("First Recipe Updated")
+        .withCookbook("Cookbook 4")
+        .withCategories(["Meat"])
+        .withIngredients(["Pork"])
+        .withRating(1)
+        .build()
+
     service.initializeRecipeLibrary([...recipeList])
 
-    console.log(service.getAllRecipes())
     // when
     service.updateRecipe(1, adjustedRecipe)
 
@@ -201,4 +160,11 @@ describe("RecipeService", () => {
     expect(service.getAllKnownIngredients()).toEqual([...ingredients.slice(1), "Pork"])
     expect(recipeEditedFeedbackSpy).toHaveBeenCalled()
   })
+
+  function expectGetAllsToEqualDefinedLists() {
+    expect(service.getAllKnownCategories()).toEqual(categories)
+    expect(service.getAllKnownIngredients()).toEqual(ingredients)
+    expect(service.getAllKnownCookbooks()).toEqual(cookBooks)
+    expect(service.getAllRecipes()).toEqual(recipeList)
+  }
 })

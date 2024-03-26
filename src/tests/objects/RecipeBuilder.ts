@@ -52,6 +52,14 @@ export class RecipeBuilder {
       rating: this.rating
   })
 
+  defaultRecipe = (): RecipeBuilder =>  new RecipeBuilder()
+    .withId(1)
+    .withRecipeName("Test Recipe")
+    .withCookbook("Test Cookbook")
+    .withIngredients(["Test Ingredient"])
+    .withCategories(["Test Category"])
+    .withRating(1)
+
   static defaultRecipe = (): Recipe => new RecipeBuilder()
       .withId(1)
       .withRecipeName("Test Recipe")
@@ -68,4 +76,39 @@ export class RecipeBuilder {
     .withCategories(["Test Category"])
     .withRating(1)
     .build()
+
+  static listOfRecipes = (): Recipe[] => ([
+    new RecipeBuilder()
+      .withId(1)
+      .withRecipeName("First Recipe")
+      .withCookbook("Cookbook 1")
+      .withCategories(["Vegetarian"])
+      .withIngredients(["Paprika", "Tomato"])
+      .withRating(1)
+      .build(),
+    new RecipeBuilder()
+      .withId(2)
+      .withRecipeName("Second Recipe")
+      .withCookbook("Cookbook 1")
+      .withCategories(["Meat"])
+      .withIngredients(["Sausage", "Tomato"])
+      .withRating(2)
+      .build(),
+    new RecipeBuilder()
+      .withId(3)
+      .withRecipeName("Third Recipe")
+      .withCookbook("Cookbook 2")
+      .withCategories(["Vegan"])
+      .withIngredients(["Salad", "Olives"])
+      .withRating(3)
+      .build(),
+    new RecipeBuilder()
+      .withId(4)
+      .withRecipeName("Fourth Recipe")
+      .withCookbook("Cookbook 3")
+      .withCategories(["Vegetarian"])
+      .withIngredients(["Cheese", "Milk"])
+      .withRating(4)
+      .build(),
+  ])
 }

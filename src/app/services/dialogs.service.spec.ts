@@ -6,8 +6,13 @@ import { TwoButtonDialogComponent } from "../components/dialogs/two-button-dialo
 import any = jasmine.any;
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { EventEmitter } from "@angular/core";
+import { TestUtil } from "../../tests/testUtil";
 
 describe("DialogsService", () => {
+  const eventEmitter = new EventEmitter()
+  const dialogMock = {
+    afterClosed: () => eventEmitter.asObservable()
+  }
   let service: DialogsService
 
   beforeEach(() => {
@@ -29,10 +34,6 @@ describe("DialogsService", () => {
   })
 
   it("should return response from discard dialog when openDiscardNewRecipe", async () => {
-    const eventEmitter = new EventEmitter()
-    const dialogMock = {
-      afterClosed: () => eventEmitter.asObservable()
-    }
     // @ts-ignore
     const dialogOpenSpy = spyOn(service.dialog, "open").and.returnValue(dialogMock)
     const promise = service.discardNewRecipe()
@@ -43,22 +44,13 @@ describe("DialogsService", () => {
         content: any(String)
       }
     })
-    let triggered = false
     const closeResult = true
     eventEmitter.emit(closeResult)
-    await promise.then((result) => {
-      triggered = true
-      expect(result).toBe(closeResult)
-    })
-    expect(triggered).toBeTrue()
+    await TestUtil.promiseShouldBeFulfilledAndIncludeValue(promise, closeResult)
     expect(service.dialogOpen).toBeFalse()
   });
 
   it("should return response from delete dialog when openDeleteRecipe", async () => {
-    const eventEmitter = new EventEmitter()
-    const dialogMock = {
-      afterClosed: () => eventEmitter.asObservable()
-    }
     // @ts-ignore
     const dialogOpenSpy = spyOn(service.dialog, "open").and.returnValue(dialogMock)
     const promise = service.deleteRecipe("Any")
@@ -69,14 +61,9 @@ describe("DialogsService", () => {
         content: any(String)
       }
     })
-    let triggered = false
     const closeResult = true
     eventEmitter.emit(closeResult)
-    await promise.then((result) => {
-      triggered = true
-      expect(result).toBe(closeResult)
-    })
-    expect(triggered).toBeTrue()
+    await TestUtil.promiseShouldBeFulfilledAndIncludeValue(promise, closeResult)
     expect(service.dialogOpen).toBeFalse()
   });
 })

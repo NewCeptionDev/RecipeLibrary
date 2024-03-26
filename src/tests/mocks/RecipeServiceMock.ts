@@ -44,4 +44,8 @@ export class RecipeServiceMock {
   public getAllKnownCategories() {
     return []
   }
+
+  initializeRecipeLibrary = (recipes: Recipe[]) => {}
+
+  importLibrary = (recipes: Recipe[]) => {}
 }

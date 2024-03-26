@@ -12,7 +12,7 @@ class IpcRendererMock {
 
 describe("ElectronService", () => {
   let service: ElectronService
-  let ipcRenderer: IpcRendererMock = new IpcRendererMock()
+  const ipcRenderer: IpcRendererMock = new IpcRendererMock()
 
   beforeEach(() => {
     TestBed.configureTestingModule({

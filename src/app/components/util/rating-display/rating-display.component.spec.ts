@@ -24,7 +24,7 @@ describe("RatingDisplayComponent", () => {
     component.editable = true
     component.rating = -2
 
-    let newRating = 5
+    const newRating = 5
     component.updateRating(newRating)
 
     expect(component.rating).toBe(newRating)

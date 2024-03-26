@@ -3,19 +3,8 @@ import { TestBed } from "@angular/core/testing"
 import { FileService } from "./file.service"
 import { RecipeService } from "./recipe.service"
 import { ElectronService } from "./electron.service"
-import { Observable } from "rxjs"
-import { Recipe } from "../models/recipe"
-
-class ElectronServiceMock {
-  saveRecipesToFile = (toSave: object) => {}
-}
-
-class RecipeServiceMock {
-  recipeChangeEvent = new Observable()
-  initializeRecipeLibrary = (recipes: Recipe[]) => {}
-  importLibrary = (recipes: Recipe[]) => {}
-  getAllRecipes = (): Recipe[] => []
-}
+import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock";
+import { ElectronServiceMock } from "../../tests/mocks/ElectronServiceMock";
 
 const BASIC_SAVE_OBJECT: string = '{"version":1,"recipes":[]}'
 

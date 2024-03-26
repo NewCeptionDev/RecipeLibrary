@@ -3,12 +3,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { ToolbarComponent } from "./toolbar.component"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { ElectronService } from "../../../services/electron.service";
-
-class ElectronServiceMock {
-  closeApp = () => {}
-  minimizeApp = () => {}
-  maximizeApp = () => {}
-}
+import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock";
 
 describe("ToolbarComponent", () => {
   let component: ToolbarComponent
