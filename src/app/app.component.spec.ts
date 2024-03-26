@@ -1,4 +1,4 @@
-import { TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
@@ -7,30 +7,28 @@ import { DialogsService } from "./services/dialogs.service";
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component";
 import { Recipe } from "./models/recipe";
 import any = jasmine.any;
-
-class DialogServiceMock {
-  discardNewRecipe = () => {}
-}
+import { DialogServiceMock } from "../tests/mocks/DialogServiceMock";
+import { RecipeBuilder } from "../tests/objects/RecipeBuilder";
 
 describe("AppComponent", () => {
   let dialogService: DialogsService
+  let fixture: ComponentFixture<AppComponent>
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent, RecipeFormComponent],
       imports: [MatDialogModule, MatSnackBarModule],
       providers: [{provide: DialogsService, useClass: DialogServiceMock}]
     }).compileComponents()
+    fixture = TestBed.createComponent(AppComponent)
     dialogService = TestBed.inject(DialogsService)
   })
 
   it("should create the app", () => {
-    const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
     expect(app).toBeTruthy()
   })
 
   it("should have as title 'RecipeLibrary'", () => {
-    const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
     expect(app.title).toEqual("RecipeLibrary")
   })
@@ -134,15 +132,7 @@ describe("AppComponent", () => {
 
   it("should clear currentlyEditedRecipe when viewSelected", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-    const recipe: Recipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
-    component.currentlyEditedRecipe = recipe
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
 
     await component.viewSelected(ExtendedOption.NONE)
 
@@ -194,14 +184,7 @@ describe("AppComponent", () => {
 
   it("should correctly set currentlyEditedRecipe and switch to EDITRECIPE view when editRecipe", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-    const recipe: Recipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
+    const recipe: Recipe = RecipeBuilder.defaultRecipe()
     await component.editRecipe(recipe)
     expect(component.currentlyEditedRecipe).toBe(recipe)
     setTimeout(() => {
@@ -220,14 +203,7 @@ describe("AppComponent", () => {
 
   it("should switch to edit when recipeChange given currentlyEditedRecipe is not undefined", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-    component.currentlyEditedRecipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
     component.extended = ExtendedOption.EDITRECIPE
     component.recipeChange()
     // @ts-ignore
@@ -241,7 +217,7 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
     const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
-    component.toggleAddRecipe()
+    await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
   });
@@ -259,6 +235,7 @@ describe("AppComponent", () => {
   });
 
   it("should do nothing when toggleAddRecipe given changes and current view is ADD and action is cancelled", async () => {
+
     const component = TestBed.createComponent(AppComponent).componentInstance
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
@@ -272,14 +249,7 @@ describe("AppComponent", () => {
 
   it("should switch to ADD view when toggleAddRecipe given current view is not ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-   component.currentlyEditedRecipe = {
-     id: 1,
-     recipeName: "Test Recipe",
-     rating: 1,
-     cookbook: "Test Cookbook",
-     categories: [],
-     ingredients: []
-   }
+   component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
    component.extended = ExtendedOption.SEARCH
     await component.toggleAddRecipe()
     // @ts-ignore
@@ -301,14 +271,7 @@ describe("AppComponent", () => {
   it("should switch view to none when toggleEditRecipes given current view is EDIT", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
     component.extended = ExtendedOption.EDIT
-    component.currentlyEditedRecipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
     await component.toggleEditRecipes()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
@@ -320,14 +283,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
-    component.currentlyEditedRecipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
     const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
     const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe")
     await component.toggleEditRecipes()
@@ -342,14 +298,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
-    component.currentlyEditedRecipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
     const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
     const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
     await component.toggleEditRecipes()
@@ -364,14 +313,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
-    component.currentlyEditedRecipe = {
-      id: 1,
-      recipeName: "Test Recipe",
-      rating: 1,
-      cookbook: "Test Cookbook",
-      categories: [],
-      ingredients: []
-    }
+    component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
     const recipeFormSpy = spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
     const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
     await component.toggleEditRecipes()
@@ -382,7 +324,7 @@ describe("AppComponent", () => {
   it("should add eventlistener to window", () => {
     const windowRequireSpy = spyOn(window, "addEventListener")
     // Needs to be created for constructor to be called
-    const component = TestBed.createComponent(AppComponent).componentInstance
+    TestBed.createComponent(AppComponent)
     expect(windowRequireSpy).toHaveBeenCalledWith("keydown", any(Function))
   });
 })
