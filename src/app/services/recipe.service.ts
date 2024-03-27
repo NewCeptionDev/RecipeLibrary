@@ -21,7 +21,7 @@ export class RecipeService {
   private recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
 
   constructor(private snackbarService: SnackbarService) {
-    // Used for Service Injection
+    // Dependency Injection
   }
 
   public getAllKnownCookbooks(): string[] {

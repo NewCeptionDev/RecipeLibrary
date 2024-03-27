@@ -10,7 +10,7 @@ export class DialogsService {
   dialogOpen = false
 
   constructor(public dialog: MatDialog) {
-    // empty
+    // Dependency Injection
   }
 
   public hasOpenDialog(): boolean {

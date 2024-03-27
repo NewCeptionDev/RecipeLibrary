@@ -1,82 +1,84 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core"
-import { SearchOptions } from "../../../models/searchOptions"
-import { RecipeService } from "../../../services/recipe.service"
-import { SearchService } from "../../../services/search.service"
-import { SortOptions } from "../../../models/sortOptions"
-import { SortDirection } from "../../../models/sortDirection"
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { SearchOptions } from "../../../models/searchOptions";
+import { RecipeService } from "../../../services/recipe.service";
+import { SearchService } from "../../../services/search.service";
+import { SortOptions } from "../../../models/sortOptions";
+import { SortDirection } from "../../../models/sortDirection";
 
 @Component({
   selector: "app-search",
   templateUrl: "./search.component.html",
-  styleUrls: ["./search.component.scss"],
+  styleUrls: ["./search.component.scss"]
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   defaultSearchOptions: SearchOptions = {
     minimumRating: -1,
     includedCategories: [],
     includedCookbooks: [],
     requiredIngredients: [],
     sortOption: SortOptions.ALPHABET,
-    sortDirection: SortDirection.ASC,
-  }
+    sortDirection: SortDirection.ASC
+  };
 
-  selectedOptions: SearchOptions = this.defaultSearchOptions
+  selectedOptions: SearchOptions = this.defaultSearchOptions;
 
-  knownCookbooks: string[]
+  knownCookbooks: string[] = [];
 
-  knownIngredients: string[]
+  knownIngredients: string[] = [];
 
-  knownCategories: string[]
+  knownCategories: string[] = [];
 
-  refreshTableData: EventEmitter<void>
+  refreshTableData: EventEmitter<void> = new EventEmitter();
 
   @Output()
-  searchStarted: EventEmitter<void> = new EventEmitter()
+  searchStarted: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private recipeService: RecipeService,
     private searchService: SearchService,
     private changeDetector: ChangeDetectorRef
   ) {
-    this.knownCookbooks = this.recipeService.getAllKnownCookbooks()
-    this.knownIngredients = this.recipeService.getAllKnownIngredients()
-    this.knownCategories = this.recipeService.getAllKnownCategories()
+    // Dependency Injection
+  }
 
-    this.selectedOptions.includedCookbooks = [...this.knownCookbooks]
+  ngOnInit(): void {
+    this.knownCookbooks = this.recipeService.getAllKnownCookbooks();
+    this.knownIngredients = this.recipeService.getAllKnownIngredients();
+    this.knownCategories = this.recipeService.getAllKnownCategories();
 
-    this.refreshTableData = new EventEmitter()
+    this.selectedOptions.includedCookbooks = [...this.knownCookbooks];
 
-    const lastSearchOptions = this.searchService.getLastSearchOptions()
+    const lastSearchOptions = this.searchService.getLastSearchOptions();
     if (lastSearchOptions) {
-      this.selectedOptions = lastSearchOptions
+      this.selectedOptions = lastSearchOptions;
     }
   }
 
   public onNewRatingSelected(newRating: number) {
-    this.selectedOptions.minimumRating = newRating
+    this.selectedOptions.minimumRating = newRating;
   }
 
   public updateRequiredIngredients(selectedItems: string[]) {
-    this.selectedOptions.requiredIngredients = selectedItems
+    this.selectedOptions.requiredIngredients = selectedItems;
   }
 
   public updateIncludedCategories(selectedItems: string[]) {
-    this.selectedOptions.includedCategories = selectedItems
+    this.selectedOptions.includedCategories = selectedItems;
   }
 
   public updateIncludedCookbooks(selectedItems: string[]) {
-    this.selectedOptions.includedCookbooks = selectedItems
+    this.selectedOptions.includedCookbooks = selectedItems;
   }
 
   public onSearch(): void {
-    this.searchService.search(this.selectedOptions)
-    this.searchStarted.emit()
+    this.searchService.search(this.selectedOptions);
+    this.searchStarted.emit();
   }
 
   public clear(): void {
-    this.selectedOptions = this.defaultSearchOptions
-    this.selectedOptions.includedCookbooks = [...this.knownCookbooks]
-    this.changeDetector.detectChanges()
-    this.refreshTableData.emit()
+    this.selectedOptions = this.defaultSearchOptions;
+    this.selectedOptions.includedCookbooks = [...this.knownCookbooks];
+    this.changeDetector.detectChanges();
+    this.refreshTableData.emit();
   }
 }

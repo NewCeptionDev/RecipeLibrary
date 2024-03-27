@@ -36,11 +36,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   @Input()
   public noItemsAddedDescription: string = "No items added"
 
-  public tableDataSource: ItemDataSource<string>
-
-  constructor() {
-    this.tableDataSource = new ItemDataSource(this.data)
-  }
+  public tableDataSource: ItemDataSource<string> = new ItemDataSource<string>(this.data)
 
   ngOnInit(): void {
     if (this.data.length > 0) {

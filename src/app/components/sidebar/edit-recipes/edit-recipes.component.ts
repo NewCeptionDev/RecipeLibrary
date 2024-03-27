@@ -13,7 +13,7 @@ import { ItemDataSource } from "src/app/util/ItemDataSource"
 export class EditRecipesComponent implements OnInit {
   public recipes: Recipe[] = []
 
-  public tableDataSource: ItemDataSource<Recipe>
+  public tableDataSource: ItemDataSource<Recipe> = new ItemDataSource<Recipe>([])
 
   public columns: string[] = ["name", "edit", "delete"]
 
@@ -24,8 +24,7 @@ export class EditRecipesComponent implements OnInit {
   public reloadRecipes: Observable<void> = new Observable()
 
   constructor(private recipeService: RecipeService, private dialogService: DialogsService) {
-    this.tableDataSource = new ItemDataSource(this.recipes)
-    this.updateShownRecipes()
+    // Dependency Injection
   }
 
   public async openDeleteDialog(recipe: Recipe) {
@@ -38,6 +37,7 @@ export class EditRecipesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updateShownRecipes()
     this.reloadRecipes.subscribe(() => this.updateShownRecipes())
   }
 
