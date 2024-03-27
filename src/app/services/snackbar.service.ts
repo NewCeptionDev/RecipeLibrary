@@ -6,7 +6,9 @@ import { SnackbarComponent } from "../components/util/snackbar/snackbar.componen
   providedIn: "root",
 })
 export class SnackbarService {
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar) {
+    // Dependency Injection
+  }
 
   public recipeAddedFeedback() {
     this.openSnackBar("Recipe added")
@@ -25,7 +27,7 @@ export class SnackbarService {
   }
 
   private openSnackBar(content: string) {
-    this._snackBar.openFromComponent(SnackbarComponent, {
+    this.snackBar.openFromComponent(SnackbarComponent, {
       duration: 1000,
       data: {
         content,

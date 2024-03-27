@@ -13,12 +13,14 @@ export class SettingsComponent implements OnInit {
     private fileService: FileService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
+    // Dependency Injection
+  }
+
+  ngOnInit(): void {
     this.fileService.settingsChangedEvent.subscribe(() => {
       this.changeDetectorRef.detectChanges()
     })
   }
-
-  ngOnInit(): void {}
 
   public importLibrary() {
     this.electronService.requestImportLibrary()
@@ -29,6 +31,6 @@ export class SettingsComponent implements OnInit {
   }
 
   public getCurrentSavePath(): string {
-    return this.fileService.savePath
+    return this.fileService.getSavePath()
   }
 }

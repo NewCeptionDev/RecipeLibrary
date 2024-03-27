@@ -14,9 +14,9 @@ export class SearchService {
   private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
 
   constructor(private recipeService: RecipeService) {
-    this.recipeService.recipeChangeEvent.subscribe((changeEvent) =>
-      this.adjustSearchResultsIfNeeded(changeEvent)
-    )
+    this.recipeService
+      .getRecipeChangeEvent()
+      .subscribe((changeEvent) => this.adjustSearchResultsIfNeeded(changeEvent))
   }
 
   private lastSearchResults: Recipe[] = []
@@ -111,21 +111,21 @@ export class SearchService {
     direction: SortDirection,
     list: Recipe[]
   ): Recipe[] {
-    switch (sortOption) {
-      case SortOptions.ALPHABET:
-        if (direction === SortDirection.ASC) {
-          return list.sort((a, b) =>
-            a.recipeName.toLowerCase() < b.recipeName.toLowerCase() ? -1 : 1
-          )
-        }
-        return list.sort((a, b) => (a.recipeName < b.recipeName ? 1 : -1))
-
-      case SortOptions.RATING:
-        if (direction === SortDirection.ASC) {
-          return list.sort((a, b) => a.rating - b.rating)
-        }
-        return list.sort((a, b) => b.rating - a.rating)
+    if (sortOption === SortOptions.ALPHABET) {
+      if (direction === SortDirection.ASC) {
+        return list.sort((a, b) =>
+          a.recipeName.toLowerCase() < b.recipeName.toLowerCase() ? -1 : 1
+        )
+      }
+      return list.sort((a, b) => (a.recipeName < b.recipeName ? 1 : -1))
+    } else if (sortOption === SortOptions.RATING) {
+      if (direction === SortDirection.ASC) {
+        return list.sort((a, b) => a.rating - b.rating)
+      }
+      return list.sort((a, b) => b.rating - a.rating)
     }
+
+    throw new Error("Unknown SortOption")
   }
 
   public adjustSortFilter(newSortOption: SortOptions, newSortDirection: SortDirection) {

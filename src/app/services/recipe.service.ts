@@ -18,10 +18,11 @@ export class RecipeService {
 
   private knownCategories: string[] = []
 
-  private _recipeChangeEvent: EventEmitter<RecipeChangeEvent> =
-    new EventEmitter<RecipeChangeEvent>()
+  private recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
 
-  constructor(private snackbarService: SnackbarService) {}
+  constructor(private snackbarService: SnackbarService) {
+    // Used for Service Injection
+  }
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks
@@ -37,18 +38,7 @@ export class RecipeService {
 
   public initializeRecipeLibrary(recipes: Recipe[]) {
     this.recipes = recipes
-    this.recipes.forEach((recipe) => {
-      if (!this.knownCookbooks.includes(recipe.cookbook)) {
-        this.knownCookbooks.push(recipe.cookbook)
-      }
-
-      this.knownIngredients.push(
-        ...recipe.ingredients.filter((ingredient) => !this.knownIngredients.includes(ingredient))
-      )
-      this.knownCategories.push(
-        ...recipe.categories.filter((category) => !this.knownCategories.includes(category))
-      )
-    })
+    this.recipes.forEach((recipe) => this.updateKnown(recipe))
 
     RecipeService.lastUsedRecipeId = this.recipes
       .map((recipe) => recipe.id)
@@ -58,10 +48,16 @@ export class RecipeService {
 
   public importLibrary(recipes: Recipe[]) {
     recipes.forEach((recipe) => {
-      recipe.id = RecipeService.getNextRecipeId()
-      console.log("set recipe id to", recipe.id)
-      this.recipes.push(recipe)
-      this.updateKnown(recipe)
+      const importedRecipe: Recipe = {
+        id: RecipeService.getNextRecipeId(),
+        recipeName: recipe.recipeName,
+        cookbook: recipe.cookbook,
+        ingredients: recipe.ingredients,
+        categories: recipe.categories,
+        rating: recipe.rating,
+      }
+      this.recipes.push(importedRecipe)
+      this.updateKnown(importedRecipe)
     })
     this.recipeChanged(undefined, RecipeAction.ADD)
     this.snackbarService.libraryImportedFeedback()
@@ -150,14 +146,14 @@ export class RecipeService {
   }
 
   private initialLoad() {
-    this._recipeChangeEvent.emit()
+    this.recipeChangeEvent.emit()
   }
 
   private recipeChanged(recipe: Recipe | undefined, event: RecipeAction) {
-    this._recipeChangeEvent.emit({ recipe, event })
+    this.recipeChangeEvent.emit({ recipe, event })
   }
 
-  get recipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
-    return this._recipeChangeEvent
+  getRecipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
+    return this.recipeChangeEvent
   }
 }

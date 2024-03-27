@@ -11,12 +11,12 @@ export class FileService {
 
   private electronService: ElectronService | undefined
 
-  private _savePath: string = ""
+  private savePath: string = ""
 
   public settingsChangedEvent: EventEmitter<void> = new EventEmitter<void>()
 
   constructor(private recipeService: RecipeService) {
-    this.recipeService.recipeChangeEvent.subscribe(() => this.saveLibrary())
+    this.recipeService.getRecipeChangeEvent().subscribe(() => this.saveLibrary())
   }
 
   public processSaveFile(fileContent: string, initial: boolean) {
@@ -59,12 +59,12 @@ export class FileService {
     this.electronService = electronService
   }
 
-  get savePath(): string {
-    return this._savePath
+  getSavePath(): string {
+    return this.savePath
   }
 
-  set savePath(value: string) {
-    this._savePath = value
+  setSavePath(value: string) {
+    this.savePath = value
     this.settingsChangedEvent.emit()
   }
 }

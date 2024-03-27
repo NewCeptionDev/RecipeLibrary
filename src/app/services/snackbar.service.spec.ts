@@ -19,50 +19,47 @@ describe("SnackbarService", () => {
   })
 
   it("should open snackbar when recipeAddedFeedback", () => {
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).toBeNull()
+    snackBarReferenceIsNull()
     service.recipeAddedFeedback()
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    expect(
-      // @ts-ignore
-      service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
-    ).toBe("Recipe added")
+    snackBarContentShouldBe("Recipe added")
   })
 
   it("should open snackbar when recipeEditedFeedback", () => {
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).toBeNull()
+    snackBarReferenceIsNull()
     service.recipeEditedFeedback()
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    expect(
-      // @ts-ignore
-      service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
-    ).toBe("Recipe changed")
+    snackBarContentShouldBe("Recipe changed")
   })
 
   it("should open snackbar when recipeRemovedFeedback", () => {
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).toBeNull()
+    snackBarReferenceIsNull()
     service.recipeRemovedFeedback()
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).not.toBeNull()
-    expect(
-      // @ts-ignore
-      service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
-    ).toBe("Recipe removed")
+    snackBarContentShouldBe("Recipe removed")
   })
 
   it("should open snackbar when libraryImportedFeedback", () => {
-    // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).toBeNull()
+    snackBarReferenceIsNull()
     service.libraryImportedFeedback()
+    snackBarContentShouldBe("Library imported")
+  })
+
+  const snackBarReferenceIsNull = () => {
     // @ts-ignore
-    expect(service._snackBar._openedSnackBarRef).not.toBeNull()
+    // eslint-disable-next-line no-underscore-dangle
+    expect(service.snackBar._openedSnackBarRef).toBeNull()
+  }
+
+  const snackBarReferenceIsNotNull = () => {
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    expect(service.snackBar._openedSnackBarRef).not.toBeNull()
+  }
+
+  const snackBarContentShouldBe = (expectedContent: string) => {
+    snackBarReferenceIsNotNull()
     expect(
       // @ts-ignore
-      service._snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
-    ).toBe("Library imported")
-  })
+      // eslint-disable-next-line no-underscore-dangle
+      service.snackBar._openedSnackBarRef?.containerInstance.snackBarConfig.data.content
+    ).toBe(expectedContent)
+  }
 })

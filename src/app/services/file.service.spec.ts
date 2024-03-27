@@ -67,9 +67,9 @@ describe("FileService", () => {
       triggered = true
     })
 
-    service.savePath = path
+    service.setSavePath(path)
     // @ts-ignore
-    expect(service._savePath).toBe(path)
+    expect(service.getSavePath()).toBe(path)
     expect(triggered).toBeTrue()
   })
 })

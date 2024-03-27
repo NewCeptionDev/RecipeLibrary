@@ -6,10 +6,10 @@ import { RecipeAction } from "../../app/models/recipeAction"
 export class RecipeServiceMock {
   private recipes: Recipe[] = []
 
-  _recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
+  recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
 
-  get recipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
-    return this._recipeChangeEvent
+  getRecipeChangeEvent(): EventEmitter<RecipeChangeEvent> {
+    return this.recipeChangeEvent
   }
 
   public getRecipeCount() {

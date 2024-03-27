@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core"
+import { Component } from "@angular/core"
 import { ElectronService } from "../../../services/electron.service"
 
 @Component({
@@ -6,10 +6,10 @@ import { ElectronService } from "../../../services/electron.service"
   templateUrl: "./toolbar.component.html",
   styleUrls: ["./toolbar.component.scss"],
 })
-export class ToolbarComponent implements OnInit {
-  constructor(private electronService: ElectronService) {}
-
-  ngOnInit(): void {}
+export class ToolbarComponent {
+  constructor(private electronService: ElectronService) {
+    // Dependency Injection
+  }
 
   public close() {
     this.electronService.closeApp()

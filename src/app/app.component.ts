@@ -98,7 +98,7 @@ export class AppComponent {
 
       if (newView === this.extended) {
         this.extended = ExtendedOption.NONE
-      } else if (newView === ExtendedOption.ADD || newView == ExtendedOption.EDITRECIPE) {
+      } else if (newView === ExtendedOption.ADD || newView === ExtendedOption.EDITRECIPE) {
         this.extended = ExtendedOption.NONE
         // Update after one tick, so the recipeForm gets destroyed and re-initiated with the new values
         setTimeout(() => {

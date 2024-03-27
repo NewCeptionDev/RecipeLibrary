@@ -84,8 +84,15 @@ export class RecipeBuilder {
     new RecipeBuilder()
       .withRecipeName("Salami & Mushroom Pizza")
       .withCookbook("myrecipes.com")
-      .withIngredients(["Pizza Dough","Olive Oil","Mushrooms","Pizza Sauce","Salami","Mozzarella Cheese"])
-      .withCategories(["Meat","Cheese","Fast"])
+      .withIngredients([
+        "Pizza Dough",
+        "Olive Oil",
+        "Mushrooms",
+        "Pizza Sauce",
+        "Salami",
+        "Mozzarella Cheese",
+      ])
+      .withCategories(["Meat", "Cheese", "Fast"])
       .withRating(3)
       .build()
 

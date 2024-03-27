@@ -1,15 +1,15 @@
-import { Recipe } from "../../src/app/models/recipe";
-import { RecipeBuilder } from "../../src/tests/objects/RecipeBuilder";
-import { SearchOptions } from "../../src/app/models/searchOptions";
-import { SearchOptionsBuilder } from "../../src/tests/objects/SearchOptionsBuilder";
+import { Recipe } from "../../src/app/models/recipe"
+import { RecipeBuilder } from "../../src/tests/objects/RecipeBuilder"
+import { SearchOptions } from "../../src/app/models/searchOptions"
+import { SearchOptionsBuilder } from "../../src/tests/objects/SearchOptionsBuilder"
 
 beforeEach(() => {
   cy.visit("/")
-  cy.contains('No Recipes found!')
+  cy.contains("No Recipes found!")
 })
 
-describe('Add Recipe E2E', () => {
-  it('should add a recipe', () => {
+describe("Add Recipe E2E", () => {
+  it("should add a recipe", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Add a Recipe").should("not.exist")
@@ -21,7 +21,7 @@ describe('Add Recipe E2E', () => {
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#cancelRecipeFormAction").click()
     cy.contains("Add a Recipe").should("not.exist")
-    cy.contains('No Recipes found!')
+    cy.contains("No Recipes found!")
     cy.get("#addSidebarButton").click()
     cy.get("#recipeName").should("have.value", "")
     cy.get("#cookbookSelect #autoCompleteInput").should("have.value", "")
@@ -30,7 +30,7 @@ describe('Add Recipe E2E', () => {
     cy.get("#categorySelect #autoCompleteInput").should("have.value", "")
     cy.get("#categorySelect table").contains("No Categories added")
     cy.get(".stars mat-icon").should("not.have.class", "filledStar")
-  });
+  })
 
   it("should find recipe in edit / delete tab after adding", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
@@ -38,14 +38,16 @@ describe('Add Recipe E2E', () => {
     cy.get("#editSidebarButton").click()
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
-  });
+  })
 
   it("should show cancel dialog if closing adding tab after adding any information", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#addSidebarButton").click()
     cy.get("app-two-button-dialog").contains("Discard Changes")
-    cy.contains("Closing this window will discard your changes. Are you sure that you want to close the window?")
-  });
+    cy.contains(
+      "Closing this window will discard your changes. Are you sure that you want to close the window?"
+    )
+  })
 })
 
 describe("Delete Recipe E2E", () => {
@@ -58,13 +60,17 @@ describe("Delete Recipe E2E", () => {
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("#deleteRecipeButton").click()
     cy.get("app-two-button-dialog").contains("Delete recipe")
-    cy.contains(`Are you sure that you want to delete Recipe ${RecipeBuilder.e2eRecipe().recipeName}? A deleted recipe cannot be recovered.`)
+    cy.contains(
+      `Are you sure that you want to delete Recipe ${
+        RecipeBuilder.e2eRecipe().recipeName
+      }? A deleted recipe cannot be recovered.`
+    )
     cy.get("#dialogSubmitButton").click()
     cy.get("app-two-button-dialog").should("not.exist")
     cy.get(".mat-snack-bar-container").contains("Recipe removed")
     cy.contains("No Recipes added yet")
-    cy.contains('No Recipes found!')
-  });
+    cy.contains("No Recipes found!")
+  })
 
   it("should not delete recipe if cancelled", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
@@ -75,12 +81,16 @@ describe("Delete Recipe E2E", () => {
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("#deleteRecipeButton").click()
     cy.get("app-two-button-dialog").contains("Delete recipe")
-    cy.contains(`Are you sure that you want to delete Recipe ${RecipeBuilder.e2eRecipe().recipeName}? A deleted recipe cannot be recovered.`)
+    cy.contains(
+      `Are you sure that you want to delete Recipe ${
+        RecipeBuilder.e2eRecipe().recipeName
+      }? A deleted recipe cannot be recovered.`
+    )
     cy.get("#dialogCancelButton").click()
     cy.get("app-two-button-dialog").should("not.exist")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.contains("Found 1 recipe!")
-  });
+  })
 })
 
 describe("Edit Recipe E2E", () => {
@@ -93,7 +103,7 @@ describe("Edit Recipe E2E", () => {
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("#editRecipeButton").click()
     validateRecipeFormElements(RecipeBuilder.e2eRecipe())
-  });
+  })
 
   it("should update recipe when editing", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
@@ -120,17 +130,19 @@ describe("Edit Recipe E2E", () => {
     cy.contains(updatedRecipe.recipeName)
     cy.get("#editRecipeButton").click()
     validateRecipeFormElements(updatedRecipe)
-    cy.get("#recipeName").type(`${'{backspace}'.repeat(8)}`)
-    cy.get("#cookbookSelect").type(`${'{backspace}'.repeat(8)}{enter}`)
+    cy.get("#recipeName").type(`${"{backspace}".repeat(8)}`)
+    cy.get("#cookbookSelect").type(`${"{backspace}".repeat(8)}{enter}`)
     cy.get("#ingredientSelect table td.action").eq(0).click()
     cy.get("#categorySelect table td.action").eq(0).click()
-    cy.get(".stars span").eq(RecipeBuilder.e2eRecipe().rating - 1).click()
+    cy.get(".stars span")
+      .eq(RecipeBuilder.e2eRecipe().rating - 1)
+      .click()
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("#editRecipeButton").click()
     validateRecipeFormElements(RecipeBuilder.e2eRecipe())
-  });
+  })
 
   it("should show cancel dialog if closing editing tab after changing recipe", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
@@ -141,19 +153,20 @@ describe("Edit Recipe E2E", () => {
     cy.get("#recipeName").type(" Updated")
     cy.get("#editSidebarButton").click()
     cy.get("app-two-button-dialog").contains("Discard Changes")
-    cy.contains("Closing this window will discard your changes. Are you sure that you want to close the window?")
-  });
+    cy.contains(
+      "Closing this window will discard your changes. Are you sure that you want to close the window?"
+    )
+  })
 })
 
 describe("Settings E2E", () => {
   it("should switch to settings tab", () => {
     cy.get("#settingsSidebarButton").click()
     cy.contains("Settings")
-  });
+  })
 })
 
 describe("Search E2E", () => {
-
   const searchRecipe = new RecipeBuilder()
     .withRecipeName("Club Soda Waffles")
     .withCookbook("myrecipes")
@@ -176,7 +189,7 @@ describe("Search E2E", () => {
     cy.contains("Found 2 Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.contains(searchRecipe.recipeName)
-  });
+  })
 
   it("should show recipe details on selecting", () => {
     cy.get("#searchSidebarButton").click()
@@ -184,35 +197,41 @@ describe("Search E2E", () => {
     cy.get("#submitSearchButton").click()
     cy.get("app-recipe-overview").eq(0).click()
     cy.get("app-recipe-detail").contains("Ingredients")
-    searchRecipe.ingredients.forEach(ingredient => {
+    searchRecipe.ingredients.forEach((ingredient) => {
       cy.get("app-recipe-detail").contains(ingredient)
     })
     cy.get("app-recipe-detail").contains("Categories")
-    searchRecipe.categories.forEach(category => {
+    searchRecipe.categories.forEach((category) => {
       cy.get("app-recipe-detail").contains(category)
     })
-  });
+  })
 
   it("should show only recipe matching filter, filtered by ingredient", () => {
-    const searchOptions = new SearchOptionsBuilder().withRequiredIngredients([RecipeBuilder.e2eRecipe().ingredients[0]]).build()
+    const searchOptions = new SearchOptionsBuilder()
+      .withRequiredIngredients([RecipeBuilder.e2eRecipe().ingredients[0]])
+      .build()
     search(searchOptions)
     cy.contains("Found 1 Recipe")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
-  });
+  })
 
   it("should show only recipe matching filter, filtered by category", () => {
-    const searchOptions = new SearchOptionsBuilder().withIncludedCategories([searchRecipe.categories[0]]).build()
+    const searchOptions = new SearchOptionsBuilder()
+      .withIncludedCategories([searchRecipe.categories[0]])
+      .build()
     search(searchOptions)
     cy.contains("Found 1 Recipe")
     cy.contains(searchRecipe.recipeName)
-  });
+  })
 
   it("should show only recipe matching filter, filtered by rating", () => {
-    const searchOptions = new SearchOptionsBuilder().withMinimumRating(RecipeBuilder.e2eRecipe().rating).build()
+    const searchOptions = new SearchOptionsBuilder()
+      .withMinimumRating(RecipeBuilder.e2eRecipe().rating)
+      .build()
     search(searchOptions)
     cy.contains("Found 1 Recipe")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
-  });
+  })
 
   it("should show only recipe matching filter, filtered by cookbook", () => {
     cy.get("#searchSidebarButton").click()
@@ -222,7 +241,7 @@ describe("Search E2E", () => {
     cy.contains("Found 1 Recipe")
     // Expects e2eRecipe as the cookbook includes .com an is therefore sorted after the searchRecipe cookbook
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
-  });
+  })
 
   it("should sort search results correctly", () => {
     cy.get("#searchSidebarButton").click()
@@ -247,7 +266,7 @@ describe("Search E2E", () => {
     // Should be sorted rating descending
     cy.get("app-recipe-overview").eq(0).contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("app-recipe-overview").eq(1).contains(searchRecipe.recipeName)
-  });
+  })
 })
 
 const addRecipe = (recipe: Recipe) => {
@@ -255,33 +274,49 @@ const addRecipe = (recipe: Recipe) => {
   cy.contains("Add a Recipe")
   cy.get("#recipeName").type(recipe.recipeName)
   cy.get("#cookbookSelect #autoCompleteInput").type(`${recipe.cookbook}{enter}`)
-  cy.get("#ingredientSelect #autoCompleteInput").type(`${recipe.ingredients.reduce((previousValue, currentValue) => `${previousValue}{enter}${currentValue}`)}{enter}`)
-  cy.get("#categorySelect #autoCompleteInput").type(`${recipe.categories.reduce((previousValue, currentValue) => `${previousValue}{enter}${currentValue}`)}{enter}`)
-  cy.get(".stars span").eq(recipe.rating - 1).click()
+  cy.get("#ingredientSelect #autoCompleteInput").type(
+    `${recipe.ingredients.reduce(
+      (previousValue, currentValue) => `${previousValue}{enter}${currentValue}`
+    )}{enter}`
+  )
+  cy.get("#categorySelect #autoCompleteInput").type(
+    `${recipe.categories.reduce(
+      (previousValue, currentValue) => `${previousValue}{enter}${currentValue}`
+    )}{enter}`
+  )
+  cy.get(".stars span")
+    .eq(recipe.rating - 1)
+    .click()
 }
 
 const validateRecipeFormElements = (recipe: Recipe) => {
   cy.get("#recipeName").should("have.value", recipe.recipeName)
   cy.get("#cookbookSelect #autoCompleteInput").should("have.value", recipe.cookbook)
   cy.get("#ingredientSelect #autoCompleteInput").should("have.value", "")
-  recipe.ingredients.forEach(ingredient => {
+  recipe.ingredients.forEach((ingredient) => {
     cy.get("#ingredientSelect table").contains(ingredient)
   })
   cy.get("#categorySelect #autoCompleteInput").should("have.value", "")
-  recipe.categories.forEach(category => {
+  recipe.categories.forEach((category) => {
     cy.get("#categorySelect table").contains(category)
   })
   for (let i = 0; i < 5; i++) {
-    if(i < recipe.rating) {
+    if (i < recipe.rating) {
       // eslint-disable-next-line @typescript-eslint/no-loop-func
-      cy.get(".stars span").eq(i).within(() => {
-        cy.get(".mat-icon").should("have.class", "filledStar")
-      })
+      cy.get(".stars span")
+        .eq(i)
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        .within(() => {
+          cy.get(".mat-icon").should("have.class", "filledStar")
+        })
     } else {
       // eslint-disable-next-line @typescript-eslint/no-loop-func
-      cy.get(".stars span").eq(i).within(() => {
-        cy.get(".mat-icon").should("not.have.class", "filledStar")
-      })
+      cy.get(".stars span")
+        .eq(i)
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        .within(() => {
+          cy.get(".mat-icon").should("not.have.class", "filledStar")
+        })
     }
   }
 }
@@ -289,12 +324,14 @@ const validateRecipeFormElements = (recipe: Recipe) => {
 const search = (searchOptions: SearchOptions) => {
   cy.get("#searchSidebarButton").click()
   cy.contains("Search")
-  searchOptions.requiredIngredients.forEach(ingredient => {
+  searchOptions.requiredIngredients.forEach((ingredient) => {
     cy.get("#ingredientSelect #autoCompleteInput").type(`${ingredient}{enter}`)
   })
-  searchOptions.includedCategories.forEach(category => {
+  searchOptions.includedCategories.forEach((category) => {
     cy.get("#categorySelect #autoCompleteInput").type(`${category}{enter}`)
   })
-  cy.get(".stars span").eq(searchOptions.minimumRating - 1).click()
+  cy.get(".stars span")
+    .eq(searchOptions.minimumRating - 1)
+    .click()
   cy.get("#submitSearchButton").click()
 }

@@ -108,7 +108,10 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
         return
       }
 
-      if(!this.disableAddFunction || this.knownItems.map(item => item.toLowerCase()).includes(value.toLowerCase())) {
+      if (
+        !this.disableAddFunction ||
+        this.knownItems.map((item) => item.toLowerCase()).includes(value.toLowerCase())
+      ) {
         this.onItemSelect(value.trim())
         this.autocompleteTrigger.closePanel()
 

@@ -19,13 +19,15 @@ export class RecipeListComponent implements OnInit {
   public currentSortOption: SortOptions = SortOptions.ALPHABET
 
   constructor(private searchService: SearchService) {
+    // Dependency Injection
+  }
+
+  ngOnInit(): void {
     this.searchService.getSearchResultsEventEmitter().subscribe((newSearchResults) => {
       this.showSearchResults = true
       this.shownRecipes = newSearchResults
     })
   }
-
-  ngOnInit(): void {}
 
   selectRecipe(selectedRecipe: number): void {
     if (this.selectedRecipe === selectedRecipe) {

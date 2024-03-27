@@ -19,6 +19,10 @@ export class BackdropComponent implements OnInit {
     private searchService: SearchService,
     private changeDetector: ChangeDetectorRef
   ) {
+    // Dependency Injection
+  }
+
+  ngOnInit(): void {
     this.searchService.getSearchResultsEventEmitter().subscribe((result) => {
       if (result.length > 0) {
         this.showBackdrop = false
@@ -29,11 +33,9 @@ export class BackdropComponent implements OnInit {
       this.changeDetector.detectChanges()
     })
 
-    this.recipeService.recipeChangeEvent.subscribe(() => {
+    this.recipeService.getRecipeChangeEvent().subscribe(() => {
       this.foundRecipes = this.recipeService.getRecipeCount()
       this.changeDetector.detectChanges()
     })
   }
-
-  ngOnInit(): void {}
 }

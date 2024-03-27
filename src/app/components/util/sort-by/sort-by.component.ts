@@ -21,8 +21,6 @@ export class SortByComponent implements OnInit {
   @Output()
   public sortDirectionChanged: EventEmitter<SortDirection> = new EventEmitter<SortDirection>()
 
-  constructor() {}
-
   ngOnInit(): void {
     this.selectedSortOptionToIcon()
   }
@@ -50,6 +48,8 @@ export class SortByComponent implements OnInit {
         case SortDirection.ASC:
           this.sortDirection = SortDirection.DESC
           break
+        default:
+          throw new Error("Unknown SortDirection")
       }
     }
 

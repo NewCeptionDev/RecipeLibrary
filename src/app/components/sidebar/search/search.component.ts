@@ -31,7 +31,7 @@ export class SearchComponent {
   refreshTableData: EventEmitter<void>
 
   @Output()
-  onSearchStarted: EventEmitter<void> = new EventEmitter()
+  searchStarted: EventEmitter<void> = new EventEmitter()
 
   constructor(
     private recipeService: RecipeService,
@@ -70,7 +70,7 @@ export class SearchComponent {
 
   public onSearch(): void {
     this.searchService.search(this.selectedOptions)
-    this.onSearchStarted.emit()
+    this.searchStarted.emit()
   }
 
   public clear(): void {

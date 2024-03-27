@@ -34,7 +34,7 @@ describe("SearchService", () => {
 
   it("should call adjustSearchResultsIfNeeded when recipeChangeEvent", () => {
     const adjustSearchResultsSpy = spyOn(service, "adjustSearchResultsIfNeeded")
-    recipeService.recipeChangeEvent.emit({ recipe: undefined, event: RecipeAction.ADD })
+    recipeService.getRecipeChangeEvent().emit({ recipe: undefined, event: RecipeAction.ADD })
     expect(adjustSearchResultsSpy).toHaveBeenCalled()
   })
 

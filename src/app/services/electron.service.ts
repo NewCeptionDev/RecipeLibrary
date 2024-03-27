@@ -27,7 +27,7 @@ export class ElectronService {
       })
 
       this.ipc.on("settings", (event, settings: Settings) => {
-        this.fileService.savePath = settings.recipeSavePath
+        this.fileService.setSavePath(settings.recipeSavePath)
       })
 
       this.requestSettingsInformation()

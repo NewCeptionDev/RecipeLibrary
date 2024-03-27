@@ -76,7 +76,7 @@ describe("SearchComponent", () => {
 
   it("should call searchService on search", () => {
     const searchSpy = spyOn(searchService, "search")
-    const onSearchStartSpy = spyOn(component.onSearchStarted, "emit")
+    const onSearchStartSpy = spyOn(component.searchStarted, "emit")
 
     component.onSearch()
 
