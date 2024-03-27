@@ -44,13 +44,16 @@ export class RecipeFormComponent implements OnInit {
     this.knownIngredients = this.recipeService.getAllKnownIngredients()
     this.knownCategories = this.recipeService.getAllKnownCategories()
 
-    this.recipeFormControl.valueChanges.subscribe((value) => (this.recipe.recipeName = value))
+    this.recipeFormControl.valueChanges.subscribe((value) => {
+      this.recipe.recipeName = value
+    })
   }
 
   ngOnInit(): void {
     if (this.recipeInput) {
       this.editing = true
       this.recipe = { ...this.recipeInput }
+      this.recipeFormControl.setValue(this.recipe.recipeName)
     }
   }
 

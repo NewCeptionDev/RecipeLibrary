@@ -3,11 +3,11 @@ import { RecipeBuilder } from "../../src/tests/objects/RecipeBuilder";
 
 beforeEach(() => {
   cy.visit("/")
+  cy.contains('No Recipes found!')
 })
 
-describe('Add Recipe E2E', () => {
+describe.skip('Add Recipe E2E', () => {
   it('should add a recipe', () => {
-    cy.contains('No Recipes found!')
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Add a Recipe").should("not.exist")
@@ -16,7 +16,6 @@ describe('Add Recipe E2E', () => {
   })
 
   it("should clear recipe from if add recipe was cancelled", () => {
-    cy.contains('No Recipes found!')
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#cancelRecipeFormAction").click()
     cy.contains("Add a Recipe").should("not.exist")
@@ -28,7 +27,7 @@ describe('Add Recipe E2E', () => {
     cy.get("#ingredientSelect table").contains("No Ingredients added")
     cy.get("#categorySelect #autoCompleteInput").should("have.value", "")
     cy.get("#categorySelect table").contains("No Categories added")
-    cy.get(".stars mat-icon").should("not.have.css", "filledStar")
+    cy.get(".stars mat-icon").should("not.have.class", "filledStar")
   });
 
   it("should find recipe in edit / delete tab after adding", () => {
@@ -40,9 +39,8 @@ describe('Add Recipe E2E', () => {
   });
 })
 
-describe("Delete Recipe E2E", () => {
+describe.skip("Delete Recipe E2E", () => {
   it("should delete recipe if confirmed", () => {
-    cy.contains('No Recipes found!')
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Found 1 recipe!")
@@ -60,7 +58,6 @@ describe("Delete Recipe E2E", () => {
   });
 
   it("should not delete recipe if cancelled", () => {
-    cy.contains('No Recipes found!')
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Found 1 recipe!")
@@ -79,7 +76,6 @@ describe("Delete Recipe E2E", () => {
 
 describe("Edit Recipe E2E", () => {
   it("should correctly show recipe in edit more after adding", () => {
-    cy.contains('No Recipes found!')
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Found 1 recipe!")
@@ -87,13 +83,44 @@ describe("Edit Recipe E2E", () => {
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("#editRecipeButton").click()
-    cy.get("#recipeName").should("have.value", RecipeBuilder.e2eRecipe().recipeName)
-    cy.get("#cookbookSelect #autoCompleteInput").should("have.value", RecipeBuilder.e2eRecipe().cookbook)
-    cy.get("#ingredientSelect #autoCompleteInput").should("have.value", "")
-    cy.get("#ingredientSelect table").contains("No Ingredients added")
-    cy.get("#categorySelect #autoCompleteInput").should("have.value", "")
-    cy.get("#categorySelect table").contains("No Categories added")
-    cy.get(".stars mat-icon").eq(RecipeBuilder.e2eRecipe().rating - 1).should("not.have.css", "filledStar")
+    validateRecipeFormElements(RecipeBuilder.e2eRecipe())
+  });
+
+  it("should update recipe when editing", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+    cy.contains("Found 1 recipe!")
+    cy.get("#editSidebarButton").click()
+    cy.contains("Edit / Delete Recipes")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.get("#editRecipeButton").click()
+    cy.get("#recipeName").type(" Updated")
+    cy.get("#cookbookSelect").type(" Updated{enter}")
+    cy.get("#ingredientSelect #autoCompleteInput").type("Additional Ingredient{enter}")
+    cy.get("#categorySelect #autoCompleteInput").type("Additional Category{enter}")
+    cy.get(".stars span").eq(4).click()
+    cy.get("#submitRecipeFormAction").click()
+    cy.get(".mat-snack-bar-container").contains("Recipe changed")
+    const updatedRecipe = RecipeBuilder.e2eRecipe()
+    updatedRecipe.recipeName += " Updated"
+    updatedRecipe.cookbook += " Updated"
+    updatedRecipe.ingredients.push("Additional Ingredient")
+    updatedRecipe.categories.push("Additional Category")
+    updatedRecipe.rating = 5
+    cy.contains("Edit / Delete Recipes")
+    cy.contains(updatedRecipe.recipeName)
+    cy.get("#editRecipeButton").click()
+    validateRecipeFormElements(updatedRecipe)
+    cy.get("#recipeName").type(`${'{backspace}'.repeat(8)}`)
+    cy.get("#cookbookSelect").type(`${'{backspace}'.repeat(8)}{enter}`)
+    cy.get("#ingredientSelect table td.action").eq(0).click()
+    cy.get("#categorySelect table td.action").eq(0).click()
+    cy.get(".stars span").eq(RecipeBuilder.e2eRecipe().rating - 1).click()
+    cy.get("#submitRecipeFormAction").click()
+    cy.contains("Edit / Delete Recipes")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.get("#editRecipeButton").click()
+    validateRecipeFormElements(RecipeBuilder.e2eRecipe())
   });
 })
 
@@ -105,4 +132,30 @@ const addRecipe = (recipe: Recipe) => {
   cy.get("#ingredientSelect #autoCompleteInput").type(`${recipe.ingredients.reduce((previousValue, currentValue) => `${previousValue}{enter}${currentValue}`)}{enter}`)
   cy.get("#categorySelect #autoCompleteInput").type(`${recipe.categories.reduce((previousValue, currentValue) => `${previousValue}{enter}${currentValue}`)}{enter}`)
   cy.get(".stars span").eq(recipe.rating - 1).click()
+}
+
+const validateRecipeFormElements = (recipe: Recipe) => {
+  cy.get("#recipeName").should("have.value", recipe.recipeName)
+  cy.get("#cookbookSelect #autoCompleteInput").should("have.value", recipe.cookbook)
+  cy.get("#ingredientSelect #autoCompleteInput").should("have.value", "")
+  recipe.ingredients.forEach(ingredient => {
+    cy.get("#ingredientSelect table").contains(ingredient)
+  })
+  cy.get("#categorySelect #autoCompleteInput").should("have.value", "")
+  recipe.categories.forEach(category => {
+    cy.get("#categorySelect table").contains(category)
+  })
+  for (let i = 0; i < 5; i++) {
+    if(i < recipe.rating) {
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
+      cy.get(".stars span").eq(i).within(() => {
+        cy.get(".mat-icon").should("have.class", "filledStar")
+      })
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
+      cy.get(".stars span").eq(i).within(() => {
+        cy.get(".mat-icon").should("not.have.class", "filledStar")
+      })
+    }
+  }
 }

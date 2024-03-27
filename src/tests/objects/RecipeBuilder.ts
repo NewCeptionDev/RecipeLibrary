@@ -83,7 +83,7 @@ export class RecipeBuilder {
   static e2eRecipe = (): Recipe =>
     new RecipeBuilder()
       .withRecipeName("Salami & Mushroom Pizza")
-      .withCookbook("myrecipes.com{enter}")
+      .withCookbook("myrecipes.com")
       .withIngredients(["Pizza Dough","Olive Oil","Mushrooms","Pizza Sauce","Salami","Mozzarella Cheese"])
       .withCategories(["Meat","Cheese","Fast"])
       .withRating(3)
