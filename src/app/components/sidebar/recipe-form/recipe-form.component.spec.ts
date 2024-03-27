@@ -182,6 +182,6 @@ describe("AddRecipeComponent", () => {
     component.ngOnInit()
 
     expect(component.editing).toBeTrue()
-    expect(component.recipeInput).toBe(RecipeBuilder.defaultRecipe())
+    expect(component.recipeInput).toEqual(RecipeBuilder.defaultRecipe())
   })
 })
