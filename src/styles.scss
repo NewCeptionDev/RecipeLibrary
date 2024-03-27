@@ -103,6 +103,14 @@ app-recipe-detail > .container {
   background-color: map.get(palette.$recipe-black-palette, 700);
 }
 
+#submitSearchButton:focus {
+  background-color: map.get(palette.$recipe-green-palette, 200) !important;
+}
+
+#submitRecipeFormAction:focus {
+  background-color: map.get(palette.$recipe-green-palette, 200) !important;
+}
+
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {

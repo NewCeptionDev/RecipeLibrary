@@ -9,12 +9,14 @@
       <app-sort-by
         [disabled]="this.currentSortOption !== SortOptions.ALPHABET"
         [selectedSortOption]="SortOptions.ALPHABET"
+        id="alphabetSorting"
         (sortDirectionChanged)="
           this.sortOptionAdjusted(SortOptions.ALPHABET, $event)
         "></app-sort-by>
       <app-sort-by
         [disabled]="this.currentSortOption !== SortOptions.RATING"
         [selectedSortOption]="SortOptions.RATING"
+        id="ratingSorting"
         (sortDirectionChanged)="this.sortOptionAdjusted(SortOptions.RATING, $event)"></app-sort-by>
     </div>
   </div>

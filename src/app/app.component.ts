@@ -30,9 +30,6 @@ export class AppComponent {
       if (event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
         await this.closeExtensibleContainer()
         event.preventDefault()
-      } else if (event.key === "Enter" && this.extended === ExtendedOption.SEARCH) {
-        this.searchComponent.onSearch()
-        event.preventDefault()
       }
     })
   }

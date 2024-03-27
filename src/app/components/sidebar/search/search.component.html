@@ -6,6 +6,7 @@
     [data]="selectedOptions.requiredIngredients"
     (updateData)="updateRequiredIngredients($event)"
     [triggerRefresh]="refreshTableData"
+    id="ingredientSelect"
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
   <app-selected-items-display
@@ -14,6 +15,7 @@
     [data]="selectedOptions.includedCategories"
     (updateData)="updateIncludedCategories($event)"
     [triggerRefresh]="refreshTableData"
+    id="categorySelect"
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Categories added"></app-selected-items-display>
   <app-selected-items-display
@@ -22,6 +24,7 @@
     [data]="selectedOptions.includedCookbooks"
     (updateData)="updateIncludedCookbooks($event)"
     [triggerRefresh]="refreshTableData"
+    id="cookbookSelect"
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Cookbooks added"></app-selected-items-display>
   <app-rating-display
@@ -34,6 +37,7 @@
       mat-raised-button
       color="primary"
       cdkfocusinitial
+      id="submitSearchButton"
       (click)="onSearch()">
       Search
     </button>
@@ -41,6 +45,7 @@
       mat-raised-button
       color="secondary"
       cdkfocusinitial
+      id="clearSearchButton"
       (click)="clear()">
       Clear
     </button>

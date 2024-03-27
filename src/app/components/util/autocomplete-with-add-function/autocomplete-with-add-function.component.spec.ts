@@ -119,9 +119,11 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
-  it("should do nothing when handleKeyUpEvent given disableAddFunction is true", () => {
+  it("should do nothing when handleKeyUpEvent given disableAddFunction is true and value is unknown", () => {
     const onSelectSpy = spyOn(component, "onItemSelect")
     component.disableAddFunction = true
+    // @ts-ignore
+    component.autocompleteInputElement.nativeElement.value = "Unknown Element"
     component.handleKeyUpEvent(new KeyboardEvent("keyup", { key: "Enter" }))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
@@ -139,6 +141,20 @@ describe("AutocompleteWithAddFunctionComponent", () => {
     const keyEvent = new KeyboardEvent("keyup", { key: "Enter" })
     const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
     const value = "Test"
+    // @ts-ignore
+    component.autocompleteInputElement.nativeElement.value = value
+    component.handleKeyUpEvent(keyEvent)
+    expect(onSelectSpy).toHaveBeenCalledWith(value)
+    expect(keyUpDefaultSpy).toHaveBeenCalled()
+  })
+
+  it("should call onItemSelect when handleKeyUpEvent given disableAddFunction is true and enter key and value is known", () => {
+    const onSelectSpy = spyOn(component, "onItemSelect")
+    const keyEvent = new KeyboardEvent("keyup", { key: "Enter" })
+    const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
+    const value = "Test"
+    component.knownItems = [value]
+    component.disableAddFunction = true
     // @ts-ignore
     component.autocompleteInputElement.nativeElement.value = value
     component.handleKeyUpEvent(keyEvent)

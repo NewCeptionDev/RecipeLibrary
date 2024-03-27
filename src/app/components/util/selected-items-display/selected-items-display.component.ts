@@ -44,7 +44,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.length > 0) {
-      console.log(this.data)
+      this.data.sort((a, b) => (a < b ? -1 : 1))
       this.tableDataSource.setData(this.data)
     }
 
@@ -75,6 +75,7 @@ export class SelectedItemsDisplayComponent implements OnInit {
   }
 
   public refreshTableData() {
+    this.data.sort((a, b) => (a < b ? -1 : 1))
     this.tableDataSource.setData(this.data)
   }
 }

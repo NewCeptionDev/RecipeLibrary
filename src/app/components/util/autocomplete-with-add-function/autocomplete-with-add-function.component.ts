@@ -101,17 +101,19 @@ export class AutocompleteWithAddFunctionComponent implements OnInit {
   }
 
   public handleKeyUpEvent(keyUpEvent: KeyboardEvent) {
-    if (keyUpEvent.key === "Enter" && !this.disableAddFunction) {
+    if (keyUpEvent.key === "Enter") {
       const value = this.autocompleteInputElement.nativeElement.value
 
       if (value.trim() === "") {
         return
       }
 
-      this.onItemSelect(value.trim())
-      this.autocompleteTrigger.closePanel()
+      if(!this.disableAddFunction || this.knownItems.map(item => item.toLowerCase()).includes(value.toLowerCase())) {
+        this.onItemSelect(value.trim())
+        this.autocompleteTrigger.closePanel()
 
-      keyUpEvent.preventDefault()
+        keyUpEvent.preventDefault()
+      }
     }
   }
 }

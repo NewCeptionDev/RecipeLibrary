@@ -1,12 +1,14 @@
 import { Recipe } from "../../src/app/models/recipe";
 import { RecipeBuilder } from "../../src/tests/objects/RecipeBuilder";
+import { SearchOptions } from "../../src/app/models/searchOptions";
+import { SearchOptionsBuilder } from "../../src/tests/objects/SearchOptionsBuilder";
 
 beforeEach(() => {
   cy.visit("/")
   cy.contains('No Recipes found!')
 })
 
-describe.skip('Add Recipe E2E', () => {
+describe('Add Recipe E2E', () => {
   it('should add a recipe', () => {
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
@@ -37,9 +39,16 @@ describe.skip('Add Recipe E2E', () => {
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
   });
+
+  it("should show cancel dialog if closing adding tab after adding any information", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#addSidebarButton").click()
+    cy.get("app-two-button-dialog").contains("Discard Changes")
+    cy.contains("Closing this window will discard your changes. Are you sure that you want to close the window?")
+  });
 })
 
-describe.skip("Delete Recipe E2E", () => {
+describe("Delete Recipe E2E", () => {
   it("should delete recipe if confirmed", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
@@ -122,6 +131,123 @@ describe("Edit Recipe E2E", () => {
     cy.get("#editRecipeButton").click()
     validateRecipeFormElements(RecipeBuilder.e2eRecipe())
   });
+
+  it("should show cancel dialog if closing editing tab after changing recipe", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+    cy.get("#editSidebarButton").click()
+    cy.contains("Edit / Delete Recipes")
+    cy.get("#editRecipeButton").click()
+    cy.get("#recipeName").type(" Updated")
+    cy.get("#editSidebarButton").click()
+    cy.get("app-two-button-dialog").contains("Discard Changes")
+    cy.contains("Closing this window will discard your changes. Are you sure that you want to close the window?")
+  });
+})
+
+describe("Settings E2E", () => {
+  it("should switch to settings tab", () => {
+    cy.get("#settingsSidebarButton").click()
+    cy.contains("Settings")
+  });
+})
+
+describe("Search E2E", () => {
+
+  const searchRecipe = new RecipeBuilder()
+    .withRecipeName("Club Soda Waffles")
+    .withCookbook("myrecipes")
+    .withRating(1)
+    .withCategories(["Sweet", "Fast"])
+    .withIngredients(["Biscuit Mix", "Vegetable Oil", "Eggs", "Club Soda"])
+    .build()
+
+  beforeEach(() => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+    addRecipe(searchRecipe)
+    cy.get("#submitRecipeFormAction").click()
+  })
+
+  it("should show results on basic search", () => {
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Search")
+    cy.get("#submitSearchButton").click()
+    cy.contains("Found 2 Recipes")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.contains(searchRecipe.recipeName)
+  });
+
+  it("should show recipe details on selecting", () => {
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Search")
+    cy.get("#submitSearchButton").click()
+    cy.get("app-recipe-overview").eq(0).click()
+    cy.get("app-recipe-detail").contains("Ingredients")
+    searchRecipe.ingredients.forEach(ingredient => {
+      cy.get("app-recipe-detail").contains(ingredient)
+    })
+    cy.get("app-recipe-detail").contains("Categories")
+    searchRecipe.categories.forEach(category => {
+      cy.get("app-recipe-detail").contains(category)
+    })
+  });
+
+  it("should show only recipe matching filter, filtered by ingredient", () => {
+    const searchOptions = new SearchOptionsBuilder().withRequiredIngredients([RecipeBuilder.e2eRecipe().ingredients[0]]).build()
+    search(searchOptions)
+    cy.contains("Found 1 Recipe")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+  });
+
+  it("should show only recipe matching filter, filtered by category", () => {
+    const searchOptions = new SearchOptionsBuilder().withIncludedCategories([searchRecipe.categories[0]]).build()
+    search(searchOptions)
+    cy.contains("Found 1 Recipe")
+    cy.contains(searchRecipe.recipeName)
+  });
+
+  it("should show only recipe matching filter, filtered by rating", () => {
+    const searchOptions = new SearchOptionsBuilder().withMinimumRating(RecipeBuilder.e2eRecipe().rating).build()
+    search(searchOptions)
+    cy.contains("Found 1 Recipe")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+  });
+
+  it("should show only recipe matching filter, filtered by cookbook", () => {
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Search")
+    cy.get("#cookbookSelect table td.action").eq(0).click()
+    cy.get("#submitSearchButton").click()
+    cy.contains("Found 1 Recipe")
+    // Expects e2eRecipe as the cookbook includes .com an is therefore sorted after the searchRecipe cookbook
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+  });
+
+  it("should sort search results correctly", () => {
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Search")
+    cy.get("#submitSearchButton").click()
+    cy.contains("Found 2 Recipes")
+    // Should be sorted alphabetical ascending
+    cy.get("app-recipe-overview").eq(0).contains(searchRecipe.recipeName)
+    cy.get("app-recipe-overview").eq(1).contains(RecipeBuilder.e2eRecipe().recipeName)
+
+    cy.get("#alphabetSorting").click()
+    // Should be sorted alphabetical descending
+    cy.get("app-recipe-overview").eq(0).contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.get("app-recipe-overview").eq(1).contains(searchRecipe.recipeName)
+
+    cy.get("#ratingSorting").click()
+    // Should be sorted rating ascending
+    cy.get("app-recipe-overview").eq(0).contains(searchRecipe.recipeName)
+    cy.get("app-recipe-overview").eq(1).contains(RecipeBuilder.e2eRecipe().recipeName)
+
+    cy.get("#ratingSorting").click()
+    // Should be sorted rating descending
+    cy.get("app-recipe-overview").eq(0).contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.get("app-recipe-overview").eq(1).contains(searchRecipe.recipeName)
+  });
 })
 
 const addRecipe = (recipe: Recipe) => {
@@ -158,4 +284,17 @@ const validateRecipeFormElements = (recipe: Recipe) => {
       })
     }
   }
+}
+
+const search = (searchOptions: SearchOptions) => {
+  cy.get("#searchSidebarButton").click()
+  cy.contains("Search")
+  searchOptions.requiredIngredients.forEach(ingredient => {
+    cy.get("#ingredientSelect #autoCompleteInput").type(`${ingredient}{enter}`)
+  })
+  searchOptions.includedCategories.forEach(category => {
+    cy.get("#categorySelect #autoCompleteInput").type(`${category}{enter}`)
+  })
+  cy.get(".stars span").eq(searchOptions.minimumRating - 1).click()
+  cy.get("#submitSearchButton").click()
 }
