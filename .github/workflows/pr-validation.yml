@@ -30,13 +30,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Node Setup
-        uses: actions/setup-node@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
         with:
-          node-version: 18
-      - run: npm ci
-      - run: npm i @angular/cli
-      - run: ng run RecipeLibrary:cypress-run
+          start: npm run ng:serve
+          wait-on: "http://localhost:4200"
 
   check_formatting:
     name: "Check Code Formatting"
