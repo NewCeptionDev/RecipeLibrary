@@ -1,13 +1,14 @@
 name: "PR Validation"
 
 on:
-  pull_request:
-    branches:
-    - main
-    types:
-      - opened
-      - reopened
-      - edited
+  push
+  # pull_request:
+  #   branches:
+  #   - main
+  #   types:
+  #     - opened
+  #     - reopened
+  #     - edited
 
 jobs:
   run_unit_tests:
@@ -66,4 +67,4 @@ jobs:
       - uses: del-systems/check-if-version-bumped@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: "server/package.json"
+          path: "package.json"
