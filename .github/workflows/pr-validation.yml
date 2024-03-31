@@ -30,8 +30,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+      - name: Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: ng run RecipeLibrary:cypress-run
 
   check_formatting:
     name: "Check Code Formatting"
