@@ -1,0 +1,69 @@
+name: "PR Validation"
+
+on:
+  pull_request:
+    branches:
+    - main
+    types:
+      - opened
+      - reopened
+      - edited
+
+jobs:
+  run_unit_tests:
+    name: "Run Unit Tests"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run test
+
+  run_e2e_tests:
+    name: "Run E2E Tests"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+
+  check_formatting:
+    name: "Check Code Formatting"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run prettier:check
+
+
+  lint_code:
+    name: "Lint Code"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run eslint
+
+  check_version_bump:
+    name: "Check version bump"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: del-systems/check-if-version-bumped@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: "server/package.json"
