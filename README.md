@@ -1,7 +1,5 @@
 # RecipeLibrary
 
-<img align="right" alt="Logo" height="300px" width="300px" src="./assets/RecipeLibraryIcon.png"/>
-
 Did you ever wonder which cookbook the recipe for the dish you want to cook is in?
 Or did you want to cook something with your leftovers and wondered if you have a recipe that would work?
 RecipeLibrary was built to remove the need to go through every cookbook you own and provide an easy way to find your next recipe.
