@@ -1,12 +1,15 @@
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: path.join(__dirname, "../assets/RecipeLibraryIcon"),
   },
   rebuildConfig: {},
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
-      config: {},
+      config: {
+        setupIcon: path.join(__dirname, "../assets/RecipeLibraryIcon.ico"),
+      },
     },
     {
       name: "@electron-forge/maker-zip",
@@ -14,11 +17,17 @@ module.exports = {
     },
     {
       name: "@electron-forge/maker-deb",
-      config: {},
+      config: {
+        options: {
+          icon: path.join(__dirname, "../assets/RecipeLibraryIcon.png"),
+        },
+      },
     },
     {
-      name: "@electron-forge/maker-rpm",
-      config: {},
+      name: "@electron-forge/maker-dmg",
+      config: {
+        icon: path.join(__dirname, "../assets/RecipeLibraryIcon.icns"),
+      },
     },
   ],
   plugins: [

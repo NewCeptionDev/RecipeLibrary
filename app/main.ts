@@ -94,7 +94,7 @@ function createWindow(): BrowserWindow {
     titleBarStyle: "hidden",
     minWidth: 1280,
     minHeight: 720,
-    icon: path.join(__dirname, "../assets/RecipeLibraryIcon.ico")
+    icon: path.join(__dirname, "../assets/RecipeLibraryIcon.png"),
   })
 
   if (serve) {
