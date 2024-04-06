@@ -6,3 +6,10 @@
 mat-form-field {
   width: 100%;
 }
+
+mat-option {
+  height: auto !important;
+  line-height: normal !important;
+  padding: 8px 16px !important;
+  white-space: initial;
+}

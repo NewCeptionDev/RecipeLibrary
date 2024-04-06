@@ -16,6 +16,7 @@
       <mat-option
         *ngFor="let item of filteredItems | async"
         [value]="item"
+        appMatOptionTextOverflow
         (click)="onItemSelect(item)">
         <mat-icon *ngIf="item === itemSelect.value && !knownItems.includes(item)">add</mat-icon>
         {{ item }}

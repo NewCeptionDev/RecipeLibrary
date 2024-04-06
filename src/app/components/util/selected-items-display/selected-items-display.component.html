@@ -8,6 +8,7 @@
     [labelName]="(justKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
     [clearOnSelect]="true"
     [itemName]="headline"
+    [refreshFilteredItems]="triggerRefresh ? triggerRefresh.asObservable() : undefined"
     (itemSelected)="onItemSelect($event)"
     [disableAddFunction]="justKnownItemsSelectable"
     [filterFunction]="notAlreadyIncludedInData"></app-autocomplete-with-add-function>

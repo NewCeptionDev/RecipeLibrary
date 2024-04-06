@@ -3,7 +3,7 @@ name: "PR Validation"
 on:
   pull_request:
     branches:
-    - main
+      - main
     types:
       - opened
       - reopened
@@ -47,7 +47,6 @@ jobs:
           node-version: 18
       - run: npm ci
       - run: npm run prettier:check
-
 
   lint_code:
     name: "Lint Code"
