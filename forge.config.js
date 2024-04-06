@@ -1,14 +1,25 @@
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: path.join(__dirname, "../assets/RecipeLibraryIcon"),
+    icon: "assets/RecipeLibraryIcon",
+    ignore: [
+      /node_modules$/,
+      /src$/,
+      /\.angular$/,
+      /\.git$/,
+      /\.github$/,
+      /\.idea$/,
+      /\.vscode$/,
+      /coverage$/,
+      /cypress$/,
+    ],
   },
   rebuildConfig: {},
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
       config: {
-        setupIcon: path.join(__dirname, "../assets/RecipeLibraryIcon.ico"),
+        setupIcon: "assets/RecipeLibraryIcon.ico",
       },
     },
     {
@@ -19,14 +30,14 @@ module.exports = {
       name: "@electron-forge/maker-deb",
       config: {
         options: {
-          icon: path.join(__dirname, "../assets/RecipeLibraryIcon.png"),
+          icon: "assets/RecipeLibraryIcon.png",
         },
       },
     },
     {
       name: "@electron-forge/maker-dmg",
       config: {
-        icon: path.join(__dirname, "../assets/RecipeLibraryIcon.icns"),
+        icon: "assets/RecipeLibraryIcon.icns",
       },
     },
   ],
