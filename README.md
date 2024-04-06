@@ -1,27 +1,39 @@
 # RecipeLibrary
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
+Did you ever wonder which cookbook the recipe for the dish you want to cook is in?
+Or did you want to cook something with your leftovers and wondered if you have a recipe that would work?
+RecipeLibrary was built to remove the need to go through every cookbook you own and provide an easy way to find your next recipe.
 
-## Development server
+## What is RecipeLibrary
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+RecipeLibrary is a software built to keep track of all recipes you own throughout multiple cookbooks.
+It enables searchability based on a multitude of parameters.
 
-## Code scaffolding
+### Supported Filters
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Parts of or full recipe names
+- Cookbooks
+- One or multiple ingredients
+- One or multiple categories that can be freely defined when adding recipes
+- Minimum required rating (also defined when adding or editing recipes)
 
-## Build
+### Supported Functions
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Search existing recipes based on filters
+- Add new recipes
+- Edit existing recipes
+- Define categories that can be added to recipes to make it easier to find certain recipes
+- Add a rating to recipes to keep track of great recipes and recipes you might not need to cook another time
 
-## Running unit tests
+## What it is not
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+RecipeLibrary is not a software that contains recipes with their full instructions and pictures, which would make cookbooks redundant.
+The purpose of the software is to provide a quick and easy way to find recipes and identify the cookbook they are from.
+With this information it should be easy to open the respective page in the cookbook and use the instructions provided there, to actually cook the dish.
 
-## Running end-to-end tests
+## Open Source
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This project is Open Source.
+Merge requests that are opened will be reviewed and merged if the change seems reasonable.
+Feel free to suggest changes and report bugs through the issues tab.
+You can also always fork the repository and use it as a foundation for your own project.
