@@ -25,11 +25,21 @@ It enables searchability based on a multitude of parameters.
 - Define categories that can be added to recipes to make it easier to find certain recipes
 - Add a rating to recipes to keep track of great recipes and recipes you might not need to cook another time
 
+### Supported Platforms
+
+This software is primarily developed on and for windows.
+Nonetheless, the software is also packaged and build for darwin and linux and should be working without larger issues.
+
 ## What it is not
 
 RecipeLibrary is not a software that contains recipes with their full instructions and pictures, which would make cookbooks redundant.
 The purpose of the software is to provide a quick and easy way to find recipes and identify the cookbook they are from.
 With this information it should be easy to open the respective page in the cookbook and use the instructions provided there, to actually cook the dish.
+
+## Security Warning
+
+This software was packaged and bundled without a security certificate.
+Therefore, the OS might identify this software as unknown and require additional steps to install it.
 
 ## Open Source
 
