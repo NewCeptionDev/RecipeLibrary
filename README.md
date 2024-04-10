@@ -1,9 +1,11 @@
 <p align="center">
-<img src="/assets/RecipeLibraryIcon.png" alt="Logo"/>
+<img src="/assets/RecipeLibraryIcon.png" alt="Logo" width="200" height="200"/>
 </p>
 
 <div align="center">
+
 # RecipeLibrary
+
 </div>
 
 Did you ever wonder which cookbook the recipe for the dish you want to cook is in?
