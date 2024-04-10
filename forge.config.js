@@ -2,6 +2,7 @@ module.exports = {
   packagerConfig: {
     asar: true,
     icon: "assets/RecipeLibraryIcon",
+    executableName: "recipe-library",
     ignore: [
       /node_modules$/,
       /src$/,
@@ -31,6 +32,10 @@ module.exports = {
       config: {
         options: {
           icon: "assets/RecipeLibraryIcon.png",
+          homepage: "https://newception.dev",
+          name: "recipe-library",
+          productName: "Recipe Library",
+          maintainer: "Julius Schmidt",
         },
       },
     },
