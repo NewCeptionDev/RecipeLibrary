@@ -1,6 +1,8 @@
 name: Tag Creation
 on:
   pull_request:
+    branches:
+      - main
     types:
       - closed
 
