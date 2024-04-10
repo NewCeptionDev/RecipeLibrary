@@ -31,13 +31,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
       - uses: actions/setup-node@v4
         with:
           node-version: 18
       - name: install dependencies
         run: npm ci
       - name: install additional dependency
-        run: npm install -g appdmg
+        run: |
+          python3 -m pip install setuptools
+          npm install -D appdmg
       - name: build
         run: npm run build
       - name: publish
