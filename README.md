@@ -1,4 +1,10 @@
+<p align="center">
+<img src="/assets/RecipeLibraryIcon.png" alt="Logo"/>
+</p>
+
+<div align="center">
 # RecipeLibrary
+</div>
 
 Did you ever wonder which cookbook the recipe for the dish you want to cook is in?
 Or did you want to cook something with your leftovers and wondered if you have a recipe that would work?

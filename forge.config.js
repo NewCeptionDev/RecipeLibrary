@@ -52,4 +52,16 @@ module.exports = {
       config: {},
     },
   ],
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "newceptiondev",
+          name: "recipelibrary",
+        },
+      },
+      draft: true,
+    },
+  ],
 }
