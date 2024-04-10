@@ -36,8 +36,8 @@ jobs:
           node-version: 18
       - name: install dependencies
         run: npm ci
-      - name: install additional dependency
-        run: npm i --save appdmg
+      # - name: install additional dependency
+      #   run: npm i --save appdmg
       - name: build
         run: npm run build
       - name: publish
