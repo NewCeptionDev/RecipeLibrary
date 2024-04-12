@@ -52,6 +52,6 @@ Therefore, the OS might identify this software as unknown and require additional
 ## Open Source
 
 This project is Open Source.
-Merge requests that are opened will be reviewed and merged if the change seems reasonable.
+Pull requests will be reviewed and merged if the change seems reasonable.
 Feel free to suggest changes and report bugs through the issues tab.
 You can also always fork the repository and use it as a foundation for your own project.
