@@ -68,4 +68,3 @@ jobs:
       - uses: del-systems/check-if-version-bumped@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: "package.json"
