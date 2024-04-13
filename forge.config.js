@@ -32,7 +32,7 @@ module.exports = {
       config: {
         options: {
           icon: "assets/RecipeLibraryIcon.png",
-          homepage: "https://newception.dev",
+          homepage: "https://github.com/NewCeptionDev/RecipeLibrary",
           name: "recipe-library",
           productName: "Recipe Library",
           maintainer: "Julius Schmidt",

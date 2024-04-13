@@ -6,6 +6,7 @@
     "name": "Julius Schmidt",
     "email": "newceptiondev@googlemail.com"
   },
+  "homepage": "https://github.com/NewCeptionDev/RecipeLibrary",
   "license": "MIT",
   "description": "Recipe Library, making it easy to find Recipes based on Ingredients, Cookbook or Categories",
   "main": "app/main.js",
