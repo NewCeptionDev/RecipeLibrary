@@ -6,7 +6,7 @@ on:
       - main
     types:
       - opened
-      - reopened
+      - synchronize
       - edited
 
 jobs:
@@ -65,7 +65,9 @@ jobs:
     name: "Check version bump"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: del-systems/check-if-version-bumped@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: avides/actions-project-version-check@v1.4.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: "package.json"
+          file-to-check: package.json

@@ -111,6 +111,18 @@ app-recipe-detail > .container {
   background-color: map.get(palette.$recipe-green-palette, 200) !important;
 }
 
+#clearSearchButton:focus {
+  background-color: map.get(palette.$recipe-black-palette, 500) !important;
+}
+
+#cancelRecipeFormAction:focus {
+  background-color: map.get(palette.$recipe-black-palette, 500) !important;
+}
+
+.tableRow:has(td button:focus) {
+  background-color: map.get(palette.$recipe-green-palette, 200) !important;
+}
+
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
