@@ -14,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.RELEASE_PAT }}
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -22,8 +24,6 @@ jobs:
       - name: build
         run: npm run build
       - name: publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run publish
 
   publish_on_mac:
@@ -31,6 +31,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.RELEASE_PAT }}
       - uses: actions/setup-python@v5
         with:
           python-version: 3.12
@@ -46,6 +48,4 @@ jobs:
       - name: build
         run: npm run build
       - name: publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run publish
