@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: avides/actions-project-version-check@v1.4.0
         with:
-          node-version: 18
-      - name: move to repository
-        run: cd ${process.env.GITHUB_WORKSPACE}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          file-to-check: package.json
+          only-return-version: true
       - name: Set Version Variable
-        run: echo "Version=v${npm pkg get version | tr -d \}" >> $GITHUB_ENV
+        run: echo "Version=v${{steps.actions_project_version_check.outputs.version}}
       - name: Create Tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
