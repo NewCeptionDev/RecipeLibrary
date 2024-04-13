@@ -1,15 +1,14 @@
 name: Tag Creation
 on:
-  push
-  # pull_request:
-  #   branches:
-  #     - main
-  #   types:
-  #     - closed
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
-  if_merged:
-    # if: github.event.pull_request.merged== true
+  create_tag:
+    if: github.event.pull_request.merged== true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
