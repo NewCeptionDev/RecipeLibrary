@@ -12,19 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
       - uses: avides/actions-project-version-check@v1.4.0
         id: actions_project_version_check
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           file-to-check: package.json
           only-return-version: true
       - name: Set Version Variable
         run: echo "Version=v${{ steps.actions_project_version_check.outputs.version }}" >> $GITHUB_ENV
       - name: Create Tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: git tag ${{env.Version}}
       - name: Push Tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: git push origin ${{env.Version}}
