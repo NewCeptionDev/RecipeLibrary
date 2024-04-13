@@ -22,9 +22,9 @@ jobs:
         run: echo "Version=v${{ steps.actions_project_version_check.outputs.version }}" >> $GITHUB_ENV
       - name: Create Tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: git tag ${{env.Version}}
       - name: Push Tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: git push origin ${{env.Version}}
