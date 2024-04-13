@@ -1,10 +1,11 @@
 name: Tag Creation
 on:
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
+  push
+  # pull_request:
+  #   branches:
+  #     - main
+  #   types:
+  #     - closed
 
 jobs:
   if_merged:
@@ -18,7 +19,7 @@ jobs:
           file-to-check: package.json
           only-return-version: true
       - name: Set Version Variable
-        run: echo "Version=v${{steps.actions_project_version_check.outputs.version}}
+        run: echo "Version=v${{steps.actions_project_version_check.outputs.version}}" >> $GITHUB_ENV
       - name: Create Tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
