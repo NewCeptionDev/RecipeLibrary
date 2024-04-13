@@ -65,7 +65,9 @@ jobs:
     name: "Check version bump"
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - uses: avides/actions-project-version-check@v1.4.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          file-to-check: ../package.json
+          file-to-check: package.json
