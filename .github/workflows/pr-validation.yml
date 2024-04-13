@@ -68,4 +68,4 @@ jobs:
       - uses: avides/actions-project-version-check@v1.4.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          file-to-check: package.json
+          file-to-check: ../package.json
