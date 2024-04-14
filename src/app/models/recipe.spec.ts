@@ -59,4 +59,13 @@ describe("Recipe Model", () => {
       )
     ).toBeFalse()
   })
+
+  it("should return false when equals given timeToCook is not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withTimeToCook(5).build()
+      )
+    ).toBeFalse()
+  })
 })
