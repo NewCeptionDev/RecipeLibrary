@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core"
+import { SettingsService } from "src/app/services/settings.service"
 import { ElectronService } from "../../../services/electron.service"
-import { FileService } from "../../../services/file.service"
 
 @Component({
   selector: "app-settings",
@@ -10,14 +10,14 @@ import { FileService } from "../../../services/file.service"
 export class SettingsComponent implements OnInit {
   constructor(
     private electronService: ElectronService,
-    private fileService: FileService,
+    private settingsService: SettingsService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
     // Dependency Injection
   }
 
   ngOnInit(): void {
-    this.fileService.settingsChangedEvent.subscribe(() => {
+    this.settingsService.settingsChangedEvent.subscribe(() => {
       this.changeDetectorRef.detectChanges()
     })
   }
@@ -31,6 +31,6 @@ export class SettingsComponent implements OnInit {
   }
 
   public getCurrentSavePath(): string {
-    return this.fileService.getSavePath()
+    return this.settingsService.getRecipePath()
   }
 }

@@ -3,6 +3,8 @@ import { FileService } from "./file.service"
 import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
 import { Settings } from "../../../app/main"
+import { SettingsService } from "./settings.service"
+import { FrontendSettings } from "../models/frontendSettings"
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +12,11 @@ import { Settings } from "../../../app/main"
 export class ElectronService {
   private readonly ipc: Electron.IpcRenderer | undefined = undefined
 
-  constructor(private fileService: FileService, private zone: NgZone) {
+  constructor(
+    private fileService: FileService,
+    private settingsService: SettingsService,
+    private zone: NgZone
+  ) {
     this.fileService.registerElectronService(this)
 
     if (window.require) {
@@ -27,7 +33,7 @@ export class ElectronService {
       })
 
       this.ipc.on("settings", (event, settings: Settings) => {
-        this.fileService.setSavePath(settings.recipeSavePath)
+        this.settingsService.updateRecipePath(settings.recipeSavePath)
       })
 
       this.requestSettingsInformation()
@@ -80,6 +86,12 @@ export class ElectronService {
   public requestNewFileSavePath() {
     if (this.ipc) {
       this.ipc.send("newFileSavePath")
+    }
+  }
+
+  public saveFrontendSettings(frontendSettings: FrontendSettings) {
+    if (this.ipc) {
+      this.ipc.send("saveFrontendSettings", frontendSettings)
     }
   }
 }
