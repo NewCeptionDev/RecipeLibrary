@@ -4,7 +4,7 @@ import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
 import { Settings } from "../../../app/main"
 import { SettingsService } from "./settings.service"
-import { FrontendSettings } from "../models/frontendSettings"
+import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
 
 @Injectable({
   providedIn: "root",
@@ -22,18 +22,21 @@ export class ElectronService {
     if (window.require) {
       this.ipc = window.require("electron").ipcRenderer
 
-      this.ipc.on("fileLoaded", (event: IpcRendererEvent, message: string) => {
+      this.ipc.on("fileLoaded", (_: IpcRendererEvent, message: string) => {
         this.fileService.processSaveFile(message, true)
       })
 
-      this.ipc.on("importLibraryFile", (event: IpcRendererEvent, message: string) => {
+      this.ipc.on("importLibraryFile", (_: IpcRendererEvent, message: string) => {
         this.zone.run(() => {
           this.fileService.processSaveFile(message, false)
         })
       })
 
-      this.ipc.on("settings", (event, settings: Settings) => {
+      this.ipc.on("settings", (_, settings: Settings) => {
         this.settingsService.updateRecipePath(settings.recipeSavePath)
+        this.settingsService.setEnabledRecipeFeatures(
+          settings.enabledRecipeFeatures.map((elem) => this.mapToOptionalRecipeFeature(elem))
+        )
       })
 
       this.requestSettingsInformation()
@@ -89,9 +92,26 @@ export class ElectronService {
     }
   }
 
-  public saveFrontendSettings(frontendSettings: FrontendSettings) {
+  public saveSettings() {
     if (this.ipc) {
-      this.ipc.send("saveFrontendSettings", frontendSettings)
+      const settings: Settings = {
+        recipeSavePath: this.settingsService.getRecipePath(),
+        enabledRecipeFeatures: this.settingsService
+          .getEnabledRecipeFeatures()
+          .map((elem) => elem.toString()),
+      }
+      this.ipc.send("saveSettings", settings)
+    }
+  }
+
+  private mapToOptionalRecipeFeature(value: string): OptionalRecipeFeature {
+    switch (value) {
+      case "CATEGORY":
+        return OptionalRecipeFeature.CATEGORY
+      case "RATING":
+        return OptionalRecipeFeature.RATING
+      default:
+        throw new Error("Unknown value given")
     }
   }
 }

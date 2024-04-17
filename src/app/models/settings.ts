@@ -1,5 +1,6 @@
 import { OptionalRecipeFeature } from "./OptionalRecipeFeature"
 
-export interface FrontendSettings {
+export interface Settings {
+  recipeSavePath: string
   enabledRecipeFeatures: OptionalRecipeFeature[]
 }

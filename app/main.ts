@@ -174,9 +174,7 @@ const defaultRecipeSavePath = path.resolve(
 )
 let settings: Settings = {
   recipeSavePath: defaultRecipeSavePath,
-  frontendSettings: {
-    enabledRecipeFeatures: [],
-  },
+  enabledRecipeFeatures: []
 }
 const settingsFilePath = app.getPath("userData") + "/settings.json"
 
@@ -266,12 +264,20 @@ ipcMain.on("newFileSavePath", async (event) => {
   }
 })
 
-ipcMain.on("saveFrontendSettings", async (event, object) => {
-  const newFrontEndSettings: FrontendSettings = {
-    enabledRecipeFeatures: object.enabledRecipeFeatures,
+ipcMain.on("saveSettings", async (event, object: Settings) => {
+  const differentFilePath = settings.recipeSavePath !== object.recipeSavePath
+  let recipes
+  if(differentFilePath) {
+    recipes = loadRecipes()
   }
-  settings.frontendSettings = newFrontEndSettings
+
+  settings = object
   saveSettings()
+
+  if(differentFilePath) {
+    saveRecipes(recipes)
+  }
+
   sendSettingsToFrontend(event.sender)
 })
 
@@ -327,9 +333,5 @@ function sendSettingsToFrontend(sender: Electron.WebContents) {
 
 export interface Settings {
   recipeSavePath: string
-  frontendSettings: FrontendSettings
-}
-
-interface FrontendSettings {
   enabledRecipeFeatures: string[]
 }

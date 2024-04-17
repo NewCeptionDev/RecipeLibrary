@@ -1,14 +1,16 @@
 import { EventEmitter, Injectable } from "@angular/core"
-import { OptionalRecipeFeature } from "../models/OptionalRecipeFeature"
+import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
+import { Settings } from "../models/settings"
 import { ElectronService } from "./electron.service"
 
 @Injectable({
   providedIn: "root",
 })
 export class SettingsService {
-  private recipeLibrarySavePath: string = ""
-
-  private enabledRecipeFeatures: OptionalRecipeFeature[] = []
+  private settings: Settings = {
+    recipeSavePath: "",
+    enabledRecipeFeatures: [],
+  }
 
   public settingsChangedEvent: EventEmitter<void> = new EventEmitter<void>()
 
@@ -17,31 +19,35 @@ export class SettingsService {
   }
 
   public updateRecipePath(newPath: string) {
-    this.recipeLibrarySavePath = newPath
+    this.settings.recipeSavePath = newPath
   }
 
   public getRecipePath(): string {
-    return this.recipeLibrarySavePath
+    return this.settings.recipeSavePath
   }
 
   public enableRecipeFeature(feature: OptionalRecipeFeature) {
-    this.enabledRecipeFeatures.push(feature)
+    this.settings.enabledRecipeFeatures.push(feature)
     this.saveSettingsToFile()
   }
 
   public disableRecipeFeature(feature: OptionalRecipeFeature) {
-    const index = this.enabledRecipeFeatures.indexOf(feature)
+    const index = this.settings.enabledRecipeFeatures.indexOf(feature)
     if (index !== -1) {
-      this.enabledRecipeFeatures.splice(index, 1)
+      this.settings.enabledRecipeFeatures.splice(index, 1)
       this.saveSettingsToFile()
     }
   }
 
+  public setEnabledRecipeFeatures(features: OptionalRecipeFeature[]) {
+    this.settings.enabledRecipeFeatures = features
+  }
+
   public getEnabledRecipeFeatures() {
-    return this.enabledRecipeFeatures
+    return this.settings.enabledRecipeFeatures
   }
 
   private saveSettingsToFile() {
-    this.electronService.saveFrontendSettings({ enabledRecipeFeatures: this.enabledRecipeFeatures })
+    this.electronService.saveSettings()
   }
 }
