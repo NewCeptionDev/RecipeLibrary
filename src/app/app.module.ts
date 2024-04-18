@@ -29,6 +29,7 @@ import { ToolbarComponent } from "./components/util/toolbar/toolbar.component"
 import { SnackbarComponent } from "./components/util/snackbar/snackbar.component"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { SortByComponent } from "./components/util/sort-by/sort-by.component"
+import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SortByComponent } from "./components/util/sort-by/sort-by.component"
     MatTableModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

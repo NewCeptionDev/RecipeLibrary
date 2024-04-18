@@ -1,4 +1,4 @@
-import { OptionalRecipeFeature } from "./OptionalRecipeFeature"
+import { OptionalRecipeFeature } from "./optionalRecipeFeature"
 
 export interface Settings {
   recipeSavePath: string

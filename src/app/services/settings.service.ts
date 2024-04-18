@@ -9,13 +9,15 @@ import { ElectronService } from "./electron.service"
 export class SettingsService {
   private settings: Settings = {
     recipeSavePath: "",
-    enabledRecipeFeatures: [],
+    enabledRecipeFeatures: [OptionalRecipeFeature.RATING],
   }
 
   public settingsChangedEvent: EventEmitter<void> = new EventEmitter<void>()
 
-  constructor(private electronService: ElectronService) {
-    // Dependency Injection
+  private electronService: ElectronService | undefined
+
+  public registerElectronService(electronService: ElectronService) {
+    this.electronService = electronService
   }
 
   public updateRecipePath(newPath: string) {
@@ -48,6 +50,8 @@ export class SettingsService {
   }
 
   private saveSettingsToFile() {
-    this.electronService.saveSettings()
+    if (this.electronService) {
+      this.electronService.saveSettings()
+    }
   }
 }
