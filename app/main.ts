@@ -174,7 +174,7 @@ const defaultRecipeSavePath = path.resolve(
 )
 let settings: Settings = {
   recipeSavePath: defaultRecipeSavePath,
-  enabledRecipeFeatures: []
+  enabledRecipeFeatures: [],
 }
 const settingsFilePath = app.getPath("userData") + "/settings.json"
 
@@ -267,14 +267,14 @@ ipcMain.on("newFileSavePath", async (event) => {
 ipcMain.on("saveSettings", async (event, object: Settings) => {
   const differentFilePath = settings.recipeSavePath !== object.recipeSavePath
   let recipes
-  if(differentFilePath) {
+  if (differentFilePath) {
     recipes = loadRecipes()
   }
 
   settings = object
   saveSettings()
 
-  if(differentFilePath) {
+  if (differentFilePath) {
     saveRecipes(recipes)
   }
 

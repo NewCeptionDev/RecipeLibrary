@@ -31,6 +31,7 @@
       noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
     <br />
     <app-selected-items-display
+      *ngIf="this.isCategoryFeatureEnabled()"
       headline="Categories"
       id="categorySelect"
       [knownItems]="knownCategories"
@@ -38,6 +39,7 @@
       (updateData)="updateSelectedCategories($event)"
       noItemsAddedDescription="No Categories added"></app-selected-items-display>
     <app-rating-display
+      *ngIf="isRatingFeatureEnabled()"
       [editable]="true"
       (newRating)="updateRating($event)"
       [rating]="recipe.rating"></app-rating-display>

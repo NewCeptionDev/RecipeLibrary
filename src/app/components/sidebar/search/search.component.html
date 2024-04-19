@@ -11,6 +11,7 @@
     noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
   <app-selected-items-display
     headline="Categories"
+    *ngIf="this.isCategoryFeatureEnabled()"
     [knownItems]="knownCategories"
     [data]="selectedOptions.includedCategories"
     (updateData)="updateIncludedCategories($event)"
@@ -28,6 +29,7 @@
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Cookbooks added"></app-selected-items-display>
   <app-rating-display
+    *ngIf="this.isRatingFeatureEnabled()"
     [editable]="true"
     [rating]="selectedOptions.minimumRating"
     (newRating)="onNewRatingSelected($event)"

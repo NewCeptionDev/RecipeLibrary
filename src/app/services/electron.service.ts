@@ -18,6 +18,7 @@ export class ElectronService {
     private zone: NgZone
   ) {
     this.fileService.registerElectronService(this)
+    this.settingsService.registerElectronService(this)
 
     if (window.require) {
       this.ipc = window.require("electron").ipcRenderer

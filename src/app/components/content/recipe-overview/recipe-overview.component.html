@@ -7,6 +7,7 @@
   </div>
   <div class="additionalInformation">
     <app-rating-display
+      *ngIf="this.isRatingRecipeFeatureEnabled()"
       [editable]="false"
       [rating]="recipe.rating"></app-rating-display>
   </div>

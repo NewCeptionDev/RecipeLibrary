@@ -9,7 +9,7 @@ import { ElectronService } from "./electron.service"
 export class SettingsService {
   private settings: Settings = {
     recipeSavePath: "",
-    enabledRecipeFeatures: [OptionalRecipeFeature.RATING],
+    enabledRecipeFeatures: [OptionalRecipeFeature.RATING, OptionalRecipeFeature.CATEGORY],
   }
 
   public settingsChangedEvent: EventEmitter<void> = new EventEmitter<void>()

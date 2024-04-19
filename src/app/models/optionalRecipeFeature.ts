@@ -1,4 +1,4 @@
 export enum OptionalRecipeFeature {
-  CATEGORY,
-  RATING,
+  CATEGORY = "CATEGORY",
+  RATING = "RATING",
 }

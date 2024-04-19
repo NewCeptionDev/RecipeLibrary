@@ -60,7 +60,7 @@ export class SettingsComponent implements OnInit {
   public toggleOptionalFeature(change: MatSlideToggleChange) {
     const feature = this.optionalRecipeFeatures.get(change.source.id)
 
-    if (feature) {
+    if (feature !== undefined) {
       if (change.checked) {
         this.settingsService.enableRecipeFeature(feature)
       } else {

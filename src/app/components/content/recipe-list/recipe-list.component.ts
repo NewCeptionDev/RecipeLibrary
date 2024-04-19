@@ -3,6 +3,8 @@ import { Recipe } from "../../../models/recipe"
 import { SearchService } from "../../../services/search.service"
 import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
+import { SettingsService } from "src/app/services/settings.service"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
 @Component({
   selector: "app-recipe-list",
@@ -18,7 +20,7 @@ export class RecipeListComponent implements OnInit {
 
   public currentSortOption: SortOptions = SortOptions.ALPHABET
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private settingsService: SettingsService) {
     // Dependency Injection
   }
 
@@ -42,5 +44,13 @@ export class RecipeListComponent implements OnInit {
   public sortOptionAdjusted(sortOption: SortOptions, direction: SortDirection) {
     this.currentSortOption = sortOption
     this.searchService.adjustSortFilter(sortOption, direction)
+  }
+
+  public isRatingRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
+  }
+
+  private getEnabledOptionalRecipeFeatures() {
+    return this.settingsService.getEnabledRecipeFeatures()
   }
 }
