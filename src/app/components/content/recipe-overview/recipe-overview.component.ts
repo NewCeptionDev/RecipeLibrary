@@ -1,4 +1,6 @@
 import { Component, Input } from "@angular/core"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { SettingsService } from "src/app/services/settings.service"
 import { Recipe } from "../../../models/recipe"
 
 @Component({
@@ -9,4 +11,16 @@ import { Recipe } from "../../../models/recipe"
 export class RecipeOverviewComponent {
   @Input()
   recipe: Recipe | undefined
+
+  constructor(private settingsService: SettingsService) {
+    // Dependency Injection
+  }
+
+  public isRatingRecipeFeatureEnabled() {
+    return this.getEnabledRecipeFeature().includes(OptionalRecipeFeature.RATING)
+  }
+
+  private getEnabledRecipeFeature() {
+    return this.settingsService.getEnabledRecipeFeatures()
+  }
 }

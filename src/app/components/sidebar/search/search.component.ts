@@ -4,6 +4,8 @@ import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
 import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
+import { SettingsService } from "src/app/services/settings.service"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
 @Component({
   selector: "app-search",
@@ -36,7 +38,8 @@ export class SearchComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private searchService: SearchService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private settingsService: SettingsService
   ) {
     // Dependency Injection
   }
@@ -83,5 +86,17 @@ export class SearchComponent implements OnInit {
     this.selectedOptions.includedCookbooks = [...this.knownCookbooks]
     this.changeDetector.detectChanges()
     this.refreshTableData.emit()
+  }
+
+  public isCategoryRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.CATEGORY)
+  }
+
+  public isRatingRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
+  }
+
+  private getEnabledOptionalRecipeFeatures() {
+    return this.settingsService.getEnabledRecipeFeatures()
   }
 }

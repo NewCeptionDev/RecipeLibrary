@@ -58,18 +58,4 @@ describe("FileService", () => {
   it("should throw error if no electronService is registered on saveLibrary", () => {
     expect(() => service.saveLibrary()).toThrowError("No ElectronService registered")
   })
-
-  it("should correctly update savePath and trigger updateEvent when setSavePath", () => {
-    const path = "newPath"
-
-    let triggered = false
-    service.settingsChangedEvent.subscribe(() => {
-      triggered = true
-    })
-
-    service.setSavePath(path)
-    // @ts-ignore
-    expect(service.getSavePath()).toBe(path)
-    expect(triggered).toBeTrue()
-  })
 })

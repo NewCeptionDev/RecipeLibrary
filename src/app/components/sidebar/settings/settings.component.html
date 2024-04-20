@@ -21,4 +21,16 @@
       Change Path
     </button>
   </div>
+  <div class="settingContainer">
+    <h3>Optional Recipe Features</h3>
+    <div *ngFor="let feature of this.getOptionalFeatures()">
+      <mat-slide-toggle
+        [id]="feature"
+        labelPosition="before"
+        [checked]="this.isOptionalFeatureEnabled(feature)"
+        (change)="toggleOptionalFeature($event)"
+        >{{ feature }}</mat-slide-toggle
+      >
+    </div>
+  </div>
 </div>
