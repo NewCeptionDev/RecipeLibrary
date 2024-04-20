@@ -44,8 +44,8 @@ export class SettingsService {
     }
   }
 
-  public setEnabledRecipeFeatures(features: OptionalRecipeFeature[]) {
-    this.settings.enabledRecipeFeatures = features
+  public setSettings(settings: Settings) {
+    this.settings = settings
   }
 
   public getEnabledRecipeFeatures() {
@@ -55,6 +55,7 @@ export class SettingsService {
   private saveSettingsToFile() {
     if (this.electronService) {
       this.electronService.saveSettings()
+      this.settingsChangedEvent.emit()
     } else {
       throw new Error("ElectronService was not registered")
     }

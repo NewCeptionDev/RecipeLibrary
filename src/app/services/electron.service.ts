@@ -34,10 +34,12 @@ export class ElectronService {
       })
 
       this.ipc.on("settings", (_, settings: Settings) => {
-        this.settingsService.updateRecipePath(settings.recipeSavePath)
-        this.settingsService.setEnabledRecipeFeatures(
-          settings.enabledRecipeFeatures.map((elem) => this.mapToOptionalRecipeFeature(elem))
-        )
+        this.settingsService.setSettings({
+          recipeSavePath: settings.recipeSavePath,
+          enabledRecipeFeatures: settings.enabledRecipeFeatures.map((elem) =>
+            this.mapToOptionalRecipeFeature(elem)
+          ),
+        })
       })
 
       this.ipc.on("newRecipeFilePath", (_, filePath: string) => {

@@ -1,6 +1,7 @@
 import { TestBed } from "@angular/core/testing"
 import { ElectronServiceMock } from "src/tests/mocks/ElectronServiceMock"
 import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
+import { Settings } from "../models/settings"
 import { ElectronService } from "./electron.service"
 import { SettingsService } from "./settings.service"
 
@@ -93,12 +94,15 @@ describe("SettingsService", () => {
     expect(saveSpy).not.toHaveBeenCalled()
   })
 
-  it("should set enabledRecipeFeatures when setEnabledRecipeFeatures", () => {
-    const expectedRecipeFeatures = [OptionalRecipeFeature.CATEGORY]
+  it("should set settings when setSettings", () => {
+    const expectedSettings: Settings = {
+      recipeSavePath: "ExpextedPath",
+      enabledRecipeFeatures: [OptionalRecipeFeature.CATEGORY],
+    }
 
-    service.setEnabledRecipeFeatures(expectedRecipeFeatures)
+    service.setSettings(expectedSettings)
     // @ts-ignore
-    expect(service.settings.enabledRecipeFeatures).toBe(expectedRecipeFeatures)
+    expect(service.settings).toEqual(expectedSettings)
   })
 
   it("should return enabledRecipeFeatures when getEnabledRecipeFeatures", () => {
