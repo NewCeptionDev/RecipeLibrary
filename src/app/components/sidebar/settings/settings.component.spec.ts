@@ -36,6 +36,7 @@ describe("SettingsComponent", () => {
   })
 
   it("should return correct filePath when getCurrentSavePath", () => {
+    spyOn(settingsService, "getRecipePath").and.returnValue("MockSavePath")
     expect(component.getCurrentSavePath()).toBe("MockSavePath")
   })
 
@@ -58,7 +59,7 @@ describe("SettingsComponent", () => {
       ["Second", undefined],
     ])
 
-    expect(component.getOptionalFeatures()).toBe(["First", "Second"])
+    expect(component.getOptionalFeatures()).toEqual(["First", "Second"])
   })
 
   it("should return true if isOptionalFeatureEnabled given called with enabled feature", () => {
@@ -68,17 +69,15 @@ describe("SettingsComponent", () => {
     expect(testedFeature).not.toBeUndefined()
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([testedFeature!])
 
-    expect(component.isOptionalFeatureEnabled(testedFeature!)).toBeTrue()
+    expect(component.isOptionalFeatureEnabled(testedFeatureName)).toBeTrue()
   })
 
   it("should return false if isOptionalFeatureEnabled given called with disabled feature", () => {
     const testedFeatureName = component.getOptionalFeatures()[0]
     // @ts-ignore
-    const testedFeature = component.optionalRecipeFeatures.get(testedFeatureName)
-    expect(testedFeature).not.toBeUndefined()
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
 
-    expect(component.isOptionalFeatureEnabled(testedFeature!)).toBeFalse()
+    expect(component.isOptionalFeatureEnabled(testedFeatureName)).toBeFalse()
   })
 
   it("should throw error if isOptionalFeatureEnabled given called with unknown feature", () => {

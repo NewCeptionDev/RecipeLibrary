@@ -30,7 +30,7 @@ export class SettingsService {
   }
 
   public enableRecipeFeature(feature: OptionalRecipeFeature) {
-    if (this.settings.enabledRecipeFeatures.includes(feature)) {
+    if (!this.settings.enabledRecipeFeatures.includes(feature)) {
       this.settings.enabledRecipeFeatures.push(feature)
       this.saveSettingsToFile()
     }

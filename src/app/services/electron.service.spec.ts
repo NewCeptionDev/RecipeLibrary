@@ -112,7 +112,7 @@ describe("ElectronService", () => {
 
   it("should send message to ipc on saveSettings", () => {
     const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
-    const getSavePathSpy = spyOn(settingsService, "getRecipePath")
+    const getSavePathSpy = spyOn(settingsService, "getRecipePath").and.returnValue("MockSavePath")
     const getEnabledFeaturesSpy = spyOn(
       settingsService,
       "getEnabledRecipeFeatures"
@@ -127,6 +127,21 @@ describe("ElectronService", () => {
     })
     expect(getSavePathSpy).toHaveBeenCalled()
     expect(getEnabledFeaturesSpy).toHaveBeenCalled()
+  })
+
+  it("should correctly map Category OptionalRecipeFeature when mapToOptionalRecipeFeature", () => {
+    // @ts-ignore
+    expect(service.mapToOptionalRecipeFeature("CATEGORY")).toBe(OptionalRecipeFeature.CATEGORY)
+  })
+
+  it("should correctly map Rating OptionalRecipeFeature when mapToOptionalRecipeFeature", () => {
+    // @ts-ignore
+    expect(service.mapToOptionalRecipeFeature("RATING")).toBe(OptionalRecipeFeature.RATING)
+  })
+
+  it("should throw error when mapToOptionalRecipeFeature given unknown feature", () => {
+    // @ts-ignore
+    expect(() => service.mapToOptionalRecipeFeature("Unknown")).toThrowError("Unknown value given")
   })
 })
 
