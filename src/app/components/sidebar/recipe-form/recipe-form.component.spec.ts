@@ -4,22 +4,30 @@ import { RecipeFormComponent } from "./recipe-form.component"
 import { RecipeService } from "../../../services/recipe.service"
 import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
 import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
+import { SettingsService } from "src/app/services/settings.service"
+import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
-describe("AddRecipeComponent", () => {
+describe("RecipeFormComponent", () => {
   let component: RecipeFormComponent
   let fixture: ComponentFixture<RecipeFormComponent>
   let recipeService: RecipeService
+  let settingsService: SettingsService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeFormComponent],
-      providers: [{ provide: RecipeService, useClass: RecipeServiceMock }],
+      providers: [
+        { provide: RecipeService, useClass: RecipeServiceMock },
+        { provide: SettingsService, useClass: SettingsServiceMock },
+      ],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeFormComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
     recipeService = TestBed.inject(RecipeService)
+    settingsService = TestBed.inject(SettingsService)
   })
 
   it("should create", () => {
@@ -183,5 +191,29 @@ describe("AddRecipeComponent", () => {
 
     expect(component.editing).toBeTrue()
     expect(component.recipeInput).toEqual(RecipeBuilder.defaultRecipe())
+  })
+
+  it("should return true when isCategoryRecipeFeatureEnabled given Category enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.CATEGORY,
+    ])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isCategoryRecipeFeatureEnabled given Category disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBeFalse()
+  })
+
+  it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.RATING,
+    ])
+    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
   })
 })

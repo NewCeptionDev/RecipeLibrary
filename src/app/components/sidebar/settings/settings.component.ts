@@ -51,7 +51,7 @@ export class SettingsComponent implements OnInit {
     const searchedFeature = this.optionalRecipeFeatures.get(feature)
 
     if (searchedFeature === undefined) {
-      throw new Error("Unknown feature defined")
+      throw new Error("Unknown feature given")
     }
 
     return this.settingsService.getEnabledRecipeFeatures().includes(searchedFeature)

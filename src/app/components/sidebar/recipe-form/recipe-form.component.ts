@@ -94,11 +94,11 @@ export class RecipeFormComponent implements OnInit {
       : !Recipe.equals(this.recipe, this.defaultRecipe)
   }
 
-  public isCategoryFeatureEnabled() {
+  public isCategoryRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.CATEGORY)
   }
 
-  public isRatingFeatureEnabled() {
+  public isRatingRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
   }
 

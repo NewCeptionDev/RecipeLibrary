@@ -22,6 +22,7 @@ export class SettingsService {
 
   public updateRecipePath(newPath: string) {
     this.settings.recipeSavePath = newPath
+    this.saveSettingsToFile()
   }
 
   public getRecipePath(): string {
@@ -29,8 +30,10 @@ export class SettingsService {
   }
 
   public enableRecipeFeature(feature: OptionalRecipeFeature) {
-    this.settings.enabledRecipeFeatures.push(feature)
-    this.saveSettingsToFile()
+    if (this.settings.enabledRecipeFeatures.includes(feature)) {
+      this.settings.enabledRecipeFeatures.push(feature)
+      this.saveSettingsToFile()
+    }
   }
 
   public disableRecipeFeature(feature: OptionalRecipeFeature) {
@@ -52,6 +55,8 @@ export class SettingsService {
   private saveSettingsToFile() {
     if (this.electronService) {
       this.electronService.saveSettings()
+    } else {
+      throw new Error("ElectronService was not registered")
     }
   }
 }

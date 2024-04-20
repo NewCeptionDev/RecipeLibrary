@@ -40,6 +40,10 @@ export class ElectronService {
         )
       })
 
+      this.ipc.on("newRecipeFilePath", (_, filePath: string) => {
+        this.settingsService.updateRecipePath(filePath)
+      })
+
       this.requestSettingsInformation()
       this.requestLoadFile()
     }

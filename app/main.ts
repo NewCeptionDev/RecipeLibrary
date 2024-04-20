@@ -255,12 +255,8 @@ ipcMain.on("newFileSavePath", async (event) => {
   })
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {
-    const recipes = loadRecipes()
     const newRecipeSavePath = path.resolve(selectionResult[0], "recipes.json")
-    settings.recipeSavePath = newRecipeSavePath
-    saveSettings()
-    saveRecipes(recipes)
-    sendSettingsToFrontend(event.sender)
+    event.sender.send("newRecipeFilePath", newRecipeSavePath)
   }
 })
 

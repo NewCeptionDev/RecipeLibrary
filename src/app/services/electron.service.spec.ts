@@ -4,6 +4,9 @@ import { ElectronService } from "./electron.service"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import any = jasmine.any
 import Spy = jasmine.Spy
+import { SettingsService } from "./settings.service"
+import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
+import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
 
 class IpcRendererMock {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,13 +22,16 @@ class IpcRendererMock {
 
 describe("ElectronService", () => {
   let service: ElectronService
+  let settingsService: SettingsService
   const ipcRenderer: IpcRendererMock = new IpcRendererMock()
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatSnackBarModule],
+      providers: [{ provide: SettingsService, useClass: SettingsServiceMock }],
     })
     service = TestBed.inject(ElectronService)
+    settingsService = TestBed.inject(SettingsService)
   })
 
   it("should be created", () => {
@@ -102,6 +108,25 @@ describe("ElectronService", () => {
 
     service.requestNewFileSavePath()
     expect(ipcRendererSendSpy).toHaveBeenCalledWith("newFileSavePath")
+  })
+
+  it("should send message to ipc on saveSettings", () => {
+    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const getSavePathSpy = spyOn(settingsService, "getRecipePath")
+    const getEnabledFeaturesSpy = spyOn(
+      settingsService,
+      "getEnabledRecipeFeatures"
+    ).and.returnValue([OptionalRecipeFeature.CATEGORY])
+    // @ts-ignore
+    service.ipc = ipcRenderer
+
+    service.saveSettings()
+    expect(ipcRendererSendSpy).toHaveBeenCalledWith("saveSettings", {
+      recipeSavePath: "MockSavePath",
+      enabledRecipeFeatures: ["CATEGORY"],
+    })
+    expect(getSavePathSpy).toHaveBeenCalled()
+    expect(getEnabledFeaturesSpy).toHaveBeenCalled()
   })
 })
 

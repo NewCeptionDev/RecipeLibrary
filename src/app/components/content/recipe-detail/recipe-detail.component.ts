@@ -16,11 +16,11 @@ export class RecipeDetailComponent {
     // Dependency Injection
   }
 
-  public isCategoryFeatureEnabled() {
+  public isCategoryRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.CATEGORY)
   }
 
-  public isRatingFeatureEnabled() {
+  public isRatingRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
   }
 

@@ -88,11 +88,11 @@ export class SearchComponent implements OnInit {
     this.refreshTableData.emit()
   }
 
-  public isCategoryFeatureEnabled() {
+  public isCategoryRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.CATEGORY)
   }
 
-  public isRatingFeatureEnabled() {
+  public isRatingRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
   }
 

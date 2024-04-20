@@ -1,9 +1,7 @@
 import { EventEmitter } from "@angular/core"
 
-export class FileServiceMock {
-  savePath = "MockSavePath"
-
+export class SettingsServiceMock {
   settingsChangedEvent = new EventEmitter().asObservable()
 
-  getSavePath = () => this.savePath
+  getEnabledRecipeFeatures = () => []
 }

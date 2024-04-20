@@ -14,13 +14,13 @@
     <br />
     <app-selected-items-display
       headline="Categories"
-      *ngIf="this.isCategoryFeatureEnabled()"
+      *ngIf="this.isCategoryRecipeFeatureEnabled()"
       [underlinedHeadline]="true"
       [data]="recipe.categories"
       [editable]="false"></app-selected-items-display>
     <app-rating-display
       [editable]="false"
-      *ngIf="this.isRatingFeatureEnabled()"
+      *ngIf="this.isRatingRecipeFeatureEnabled()"
       [rating]="recipe.rating"></app-rating-display>
   </div>
 </div>

@@ -6,22 +6,30 @@ import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
 import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock"
 import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
+import { SettingsService } from "src/app/services/settings.service"
+import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
 describe("RecipeListComponent", () => {
   let component: RecipeListComponent
+  let settingsService: SettingsService
   let fixture: ComponentFixture<RecipeListComponent>
   let searchService: SearchService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeListComponent],
-      providers: [{ provide: SearchService, useClass: SearchServiceMock }],
+      providers: [
+        { provide: SearchService, useClass: SearchServiceMock },
+        { provide: SettingsService, useClass: SettingsServiceMock },
+      ],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeListComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
     searchService = TestBed.inject(SearchService)
+    settingsService = TestBed.inject(SettingsService)
   })
 
   it("should create", () => {
@@ -83,5 +91,17 @@ describe("RecipeListComponent", () => {
 
     expect(component.currentSortOption).toBe(sortOption)
     expect(adjustSortFiltersSpy).toHaveBeenCalledWith(sortOption, direction)
+  })
+
+  it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.RATING,
+    ])
+    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
   })
 })
