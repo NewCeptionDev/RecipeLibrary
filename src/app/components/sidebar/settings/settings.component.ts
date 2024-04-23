@@ -28,6 +28,7 @@ export class SettingsComponent implements OnInit {
     this.optionalRecipeFeatures = new Map([
       ["Categories", OptionalRecipeFeature.CATEGORY],
       ["Rating", OptionalRecipeFeature.RATING],
+      ["Required Time", OptionalRecipeFeature.REQUIRED_TIME],
     ])
   }
 

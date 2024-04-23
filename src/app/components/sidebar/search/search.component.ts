@@ -15,6 +15,7 @@ import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 export class SearchComponent implements OnInit {
   defaultSearchOptions: SearchOptions = {
     minimumRating: -1,
+    maximumRequiredTime: undefined,
     includedCategories: [],
     includedCookbooks: [],
     requiredIngredients: [],
@@ -61,6 +62,10 @@ export class SearchComponent implements OnInit {
     this.selectedOptions.minimumRating = newRating
   }
 
+  public onNewRequiredTimeSelected(newRequiredTime: number) {
+    this.selectedOptions.maximumRequiredTime = newRequiredTime
+  }
+
   public updateRequiredIngredients(selectedItems: string[]) {
     this.selectedOptions.requiredIngredients = selectedItems
     this.refreshTableData.emit()
@@ -94,6 +99,10 @@ export class SearchComponent implements OnInit {
 
   public isRatingRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
+  }
+
+  public isRequiredTimeRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.REQUIRED_TIME)
   }
 
   private getEnabledOptionalRecipeFeatures() {

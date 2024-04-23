@@ -34,6 +34,12 @@
     [rating]="selectedOptions.minimumRating"
     (newRating)="onNewRatingSelected($event)"
     labelAddition="Minimum"></app-rating-display>
+  <app-required-time-display
+    *ngIf="this.isRequiredTimeRecipeFeatureEnabled()"
+    [editable]="true"
+    [requiredTime]="selectedOptions.maximumRequiredTime"
+    (newRequiredTime)="onNewRequiredTimeSelected($event)"
+    labelAddition="Maximum"></app-required-time-display>
   <div class="buttons">
     <button
       mat-raised-button

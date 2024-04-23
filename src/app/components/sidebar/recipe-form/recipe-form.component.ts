@@ -18,7 +18,7 @@ export class RecipeFormComponent implements OnInit {
     ingredients: [],
     categories: [],
     rating: -1,
-    timeToCook: undefined,
+    requiredTime: undefined,
   }
 
   @Input()
@@ -36,11 +36,6 @@ export class RecipeFormComponent implements OnInit {
 
   recipeFormControl: FormControl = new FormControl(this.recipe.recipeName, Validators.required)
 
-  recipeTimeToCookFormControl: FormControl = new FormControl(
-    this.recipe.timeToCook,
-    Validators.pattern("^[0-9]*$")
-  )
-
   @Output()
   public recipeChange: EventEmitter<void> = new EventEmitter()
 
@@ -57,15 +52,10 @@ export class RecipeFormComponent implements OnInit {
       this.recipe.recipeName = value
     })
 
-    this.recipeTimeToCookFormControl.valueChanges.subscribe((value) => {
-      this.recipe.timeToCook = parseInt(value, 10)
-    })
-
     if (this.recipeInput) {
       this.editing = true
       this.recipe = { ...this.recipeInput }
       this.recipeFormControl.setValue(this.recipe.recipeName)
-      this.recipeTimeToCookFormControl.setValue(this.recipe.timeToCook)
     }
   }
 
@@ -85,14 +75,13 @@ export class RecipeFormComponent implements OnInit {
     this.recipe.cookbook = name
   }
 
+  public updateRequiredTime(newRequiredTime: number | undefined) {
+    this.recipe.requiredTime = newRequiredTime
+  }
+
   public finalizeRecipe() {
     if (this.recipeFormControl.invalid) {
       this.recipeFormControl.markAsTouched()
-      return
-    }
-
-    if (this.recipeTimeToCookFormControl.invalid) {
-      this.recipeTimeToCookFormControl.markAsTouched()
       return
     }
 
@@ -116,6 +105,10 @@ export class RecipeFormComponent implements OnInit {
 
   public isRatingRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
+  }
+
+  public isRequiredTimeRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.REQUIRED_TIME)
   }
 
   private getEnabledOptionalRecipeFeatures() {

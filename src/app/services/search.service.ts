@@ -91,6 +91,11 @@ export class SearchService {
   private getFilteredRecipes(recipes: Recipe[], searchOptions: SearchOptions): Recipe[] {
     return recipes
       .filter((recipe) => recipe.rating >= searchOptions.minimumRating)
+      .filter(
+        (recipe) =>
+          !searchOptions.maximumRequiredTime ||
+          (recipe.requiredTime && recipe.requiredTime <= searchOptions.maximumRequiredTime)
+      )
       .filter((recipe) =>
         searchOptions.includedCookbooks.length > 0
           ? searchOptions.includedCookbooks.includes(recipe.cookbook)

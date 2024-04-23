@@ -5,7 +5,7 @@ export interface Recipe {
   ingredients: string[]
   categories: string[]
   rating: number
-  timeToCook: number | undefined
+  requiredTime: number | undefined
 }
 
 export namespace Recipe {
@@ -20,7 +20,7 @@ export namespace Recipe {
       recipe1.categories.length === recipe2.categories.length &&
       recipe1.categories.every((category) => recipe2.categories.includes(category))
     const ratingEquals = recipe1.rating === recipe2.rating
-    const timeToCookEquals = recipe1.timeToCook === recipe2.timeToCook
+    const requiredTimeEquals = recipe1.requiredTime === recipe2.requiredTime
 
     return (
       idEquals &&
@@ -29,7 +29,7 @@ export namespace Recipe {
       ingredientsEqual &&
       categoriesEqual &&
       ratingEquals &&
-      timeToCookEquals
+      requiredTimeEquals
     )
   }
 }

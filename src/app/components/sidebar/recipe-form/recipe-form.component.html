@@ -43,18 +43,11 @@
       [editable]="true"
       (newRating)="updateRating($event)"
       [rating]="recipe.rating"></app-rating-display>
-    <mat-form-field [hideRequiredMarker]="true">
-      <mat-label>Time required (minutes)</mat-label>
-      <input
-        matInput
-        id="timeToCook"
-        placeholder="Time required to cook the recipe"
-        e
-        [formControl]="recipeTimeToCookFormControl" />
-      <mat-error *ngIf="recipeTimeToCookFormControl.hasError('pattern')">
-        Only positive numbers are valid
-      </mat-error>
-    </mat-form-field>
+    <app-required-time-display
+      *ngIf="isRequiredTimeRecipeFeatureEnabled()"
+      [editable]="true"
+      (newRequiredTime)="updateRequiredTime($event)"
+      [requiredTime]="recipe.requiredTime"></app-required-time-display>
   </div>
   <div class="buttons">
     <button

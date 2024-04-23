@@ -13,7 +13,7 @@ export class RecipeBuilder {
 
   private rating: number = -1
 
-  private timeToCook: number = -1
+  private requiredTime: number = -1
 
   withId = (id: number): RecipeBuilder => {
     this.id = id
@@ -45,8 +45,8 @@ export class RecipeBuilder {
     return this
   }
 
-  withTimeToCook = (timeToCook: number): RecipeBuilder => {
-    this.timeToCook = timeToCook
+  withRequiredTime = (requiredTime: number): RecipeBuilder => {
+    this.requiredTime = requiredTime
     return this
   }
 
@@ -57,7 +57,7 @@ export class RecipeBuilder {
     ingredients: this.ingredients,
     categories: this.categories,
     rating: this.rating,
-    timeToCook: this.timeToCook,
+    requiredTime: this.requiredTime,
   })
 
   defaultRecipe = (): RecipeBuilder =>
@@ -68,7 +68,7 @@ export class RecipeBuilder {
       .withIngredients(["Test Ingredient"])
       .withCategories(["Test Category"])
       .withRating(1)
-      .withTimeToCook(30)
+      .withRequiredTime(30)
 
   static defaultRecipe = (): Recipe =>
     new RecipeBuilder()
@@ -78,7 +78,7 @@ export class RecipeBuilder {
       .withIngredients(["Test Ingredient"])
       .withCategories(["Test Category"])
       .withRating(1)
-      .withTimeToCook(30)
+      .withRequiredTime(30)
       .build()
 
   static defaultRecipeWithoutId = (): Recipe =>
@@ -88,7 +88,7 @@ export class RecipeBuilder {
       .withIngredients(["Test Ingredient"])
       .withCategories(["Test Category"])
       .withRating(1)
-      .withTimeToCook(30)
+      .withRequiredTime(30)
       .build()
 
   static e2eRecipe = (): Recipe =>
@@ -105,7 +105,7 @@ export class RecipeBuilder {
       ])
       .withCategories(["Meat", "Cheese", "Fast"])
       .withRating(3)
-      .withTimeToCook(120)
+      .withRequiredTime(120)
       .build()
 
   static listOfRecipes = (): Recipe[] => [
@@ -116,7 +116,7 @@ export class RecipeBuilder {
       .withCategories(["Vegetarian"])
       .withIngredients(["Paprika", "Tomato"])
       .withRating(1)
-      .withTimeToCook(20)
+      .withRequiredTime(20)
       .build(),
     new RecipeBuilder()
       .withId(2)
@@ -133,7 +133,7 @@ export class RecipeBuilder {
       .withCategories(["Vegan"])
       .withIngredients(["Salad", "Olives"])
       .withRating(3)
-      .withTimeToCook(15)
+      .withRequiredTime(15)
       .build(),
     new RecipeBuilder()
       .withId(4)
@@ -142,7 +142,7 @@ export class RecipeBuilder {
       .withCategories(["Vegetarian"])
       .withIngredients(["Cheese", "Milk"])
       .withRating(4)
-      .withTimeToCook(50)
+      .withRequiredTime(50)
       .build(),
   ]
 }
