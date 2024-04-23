@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core"
+import { MatSlideToggleChange } from "@angular/material/slide-toggle"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { SettingsService } from "src/app/services/settings.service"
 import { ElectronService } from "../../../services/electron.service"
-import { FileService } from "../../../services/file.service"
 
 @Component({
   selector: "app-settings",
@@ -8,18 +10,25 @@ import { FileService } from "../../../services/file.service"
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
+  private optionalRecipeFeatures: Map<string, OptionalRecipeFeature> = new Map()
+
   constructor(
     private electronService: ElectronService,
-    private fileService: FileService,
+    private settingsService: SettingsService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
     // Dependency Injection
   }
 
   ngOnInit(): void {
-    this.fileService.settingsChangedEvent.subscribe(() => {
+    this.settingsService.settingsChangedEvent.subscribe(() => {
       this.changeDetectorRef.detectChanges()
     })
+
+    this.optionalRecipeFeatures = new Map([
+      ["Categories", OptionalRecipeFeature.CATEGORY],
+      ["Rating", OptionalRecipeFeature.RATING],
+    ])
   }
 
   public importLibrary() {
@@ -31,6 +40,32 @@ export class SettingsComponent implements OnInit {
   }
 
   public getCurrentSavePath(): string {
-    return this.fileService.getSavePath()
+    return this.settingsService.getRecipePath()
+  }
+
+  public getOptionalFeatures() {
+    return Array.from(this.optionalRecipeFeatures.keys())
+  }
+
+  public isOptionalFeatureEnabled(feature: string) {
+    const searchedFeature = this.optionalRecipeFeatures.get(feature)
+
+    if (searchedFeature === undefined) {
+      throw new Error("Unknown feature given")
+    }
+
+    return this.settingsService.getEnabledRecipeFeatures().includes(searchedFeature)
+  }
+
+  public toggleOptionalFeature(change: MatSlideToggleChange) {
+    const feature = this.optionalRecipeFeatures.get(change.source.id)
+
+    if (feature !== undefined) {
+      if (change.checked) {
+        this.settingsService.enableRecipeFeature(feature)
+      } else {
+        this.settingsService.disableRecipeFeature(feature)
+      }
+    }
   }
 }

@@ -3,6 +3,8 @@ import { FileService } from "./file.service"
 import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
 import { Settings } from "../../../app/main"
+import { SettingsService } from "./settings.service"
+import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
 
 @Injectable({
   providedIn: "root",
@@ -10,24 +12,38 @@ import { Settings } from "../../../app/main"
 export class ElectronService {
   private readonly ipc: Electron.IpcRenderer | undefined = undefined
 
-  constructor(private fileService: FileService, private zone: NgZone) {
+  constructor(
+    private fileService: FileService,
+    private settingsService: SettingsService,
+    private zone: NgZone
+  ) {
     this.fileService.registerElectronService(this)
+    this.settingsService.registerElectronService(this)
 
     if (window.require) {
       this.ipc = window.require("electron").ipcRenderer
 
-      this.ipc.on("fileLoaded", (event: IpcRendererEvent, message: string) => {
+      this.ipc.on("fileLoaded", (_: IpcRendererEvent, message: string) => {
         this.fileService.processSaveFile(message, true)
       })
 
-      this.ipc.on("importLibraryFile", (event: IpcRendererEvent, message: string) => {
+      this.ipc.on("importLibraryFile", (_: IpcRendererEvent, message: string) => {
         this.zone.run(() => {
           this.fileService.processSaveFile(message, false)
         })
       })
 
-      this.ipc.on("settings", (event, settings: Settings) => {
-        this.fileService.setSavePath(settings.recipeSavePath)
+      this.ipc.on("settings", (_, settings: Settings) => {
+        this.settingsService.setSettings({
+          recipeSavePath: settings.recipeSavePath,
+          enabledRecipeFeatures: settings.enabledRecipeFeatures.map((elem) =>
+            this.mapToOptionalRecipeFeature(elem)
+          ),
+        })
+      })
+
+      this.ipc.on("newRecipeFilePath", (_, filePath: string) => {
+        this.settingsService.updateRecipePath(filePath)
       })
 
       this.requestSettingsInformation()
@@ -80,6 +96,29 @@ export class ElectronService {
   public requestNewFileSavePath() {
     if (this.ipc) {
       this.ipc.send("newFileSavePath")
+    }
+  }
+
+  public saveSettings() {
+    if (this.ipc) {
+      const settings: Settings = {
+        recipeSavePath: this.settingsService.getRecipePath(),
+        enabledRecipeFeatures: this.settingsService
+          .getEnabledRecipeFeatures()
+          .map((elem) => elem.toString()),
+      }
+      this.ipc.send("saveSettings", settings)
+    }
+  }
+
+  private mapToOptionalRecipeFeature(value: string): OptionalRecipeFeature {
+    switch (value) {
+      case "CATEGORY":
+        return OptionalRecipeFeature.CATEGORY
+      case "RATING":
+        return OptionalRecipeFeature.RATING
+      default:
+        throw new Error("Unknown value given")
     }
   }
 }

@@ -23,4 +23,8 @@ export class ElectronServiceMock {
   saveRecipesToFile = (toSave: never) => {
     // Mock implementation
   }
+
+  saveSettings = () => {
+    // Mock implementation
+  }
 }

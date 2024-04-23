@@ -172,7 +172,10 @@ const defaultRecipeSavePath = path.resolve(
   "RecipeLibrary",
   "recipes.json"
 )
-let recipeSavePath: string = defaultRecipeSavePath
+let settings: Settings = {
+  recipeSavePath: defaultRecipeSavePath,
+  enabledRecipeFeatures: [],
+}
 const settingsFilePath = app.getPath("userData") + "/settings.json"
 
 // Load settings
@@ -252,12 +255,26 @@ ipcMain.on("newFileSavePath", async (event) => {
   })
 
   if (selectionResult && fs.existsSync(selectionResult[0])) {
-    const recipes = loadRecipes()
-    recipeSavePath = path.resolve(selectionResult[0], "recipes.json")
-    saveSettings()
-    saveRecipes(recipes)
-    sendSettingsToFrontend(event.sender)
+    const newRecipeSavePath = path.resolve(selectionResult[0], "recipes.json")
+    event.sender.send("newRecipeFilePath", newRecipeSavePath)
   }
+})
+
+ipcMain.on("saveSettings", async (event, object: Settings) => {
+  const differentFilePath = settings.recipeSavePath !== object.recipeSavePath
+  let recipes
+  if (differentFilePath) {
+    recipes = loadRecipes()
+  }
+
+  settings = object
+  saveSettings()
+
+  if (differentFilePath) {
+    saveRecipes(recipes)
+  }
+
+  sendSettingsToFrontend(event.sender)
 })
 
 /**
@@ -272,36 +289,33 @@ function loadSettings() {
       encoding: "utf-8",
     })
 
-    const settings: Settings = JSON.parse(settingsFile)
+    const loadedSettings: Settings = JSON.parse(settingsFile)
 
-    if (settings.recipeSavePath) {
-      recipeSavePath = settings.recipeSavePath
-    }
+    settings = loadedSettings
   } else {
     saveSettings()
   }
 }
 
 function saveSettings() {
-  const settings: Settings = {
-    recipeSavePath: recipeSavePath,
-  }
-
   fs.writeFileSync(settingsFilePath, JSON.stringify(settings), { encoding: "utf-8" })
 }
 
 function saveRecipes(recipes: any) {
-  if (recipeSavePath === defaultRecipeSavePath && !fs.existsSync(recipeSavePath)) {
+  if (
+    settings.recipeSavePath === defaultRecipeSavePath &&
+    !fs.existsSync(settings.recipeSavePath)
+  ) {
     const folder = defaultRecipeSavePath.substring(0, defaultRecipeSavePath.length - 13)
     fs.mkdirSync(folder)
   }
 
-  fs.writeFileSync(recipeSavePath, recipes, { encoding: "utf-8" })
+  fs.writeFileSync(settings.recipeSavePath, recipes, { encoding: "utf-8" })
 }
 
 function loadRecipes(): any {
-  if (fs.existsSync(recipeSavePath)) {
-    return fs.readFileSync(recipeSavePath, {
+  if (fs.existsSync(settings.recipeSavePath)) {
+    return fs.readFileSync(settings.recipeSavePath, {
       encoding: "utf-8",
     })
   } else {
@@ -310,13 +324,10 @@ function loadRecipes(): any {
 }
 
 function sendSettingsToFrontend(sender: Electron.WebContents) {
-  const settings: Settings = {
-    recipeSavePath: recipeSavePath,
-  }
-
   sender.send("settings", settings)
 }
 
 export interface Settings {
   recipeSavePath: string
+  enabledRecipeFeatures: string[]
 }

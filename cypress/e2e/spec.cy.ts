@@ -164,6 +164,84 @@ describe("Settings E2E", () => {
     cy.get("#settingsSidebarButton").click()
     cy.contains("Settings")
   })
+
+  it("should have all optional features enabled by default", () => {
+    cy.get("#settingsSidebarButton").click()
+    cy.get(".settingContainer").eq(2).contains("Optional Recipe Features")
+    cy.get(".settingContainer").eq(2).contains("Categories")
+    cy.get(".settingContainer").eq(2).contains("Rating")
+    cy.get(".mat-slide-toggle-input")
+    cy.get(".mat-slide-toggle-input").each(($el) => {
+      cy.wrap($el).should("have.attr", "aria-checked", "true")
+    })
+  })
+
+  it("should contain all elements if features are enabled", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Minimum Rating")
+    cy.get("#categorySelect").should("exist")
+    cy.get("#addSidebarButton").click()
+    cy.contains("Rating")
+    cy.get("#categorySelect").should("exist")
+    cy.get("#editSidebarButton").click()
+    cy.get("#editRecipeButton").click()
+    cy.contains("Rating")
+    cy.get("#categorySelect").should("exist")
+
+    cy.get("#searchSidebarButton").click()
+    cy.get("#submitSearchButton").click()
+    cy.get("#ratingSorting").should("exist")
+    cy.contains("Rating")
+    cy.get("app-recipe-overview").click()
+    cy.contains("Rating")
+    cy.get("#categorySelect").should("exist")
+  })
+
+  it("should not show rating element if feature disabled", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+
+    cy.get("#settingsSidebarButton").click()
+    cy.get("#Rating").click()
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Minimum Rating").should("not.exist")
+    cy.get("#addSidebarButton").click()
+    cy.contains("Rating").should("not.exist")
+    cy.get("#editSidebarButton").click()
+    cy.get("#editRecipeButton").click()
+    cy.contains("Rating").should("not.exist")
+
+    cy.get("#searchSidebarButton").click()
+    cy.get("#submitSearchButton").click()
+    cy.get("#ratingSorting").should("not.exist")
+    cy.contains("Rating").should("not.exist")
+    cy.get("app-recipe-overview").click()
+    cy.contains("Rating").should("not.exist")
+  })
+
+  it("should not show category element if feature disabled", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+
+    cy.get("#settingsSidebarButton").click()
+    cy.get("#Categories").click()
+    cy.get("#searchSidebarButton").click()
+    cy.get("#categorySelect").should("not.exist")
+    cy.get("#addSidebarButton").click()
+    cy.get("#categorySelect").should("not.exist")
+    cy.get("#editSidebarButton").click()
+    cy.get("#editRecipeButton").click()
+    cy.get("#categorySelect").should("not.exist")
+
+    cy.get("#searchSidebarButton").click()
+    cy.get("#submitSearchButton").click()
+    cy.get("#categorySelect").should("not.exist")
+    cy.get("app-recipe-overview").click()
+    cy.get("#categorySelect").should("not.exist")
+  })
 })
 
 describe("Search E2E", () => {

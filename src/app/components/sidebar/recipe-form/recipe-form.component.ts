@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { Recipe } from "src/app/models/recipe"
 import { RecipeService } from "src/app/services/recipe.service"
-import { Form, FormControl, Validators } from "@angular/forms"
+import { FormControl, Validators } from "@angular/forms"
+import { SettingsService } from "src/app/services/settings.service"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
 @Component({
   selector: "app-recipe-form",
@@ -42,7 +44,7 @@ export class RecipeFormComponent implements OnInit {
   @Output()
   public recipeChange: EventEmitter<void> = new EventEmitter()
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private settingsService: SettingsService) {
     // Dependency Injection
   }
 
@@ -106,5 +108,17 @@ export class RecipeFormComponent implements OnInit {
     return this.recipeInput
       ? !Recipe.equals(this.recipeInput, this.recipe)
       : !Recipe.equals(this.recipe, this.defaultRecipe)
+  }
+
+  public isCategoryRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.CATEGORY)
+  }
+
+  public isRatingRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
+  }
+
+  private getEnabledOptionalRecipeFeatures() {
+    return this.settingsService.getEnabledRecipeFeatures()
   }
 }

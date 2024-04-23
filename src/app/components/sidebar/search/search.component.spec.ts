@@ -5,6 +5,9 @@ import { SearchService } from "../../../services/search.service"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchServiceMock } from "../../../../tests/mocks/SearchServiceMock"
 import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
+import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { SettingsService } from "src/app/services/settings.service"
+import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
 
 const KNOWN_COOKBOOK = "KnownCookbook"
 
@@ -13,6 +16,7 @@ describe("SearchComponent", () => {
   let fixture: ComponentFixture<SearchComponent>
   let searchService: SearchService
   let recipeService: RecipeService
+  let settingsService: SettingsService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,11 +24,13 @@ describe("SearchComponent", () => {
       providers: [
         { provide: SearchService, useClass: SearchServiceMock },
         { provide: RecipeService, useClass: RecipeServiceMock },
+        { provide: SettingsService, useClass: SettingsServiceMock },
       ],
     }).compileComponents()
 
     searchService = TestBed.inject(SearchService)
     recipeService = TestBed.inject(RecipeService)
+    settingsService = TestBed.inject(SettingsService)
     // override mock functions
     spyOn(recipeService, "getAllKnownCookbooks").and.returnValue([KNOWN_COOKBOOK])
 
@@ -92,5 +98,29 @@ describe("SearchComponent", () => {
     expect(component.selectedOptions).toBe(component.defaultSearchOptions)
     expect(component.selectedOptions.includedCookbooks).toEqual([KNOWN_COOKBOOK])
     expect(refreshTableDataSpy).toHaveBeenCalled()
+  })
+
+  it("should return true when isCategoryRecipeFeatureEnabled given Category enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.CATEGORY,
+    ])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isCategoryRecipeFeatureEnabled given Category disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBeFalse()
+  })
+
+  it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.RATING,
+    ])
+    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
   })
 })

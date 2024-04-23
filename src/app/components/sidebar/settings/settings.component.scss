@@ -16,6 +16,7 @@
 
 .settingContainer {
   display: flex;
+  align-items: center;
   flex-direction: column;
   width: 80%;
   border-radius: 10px;
@@ -27,12 +28,8 @@
     margin-left: 5%;
   }
 
-  button {
-    align-self: center;
-  }
-
   p {
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     margin: 0 7% 2vh;
   }
 }
