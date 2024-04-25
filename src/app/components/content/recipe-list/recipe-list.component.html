@@ -19,6 +19,14 @@
         [selectedSortOption]="SortOptions.RATING"
         id="ratingSorting"
         (sortDirectionChanged)="this.sortOptionAdjusted(SortOptions.RATING, $event)"></app-sort-by>
+      <app-sort-by
+        *ngIf="this.isRequiredTimeRecipeFeatureEnabled()"
+        [disabled]="this.currentSortOption !== SortOptions.REQUIRED_TIME"
+        [selectedSortOption]="SortOptions.REQUIRED_TIME"
+        id="requiredTimeSorting"
+        (sortDirectionChanged)="
+          this.sortOptionAdjusted(SortOptions.REQUIRED_TIME, $event)
+        "></app-sort-by>
     </div>
   </div>
   <div class="resultList">

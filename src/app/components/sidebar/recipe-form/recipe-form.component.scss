@@ -50,6 +50,14 @@ app-selected-items-display {
   max-height: 30vh;
 }
 
+app-rating-display {
+  margin-top: 1vh;
+}
+
+app-required-time-display {
+  margin-top: 1vh;
+}
+
 @media screen and (max-height: 720px) {
   app-selected-items-display {
     min-height: 40vh;

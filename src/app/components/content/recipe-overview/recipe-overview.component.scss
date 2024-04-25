@@ -40,14 +40,10 @@ h4 {
 .additionalInformation {
   display: flex;
   flex-direction: column;
-  width: 18%;
+  width: 12%;
   position: relative;
-  align-items: end;
-
-  app-rating-display {
-    position: absolute;
-    bottom: 0;
-  }
+  align-items: start;
+  justify-content: center;
 }
 
 mat-icon {

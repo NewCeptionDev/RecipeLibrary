@@ -28,6 +28,9 @@ export class RequiredTimeDisplayComponent implements OnInit {
       if (this.editable) {
         if (value.length > 0) {
           this.requiredTime = parseInt(value, 10)
+          if (Number.isNaN(this.requiredTime)) {
+            this.requiredTime = undefined
+          }
         } else {
           this.requiredTime = undefined
         }

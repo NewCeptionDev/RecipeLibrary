@@ -30,6 +30,9 @@ export class SortByComponent implements OnInit {
       case SortOptions.ALPHABET:
         this.sortOptionIcon = "abc"
         break
+      case SortOptions.REQUIRED_TIME:
+        this.sortOptionIcon = "timer"
+        break
       case SortOptions.RATING:
       default:
         this.sortOptionIcon = "star"

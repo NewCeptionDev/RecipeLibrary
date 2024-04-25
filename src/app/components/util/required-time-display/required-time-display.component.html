@@ -11,7 +11,11 @@
         id="timeToCook"
         [formControl]="requiredTimeFormControl" />
     </mat-form-field>
-    <p *ngIf="!editable">{{ this.requiredTime }}</p>
-    <p class="unit">minutes</p>
+    <p *ngIf="!editable">{{ this.requiredTime }} minutes</p>
+    <p
+      class="unit"
+      *ngIf="editable">
+      minutes
+    </p>
   </div>
 </div>

@@ -128,6 +128,15 @@ export class SearchService {
         return list.sort((a, b) => a.rating - b.rating)
       }
       return list.sort((a, b) => b.rating - a.rating)
+    } else if (sortOption === SortOptions.REQUIRED_TIME) {
+      if (direction === SortDirection.ASC) {
+        return list.sort(
+          (a, b) => this.safeMapNumber(a.requiredTime) - this.safeMapNumber(b.requiredTime)
+        )
+      }
+      return list.sort(
+        (a, b) => this.safeMapNumber(b.requiredTime) - this.safeMapNumber(a.requiredTime)
+      )
     }
 
     throw new Error("Unknown SortOption")
@@ -142,5 +151,12 @@ export class SearchService {
     this.lastSearchOptions.sortDirection = newSortDirection
 
     this.search(this.lastSearchOptions)
+  }
+
+  private safeMapNumber(value: number | undefined) {
+    if (value !== undefined) {
+      return value
+    }
+    return Number.MAX_SAFE_INTEGER
   }
 }

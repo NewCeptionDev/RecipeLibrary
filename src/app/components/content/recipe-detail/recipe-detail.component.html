@@ -20,9 +20,16 @@
       [underlinedHeadline]="true"
       [data]="recipe.categories"
       [editable]="false"></app-selected-items-display>
-    <app-rating-display
-      [editable]="false"
-      *ngIf="this.isRatingRecipeFeatureEnabled()"
-      [rating]="recipe.rating"></app-rating-display>
+    <div class="verticallyGroupedInformation">
+      <app-required-time-display
+        [editable]="false"
+        [requiredTime]="recipe.requiredTime"
+        *ngIf="this.isRequiredTimeRecipeFeatureEnabled()">
+      </app-required-time-display>
+      <app-rating-display
+        [editable]="false"
+        *ngIf="this.isRatingRecipeFeatureEnabled()"
+        [rating]="recipe.rating"></app-rating-display>
+    </div>
   </div>
 </div>

@@ -6,6 +6,10 @@
     <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
   </div>
   <div class="additionalInformation">
+    <app-required-time-display
+      *ngIf="this.isRequiredTimeRecipeFeatureEnabled"
+      [editable]="false"
+      [requiredTime]="recipe.requiredTime"></app-required-time-display>
     <app-rating-display
       *ngIf="this.isRatingRecipeFeatureEnabled()"
       [editable]="false"
