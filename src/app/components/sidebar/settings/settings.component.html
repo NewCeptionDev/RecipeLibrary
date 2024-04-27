@@ -29,7 +29,7 @@
         labelPosition="before"
         [checked]="this.isOptionalFeatureEnabled(feature)"
         (change)="toggleOptionalFeature($event)"
-        >{{ feature }}</mat-slide-toggle
+        >{{ this.formatForFrontend(feature) }}</mat-slide-toggle
       >
     </div>
   </div>

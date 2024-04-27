@@ -30,6 +30,7 @@ describe("Add Recipe E2E", () => {
     cy.get("#categorySelect #autoCompleteInput").should("have.value", "")
     cy.get("#categorySelect table").contains("No Categories added")
     cy.get(".stars mat-icon").should("not.have.class", "filledStar")
+    cy.get("#requiredTime").should("have.value", "")
   })
 
   it("should find recipe in edit / delete tab after adding", () => {
@@ -118,6 +119,8 @@ describe("Edit Recipe E2E", () => {
     cy.get("#ingredientSelect #autoCompleteInput").type("Additional Ingredient{enter}")
     cy.get("#categorySelect #autoCompleteInput").type("Additional Category{enter}")
     cy.get(".stars span").eq(4).click()
+    cy.get("#requiredTime").clear()
+    cy.get("#requiredTime").type("20")
     cy.get("#submitRecipeFormAction").click()
     cy.get(".mat-snack-bar-container").contains("Recipe changed")
     const updatedRecipe = RecipeBuilder.e2eRecipe()
@@ -126,6 +129,7 @@ describe("Edit Recipe E2E", () => {
     updatedRecipe.ingredients.push("Additional Ingredient")
     updatedRecipe.categories.push("Additional Category")
     updatedRecipe.rating = 5
+    updatedRecipe.requiredTime = 20
     cy.contains("Edit / Delete Recipes")
     cy.contains(updatedRecipe.recipeName)
     cy.get("#editRecipeButton").click()
@@ -137,6 +141,8 @@ describe("Edit Recipe E2E", () => {
     cy.get(".stars span")
       .eq(RecipeBuilder.e2eRecipe().rating - 1)
       .click()
+    cy.get("#requiredTime").clear()
+    cy.get("#requiredTime").type(120)
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
@@ -170,6 +176,7 @@ describe("Settings E2E", () => {
     cy.get(".settingContainer").eq(2).contains("Optional Recipe Features")
     cy.get(".settingContainer").eq(2).contains("Categories")
     cy.get(".settingContainer").eq(2).contains("Rating")
+    cy.get(".settingContainer").eq(2).contains("Required Time")
     cy.get(".mat-slide-toggle-input")
     cy.get(".mat-slide-toggle-input").each(($el) => {
       cy.wrap($el).should("have.attr", "aria-checked", "true")
@@ -182,21 +189,27 @@ describe("Settings E2E", () => {
 
     cy.get("#searchSidebarButton").click()
     cy.contains("Minimum Rating")
+    cy.contains("Maximum Required Time")
     cy.get("#categorySelect").should("exist")
     cy.get("#addSidebarButton").click()
     cy.contains("Rating")
+    cy.contains("Required Time")
     cy.get("#categorySelect").should("exist")
     cy.get("#editSidebarButton").click()
     cy.get("#editRecipeButton").click()
     cy.contains("Rating")
+    cy.contains("Required Time")
     cy.get("#categorySelect").should("exist")
 
     cy.get("#searchSidebarButton").click()
     cy.get("#submitSearchButton").click()
     cy.get("#ratingSorting").should("exist")
+    cy.get("#requiredTimeSorting").should("exist")
     cy.contains("Rating")
+    cy.contains("Required Time")
     cy.get("app-recipe-overview").click()
     cy.contains("Rating")
+    cy.contains("Required Time")
     cy.get("#categorySelect").should("exist")
   })
 
@@ -220,6 +233,28 @@ describe("Settings E2E", () => {
     cy.contains("Rating").should("not.exist")
     cy.get("app-recipe-overview").click()
     cy.contains("Rating").should("not.exist")
+  })
+
+  it("should not show required time element if feature disabled", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+
+    cy.get("#settingsSidebarButton").click()
+    cy.get("#RequiredTime").click()
+    cy.get("#searchSidebarButton").click()
+    cy.contains("Maximum Required Time").should("not.exist")
+    cy.get("#addSidebarButton").click()
+    cy.contains("Required Time").should("not.exist")
+    cy.get("#editSidebarButton").click()
+    cy.get("#editRecipeButton").click()
+    cy.contains("Required Time").should("not.exist")
+
+    cy.get("#searchSidebarButton").click()
+    cy.get("#submitSearchButton").click()
+    cy.get("#requiredTimeSorting").should("not.exist")
+    cy.contains("Required Time").should("not.exist")
+    cy.get("app-recipe-overview").click()
+    cy.contains("Required Time").should("not.exist")
   })
 
   it("should not show category element if feature disabled", () => {
@@ -249,6 +284,7 @@ describe("Search E2E", () => {
     .withRecipeName("Club Soda Waffles")
     .withCookbook("myrecipes")
     .withRating(1)
+    .withRequiredTime(20)
     .withCategories(["Sweet", "Fast"])
     .withIngredients(["Biscuit Mix", "Vegetable Oil", "Eggs", "Club Soda"])
     .build()
@@ -311,6 +347,15 @@ describe("Search E2E", () => {
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
   })
 
+  it("should show only recipe matching filter, filtered by required time", () => {
+    const searchOptions = new SearchOptionsBuilder()
+      .withMaximumRequiredTime(searchRecipe.requiredTime)
+      .build()
+    search(searchOptions)
+    cy.contains("Found 1 Recipe")
+    cy.contains(searchRecipe.recipeName)
+  })
+
   it("should show only recipe matching filter, filtered by cookbook", () => {
     cy.get("#searchSidebarButton").click()
     cy.contains("Search")
@@ -344,6 +389,16 @@ describe("Search E2E", () => {
     // Should be sorted rating descending
     cy.get("app-recipe-overview").eq(0).contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("app-recipe-overview").eq(1).contains(searchRecipe.recipeName)
+
+    cy.get("#requiredTimeSorting").click()
+    // Should be sorted required time ascending
+    cy.get("app-recipe-overview").eq(0).contains(searchRecipe.recipeName)
+    cy.get("app-recipe-overview").eq(1).contains(RecipeBuilder.e2eRecipe().recipeName)
+
+    cy.get("#requiredTimeSorting").click()
+    // Should be sorted required time descending
+    cy.get("app-recipe-overview").eq(0).contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.get("app-recipe-overview").eq(1).contains(searchRecipe.recipeName)
   })
 })
 
@@ -365,6 +420,7 @@ const addRecipe = (recipe: Recipe) => {
   cy.get(".stars span")
     .eq(recipe.rating - 1)
     .click()
+  cy.get("#requiredTime").type(recipe.requiredTime)
 }
 
 const validateRecipeFormElements = (recipe: Recipe) => {
@@ -397,6 +453,7 @@ const validateRecipeFormElements = (recipe: Recipe) => {
         })
     }
   }
+  cy.get("#requiredTime").should("have.value", recipe.requiredTime?.toString())
 }
 
 const search = (searchOptions: SearchOptions) => {
@@ -411,5 +468,8 @@ const search = (searchOptions: SearchOptions) => {
   cy.get(".stars span")
     .eq(searchOptions.minimumRating - 1)
     .click()
+  if (searchOptions.maximumRequiredTime) {
+    cy.get("#requiredTime").type(searchOptions.maximumRequiredTime)
+  }
   cy.get("#submitSearchButton").click()
 }

@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit {
     this.optionalRecipeFeatures = new Map([
       ["Categories", OptionalRecipeFeature.CATEGORY],
       ["Rating", OptionalRecipeFeature.RATING],
-      ["Required Time", OptionalRecipeFeature.REQUIRED_TIME],
+      ["RequiredTime", OptionalRecipeFeature.REQUIRED_TIME],
     ])
   }
 
@@ -68,5 +68,18 @@ export class SettingsComponent implements OnInit {
         this.settingsService.disableRecipeFeature(feature)
       }
     }
+  }
+
+  public formatForFrontend(value: string): string {
+    let result = ""
+
+    for (let i = 0; i < value.length; i++) {
+      if (i > 0 && value.charAt(i) === value.charAt(i).toString().toUpperCase()) {
+        result += " "
+      }
+      result += value.charAt(i)
+    }
+
+    return result
   }
 }
