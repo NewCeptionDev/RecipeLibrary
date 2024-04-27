@@ -1,18 +1,18 @@
 <div
   class="container"
   *ngIf="recipe">
-  <div class="mainInformation">
-    <h1>{{ recipe.recipeName }}</h1>
-    <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
-  </div>
+  <h1>{{ recipe.recipeName }}</h1>
   <div class="additionalInformation">
-    <app-required-time-display
-      *ngIf="this.isRequiredTimeRecipeFeatureEnabled"
-      [editable]="false"
-      [requiredTime]="recipe.requiredTime"></app-required-time-display>
-    <app-rating-display
-      *ngIf="this.isRatingRecipeFeatureEnabled()"
-      [editable]="false"
-      [rating]="recipe.rating"></app-rating-display>
+    <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
+    <div class="rightSide">
+      <app-required-time-display
+        *ngIf="this.isRequiredTimeRecipeFeatureEnabled"
+        [editable]="false"
+        [requiredTime]="recipe.requiredTime"></app-required-time-display>
+      <app-rating-display
+        *ngIf="this.isRatingRecipeFeatureEnabled()"
+        [editable]="false"
+        [rating]="recipe.rating"></app-rating-display>
+    </div>
   </div>
 </div>
