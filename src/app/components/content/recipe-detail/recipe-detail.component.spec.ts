@@ -15,7 +15,7 @@ describe("RecipeDetailComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [RecipeDetailComponent],
       imports: [MatIconModule],
-      providers: [{provide: SettingsService, useClass: SettingsServiceMock}]
+      providers: [{ provide: SettingsService, useClass: SettingsServiceMock }],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RecipeDetailComponent)
@@ -29,22 +29,26 @@ describe("RecipeDetailComponent", () => {
   })
 
   it("should return true when isCategoryRecipeFeatureEnabled given Category enabled", () => {
-     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([OptionalRecipeFeature.CATEGORY])
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.CATEGORY,
+    ])
     expect(component.isCategoryRecipeFeatureEnabled()).toBeTrue()
   })
 
   it("should return false when isCategoryRecipeFeatureEnabled given Category disabled", () => {
-     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isCategoryRecipeFeatureEnabled()).toBeFalse()
   })
 
   it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
-     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([OptionalRecipeFeature.RATING])
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.RATING,
+    ])
     expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
   })
 
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
-     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
   })
 })
