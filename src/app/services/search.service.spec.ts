@@ -211,6 +211,23 @@ describe("SearchService", () => {
     expect(resultReceived).toBeTrue()
   })
 
+  it("should return correctly filtered list when search by requiredTime", () => {
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withMaximumRequiredTime(20)
+      .build()
+    let resultReceived = false
+    service.getSearchResultsEventEmitter().subscribe((resultList) => {
+      resultReceived = true
+
+      expect(resultList.length).toBe(2)
+      expect(
+        resultList.every((result) => result.requiredTime && result.requiredTime <= 20)
+      ).toBeTrue()
+    })
+    service.search(searchOptions)
+    expect(resultReceived).toBeTrue()
+  })
+
   it("should return correctly filtered list when search by cookbook", () => {
     const searchOptions: SearchOptions = new SearchOptionsBuilder()
       .withIncludedCookbooks(["Cookbook 1"])
@@ -328,6 +345,52 @@ describe("SearchService", () => {
       resultReceived = true
       expect(resultList).toEqual(
         recipeService.getAllRecipes().sort((a, b) => (a.recipeName < b.recipeName ? -1 : 1))
+      )
+    })
+    service.search(searchOptions)
+    expect(resultReceived).toBeTrue()
+  })
+
+  it("should return correctly sorted result list when search with sortOption RequiredTime DESC", () => {
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.REQUIRED_TIME)
+      .withSortDirection(SortDirection.DESC)
+      .build()
+    let resultReceived = false
+    service.getSearchResultsEventEmitter().subscribe((resultList) => {
+      resultReceived = true
+      expect(resultList).toEqual(
+        recipeService
+          .getAllRecipes()
+          .sort((a, b) =>
+            (a.requiredTime ?? Number.MAX_SAFE_INTEGER) <
+            (b.requiredTime ?? Number.MAX_SAFE_INTEGER)
+              ? 1
+              : -1
+          )
+      )
+    })
+    service.search(searchOptions)
+    expect(resultReceived).toBeTrue()
+  })
+
+  it("should return correctly sorted result list when search with sortOption RequiredTime ASC", () => {
+    const searchOptions: SearchOptions = new SearchOptionsBuilder()
+      .withSortOption(SortOptions.REQUIRED_TIME)
+      .withSortDirection(SortDirection.ASC)
+      .build()
+    let resultReceived = false
+    service.getSearchResultsEventEmitter().subscribe((resultList) => {
+      resultReceived = true
+      expect(resultList).toEqual(
+        recipeService
+          .getAllRecipes()
+          .sort((a, b) =>
+            (a.requiredTime ?? Number.MAX_SAFE_INTEGER) <
+            (b.requiredTime ?? Number.MAX_SAFE_INTEGER)
+              ? -1
+              : 1
+          )
       )
     })
     service.search(searchOptions)

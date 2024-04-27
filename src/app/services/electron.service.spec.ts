@@ -139,6 +139,13 @@ describe("ElectronService", () => {
     expect(service.mapToOptionalRecipeFeature("RATING")).toBe(OptionalRecipeFeature.RATING)
   })
 
+  it("should correctly map RequiredTime OptionalRecipeFeature when mapToOptionalRecipeFeature", () => {
+    // @ts-ignore
+    expect(service.mapToOptionalRecipeFeature("REQUIRED_TIME")).toBe(
+      OptionalRecipeFeature.REQUIRED_TIME
+    )
+  })
+
   it("should throw error when mapToOptionalRecipeFeature given unknown feature", () => {
     // @ts-ignore
     expect(() => service.mapToOptionalRecipeFeature("Unknown")).toThrowError("Unknown value given")

@@ -24,6 +24,10 @@ export class RecipeDetailComponent {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
   }
 
+  public isRequiredTimeRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.REQUIRED_TIME)
+  }
+
   private getEnabledOptionalRecipeFeatures() {
     return this.settingsService.getEnabledRecipeFeatures()
   }

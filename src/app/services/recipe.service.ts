@@ -55,6 +55,7 @@ export class RecipeService {
         ingredients: recipe.ingredients,
         categories: recipe.categories,
         rating: recipe.rating,
+        requiredTime: recipe.requiredTime ?? undefined,
       }
       this.recipes.push(importedRecipe)
       this.updateKnown(importedRecipe)

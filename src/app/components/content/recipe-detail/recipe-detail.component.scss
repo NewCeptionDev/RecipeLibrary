@@ -48,6 +48,16 @@ h4 {
       max-height: 20vh;
     }
   }
+
+  .verticallyGroupedInformation {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    * {
+      margin-bottom: 1vh;
+    }
+  }
 }
 
 mat-icon {

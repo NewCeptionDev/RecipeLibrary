@@ -104,4 +104,16 @@ describe("RecipeListComponent", () => {
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
   })
+
+  it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.REQUIRED_TIME,
+    ])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
+  })
 })

@@ -18,6 +18,7 @@ export class RecipeFormComponent implements OnInit {
     ingredients: [],
     categories: [],
     rating: -1,
+    requiredTime: undefined,
   }
 
   @Input()
@@ -74,6 +75,10 @@ export class RecipeFormComponent implements OnInit {
     this.recipe.cookbook = name
   }
 
+  public updateRequiredTime(newRequiredTime: number | undefined) {
+    this.recipe.requiredTime = newRequiredTime
+  }
+
   public finalizeRecipe() {
     if (this.recipeFormControl.invalid) {
       this.recipeFormControl.markAsTouched()
@@ -100,6 +105,10 @@ export class RecipeFormComponent implements OnInit {
 
   public isRatingRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.RATING)
+  }
+
+  public isRequiredTimeRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.REQUIRED_TIME)
   }
 
   private getEnabledOptionalRecipeFeatures() {
