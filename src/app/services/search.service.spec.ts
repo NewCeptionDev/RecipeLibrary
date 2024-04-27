@@ -218,7 +218,6 @@ describe("SearchService", () => {
     let resultReceived = false
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
-      console.log(resultList)
 
       expect(resultList.length).toBe(2)
       expect(
