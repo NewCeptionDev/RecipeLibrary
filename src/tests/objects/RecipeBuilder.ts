@@ -13,7 +13,7 @@ export class RecipeBuilder {
 
   private rating: number = -1
 
-  private requiredTime: number = -1
+  private requiredTime: number | undefined = undefined
 
   withId = (id: number): RecipeBuilder => {
     this.id = id

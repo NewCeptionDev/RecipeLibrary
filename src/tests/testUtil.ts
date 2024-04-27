@@ -12,7 +12,7 @@ export class TestUtil {
       triggered = true
       expect(val).toBe(expectedValue)
     })
-    functionCall.call(args)
+    functionCall.call(this, ...args)
     expect(triggered).toBeTrue()
   }
 

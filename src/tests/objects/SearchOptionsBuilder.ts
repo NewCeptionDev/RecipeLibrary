@@ -5,6 +5,8 @@ import { SearchOptions } from "../../app/models/searchOptions"
 export class SearchOptionsBuilder {
   private minimumRating: number = 1
 
+  private maximumRequiredTime: number | undefined = undefined
+
   private requiredIngredients: string[] = []
 
   private includedCategories: string[] = []
@@ -17,6 +19,11 @@ export class SearchOptionsBuilder {
 
   withMinimumRating = (rating: number): SearchOptionsBuilder => {
     this.minimumRating = rating
+    return this
+  }
+
+  withMaximumRequiredTime = (requiredTime: number | undefined): SearchOptionsBuilder => {
+    this.maximumRequiredTime = requiredTime
     return this
   }
 
@@ -47,6 +54,7 @@ export class SearchOptionsBuilder {
 
   build = (): SearchOptions => ({
     minimumRating: this.minimumRating,
+    maximumRequiredTime: this.maximumRequiredTime,
     requiredIngredients: this.requiredIngredients,
     includedCategories: this.includedCategories,
     includedCookbooks: this.includedCookbooks,

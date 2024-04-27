@@ -61,6 +61,12 @@ describe("SortByComponent", () => {
     expect(component.sortOptionIcon).toBe("star")
   })
 
+  it("should select timer icon when ngOnInit given selected SortOption is REQUIREDTIME", () => {
+    component.selectedSortOption = SortOptions.REQUIRED_TIME
+    component.ngOnInit()
+    expect(component.sortOptionIcon).toBe("timer")
+  })
+
   it("should enable sorting and sort ascending when adjustSortDirection given disabled", () => {
     component.disabled = true
     TestUtil.observableShouldBeCalledAndIncludeValue(

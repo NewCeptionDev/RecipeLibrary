@@ -41,6 +41,13 @@ describe("RecipeFormComponent", () => {
     expect(component.recipe.rating).toBe(4)
   })
 
+  it("should correctly update the required time", () => {
+    component.recipe.requiredTime = 0
+    component.updateRequiredTime(4)
+
+    expect(component.recipe.requiredTime).toBe(4)
+  })
+
   it("should update selectedIngredientsList", () => {
     const ingredientName = "TestIngredient"
     component.recipe.ingredients = []
@@ -215,5 +222,17 @@ describe("RecipeFormComponent", () => {
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
+  })
+
+  it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.REQUIRED_TIME,
+    ])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
   })
 })

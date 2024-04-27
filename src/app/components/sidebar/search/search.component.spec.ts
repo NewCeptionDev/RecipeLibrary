@@ -50,6 +50,13 @@ describe("SearchComponent", () => {
     expect((component.selectedOptions.minimumRating = 4))
   })
 
+  it("should update required time", () => {
+    component.selectedOptions.maximumRequiredTime = 1
+    component.onNewRequiredTimeSelected(4)
+
+    expect((component.selectedOptions.maximumRequiredTime = 4))
+  })
+
   it("should update ingredient", () => {
     const ingredient = "TestIngredient"
     component.selectedOptions.requiredIngredients = []
@@ -122,5 +129,17 @@ describe("SearchComponent", () => {
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
+  })
+
+  it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.REQUIRED_TIME,
+    ])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
   })
 })

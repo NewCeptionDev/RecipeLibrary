@@ -25,17 +25,21 @@ export class RequiredTimeDisplayComponent implements OnInit {
     this.requiredTimeFormControl.setValue(this.requiredTime)
 
     this.requiredTimeFormControl.valueChanges.subscribe((value) => {
-      if (this.editable) {
-        if (value.length > 0) {
-          this.requiredTime = parseInt(value, 10)
-          if (Number.isNaN(this.requiredTime)) {
-            this.requiredTime = undefined
-          }
-        } else {
+      this.updateRequiredTime(value)
+    })
+  }
+
+  private updateRequiredTime(value: string) {
+    if (this.editable) {
+      if (value.length > 0) {
+        this.requiredTime = parseInt(value, 10)
+        if (Number.isNaN(this.requiredTime)) {
           this.requiredTime = undefined
         }
-        this.newRequiredTime.emit(this.requiredTime)
+      } else {
+        this.requiredTime = undefined
       }
-    })
+      this.newRequiredTime.emit(this.requiredTime)
+    }
   }
 }
