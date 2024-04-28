@@ -1,0 +1,15 @@
+<div
+  class="container"
+  *ngIf="editable || this.pageNumber !== ''">
+  <h3>Page Number</h3>
+  <div class="content">
+    <mat-form-field
+      *ngIf="editable"
+      [hideRequiredMarker]="true">
+      <input
+        matInput
+        id="pageNumber"
+        [formControl]="pageNumberFormControl" />
+    </mat-form-field>
+  </div>
+</div>

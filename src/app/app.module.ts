@@ -30,7 +30,8 @@ import { SnackbarComponent } from "./components/util/snackbar/snackbar.component
 import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { SortByComponent } from "./components/util/sort-by/sort-by.component"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
-import { RequiredTimeDisplayComponent } from "./components/util/required-time-display/required-time-display.component"
+import { RequiredTimeDisplayComponent } from "./components/util/required-time-display/required-time-display.component";
+import { PageNumberDisplayComponent } from './components/util/page-number-display/page-number-display.component'
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { RequiredTimeDisplayComponent } from "./components/util/required-time-di
     SnackbarComponent,
     SortByComponent,
     RequiredTimeDisplayComponent,
+    PageNumberDisplayComponent,
   ],
   imports: [
     BrowserModule,
