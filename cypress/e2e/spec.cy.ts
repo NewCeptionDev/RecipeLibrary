@@ -31,6 +31,7 @@ describe("Add Recipe E2E", () => {
     cy.get("#categorySelect table").contains("No Categories added")
     cy.get(".stars mat-icon").should("not.have.class", "filledStar")
     cy.get("#requiredTime").should("have.value", "")
+    cy.get("#pageNumber").should("have.value", "")
   })
 
   it("should find recipe in edit / delete tab after adding", () => {
@@ -121,6 +122,8 @@ describe("Edit Recipe E2E", () => {
     cy.get(".stars span").eq(4).click()
     cy.get("#requiredTime").clear()
     cy.get("#requiredTime").type("20")
+    cy.get("#pageNumber").clear()
+    cy.get("#pageNumber").type("42")
     cy.get("#submitRecipeFormAction").click()
     cy.get(".mat-snack-bar-container").contains("Recipe changed")
     const updatedRecipe = RecipeBuilder.e2eRecipe()
@@ -130,6 +133,7 @@ describe("Edit Recipe E2E", () => {
     updatedRecipe.categories.push("Additional Category")
     updatedRecipe.rating = 5
     updatedRecipe.requiredTime = 20
+    updatedRecipe.pageNumber = "42"
     cy.contains("Edit / Delete Recipes")
     cy.contains(updatedRecipe.recipeName)
     cy.get("#editRecipeButton").click()
@@ -143,6 +147,8 @@ describe("Edit Recipe E2E", () => {
       .click()
     cy.get("#requiredTime").clear()
     cy.get("#requiredTime").type(120)
+    cy.get("#pageNumber").clear()
+    cy.get("#pageNumber").type("1")
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
@@ -177,6 +183,7 @@ describe("Settings E2E", () => {
     cy.get(".settingContainer").eq(2).contains("Categories")
     cy.get(".settingContainer").eq(2).contains("Rating")
     cy.get(".settingContainer").eq(2).contains("Required Time")
+    cy.get(".settingContainer").eq(2).contains("Page Numbers")
     cy.get(".mat-slide-toggle-input")
     cy.get(".mat-slide-toggle-input").each(($el) => {
       cy.wrap($el).should("have.attr", "aria-checked", "true")
@@ -194,11 +201,13 @@ describe("Settings E2E", () => {
     cy.get("#addSidebarButton").click()
     cy.contains("Rating")
     cy.contains("Required Time")
+    cy.contains("Page Number")
     cy.get("#categorySelect").should("exist")
     cy.get("#editSidebarButton").click()
     cy.get("#editRecipeButton").click()
     cy.contains("Rating")
     cy.contains("Required Time")
+    cy.contains("Page Number")
     cy.get("#categorySelect").should("exist")
 
     cy.get("#searchSidebarButton").click()
@@ -210,6 +219,7 @@ describe("Settings E2E", () => {
     cy.get("app-recipe-overview").click()
     cy.contains("Rating")
     cy.contains("Required Time")
+    cy.contains("Page Number")
     cy.get("#categorySelect").should("exist")
   })
 
@@ -276,6 +286,24 @@ describe("Settings E2E", () => {
     cy.get("#categorySelect").should("not.exist")
     cy.get("app-recipe-overview").click()
     cy.get("#categorySelect").should("not.exist")
+  })
+
+  it("should not show page number element if feature disabled", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+
+    cy.get("#settingsSidebarButton").click()
+    cy.get("#PageNumbers").click()
+    cy.get("#addSidebarButton").click()
+    cy.get("#pageNumber").should("not.exist")
+    cy.get("#editSidebarButton").click()
+    cy.get("#editRecipeButton").click()
+    cy.get("#pageNumber").should("not.exist")
+
+    cy.get("#searchSidebarButton").click()
+    cy.get("#submitSearchButton").click()
+    cy.get("app-recipe-overview").click()
+    cy.contains("Page Number").should("not.exist")
   })
 })
 
@@ -421,6 +449,9 @@ const addRecipe = (recipe: Recipe) => {
     .eq(recipe.rating - 1)
     .click()
   cy.get("#requiredTime").type(recipe.requiredTime)
+  if (recipe.pageNumber !== "") {
+    cy.get("#pageNumber").type(recipe.pageNumber)
+  }
 }
 
 const validateRecipeFormElements = (recipe: Recipe) => {
@@ -454,6 +485,7 @@ const validateRecipeFormElements = (recipe: Recipe) => {
     }
   }
   cy.get("#requiredTime").should("have.value", recipe.requiredTime?.toString())
+  cy.get("#pageNumber").should("have.value", recipe.pageNumber)
 }
 
 const search = (searchOptions: SearchOptions) => {
