@@ -30,6 +30,10 @@
         [editable]="false"
         *ngIf="this.isRatingRecipeFeatureEnabled()"
         [rating]="recipe.rating"></app-rating-display>
+      <app-page-number-display
+        [editable]="false"
+        *ngIf="this.isPageNumberRecipeFeatureEnabled()"
+        [pageNumber]="recipe.pageNumber"></app-page-number-display>
     </div>
   </div>
 </div>

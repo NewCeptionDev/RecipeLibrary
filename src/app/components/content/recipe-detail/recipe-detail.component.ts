@@ -28,6 +28,10 @@ export class RecipeDetailComponent {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.REQUIRED_TIME)
   }
 
+  public isPageNumberRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.PAGE_NUMBER)
+  }
+
   private getEnabledOptionalRecipeFeatures() {
     return this.settingsService.getEnabledRecipeFeatures()
   }
