@@ -1,6 +1,6 @@
 <div
   class="container"
-  [ngClass]="{ editable: editable }">
+  [ngClass]="{ editable: editable, singleRow: singleRow }">
   <h3 class="headline">{{ labelAddition }} Rating:</h3>
   <div class="stars">
     <span *ngFor="let i of counter(5)">

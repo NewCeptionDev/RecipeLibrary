@@ -1,5 +1,6 @@
 <div
   class="container"
+  [ngClass]="{ singleRow: this.singleRow }"
   *ngIf="editable || this.requiredTime !== undefined">
   <h3>{{ this.labelAddition }} Required Time:</h3>
   <div class="content">
