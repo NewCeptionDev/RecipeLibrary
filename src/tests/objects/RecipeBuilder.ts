@@ -15,6 +15,8 @@ export class RecipeBuilder {
 
   private requiredTime: number | undefined = undefined
 
+  private pageNumber: string = ""
+
   withId = (id: number): RecipeBuilder => {
     this.id = id
     return this
@@ -50,6 +52,11 @@ export class RecipeBuilder {
     return this
   }
 
+  withPageNumber = (pageNumber: string): RecipeBuilder => {
+    this.pageNumber = pageNumber
+    return this
+  }
+
   build = (): Recipe => ({
     id: this.id,
     recipeName: this.recipeName,
@@ -58,6 +65,7 @@ export class RecipeBuilder {
     categories: this.categories,
     rating: this.rating,
     requiredTime: this.requiredTime,
+    pageNumber: this.pageNumber,
   })
 
   defaultRecipe = (): RecipeBuilder =>
@@ -69,6 +77,7 @@ export class RecipeBuilder {
       .withCategories(["Test Category"])
       .withRating(1)
       .withRequiredTime(30)
+      .withPageNumber("2")
 
   static defaultRecipe = (): Recipe =>
     new RecipeBuilder()
@@ -79,6 +88,7 @@ export class RecipeBuilder {
       .withCategories(["Test Category"])
       .withRating(1)
       .withRequiredTime(30)
+      .withPageNumber("2")
       .build()
 
   static defaultRecipeWithoutId = (): Recipe =>
@@ -89,6 +99,7 @@ export class RecipeBuilder {
       .withCategories(["Test Category"])
       .withRating(1)
       .withRequiredTime(30)
+      .withPageNumber("2")
       .build()
 
   static e2eRecipe = (): Recipe =>
@@ -106,6 +117,7 @@ export class RecipeBuilder {
       .withCategories(["Meat", "Cheese", "Fast"])
       .withRating(3)
       .withRequiredTime(120)
+      .withPageNumber("1")
       .build()
 
   static listOfRecipes = (): Recipe[] => [
@@ -117,6 +129,7 @@ export class RecipeBuilder {
       .withIngredients(["Paprika", "Tomato"])
       .withRating(1)
       .withRequiredTime(20)
+      .withPageNumber("10")
       .build(),
     new RecipeBuilder()
       .withId(2)
@@ -134,6 +147,7 @@ export class RecipeBuilder {
       .withIngredients(["Salad", "Olives"])
       .withRating(3)
       .withRequiredTime(15)
+      .withPageNumber("25")
       .build(),
     new RecipeBuilder()
       .withId(4)

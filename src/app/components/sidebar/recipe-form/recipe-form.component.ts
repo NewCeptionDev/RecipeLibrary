@@ -19,6 +19,7 @@ export class RecipeFormComponent implements OnInit {
     categories: [],
     rating: -1,
     requiredTime: undefined,
+    pageNumber: "",
   }
 
   @Input()
@@ -79,6 +80,10 @@ export class RecipeFormComponent implements OnInit {
     this.recipe.requiredTime = newRequiredTime
   }
 
+  public updatePageNumber(newPageNumber: string) {
+    this.recipe.pageNumber = newPageNumber
+  }
+
   public finalizeRecipe() {
     if (this.recipeFormControl.invalid) {
       this.recipeFormControl.markAsTouched()
@@ -109,6 +114,10 @@ export class RecipeFormComponent implements OnInit {
 
   public isRequiredTimeRecipeFeatureEnabled() {
     return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.REQUIRED_TIME)
+  }
+
+  public isPageNumberRecipeFeatureEnabled() {
+    return this.getEnabledOptionalRecipeFeatures().includes(OptionalRecipeFeature.PAGE_NUMBER)
   }
 
   private getEnabledOptionalRecipeFeatures() {

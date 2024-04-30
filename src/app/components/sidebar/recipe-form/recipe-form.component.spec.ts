@@ -48,6 +48,13 @@ describe("RecipeFormComponent", () => {
     expect(component.recipe.requiredTime).toBe(4)
   })
 
+  it("should correctly update the page number", () => {
+    component.recipe.pageNumber = "1"
+    component.updatePageNumber("12")
+
+    expect(component.recipe.pageNumber).toBe("12")
+  })
+
   it("should update selectedIngredientsList", () => {
     const ingredientName = "TestIngredient"
     component.recipe.ingredients = []
@@ -234,5 +241,17 @@ describe("RecipeFormComponent", () => {
   it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
+  })
+
+  it("should return true when isPageNumberRecipeFeatureEnabled given PageNumber enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.PAGE_NUMBER,
+    ])
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isPageNumberRecipeFeatureEnabled given PageNumber disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBeFalse()
   })
 })

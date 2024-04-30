@@ -48,6 +48,11 @@
       [editable]="true"
       (newRequiredTime)="updateRequiredTime($event)"
       [requiredTime]="recipe.requiredTime"></app-required-time-display>
+    <app-page-number-display
+      *ngIf="isPageNumberRecipeFeatureEnabled()"
+      [editable]="true"
+      (newPageNumber)="updatePageNumber($event)"
+      [pageNumber]="recipe.pageNumber"></app-page-number-display>
   </div>
   <div class="buttons">
     <button

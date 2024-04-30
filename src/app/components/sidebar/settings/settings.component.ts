@@ -29,6 +29,7 @@ export class SettingsComponent implements OnInit {
       ["Categories", OptionalRecipeFeature.CATEGORY],
       ["Rating", OptionalRecipeFeature.RATING],
       ["RequiredTime", OptionalRecipeFeature.REQUIRED_TIME],
+      ["PageNumbers", OptionalRecipeFeature.PAGE_NUMBER],
     ])
   }
 

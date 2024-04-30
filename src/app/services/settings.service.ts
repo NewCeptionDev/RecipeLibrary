@@ -13,6 +13,7 @@ export class SettingsService {
       OptionalRecipeFeature.RATING,
       OptionalRecipeFeature.CATEGORY,
       OptionalRecipeFeature.REQUIRED_TIME,
+      OptionalRecipeFeature.PAGE_NUMBER,
     ],
   }
 
