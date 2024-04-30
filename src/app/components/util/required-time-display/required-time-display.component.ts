@@ -19,6 +19,9 @@ export class RequiredTimeDisplayComponent implements OnInit {
   @Input()
   public labelAddition: string = ""
 
+  @Input()
+  public singleRow: boolean = false
+
   requiredTimeFormControl: FormControl = new FormControl(this.requiredTime)
 
   ngOnInit(): void {

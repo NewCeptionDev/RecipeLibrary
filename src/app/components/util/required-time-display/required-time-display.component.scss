@@ -9,6 +9,15 @@
   }
 }
 
+.singleRow {
+  flex-direction: row;
+  align-items: baseline;
+
+  .content {
+    margin-left: 0.4vw;
+  }
+}
+
 .content {
   display: flex;
   flex-direction: row;

@@ -18,6 +18,9 @@ export class RatingDisplayComponent {
   @Input()
   public labelAddition: string = ""
 
+  @Input()
+  public singleRow: boolean = false
+
   public counter(count: number): number[] {
     return Array.from(Array(count).keys())
   }

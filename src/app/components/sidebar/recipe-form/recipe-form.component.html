@@ -42,11 +42,13 @@
       *ngIf="isRatingRecipeFeatureEnabled()"
       [editable]="true"
       (newRating)="updateRating($event)"
+      [singleRow]="true"
       [rating]="recipe.rating"></app-rating-display>
     <app-required-time-display
       *ngIf="isRequiredTimeRecipeFeatureEnabled()"
       [editable]="true"
       (newRequiredTime)="updateRequiredTime($event)"
+      [singleRow]="true"
       [requiredTime]="recipe.requiredTime"></app-required-time-display>
     <app-page-number-display
       *ngIf="isPageNumberRecipeFeatureEnabled()"
