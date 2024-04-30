@@ -63,4 +63,16 @@ describe("RecipeDetailComponent", () => {
     spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
     expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
   })
+
+  it("should return true when isPageNumberRecipeFeatureEnabled given PageNumber enabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+      OptionalRecipeFeature.PAGE_NUMBER,
+    ])
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBeTrue()
+  })
+
+  it("should return false when isPageNumberRecipeFeatureEnabled given PageNumber disabled", () => {
+    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBeFalse()
+  })
 })
