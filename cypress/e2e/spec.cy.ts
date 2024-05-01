@@ -169,6 +169,24 @@ describe("Edit Recipe E2E", () => {
       "Closing this window will discard your changes. Are you sure that you want to close the window?"
     )
   })
+
+  it("should show only recipes matching entered searchTerm", () => {
+    addRecipe(RecipeBuilder.e2eRecipe())
+    cy.get("#submitRecipeFormAction").click()
+    addRecipe(RecipeBuilder.defaultRecipeWithoutId())
+    cy.get("#submitRecipeFormAction").click()
+    cy.get("#editSidebarButton").click()
+    cy.contains("Edit / Delete Recipes")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.contains(RecipeBuilder.defaultRecipeWithoutId().recipeName)
+    cy.get("#recipeSearch").should("exist")
+    cy.get("#recipeSearch").type("Salami")
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.contains(RecipeBuilder.defaultRecipeWithoutId().recipeName).should("not.exist")
+    cy.get("#recipeSearch").clear()
+    cy.contains(RecipeBuilder.e2eRecipe().recipeName)
+    cy.contains(RecipeBuilder.defaultRecipeWithoutId().recipeName)
+  })
 })
 
 describe("Settings E2E", () => {
