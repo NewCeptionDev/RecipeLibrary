@@ -24,4 +24,19 @@ export class TestUtil {
     })
     expect(triggered).toBeTrue()
   }
+
+  static tableDataSourceShouldBeUpdatedAndIncludeValue<T>(
+    observable: Observable<T>,
+    expectedValue: T,
+    functionCall: Function,
+    ...args: any[]
+  ) {
+    let lastResult: T | undefined
+    observable.subscribe((val) => {
+      lastResult = val
+    })
+    functionCall.call(this, ...args)
+    expect(lastResult).not.toBeUndefined()
+    expect(lastResult).toEqual(expectedValue)
+  }
 }

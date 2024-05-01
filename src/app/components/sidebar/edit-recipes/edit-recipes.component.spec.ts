@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
 import { DialogServiceMock } from "../../../../tests/mocks/DialogServiceMock"
 import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
+import { TestUtil } from "src/tests/testUtil"
 
 describe("EditRecipesComponent", () => {
   let component: EditRecipesComponent
@@ -91,5 +92,35 @@ describe("EditRecipesComponent", () => {
 
     expect(openDialogSpy).toHaveBeenCalled()
     expect(recipeDeleteSpy).toHaveBeenCalled()
+  })
+
+  it("should call updateShownRecipes when searchTerm is updated", () => {
+    // @ts-ignore
+    const updateSpy = spyOn(component, "updateShownRecipes")
+
+    const newSearchTerm = "NewValue"
+
+    component.searchRecipeFormControl.setValue(newSearchTerm)
+
+    expect(updateSpy).toHaveBeenCalled()
+    // @ts-ignore
+    expect(component.searchTerm).toBe(newSearchTerm)
+  })
+
+  it("should filter recipes for tableSource when searchTerm is not empty", () => {
+    const recipes = RecipeBuilder.listOfRecipes()
+    spyOn(recipeService, "getAllRecipes").and.returnValue(recipes)
+
+    const usedSearchTerm = "First"
+
+    // @ts-ignore
+    component.searchTerm = usedSearchTerm
+
+    TestUtil.tableDataSourceShouldBeUpdatedAndIncludeValue(
+      component.tableDataSource.connect(),
+      recipes.filter((recipe) => recipe.recipeName.includes(usedSearchTerm)),
+      // @ts-ignore
+      component.updateShownRecipes.bind(component)
+    )
   })
 })

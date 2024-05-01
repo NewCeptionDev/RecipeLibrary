@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { FormControl } from "@angular/forms"
 import { Observable } from "rxjs"
 import { Recipe } from "src/app/models/recipe"
 import { DialogsService } from "src/app/services/dialogs.service"
@@ -23,6 +24,10 @@ export class EditRecipesComponent implements OnInit {
   @Input()
   public reloadRecipes: Observable<void> = new Observable()
 
+  private searchTerm: string = ""
+
+  public searchRecipeFormControl: FormControl = new FormControl(this.searchTerm)
+
   constructor(private recipeService: RecipeService, private dialogService: DialogsService) {
     // Dependency Injection
   }
@@ -39,10 +44,17 @@ export class EditRecipesComponent implements OnInit {
   ngOnInit(): void {
     this.updateShownRecipes()
     this.reloadRecipes.subscribe(() => this.updateShownRecipes())
+
+    this.searchRecipeFormControl.valueChanges.subscribe((change: string) => {
+      this.searchTerm = change
+      this.updateShownRecipes()
+    })
   }
 
   private updateShownRecipes() {
-    this.recipes = this.recipeService.getAllRecipes()
+    this.recipes = this.recipeService
+      .getAllRecipes()
+      .filter((recipe) => recipe.recipeName.toLowerCase().includes(this.searchTerm.toLowerCase()))
     this.tableDataSource.setData(this.recipes)
   }
 
