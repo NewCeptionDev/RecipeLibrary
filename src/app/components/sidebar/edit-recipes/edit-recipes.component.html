@@ -1,5 +1,12 @@
 <div class="container">
   <h1>Edit / Delete Recipes</h1>
+  <mat-form-field class="searchRecipeFormField">
+    <input
+      matInput
+      id="recipeSearch"
+      placeholder="Search for Recipes"
+      [formControl]="searchRecipeFormControl" />
+  </mat-form-field>
   <div class="tableBackground tableContainer">
     <table
       mat-table
