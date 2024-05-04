@@ -55,7 +55,7 @@ export class RecipeFormComponent implements OnInit {
 
     if (this.recipeInput) {
       this.editing = true
-      this.recipe = { ...this.recipeInput }
+      this.recipe = structuredClone(this.recipeInput)
       this.recipeFormControl.setValue(this.recipe.recipeName)
     }
   }
