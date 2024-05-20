@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from "@angular/core"
 import { MatSlideToggleChange } from "@angular/material/slide-toggle"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 import { SettingsService } from "src/app/services/settings.service"
+import { environment } from "src/environments/environment"
 import { ElectronService } from "../../../services/electron.service"
 
 @Component({
@@ -82,5 +83,9 @@ export class SettingsComponent implements OnInit {
     }
 
     return result
+  }
+
+  public getCurrentAppVersion(): string {
+    return environment.appVersion
   }
 }
