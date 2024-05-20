@@ -119,6 +119,8 @@ export class ElectronService {
         return OptionalRecipeFeature.RATING
       case "REQUIRED_TIME":
         return OptionalRecipeFeature.REQUIRED_TIME
+      case "PAGE_NUMBER":
+        return OptionalRecipeFeature.PAGE_NUMBER
       default:
         throw new Error("Unknown value given")
     }
