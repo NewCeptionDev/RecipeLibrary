@@ -29,7 +29,7 @@ import { ToolbarComponent } from "./components/util/toolbar/toolbar.component"
 import { SnackbarComponent } from "./components/util/snackbar/snackbar.component"
 import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
 import { SortByComponent } from "./components/util/sort-by/sort-by.component"
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from "@angular/material/legacy-slide-toggle"
+import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { RequiredTimeDisplayComponent } from "./components/util/required-time-display/required-time-display.component"
 import { PageNumberDisplayComponent } from "./components/util/page-number-display/page-number-display.component"
 

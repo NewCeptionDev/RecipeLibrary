@@ -66,7 +66,9 @@ $RecipeLibrary-dark-theme: map.set(
 @include mat.all-legacy-component-themes($RecipeLibrary-dark-theme);
 @include mat.button-theme($RecipeLibrary-dark-theme);
 @include mat.dialog-theme($RecipeLibrary-dark-theme);
+@include mat.slide-toggle-theme($RecipeLibrary-dark-theme);
 
+@include mat.slide-toggle-density(-1);
 /* You can add global styles to this file, and also import other style files */
 
 html,

@@ -202,8 +202,8 @@ describe("Settings E2E", () => {
     cy.get(".settingContainer").eq(2).contains("Rating")
     cy.get(".settingContainer").eq(2).contains("Required Time")
     cy.get(".settingContainer").eq(2).contains("Page Numbers")
-    cy.get(".mat-slide-toggle-input")
-    cy.get(".mat-slide-toggle-input").each(($el) => {
+    cy.get(".mdc-switch")
+    cy.get(".mdc-switch").each(($el) => {
       cy.wrap($el).should("have.attr", "aria-checked", "true")
     })
   })

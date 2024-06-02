@@ -6,7 +6,7 @@ import { ElectronService } from "../../../services/electron.service"
 import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock"
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
-import { MatLegacySlideToggleChange as MatSlideToggleChange } from "@angular/material/legacy-slide-toggle"
+import { MatSlideToggleChange } from "@angular/material/slide-toggle"
 
 describe("SettingsComponent", () => {
   let component: SettingsComponent
