@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing"
 
 import { ElectronService } from "./electron.service"
-import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
 import any = jasmine.any
 import Spy = jasmine.Spy
 import { SettingsService } from "./settings.service"

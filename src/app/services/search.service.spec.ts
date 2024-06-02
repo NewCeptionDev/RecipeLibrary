@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { SearchService } from "./search.service"
 
 import { SearchOptions } from "../models/searchOptions"
-import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
 import { SortDirection } from "../models/sortDirection"
 import { SortOptions } from "../models/sortOptions"
 import { Recipe } from "../models/recipe"

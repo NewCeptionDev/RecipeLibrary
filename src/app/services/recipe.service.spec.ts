@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing"
 
 import { RecipeService } from "./recipe.service"
-import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
 import { Recipe } from "../models/recipe"
 import { SnackbarService } from "./snackbar.service"
 import { SnackbarServiceMock } from "../../tests/mocks/SnackbarServiceMock"

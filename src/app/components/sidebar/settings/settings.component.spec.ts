@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SettingsComponent } from "./settings.component"
-import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
 import { ElectronService } from "../../../services/electron.service"
 import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock"
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
-import { MatSlideToggleChange } from "@angular/material/slide-toggle"
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from "@angular/material/legacy-slide-toggle"
 
 describe("SettingsComponent", () => {
   let component: SettingsComponent
