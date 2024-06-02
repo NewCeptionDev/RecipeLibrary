@@ -64,6 +64,7 @@ $RecipeLibrary-dark-theme: map.set(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-legacy-component-themes($RecipeLibrary-dark-theme);
+@include mat.button-theme($RecipeLibrary-dark-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -150,7 +151,7 @@ app-recipe-detail > .container {
   border: 3px none #ffffff;
 }
 
-app-toolbar .mat-icon-button {
+app-toolbar .mat-mdc-icon-button {
   line-height: 20px;
 }
 
