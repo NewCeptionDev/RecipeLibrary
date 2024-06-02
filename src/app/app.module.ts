@@ -16,7 +16,7 @@ import { MatLegacyAutocompleteModule as MatAutocompleteModule } from "@angular/m
 import { RatingDisplayComponent } from "./components/util/rating-display/rating-display.component"
 import { SelectedItemsDisplayComponent } from "./components/util/selected-items-display/selected-items-display.component"
 import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table"
-import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog"
+import { MatDialogModule } from "@angular/material/dialog"
 import { EditRecipesComponent } from "./components/sidebar/edit-recipes/edit-recipes.component"
 import { TwoButtonDialogComponent } from "./components/dialogs/two-button-dialog/two-button-dialog.component"
 import { RecipeListComponent } from "./components/content/recipe-list/recipe-list.component"
