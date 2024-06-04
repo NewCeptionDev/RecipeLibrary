@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
-import { MatTableModule } from "@angular/material/table"
+import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table"
 import { EventEmitter } from "@angular/core"
 
 describe("SelectedItemsDisplayComponent", () => {

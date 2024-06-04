@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
-import { MatAutocompleteModule } from "@angular/material/autocomplete"
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from "@angular/material/legacy-autocomplete"
 import { EventEmitter } from "@angular/core"
 
 describe("AutocompleteWithAddFunctionComponent", () => {

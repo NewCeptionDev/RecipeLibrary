@@ -9,7 +9,7 @@ import {
 } from "@angular/core"
 import { FormControl } from "@angular/forms"
 import { Observable, map, startWith } from "rxjs"
-import { MatAutocompleteTrigger } from "@angular/material/autocomplete"
+import { MatLegacyAutocompleteTrigger as MatAutocompleteTrigger } from "@angular/material/legacy-autocomplete"
 
 @Component({
   selector: "app-autocomplete-with-add-function",

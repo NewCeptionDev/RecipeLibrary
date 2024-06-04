@@ -23,7 +23,9 @@
   </div>
   <div class="settingContainer">
     <h3>Optional Recipe Features</h3>
-    <div *ngFor="let feature of this.getOptionalFeatures()">
+    <div
+      class="optionalFeature"
+      *ngFor="let feature of this.getOptionalFeatures()">
       <mat-slide-toggle
         [id]="feature"
         labelPosition="before"
