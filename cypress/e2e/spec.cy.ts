@@ -13,7 +13,7 @@ describe("Add Recipe E2E", () => {
     addRecipe(RecipeBuilder.e2eRecipe())
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Add a Recipe").should("not.exist")
-    cy.get(".mat-snack-bar-container").contains("Recipe added")
+    cy.get(".mat-mdc-snack-bar-container").contains("Recipe added")
     cy.contains("Found 1 recipe!")
   })
 
@@ -69,7 +69,7 @@ describe("Delete Recipe E2E", () => {
     )
     cy.get("#dialogSubmitButton").click()
     cy.get("app-two-button-dialog").should("not.exist")
-    cy.get(".mat-snack-bar-container").contains("Recipe removed")
+    cy.get(".mat-mdc-snack-bar-container").contains("Recipe removed")
     cy.contains("No Recipes added yet")
     cy.contains("No Recipes found!")
   })
@@ -125,7 +125,7 @@ describe("Edit Recipe E2E", () => {
     cy.get("#pageNumber").clear()
     cy.get("#pageNumber").type("42")
     cy.get("#submitRecipeFormAction").click()
-    cy.get(".mat-snack-bar-container").contains("Recipe changed")
+    cy.get(".mat-mdc-snack-bar-container").contains("Recipe changed")
     const updatedRecipe = RecipeBuilder.e2eRecipe()
     updatedRecipe.recipeName += " Updated"
     updatedRecipe.cookbook += " Updated"
