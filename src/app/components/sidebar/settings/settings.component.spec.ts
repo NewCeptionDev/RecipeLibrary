@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SettingsComponent } from "./settings.component"
-import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
+import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { ElectronService } from "../../../services/electron.service"
 import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock"
 import { SettingsService } from "src/app/services/settings.service"

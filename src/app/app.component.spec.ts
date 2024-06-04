@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { AppComponent } from "./app.component"
 import { MatDialogModule } from "@angular/material/dialog"
-import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar"
+import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { ExtendedOption } from "./models/extendedOption"
 import { DialogsService } from "./services/dialogs.service"
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
