@@ -2,9 +2,10 @@ import { Component, Inject } from "@angular/core"
 import { MAT_DIALOG_DATA } from "@angular/material/dialog"
 
 @Component({
-  selector: "app-two-button-dialog",
-  templateUrl: "./two-button-dialog.component.html",
-  styleUrls: ["./two-button-dialog.component.scss"],
+    selector: "app-two-button-dialog",
+    templateUrl: "./two-button-dialog.component.html",
+    styleUrls: ["./two-button-dialog.component.scss"],
+    standalone: false
 })
 export class TwoButtonDialogComponent {
   public title: string = ""

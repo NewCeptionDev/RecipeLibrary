@@ -6,9 +6,10 @@ import { SettingsService } from "src/app/services/settings.service"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
 @Component({
-  selector: "app-recipe-form",
-  templateUrl: "./recipe-form.component.html",
-  styleUrls: ["./recipe-form.component.scss"],
+    selector: "app-recipe-form",
+    templateUrl: "./recipe-form.component.html",
+    styleUrls: ["./recipe-form.component.scss"],
+    standalone: false
 })
 export class RecipeFormComponent implements OnInit {
   defaultRecipe: Recipe = {

@@ -6,9 +6,10 @@ import { ExtendedOption } from "./models/extendedOption"
 import { SearchComponent } from "./components/sidebar/search/search.component"
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"],
+    standalone: false
 })
 export class AppComponent {
   title = "RecipeLibrary"

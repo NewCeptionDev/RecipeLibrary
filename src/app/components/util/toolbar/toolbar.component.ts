@@ -2,9 +2,10 @@ import { Component } from "@angular/core"
 import { ElectronService } from "../../../services/electron.service"
 
 @Component({
-  selector: "app-toolbar",
-  templateUrl: "./toolbar.component.html",
-  styleUrls: ["./toolbar.component.scss"],
+    selector: "app-toolbar",
+    templateUrl: "./toolbar.component.html",
+    styleUrls: ["./toolbar.component.scss"],
+    standalone: false
 })
 export class ToolbarComponent {
   constructor(private electronService: ElectronService) {

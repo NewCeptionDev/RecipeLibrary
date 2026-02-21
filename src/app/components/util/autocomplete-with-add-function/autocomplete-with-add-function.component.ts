@@ -12,9 +12,10 @@ import { Observable, map, startWith } from "rxjs"
 import { MatAutocompleteTrigger } from "@angular/material/autocomplete"
 
 @Component({
-  selector: "app-autocomplete-with-add-function",
-  templateUrl: "./autocomplete-with-add-function.component.html",
-  styleUrls: ["./autocomplete-with-add-function.component.scss"],
+    selector: "app-autocomplete-with-add-function",
+    templateUrl: "./autocomplete-with-add-function.component.html",
+    styleUrls: ["./autocomplete-with-add-function.component.scss"],
+    standalone: false
 })
 export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()

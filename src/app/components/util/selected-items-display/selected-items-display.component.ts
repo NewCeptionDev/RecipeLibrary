@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
 
 @Component({
-  selector: "app-selected-items-display",
-  templateUrl: "./selected-items-display.component.html",
-  styleUrls: ["./selected-items-display.component.scss"],
+    selector: "app-selected-items-display",
+    templateUrl: "./selected-items-display.component.html",
+    styleUrls: ["./selected-items-display.component.scss"],
+    standalone: false
 })
 export class SelectedItemsDisplayComponent implements OnInit {
   @Input()

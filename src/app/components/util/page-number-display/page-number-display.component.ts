@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { FormControl } from "@angular/forms"
 
 @Component({
-  selector: "app-page-number-display",
-  templateUrl: "./page-number-display.component.html",
-  styleUrls: ["./page-number-display.component.scss"],
+    selector: "app-page-number-display",
+    templateUrl: "./page-number-display.component.html",
+    styleUrls: ["./page-number-display.component.scss"],
+    standalone: false
 })
 export class PageNumberDisplayComponent implements OnInit {
   @Input()

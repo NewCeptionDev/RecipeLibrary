@@ -7,9 +7,10 @@ import { SettingsService } from "src/app/services/settings.service"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 
 @Component({
-  selector: "app-recipe-list",
-  templateUrl: "./recipe-list.component.html",
-  styleUrls: ["./recipe-list.component.scss"],
+    selector: "app-recipe-list",
+    templateUrl: "./recipe-list.component.html",
+    styleUrls: ["./recipe-list.component.scss"],
+    standalone: false
 })
 export class RecipeListComponent implements OnInit {
   public showSearchResults = false

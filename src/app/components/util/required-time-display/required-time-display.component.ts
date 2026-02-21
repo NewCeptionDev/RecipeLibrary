@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { FormControl } from "@angular/forms"
 
 @Component({
-  selector: "app-required-time-display",
-  templateUrl: "./required-time-display.component.html",
-  styleUrls: ["./required-time-display.component.scss"],
+    selector: "app-required-time-display",
+    templateUrl: "./required-time-display.component.html",
+    styleUrls: ["./required-time-display.component.scss"],
+    standalone: false
 })
 export class RequiredTimeDisplayComponent implements OnInit {
   @Input()

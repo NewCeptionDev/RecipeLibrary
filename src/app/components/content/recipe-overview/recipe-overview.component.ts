@@ -4,9 +4,10 @@ import { SettingsService } from "src/app/services/settings.service"
 import { Recipe } from "../../../models/recipe"
 
 @Component({
-  selector: "app-recipe-overview",
-  templateUrl: "./recipe-overview.component.html",
-  styleUrls: ["./recipe-overview.component.scss"],
+    selector: "app-recipe-overview",
+    templateUrl: "./recipe-overview.component.html",
+    styleUrls: ["./recipe-overview.component.scss"],
+    standalone: false
 })
 export class RecipeOverviewComponent {
   @Input()

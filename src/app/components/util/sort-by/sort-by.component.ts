@@ -3,9 +3,10 @@ import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
 
 @Component({
-  selector: "app-sort-by",
-  templateUrl: "./sort-by.component.html",
-  styleUrls: ["./sort-by.component.scss"],
+    selector: "app-sort-by",
+    templateUrl: "./sort-by.component.html",
+    styleUrls: ["./sort-by.component.scss"],
+    standalone: false
 })
 export class SortByComponent implements OnInit {
   @Input()

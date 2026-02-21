@@ -3,9 +3,10 @@ import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
 
 @Component({
-  selector: "app-backdrop",
-  templateUrl: "./backdrop.component.html",
-  styleUrls: ["./backdrop.component.scss"],
+    selector: "app-backdrop",
+    templateUrl: "./backdrop.component.html",
+    styleUrls: ["./backdrop.component.scss"],
+    standalone: false
 })
 export class BackdropComponent implements OnInit {
   public foundRecipes: number = 0

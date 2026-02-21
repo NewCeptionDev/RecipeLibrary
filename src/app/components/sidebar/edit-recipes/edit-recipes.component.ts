@@ -7,9 +7,10 @@ import { RecipeService } from "src/app/services/recipe.service"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
 
 @Component({
-  selector: "app-edit-recipes",
-  templateUrl: "./edit-recipes.component.html",
-  styleUrls: ["./edit-recipes.component.scss"],
+    selector: "app-edit-recipes",
+    templateUrl: "./edit-recipes.component.html",
+    styleUrls: ["./edit-recipes.component.scss"],
+    standalone: false
 })
 export class EditRecipesComponent implements OnInit {
   public recipes: Recipe[] = []
