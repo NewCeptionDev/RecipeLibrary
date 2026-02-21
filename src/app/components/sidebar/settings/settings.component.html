@@ -23,17 +23,19 @@
   </div>
   <div class="settingContainer">
     <h3>Optional Recipe Features</h3>
-    <div
-      class="optionalFeature"
-      *ngFor="let feature of this.getOptionalFeatures()">
-      <mat-slide-toggle
-        [id]="feature"
-        labelPosition="before"
-        [checked]="this.isOptionalFeatureEnabled(feature)"
-        (change)="toggleOptionalFeature($event)"
-        >{{ this.formatForFrontend(feature) }}</mat-slide-toggle
-      >
+    @for (feature of this.getOptionalFeatures(); track feature) {
+      <div
+        class="optionalFeature"
+        >
+        <mat-slide-toggle
+          [id]="feature"
+          labelPosition="before"
+          [checked]="this.isOptionalFeatureEnabled(feature)"
+          (change)="toggleOptionalFeature($event)"
+          >{{ this.formatForFrontend(feature) }}</mat-slide-toggle
+          >
+        </div>
+      }
     </div>
+    <p class="footer">Version {{ getCurrentAppVersion() }}</p>
   </div>
-  <p class="footer">Version {{ getCurrentAppVersion() }}</p>
-</div>

@@ -1,22 +1,29 @@
-<div
-  class="container"
-  [ngClass]="{ singleRow: this.singleRow }"
-  *ngIf="editable || this.requiredTime !== undefined">
-  <h3>{{ this.labelAddition }} Required Time:</h3>
-  <div class="content">
-    <mat-form-field
-      *ngIf="editable"
-      [hideRequiredMarker]="true">
-      <input
-        matInput
-        id="requiredTime"
-        [formControl]="requiredTimeFormControl" />
-    </mat-form-field>
-    <p *ngIf="!editable">{{ this.requiredTime }} minutes</p>
-    <p
-      class="unit"
-      *ngIf="editable">
-      minutes
-    </p>
+@if (editable || this.requiredTime !== undefined) {
+  <div
+    class="container"
+    [ngClass]="{ singleRow: this.singleRow }"
+    >
+    <h3>{{ this.labelAddition }} Required Time:</h3>
+    <div class="content">
+      @if (editable) {
+        <mat-form-field
+          [hideRequiredMarker]="true">
+          <input
+            matInput
+            id="requiredTime"
+            [formControl]="requiredTimeFormControl" />
+        </mat-form-field>
+      }
+      @if (!editable) {
+        <p>{{ this.requiredTime }} minutes</p>
+      }
+      @if (editable) {
+        <p
+          class="unit"
+          >
+          minutes
+        </p>
+      }
+    </div>
   </div>
-</div>
+}
