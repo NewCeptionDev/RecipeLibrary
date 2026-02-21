@@ -21,16 +21,16 @@
 
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap");
 
-$RecipeLibrary-dark-primary: mat.define-palette(palette.$recipe-green-palette, 500, 300, 700);
-$RecipeLibrary-dark-accent: mat.define-palette(palette.$recipe-yellow-palette, 300);
-$RecipeLibrary-dark-warn: mat.define-palette(palette.$recipe-red-palette, 300, 200, 400);
+$RecipeLibrary-dark-primary: mat.m2-define-palette(palette.$recipe-green-palette, 500, 300, 700);
+$RecipeLibrary-dark-accent: mat.m2-define-palette(palette.$recipe-yellow-palette, 300);
+$RecipeLibrary-dark-warn: mat.m2-define-palette(palette.$recipe-red-palette, 300, 200, 400);
 
-$RecipeLibrary-dark-background: mat.define-palette(palette.$recipe-black-palette, 800);
-$RecipeLibrary-dark-sidebar: mat.define-palette(palette.$recipe-black-palette, 600);
+$RecipeLibrary-dark-background: mat.m2-define-palette(palette.$recipe-black-palette, 800);
+$RecipeLibrary-dark-sidebar: mat.m2-define-palette(palette.$recipe-black-palette, 600);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$RecipeLibrary-dark-theme: mat.define-dark-theme(
+$RecipeLibrary-dark-theme: mat.m2-define-dark-theme(
   (
     color: (
       primary: $RecipeLibrary-dark-primary,
