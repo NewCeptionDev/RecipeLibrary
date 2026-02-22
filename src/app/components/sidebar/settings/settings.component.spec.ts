@@ -7,6 +7,7 @@ import { ElectronServiceMock } from "../../../../tests/mocks/ElectronServiceMock
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
 import { MatSlideToggleChange } from "@angular/material/slide-toggle"
+import { vi } from "vitest"
 
 describe("SettingsComponent", () => {
   let component: SettingsComponent
@@ -16,8 +17,7 @@ describe("SettingsComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SettingsComponent],
-      imports: [MatSnackBarModule],
+      imports: [MatSnackBarModule, SettingsComponent],
       providers: [
         { provide: SettingsService, useClass: SettingsServiceMock },
         { provide: ElectronService, useClass: ElectronServiceMock },
@@ -36,18 +36,18 @@ describe("SettingsComponent", () => {
   })
 
   it("should return correct filePath when getCurrentSavePath", () => {
-    spyOn(settingsService, "getRecipePath").and.returnValue("MockSavePath")
+    vi.spyOn(settingsService, "getRecipePath").mockReturnValue("MockSavePath")
     expect(component.getCurrentSavePath()).toBe("MockSavePath")
   })
 
   it("should call electron service requestImportLibrary when importLibrary", () => {
-    const importLibrarySpy = spyOn(electronService, "requestImportLibrary")
+    const importLibrarySpy = vi.spyOn(electronService, "requestImportLibrary")
     component.importLibrary()
     expect(importLibrarySpy).toHaveBeenCalled()
   })
 
   it("should call electron service requestNewFileSavePath when changeFilePath", () => {
-    const requestPathSpy = spyOn(electronService, "requestNewFileSavePath")
+    const requestPathSpy = vi.spyOn(electronService, "requestNewFileSavePath")
     component.changeSavePath()
     expect(requestPathSpy).toHaveBeenCalled()
   })
@@ -67,17 +67,17 @@ describe("SettingsComponent", () => {
     // @ts-ignore
     const testedFeature = component.optionalRecipeFeatures.get(testedFeatureName)
     expect(testedFeature).not.toBeUndefined()
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([testedFeature!])
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([testedFeature!])
 
-    expect(component.isOptionalFeatureEnabled(testedFeatureName)).toBeTrue()
+    expect(component.isOptionalFeatureEnabled(testedFeatureName)).toBe(true)
   })
 
   it("should return false if isOptionalFeatureEnabled given called with disabled feature", () => {
     const testedFeatureName = component.getOptionalFeatures()[0]
     // @ts-ignore
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
 
-    expect(component.isOptionalFeatureEnabled(testedFeatureName)).toBeFalse()
+    expect(component.isOptionalFeatureEnabled(testedFeatureName)).toBe(false)
   })
 
   it("should throw error if isOptionalFeatureEnabled given called with unknown feature", () => {
@@ -88,8 +88,8 @@ describe("SettingsComponent", () => {
   })
 
   it("should call enableOptionalFeature when toggleOptionalFeature and checked is true", () => {
-    const enableSpy = spyOn(settingsService, "enableRecipeFeature")
-    const disableSpy = spyOn(settingsService, "disableRecipeFeature")
+    const enableSpy = vi.spyOn(settingsService, "enableRecipeFeature")
+    const disableSpy = vi.spyOn(settingsService, "disableRecipeFeature")
 
     const change: MatSlideToggleChange = {
       checked: true,
@@ -106,8 +106,8 @@ describe("SettingsComponent", () => {
   })
 
   it("should call disableOptionalFeature when toggleOptionalFeature and checked is false", () => {
-    const enableSpy = spyOn(settingsService, "enableRecipeFeature")
-    const disableSpy = spyOn(settingsService, "disableRecipeFeature")
+    const enableSpy = vi.spyOn(settingsService, "enableRecipeFeature")
+    const disableSpy = vi.spyOn(settingsService, "disableRecipeFeature")
 
     const change: MatSlideToggleChange = {
       checked: false,

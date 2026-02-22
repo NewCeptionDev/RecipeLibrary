@@ -8,8 +8,8 @@ describe("RatingDisplayComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RatingDisplayComponent],
-    }).compileComponents()
+    imports: [RatingDisplayComponent],
+}).compileComponents()
 
     fixture = TestBed.createComponent(RatingDisplayComponent)
     component = fixture.componentInstance

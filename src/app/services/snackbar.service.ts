@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { Injectable, inject } from "@angular/core"
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { SnackbarComponent } from "../components/util/snackbar/snackbar.component"
 
@@ -6,7 +6,12 @@ import { SnackbarComponent } from "../components/util/snackbar/snackbar.componen
   providedIn: "root",
 })
 export class SnackbarService {
-  constructor(private snackBar: MatSnackBar) {
+  private snackBar = inject(MatSnackBar);
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     // Dependency Injection
   }
 

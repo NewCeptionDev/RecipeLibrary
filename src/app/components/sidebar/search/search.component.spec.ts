@@ -8,6 +8,7 @@ import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
+import { vi } from "vitest"
 
 const KNOWN_COOKBOOK = "KnownCookbook"
 
@@ -20,7 +21,7 @@ describe("SearchComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchComponent],
+      imports: [SearchComponent],
       providers: [
         { provide: SearchService, useClass: SearchServiceMock },
         { provide: RecipeService, useClass: RecipeServiceMock },
@@ -32,7 +33,7 @@ describe("SearchComponent", () => {
     recipeService = TestBed.inject(RecipeService)
     settingsService = TestBed.inject(SettingsService)
     // override mock functions
-    spyOn(recipeService, "getAllKnownCookbooks").and.returnValue([KNOWN_COOKBOOK])
+    vi.spyOn(recipeService, "getAllKnownCookbooks").mockReturnValue([KNOWN_COOKBOOK])
 
     fixture = TestBed.createComponent(SearchComponent)
     component = fixture.componentInstance
@@ -88,8 +89,8 @@ describe("SearchComponent", () => {
   })
 
   it("should call searchService on search", () => {
-    const searchSpy = spyOn(searchService, "search")
-    const onSearchStartSpy = spyOn(component.searchStarted, "emit")
+    const searchSpy = vi.spyOn(searchService, "search")
+    const onSearchStartSpy = vi.spyOn(component.searchStarted, "emit")
 
     component.onSearch()
 
@@ -98,7 +99,7 @@ describe("SearchComponent", () => {
   })
 
   it("should reset on clear", () => {
-    const refreshTableDataSpy = spyOn(component.refreshTableData, "emit")
+    const refreshTableDataSpy = vi.spyOn(component.refreshTableData, "emit")
 
     component.clear()
 
@@ -108,38 +109,38 @@ describe("SearchComponent", () => {
   })
 
   it("should return true when isCategoryRecipeFeatureEnabled given Category enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.CATEGORY,
     ])
-    expect(component.isCategoryRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isCategoryRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isCategoryRecipeFeatureEnabled given Category disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isCategoryRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.RATING,
     ])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.REQUIRED_TIME,
     ])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(false)
   })
 })

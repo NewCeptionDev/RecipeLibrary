@@ -5,6 +5,7 @@ import { RecipeService } from "./recipe.service"
 import { ElectronService } from "./electron.service"
 import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock"
 import { ElectronServiceMock } from "../../tests/mocks/ElectronServiceMock"
+import { vi } from "vitest"
 
 const BASIC_SAVE_OBJECT: string = '{"version":1,"recipes":[]}'
 
@@ -30,26 +31,26 @@ describe("FileService", () => {
   })
 
   it("should call initialize when processSaveFile with initial true", () => {
-    const initializeSpy = spyOn(recipeService, "initializeRecipeLibrary")
+    const initializeSpy = vi.spyOn(recipeService, "initializeRecipeLibrary")
     service.processSaveFile(BASIC_SAVE_OBJECT, true)
     expect(initializeSpy).toHaveBeenCalled()
   })
 
   it("should call import when processSaveFile with initial false", () => {
-    const importSpy = spyOn(recipeService, "importLibrary")
+    const importSpy = vi.spyOn(recipeService, "importLibrary")
     service.processSaveFile(BASIC_SAVE_OBJECT, false)
     expect(importSpy).toHaveBeenCalled()
   })
 
   it("should call transformToCurrentVersion when processSaveFile with old Version", () => {
     // @ts-ignore
-    const transformSpy = spyOn(service, "transformToCurrentVersion").and.callThrough()
+    const transformSpy = vi.spyOn(service, "transformToCurrentVersion")
     service.processSaveFile(BASIC_SAVE_OBJECT.replace("1", "0"), false)
     expect(transformSpy).toHaveBeenCalled()
   })
 
   it("should call saveRecipesToFile when saveLibrary", () => {
-    const saveRecipesSpy = spyOn(electronService, "saveRecipesToFile")
+    const saveRecipesSpy = vi.spyOn(electronService, "saveRecipesToFile")
     service.registerElectronService(electronService)
     service.saveLibrary()
     expect(saveRecipesSpy).toHaveBeenCalled()

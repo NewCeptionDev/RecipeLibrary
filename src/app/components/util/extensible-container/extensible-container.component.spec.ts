@@ -8,8 +8,8 @@ describe("ExtensibleContainerComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExtensibleContainerComponent],
-    }).compileComponents()
+    imports: [ExtensibleContainerComponent],
+}).compileComponents()
 
     fixture = TestBed.createComponent(ExtensibleContainerComponent)
     component = fixture.componentInstance

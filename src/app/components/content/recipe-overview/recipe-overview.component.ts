@@ -1,19 +1,27 @@
-import { Component, Input } from "@angular/core"
+import { Component, Input, inject } from "@angular/core"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 import { SettingsService } from "src/app/services/settings.service"
 import { Recipe } from "../../../models/recipe"
+import { MatIcon } from "@angular/material/icon";
+import { RequiredTimeDisplayComponent } from "../../util/required-time-display/required-time-display.component";
+import { RatingDisplayComponent } from "../../util/rating-display/rating-display.component";
 
 @Component({
     selector: "app-recipe-overview",
     templateUrl: "./recipe-overview.component.html",
     styleUrls: ["./recipe-overview.component.scss"],
-    standalone: false
+    imports: [MatIcon, RequiredTimeDisplayComponent, RatingDisplayComponent]
 })
 export class RecipeOverviewComponent {
+  private settingsService = inject(SettingsService);
+
   @Input()
   recipe: Recipe | undefined
 
-  constructor(private settingsService: SettingsService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     // Dependency Injection
   }
 

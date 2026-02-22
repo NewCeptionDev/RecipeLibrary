@@ -7,6 +7,7 @@ import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { vi } from "vitest"
 
 describe("RecipeFormComponent", () => {
   let component: RecipeFormComponent
@@ -16,7 +17,7 @@ describe("RecipeFormComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RecipeFormComponent],
+      imports: [RecipeFormComponent],
       providers: [
         { provide: RecipeService, useClass: RecipeServiceMock },
         { provide: SettingsService, useClass: SettingsServiceMock },
@@ -82,7 +83,7 @@ describe("RecipeFormComponent", () => {
   })
 
   it("should mark formControl as touched if invalid", () => {
-    const recipeChangeEmitSpy = spyOn(component.recipeChange, "emit")
+    const recipeChangeEmitSpy = vi.spyOn(component.recipeChange, "emit")
     expect(component.recipeFormControl.touched).toBe(false)
     component.recipeFormControl.setErrors({ incorrect: true })
 
@@ -93,8 +94,8 @@ describe("RecipeFormComponent", () => {
   })
 
   it("should update Recipe if editing and provided recipeInput", () => {
-    const recipeServiceUpdateRecipeSpy = spyOn(recipeService, "updateRecipe")
-    const recipeChangeEmitSpy = spyOn(component.recipeChange, "emit")
+    const recipeServiceUpdateRecipeSpy = vi.spyOn(recipeService, "updateRecipe")
+    const recipeChangeEmitSpy = vi.spyOn(component.recipeChange, "emit")
     component.editing = true
     component.recipeInput = component.recipe
     component.recipeFormControl.setErrors(null)
@@ -106,8 +107,8 @@ describe("RecipeFormComponent", () => {
   })
 
   it("should addRecipe if not editing", () => {
-    const recipeServiceAddRecipeSpy = spyOn(recipeService, "addRecipe")
-    const recipeChangeEmitSpy = spyOn(component.recipeChange, "emit")
+    const recipeServiceAddRecipeSpy = vi.spyOn(recipeService, "addRecipe")
+    const recipeChangeEmitSpy = vi.spyOn(component.recipeChange, "emit")
     component.editing = false
     component.recipeInput = component.recipe
     component.recipeFormControl.setErrors(null)
@@ -118,8 +119,8 @@ describe("RecipeFormComponent", () => {
   })
 
   it("should addRecipe if no recipeInput provided", () => {
-    const recipeServiceAddRecipeSpy = spyOn(recipeService, "addRecipe")
-    const recipeChangeEmitSpy = spyOn(component.recipeChange, "emit")
+    const recipeServiceAddRecipeSpy = vi.spyOn(recipeService, "addRecipe")
+    const recipeChangeEmitSpy = vi.spyOn(component.recipeChange, "emit")
     component.editing = true
     component.recipeInput = undefined
     component.recipeFormControl.setErrors(null)
@@ -187,7 +188,7 @@ describe("RecipeFormComponent", () => {
   it("should have validation error if recipe name field not filled", () => {
     component.recipeFormControl.setValue("")
 
-    expect(component.recipeFormControl.getError("required")).toBeTrue()
+    expect(component.recipeFormControl.getError("required")).toBe(true)
   })
 
   it("should have no validation error if recipe name field filled", () => {
@@ -199,59 +200,59 @@ describe("RecipeFormComponent", () => {
   it("should correctly initialize component if recipeInput is true", () => {
     component.recipeInput = RecipeBuilder.defaultRecipe()
 
-    expect(component.editing).toBeFalse()
+    expect(component.editing).toBe(false)
 
     component.ngOnInit()
 
-    expect(component.editing).toBeTrue()
+    expect(component.editing).toBe(true)
     expect(component.recipeInput).toEqual(RecipeBuilder.defaultRecipe())
   })
 
   it("should return true when isCategoryRecipeFeatureEnabled given Category enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.CATEGORY,
     ])
-    expect(component.isCategoryRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isCategoryRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isCategoryRecipeFeatureEnabled given Category disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isCategoryRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.RATING,
     ])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.REQUIRED_TIME,
     ])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isPageNumberRecipeFeatureEnabled given PageNumber enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.PAGE_NUMBER,
     ])
-    expect(component.isPageNumberRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isPageNumberRecipeFeatureEnabled given PageNumber disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isPageNumberRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBe(false)
   })
 })

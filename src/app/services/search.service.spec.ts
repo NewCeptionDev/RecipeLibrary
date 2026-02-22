@@ -12,6 +12,7 @@ import { RecipeAction } from "../models/recipeAction"
 import { RecipeServiceMock } from "../../tests/mocks/RecipeServiceMock"
 import { RecipeBuilder } from "../../tests/objects/RecipeBuilder"
 import { SearchOptionsBuilder } from "../../tests/objects/SearchOptionsBuilder"
+import { vi } from "vitest"
 
 describe("SearchService", () => {
   let service: SearchService
@@ -24,7 +25,7 @@ describe("SearchService", () => {
     })
     recipeService = TestBed.inject(RecipeService)
     // Override mock implementation
-    spyOn(recipeService, "getAllRecipes").and.returnValue(RecipeBuilder.listOfRecipes())
+    vi.spyOn(recipeService, "getAllRecipes").mockReturnValue(RecipeBuilder.listOfRecipes())
     service = TestBed.inject(SearchService)
   })
 
@@ -33,7 +34,7 @@ describe("SearchService", () => {
   })
 
   it("should call adjustSearchResultsIfNeeded when recipeChangeEvent", () => {
-    const adjustSearchResultsSpy = spyOn(service, "adjustSearchResultsIfNeeded")
+    const adjustSearchResultsSpy = vi.spyOn(service, "adjustSearchResultsIfNeeded")
     recipeService.getRecipeChangeEvent().emit({ recipe: undefined, event: RecipeAction.ADD })
     expect(adjustSearchResultsSpy).toHaveBeenCalled()
   })
@@ -51,11 +52,11 @@ describe("SearchService", () => {
       resultReceived = true
     })
     service.adjustSearchResultsIfNeeded({ recipe: undefined, event: RecipeAction.ADD })
-    expect(resultReceived).toBeFalse()
+    expect(resultReceived).toBe(false)
   })
 
   it("should call search when adjustSearchResult without Recipe in event", () => {
-    const searchSpy = spyOn(service, "search")
+    const searchSpy = vi.spyOn(service, "search")
     // @ts-ignore
     service.lastSearchOptions = SearchOptionsBuilder.emptyOptions()
     service.adjustSearchResultsIfNeeded({ recipe: undefined, event: RecipeAction.ADD })
@@ -205,10 +206,10 @@ describe("SearchService", () => {
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
       expect(resultList.length).toBe(2)
-      expect(resultList.every((result) => result.rating >= 3)).toBeTrue()
+      expect(resultList.every((result) => result.rating >= 3)).toBe(true)
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly filtered list when search by requiredTime", () => {
@@ -220,12 +221,12 @@ describe("SearchService", () => {
       resultReceived = true
 
       expect(resultList.length).toBe(2)
-      expect(
-        resultList.every((result) => result.requiredTime && result.requiredTime <= 20)
-      ).toBeTrue()
+      expect(resultList.every((result) => result.requiredTime && result.requiredTime <= 20)).toBe(
+        true
+      )
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly filtered list when search by cookbook", () => {
@@ -236,10 +237,10 @@ describe("SearchService", () => {
     service.getSearchResultsEventEmitter().subscribe((resultList) => {
       resultReceived = true
       expect(resultList.length).toBe(2)
-      expect(resultList.every((result) => result.cookbook === "Cookbook 1")).toBeTrue()
+      expect(resultList.every((result) => result.cookbook === "Cookbook 1")).toBe(true)
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly filtered list when search by category", () => {
@@ -254,10 +255,10 @@ describe("SearchService", () => {
         resultList.every((result) =>
           result.categories.some((category) => category === "Vegetarian")
         )
-      ).toBeTrue()
+      ).toBe(true)
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly filtered list when search by ingredients", () => {
@@ -272,10 +273,10 @@ describe("SearchService", () => {
         resultList.every((result) =>
           result.ingredients.some((ingredient) => ingredient === "Tomato")
         )
-      ).toBeTrue()
+      ).toBe(true)
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should correctly update last used when search", () => {
@@ -284,11 +285,11 @@ describe("SearchService", () => {
       .withSortOption(SortOptions.RATING)
       .build()
     // @ts-ignore
-    expect(service.lastSearchResults).toHaveSize(0)
+    expect(service.lastSearchResults).toHaveLength(0)
     service.search(searchOptions)
     expect(service.getLastSearchOptions()).toBe(searchOptions)
     // @ts-ignore
-    expect(service.lastSearchResults).not.toHaveSize(0)
+    expect(service.lastSearchResults).not.toHaveLength(0)
   })
 
   it("should return correctly sorted result list when search with sortOption Rating DESC", () => {
@@ -302,7 +303,7 @@ describe("SearchService", () => {
       expect(resultList).toEqual(recipeService.getAllRecipes().sort((a, b) => b.rating - a.rating))
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly sorted result list when search with sortOption Rating ASC", () => {
@@ -316,7 +317,7 @@ describe("SearchService", () => {
       expect(resultList).toEqual(recipeService.getAllRecipes().sort((a, b) => a.rating - b.rating))
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly sorted result list when search with sortOption Alphabet DESC", () => {
@@ -332,7 +333,7 @@ describe("SearchService", () => {
       )
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly sorted result list when search with sortOption Alphabet ASC", () => {
@@ -348,7 +349,7 @@ describe("SearchService", () => {
       )
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly sorted result list when search with sortOption RequiredTime DESC", () => {
@@ -371,7 +372,7 @@ describe("SearchService", () => {
       )
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should return correctly sorted result list when search with sortOption RequiredTime ASC", () => {
@@ -394,7 +395,7 @@ describe("SearchService", () => {
       )
     })
     service.search(searchOptions)
-    expect(resultReceived).toBeTrue()
+    expect(resultReceived).toBe(true)
   })
 
   it("should throw error when called without lastSearchOptions when adjustSortFilter", () => {
@@ -404,7 +405,7 @@ describe("SearchService", () => {
   })
 
   it("should adjust sortFilter when adjustSortFilter", () => {
-    const searchSpy = spyOn(service, "search")
+    const searchSpy = vi.spyOn(service, "search")
     // @ts-ignore
     service.lastSearchOptions = new SearchOptionsBuilder()
       .withSortOption(SortOptions.RATING)

@@ -1,17 +1,36 @@
-import { Component, EventEmitter, ViewChild } from "@angular/core"
+import { Component, EventEmitter, ViewChild, inject } from "@angular/core"
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
 import { Recipe } from "./models/recipe"
 import { DialogsService } from "./services/dialogs.service"
 import { ExtendedOption } from "./models/extendedOption"
 import { SearchComponent } from "./components/sidebar/search/search.component"
+import { ToolbarComponent } from "./components/util/toolbar/toolbar.component"
+import { BackdropComponent } from "./components/content/backdrop/backdrop.component"
+import { RecipeListComponent } from "./components/content/recipe-list/recipe-list.component"
+import { SidebarComponent } from "./components/sidebar/sidebar.component"
+import { ExtensibleContainerComponent } from "./components/util/extensible-container/extensible-container.component"
+import { EditRecipesComponent } from "./components/sidebar/edit-recipes/edit-recipes.component"
+import { SettingsComponent } from "./components/sidebar/settings/settings.component"
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"],
-    standalone: false
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
+  imports: [
+    ToolbarComponent,
+    BackdropComponent,
+    RecipeListComponent,
+    SidebarComponent,
+    ExtensibleContainerComponent,
+    EditRecipesComponent,
+    SettingsComponent,
+    SearchComponent,
+    RecipeFormComponent,
+  ],
 })
 export class AppComponent {
+  private dialogService = inject(DialogsService)
+
   title = "RecipeLibrary"
 
   extended: ExtendedOption = ExtendedOption.NONE
@@ -26,7 +45,7 @@ export class AppComponent {
   @ViewChild(SearchComponent)
   searchComponent!: SearchComponent
 
-  constructor(private dialogService: DialogsService) {
+  constructor() {
     window.addEventListener("keydown", async (event) => {
       if (event.key === "Escape" && !this.dialogService.hasOpenDialog()) {
         await this.closeExtensibleContainer()

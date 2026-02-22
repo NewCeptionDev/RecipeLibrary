@@ -13,7 +13,7 @@ export class TestUtil {
       expect(val).toBe(expectedValue)
     })
     functionCall.call(this, ...args)
-    expect(triggered).toBeTrue()
+    expect(triggered).toBeTruthy()
   }
 
   static async promiseShouldBeFulfilledAndIncludeValue<T>(promise: Promise<T>, expectedValue: T) {
@@ -22,7 +22,7 @@ export class TestUtil {
       triggered = true
       expect(result).toBe(expectedValue)
     })
-    expect(triggered).toBeTrue()
+    expect(triggered).toBeTruthy()
   }
 
   static tableDataSourceShouldBeUpdatedAndIncludeValue<T>(

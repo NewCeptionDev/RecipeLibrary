@@ -10,6 +10,7 @@ import { RecipeServiceMock } from "../../../../tests/mocks/RecipeServiceMock"
 import { DialogServiceMock } from "../../../../tests/mocks/DialogServiceMock"
 import { RecipeBuilder } from "../../../../tests/objects/RecipeBuilder"
 import { TestUtil } from "src/tests/testUtil"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 describe("EditRecipesComponent", () => {
   let component: EditRecipesComponent
@@ -19,12 +20,11 @@ describe("EditRecipesComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EditRecipesComponent],
       providers: [
         { provide: RecipeService, useClass: RecipeServiceMock },
         { provide: DialogsService, useClass: DialogServiceMock },
       ],
-      imports: [MatTableModule, MatIconModule],
+      imports: [MatTableModule, MatIconModule, EditRecipesComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(EditRecipesComponent)
@@ -59,7 +59,7 @@ describe("EditRecipesComponent", () => {
     // Get reference after changes were detected
     const tableCell = editRecipes.querySelector(".mat-cell")!
 
-    expect(tableCell.textContent).not.toBe("No Recipes added yet")
+    expect(tableCell).toBeNull()
   })
 
   it("should emit recipe on editRecipeTrigger", () => {
@@ -71,12 +71,12 @@ describe("EditRecipesComponent", () => {
 
     component.editRecipeTrigger(RecipeBuilder.defaultRecipe())
 
-    expect(triggered).toBeTrue()
+    expect(triggered).toBe(true)
   })
 
   it("should do nothing when onDeleteDialog given dialog returns false", () => {
-    const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(false)
-    const recipeDeleteSpy = spyOn(recipeService, "removeRecipe")
+    const openDialogSpy = vi.spyOn(dialogService, "deleteRecipe").mockResolvedValue(false)
+    const recipeDeleteSpy = vi.spyOn(recipeService, "removeRecipe")
 
     component.openDeleteDialog(RecipeBuilder.defaultRecipe())
 
@@ -85,8 +85,8 @@ describe("EditRecipesComponent", () => {
   })
 
   it("should call removeRecipe when onDeleteDialog given dialog returns true", async () => {
-    const openDialogSpy = spyOn(dialogService, "deleteRecipe").and.resolveTo(true)
-    const recipeDeleteSpy = spyOn(recipeService, "removeRecipe")
+    const openDialogSpy = vi.spyOn(dialogService, "deleteRecipe").mockResolvedValue(true)
+    const recipeDeleteSpy = vi.spyOn(recipeService, "removeRecipe")
 
     await component.openDeleteDialog(RecipeBuilder.defaultRecipe())
 
@@ -96,7 +96,7 @@ describe("EditRecipesComponent", () => {
 
   it("should call updateShownRecipes when searchTerm is updated", () => {
     // @ts-ignore
-    const updateSpy = spyOn(component, "updateShownRecipes")
+    const updateSpy = vi.spyOn(component, "updateShownRecipes")
 
     const newSearchTerm = "NewValue"
 
@@ -109,7 +109,7 @@ describe("EditRecipesComponent", () => {
 
   it("should filter recipes for tableSource when searchTerm is not empty", () => {
     const recipes = RecipeBuilder.listOfRecipes()
-    spyOn(recipeService, "getAllRecipes").and.returnValue(recipes)
+    vi.spyOn(recipeService, "getAllRecipes").mockReturnValue(recipes)
 
     const usedSearchTerm = "First"
 

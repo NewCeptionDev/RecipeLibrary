@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { Injectable, inject } from "@angular/core"
 import { MatDialog, MatDialogRef } from "@angular/material/dialog"
 import { TwoButtonDialogComponent } from "../components/dialogs/two-button-dialog/two-button-dialog.component"
 import { firstValueFrom } from "rxjs"
@@ -7,9 +7,14 @@ import { firstValueFrom } from "rxjs"
   providedIn: "root",
 })
 export class DialogsService {
+  dialog = inject(MatDialog);
+
   dialogOpen = false
 
-  constructor(public dialog: MatDialog) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     // Dependency Injection
   }
 

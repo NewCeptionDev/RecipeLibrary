@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from "@angular/core"
+import { Injectable, NgZone, inject } from "@angular/core"
 import { FileService } from "./file.service"
 import { Library } from "../models/library"
 import { IpcRendererEvent } from "electron"
@@ -10,18 +10,24 @@ import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
   providedIn: "root",
 })
 export class ElectronService {
+  private fileService = inject(FileService)
+
+  private settingsService = inject(SettingsService)
+
+  private zone = inject(NgZone)
+
   private readonly ipc: Electron.IpcRenderer | undefined = undefined
 
-  constructor(
-    private fileService: FileService,
-    private settingsService: SettingsService,
-    private zone: NgZone
-  ) {
+  constructor() {
     this.fileService.registerElectronService(this)
     this.settingsService.registerElectronService(this)
 
     if (window.require) {
       this.ipc = window.require("electron").ipcRenderer
+
+      if (!this.ipc) {
+        throw new Error("Electron IPC is not available")
+      }
 
       this.ipc.on("fileLoaded", (_: IpcRendererEvent, message: string) => {
         this.fileService.processSaveFile(message, true)

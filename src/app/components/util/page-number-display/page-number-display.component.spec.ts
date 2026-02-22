@@ -8,8 +8,8 @@ describe("PageNumberDisplayComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PageNumberDisplayComponent],
-    }).compileComponents()
+    imports: [PageNumberDisplayComponent],
+}).compileComponents()
 
     fixture = TestBed.createComponent(PageNumberDisplayComponent)
     component = fixture.componentInstance

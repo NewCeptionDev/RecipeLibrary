@@ -6,6 +6,7 @@ import { Recipe } from "../models/recipe"
 import { SnackbarService } from "./snackbar.service"
 import { SnackbarServiceMock } from "../../tests/mocks/SnackbarServiceMock"
 import { RecipeBuilder } from "../../tests/objects/RecipeBuilder"
+import { vi } from "vitest"
 
 describe("RecipeService", () => {
   let service: RecipeService
@@ -68,7 +69,7 @@ describe("RecipeService", () => {
   })
 
   it("should add recipes correctly when importLibrary", () => {
-    const libraryImportedFeedbackSpy = spyOn(snackBarService, "libraryImportedFeedback")
+    const libraryImportedFeedbackSpy = vi.spyOn(snackBarService, "libraryImportedFeedback")
 
     // when
     service.importLibrary([...recipeList])
@@ -81,7 +82,7 @@ describe("RecipeService", () => {
   })
 
   it("should correctly add recipe and update known when addRecipe", () => {
-    const recipeAddedFeedbackSpy = spyOn(snackBarService, "recipeAddedFeedback")
+    const recipeAddedFeedbackSpy = vi.spyOn(snackBarService, "recipeAddedFeedback")
     const recipe = recipeList[0]
     recipe.id = -1
 
@@ -111,7 +112,7 @@ describe("RecipeService", () => {
   })
 
   it("should correctly remove recipe and update known when removeRecipe", () => {
-    const recipeRemovedFeedbackSpy = spyOn(snackBarService, "recipeRemovedFeedback")
+    const recipeRemovedFeedbackSpy = vi.spyOn(snackBarService, "recipeRemovedFeedback")
     service.initializeRecipeLibrary([...recipeList])
 
     // when
@@ -138,7 +139,7 @@ describe("RecipeService", () => {
   })
 
   it("should correctly update recipe and update known when updateRecipe", () => {
-    const recipeEditedFeedbackSpy = spyOn(snackBarService, "recipeEditedFeedback")
+    const recipeEditedFeedbackSpy = vi.spyOn(snackBarService, "recipeEditedFeedback")
     const adjustedRecipe: Recipe = new RecipeBuilder()
       .withId(1)
       .withRecipeName("First Recipe Updated")

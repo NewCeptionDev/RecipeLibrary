@@ -9,15 +9,14 @@ describe("TwoButtonDialogComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TwoButtonDialogComponent],
-      imports: [MatDialogModule],
-      providers: [
+    imports: [MatDialogModule, TwoButtonDialogComponent],
+    providers: [
         {
-          provide: MAT_DIALOG_DATA,
-          useFactory: () => ({ title: "Test Dialog", content: "No content" }),
+            provide: MAT_DIALOG_DATA,
+            useFactory: () => ({ title: "Test Dialog", content: "No content" }),
         },
-      ],
-    }).compileComponents()
+    ],
+}).compileComponents()
 
     fixture = TestBed.createComponent(TwoButtonDialogComponent)
     component = fixture.componentInstance

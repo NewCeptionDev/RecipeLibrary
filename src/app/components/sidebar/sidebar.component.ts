@@ -1,11 +1,14 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core"
 import { ExtendedOption } from "../../models/extendedOption"
+import { MatIconButton } from "@angular/material/button"
+import { NgClass } from "@angular/common"
+import { MatIcon } from "@angular/material/icon"
 
 @Component({
-    selector: "app-sidebar",
-    templateUrl: "./sidebar.component.html",
-    styleUrls: ["./sidebar.component.scss"],
-    standalone: false
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.scss"],
+  imports: [MatIconButton, NgClass, MatIcon],
 })
 export class SidebarComponent {
   @Output()

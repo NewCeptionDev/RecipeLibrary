@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from "@angular/core"
+import { EventEmitter, Injectable, inject } from "@angular/core"
 import { Recipe } from "../models/recipe"
 import { RecipeService } from "./recipe.service"
 import { SearchOptions } from "../models/searchOptions"
@@ -11,9 +11,14 @@ import { SortOptions } from "../models/sortOptions"
   providedIn: "root",
 })
 export class SearchService {
+  private recipeService = inject(RecipeService);
+
   private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
 
-  constructor(private recipeService: RecipeService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this.recipeService
       .getRecipeChangeEvent()
       .subscribe((changeEvent) => this.adjustSearchResultsIfNeeded(changeEvent))

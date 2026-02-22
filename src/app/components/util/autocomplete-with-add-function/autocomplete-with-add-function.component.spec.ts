@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { AutocompleteWithAddFunctionComponent } from "./autocomplete-with-add-function.component"
 import { MatAutocompleteModule } from "@angular/material/autocomplete"
 import { EventEmitter } from "@angular/core"
+import { vi } from "vitest"
 
 describe("AutocompleteWithAddFunctionComponent", () => {
   let component: AutocompleteWithAddFunctionComponent
@@ -10,9 +11,8 @@ describe("AutocompleteWithAddFunctionComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AutocompleteWithAddFunctionComponent],
-      imports: [MatAutocompleteModule],
-    }).compileComponents()
+    imports: [MatAutocompleteModule, AutocompleteWithAddFunctionComponent],
+}).compileComponents()
 
     fixture = TestBed.createComponent(AutocompleteWithAddFunctionComponent)
     component = fixture.componentInstance
@@ -73,7 +73,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
 
   // On Item Select
   it("should emit selectedValue on itemSelect", () => {
-    const selectedValueSpy = spyOn(component.itemSelected, "emit")
+    const selectedValueSpy = vi.spyOn(component.itemSelected, "emit")
 
     component.onItemSelect("Test")
 
@@ -101,7 +101,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   })
 
   it("should handleKeyEvent on keyboard Enter", () => {
-    const handleKeyEventSpy = spyOn(component, "handleKeyUpEvent")
+    const handleKeyEventSpy = vi.spyOn(component, "handleKeyUpEvent")
     // @ts-expect-error
     component.autocompleteInputElement.nativeElement.value = "Test"
     fixture.detectChanges()
@@ -114,13 +114,13 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   })
 
   it("should do nothing when handleKeyUpEvent given key is not enter", () => {
-    const onSelectSpy = spyOn(component, "onItemSelect")
+    const onSelectSpy = vi.spyOn(component, "onItemSelect")
     component.handleKeyUpEvent(new KeyboardEvent("keyup", { key: "space" }))
     expect(onSelectSpy).not.toHaveBeenCalled()
   })
 
   it("should do nothing when handleKeyUpEvent given disableAddFunction is true and value is unknown", () => {
-    const onSelectSpy = spyOn(component, "onItemSelect")
+    const onSelectSpy = vi.spyOn(component, "onItemSelect")
     component.disableAddFunction = true
     // @ts-ignore
     component.autocompleteInputElement.nativeElement.value = "Unknown Element"
@@ -129,7 +129,7 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   })
 
   it("should do nothing when handleKeyUpEvent given value is empty", () => {
-    const onSelectSpy = spyOn(component, "onItemSelect")
+    const onSelectSpy = vi.spyOn(component, "onItemSelect")
     // @ts-ignore
     component.autocompleteInputElement.nativeElement.value = ""
     component.handleKeyUpEvent(new KeyboardEvent("keyup", { key: "Enter" }))
@@ -137,9 +137,9 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   })
 
   it("should call onItemSelect when handleKeyUpEvent given enter key and value is not empty", () => {
-    const onSelectSpy = spyOn(component, "onItemSelect")
+    const onSelectSpy = vi.spyOn(component, "onItemSelect")
     const keyEvent = new KeyboardEvent("keyup", { key: "Enter" })
-    const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
+    const keyUpDefaultSpy = vi.spyOn(keyEvent, "preventDefault")
     const value = "Test"
     // @ts-ignore
     component.autocompleteInputElement.nativeElement.value = value
@@ -149,9 +149,9 @@ describe("AutocompleteWithAddFunctionComponent", () => {
   })
 
   it("should call onItemSelect when handleKeyUpEvent given disableAddFunction is true and enter key and value is known", () => {
-    const onSelectSpy = spyOn(component, "onItemSelect")
+    const onSelectSpy = vi.spyOn(component, "onItemSelect")
     const keyEvent = new KeyboardEvent("keyup", { key: "Enter" })
-    const keyUpDefaultSpy = spyOn(keyEvent, "preventDefault")
+    const keyUpDefaultSpy = vi.spyOn(keyEvent, "preventDefault")
     const value = "Test"
     component.knownItems = [value]
     component.disableAddFunction = true

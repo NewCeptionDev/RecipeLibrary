@@ -6,17 +6,16 @@ import { ExtendedOption } from "./models/extendedOption"
 import { DialogsService } from "./services/dialogs.service"
 import { RecipeFormComponent } from "./components/sidebar/recipe-form/recipe-form.component"
 import { Recipe } from "./models/recipe"
-import any = jasmine.any
 import { DialogServiceMock } from "../tests/mocks/DialogServiceMock"
 import { RecipeBuilder } from "../tests/objects/RecipeBuilder"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 describe("AppComponent", () => {
   let dialogService: DialogsService
   let fixture: ComponentFixture<AppComponent>
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent, RecipeFormComponent],
-      imports: [MatDialogModule, MatSnackBarModule],
+      imports: [MatDialogModule, MatSnackBarModule, RecipeFormComponent, AppComponent],
       providers: [{ provide: DialogsService, useClass: DialogServiceMock }],
     }).compileComponents()
     fixture = TestBed.createComponent(AppComponent)
@@ -35,8 +34,8 @@ describe("AppComponent", () => {
 
   it("should close extensibleContainer correctly when closeExtensibleContainer given ExtendendOption.EDITRECIPE", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-    const toggleEditRecipesSpy = spyOn(component, "toggleEditRecipes")
-    const toggleAddRecipesSpy = spyOn(component, "toggleAddRecipe")
+    const toggleEditRecipesSpy = vi.spyOn(component, "toggleEditRecipes").mockResolvedValue()
+    const toggleAddRecipesSpy = vi.spyOn(component, "toggleAddRecipe")
     component.extended = ExtendedOption.EDITRECIPE
 
     await component.closeExtensibleContainer()
@@ -47,8 +46,8 @@ describe("AppComponent", () => {
 
   it("should close extensibleContainer correctly when closeExtensibleContainer given ExtendendOption.ADD", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-    const toggleEditRecipesSpy = spyOn(component, "toggleEditRecipes")
-    const toggleAddRecipesSpy = spyOn(component, "toggleAddRecipe")
+    const toggleEditRecipesSpy = vi.spyOn(component, "toggleEditRecipes")
+    const toggleAddRecipesSpy = vi.spyOn(component, "toggleAddRecipe").mockResolvedValue()
     component.extended = ExtendedOption.ADD
 
     await component.closeExtensibleContainer()
@@ -59,8 +58,8 @@ describe("AppComponent", () => {
 
   it("should close extensibleContainer correctly when closeExtensibleContainer", async () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
-    const toggleEditRecipesSpy = spyOn(component, "toggleEditRecipes")
-    const toggleAddRecipesSpy = spyOn(component, "toggleAddRecipe")
+    const toggleEditRecipesSpy = vi.spyOn(component, "toggleEditRecipes")
+    const toggleAddRecipesSpy = vi.spyOn(component, "toggleAddRecipe")
     component.extended = ExtendedOption.SEARCH
 
     await component.closeExtensibleContainer()
@@ -112,8 +111,8 @@ describe("AppComponent", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
-    const discardDialogSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    const discardDialogSpy = vi.spyOn(dialogService, "discardNewRecipe").mockResolvedValue(false)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(true)
     component.extended = ExtendedOption.ADD
     await component.viewSelected(ExtendedOption.NONE)
     expect(discardDialogSpy).toHaveBeenCalled()
@@ -123,8 +122,8 @@ describe("AppComponent", () => {
     const component = TestBed.createComponent(AppComponent).componentInstance
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
-    const discardDialogSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
+    const discardDialogSpy = vi.spyOn(dialogService, "discardNewRecipe").mockResolvedValue(true)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(true)
     component.extended = ExtendedOption.EDITRECIPE
     await component.viewSelected(ExtendedOption.NONE)
     expect(discardDialogSpy).toHaveBeenCalled()
@@ -158,7 +157,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(false)
     await component.viewSelected(ExtendedOption.SETTINGS)
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.SETTINGS)
@@ -216,7 +215,7 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(false)
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
@@ -227,8 +226,8 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(true)
+    vi.spyOn(dialogService, "discardNewRecipe").mockResolvedValue(true)
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.NONE)
@@ -239,8 +238,8 @@ describe("AppComponent", () => {
     const recipeFormComponent = TestBed.createComponent(RecipeFormComponent).componentInstance
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.ADD
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(true)
+    vi.spyOn(dialogService, "discardNewRecipe").mockResolvedValue(false)
     await component.toggleAddRecipe()
     // @ts-ignore
     expect(component.extended).toBe(ExtendedOption.ADD)
@@ -283,8 +282,8 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
     component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(false)
-    const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe")
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(false)
+    const discardRecipeSpy = vi.spyOn(dialogService, "discardNewRecipe")
     await component.toggleEditRecipes()
     expect(component.currentlyEditedRecipe).toBeUndefined()
     // @ts-ignore
@@ -298,8 +297,8 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
     component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    const discardRecipeSpy = spyOn(dialogService, "discardNewRecipe").and.resolveTo(true)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(true)
+    const discardRecipeSpy = vi.spyOn(dialogService, "discardNewRecipe").mockResolvedValue(true)
     await component.toggleEditRecipes()
     expect(component.currentlyEditedRecipe).toBeUndefined()
     // @ts-ignore
@@ -313,17 +312,17 @@ describe("AppComponent", () => {
     component.recipeForm = recipeFormComponent
     component.extended = ExtendedOption.EDITRECIPE
     component.currentlyEditedRecipe = RecipeBuilder.defaultRecipe()
-    spyOn(recipeFormComponent, "hasRecipeChanged").and.returnValue(true)
-    spyOn(dialogService, "discardNewRecipe").and.resolveTo(false)
+    vi.spyOn(recipeFormComponent, "hasRecipeChanged").mockReturnValue(true)
+    vi.spyOn(dialogService, "discardNewRecipe").mockResolvedValue(false)
     await component.toggleEditRecipes()
     expect(component.extended).toBe(ExtendedOption.EDITRECIPE)
     expect(component.currentlyEditedRecipe).not.toBeUndefined()
   })
 
   it("should add eventlistener to window", () => {
-    const windowRequireSpy = spyOn(window, "addEventListener")
+    const windowRequireSpy = vi.spyOn(window, "addEventListener")
     // Needs to be created for constructor to be called
     TestBed.createComponent(AppComponent)
-    expect(windowRequireSpy).toHaveBeenCalledWith("keydown", any(Function))
+    expect(windowRequireSpy).toHaveBeenCalledWith("keydown", expect.any(Function))
   })
 })

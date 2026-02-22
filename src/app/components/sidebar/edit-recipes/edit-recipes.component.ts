@@ -1,18 +1,25 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
-import { FormControl } from "@angular/forms"
+import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core"
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { Observable } from "rxjs"
 import { Recipe } from "src/app/models/recipe"
 import { DialogsService } from "src/app/services/dialogs.service"
 import { RecipeService } from "src/app/services/recipe.service"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
+import { MatFormField, MatInput } from "@angular/material/input";
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from "@angular/material/table";
+import { MatIconButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
     selector: "app-edit-recipes",
     templateUrl: "./edit-recipes.component.html",
     styleUrls: ["./edit-recipes.component.scss"],
-    standalone: false
+    imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow]
 })
 export class EditRecipesComponent implements OnInit {
+  private recipeService = inject(RecipeService);
+  private dialogService = inject(DialogsService);
+
   public recipes: Recipe[] = []
 
   public tableDataSource: ItemDataSource<Recipe> = new ItemDataSource<Recipe>([])
@@ -29,7 +36,10 @@ export class EditRecipesComponent implements OnInit {
 
   public searchRecipeFormControl: FormControl = new FormControl(this.searchTerm)
 
-  constructor(private recipeService: RecipeService, private dialogService: DialogsService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     // Dependency Injection
   }
 

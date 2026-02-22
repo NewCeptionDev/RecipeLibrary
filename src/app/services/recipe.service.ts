@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from "@angular/core"
+import { EventEmitter, Injectable, inject } from "@angular/core"
 import { Recipe } from "../models/recipe"
 import { RecipeChangeEvent } from "../models/recipeChangeEvent"
 import { RecipeAction } from "../models/recipeAction"
@@ -8,6 +8,8 @@ import { SnackbarService } from "./snackbar.service"
   providedIn: "root",
 })
 export class RecipeService {
+  private snackbarService = inject(SnackbarService);
+
   private static lastUsedRecipeId = 0
 
   private recipes: Recipe[] = []
@@ -20,7 +22,10 @@ export class RecipeService {
 
   private recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
 
-  constructor(private snackbarService: SnackbarService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     // Dependency Injection
   }
 

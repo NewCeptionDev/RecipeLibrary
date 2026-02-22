@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
-import { FormControl } from "@angular/forms"
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { MatFormField, MatInput } from "@angular/material/input";
 
 @Component({
     selector: "app-page-number-display",
     templateUrl: "./page-number-display.component.html",
     styleUrls: ["./page-number-display.component.scss"],
-    standalone: false
+    imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule]
 })
 export class PageNumberDisplayComponent implements OnInit {
   @Input()
