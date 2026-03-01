@@ -7,16 +7,9 @@ import { firstValueFrom } from "rxjs"
   providedIn: "root",
 })
 export class DialogsService {
-  dialog = inject(MatDialog);
+  dialog = inject(MatDialog)
 
   dialogOpen = false
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
 
   public hasOpenDialog(): boolean {
     return this.dialogOpen

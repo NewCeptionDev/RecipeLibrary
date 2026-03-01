@@ -121,9 +121,10 @@ export class AppComponent {
       } else if (newView === ExtendedOption.ADD || newView === ExtendedOption.EDITRECIPE) {
         this.extended = ExtendedOption.NONE
         // Update after one tick, so the recipeForm gets destroyed and re-initiated with the new values
-        setTimeout(() => {
+
+        queueMicrotask(() => {
           this.extended = newView
-        }, 1)
+        })
       } else {
         this.extended = newView
       }
@@ -145,9 +146,9 @@ export class AppComponent {
       this.currentlyEditedRecipe = undefined
       this.extended = ExtendedOption.NONE
       // Update after one tick, so the recipeForm gets destroyed and re-initiated with the new values
-      setTimeout(() => {
+      queueMicrotask(() => {
         this.extended = ExtendedOption.ADD
-      }, 1)
+      })
     }
   }
 
