@@ -10,15 +10,26 @@ import {
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { Observable, map, startWith } from "rxjs"
 import { MatAutocompleteTrigger, MatAutocomplete, MatOption } from "@angular/material/autocomplete"
-import { MatFormField, MatLabel, MatInput } from "@angular/material/input";
-import { MatIcon } from "@angular/material/icon";
-import { AsyncPipe } from "@angular/common";
+import { MatFormField, MatLabel, MatInput } from "@angular/material/input"
+import { MatIcon } from "@angular/material/icon"
+import { AsyncPipe } from "@angular/common"
 
 @Component({
-    selector: "app-autocomplete-with-add-function",
-    templateUrl: "./autocomplete-with-add-function.component.html",
-    styleUrls: ["./autocomplete-with-add-function.component.scss"],
-    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatAutocompleteTrigger, ReactiveFormsModule, MatAutocomplete, MatOption, MatIcon, AsyncPipe]
+  selector: "app-autocomplete-with-add-function",
+  templateUrl: "./autocomplete-with-add-function.component.html",
+  styleUrls: ["./autocomplete-with-add-function.component.scss"],
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    MatAutocompleteTrigger,
+    ReactiveFormsModule,
+    MatAutocomplete,
+    MatOption,
+    MatIcon,
+    AsyncPipe,
+  ],
 })
 export class AutocompleteWithAddFunctionComponent implements OnInit {
   @Input()

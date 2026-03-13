@@ -11,8 +11,8 @@ describe("AutocompleteWithAddFunctionComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [MatAutocompleteModule, AutocompleteWithAddFunctionComponent],
-}).compileComponents()
+      imports: [MatAutocompleteModule, AutocompleteWithAddFunctionComponent],
+    }).compileComponents()
 
     fixture = TestBed.createComponent(AutocompleteWithAddFunctionComponent)
     component = fixture.componentInstance

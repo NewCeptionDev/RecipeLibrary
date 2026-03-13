@@ -9,9 +9,7 @@
         placeholder="Name of recipe"
         [formControl]="recipeFormControl" />
       @if (recipeFormControl.hasError('required')) {
-        <mat-error>
-          The recipe name needs to be filled
-        </mat-error>
+      <mat-error> The recipe name needs to be filled </mat-error>
       }
     </mat-form-field>
     <app-autocomplete-with-add-function
@@ -30,35 +28,32 @@
       [knownItems]="knownIngredients"
       [data]="recipe.ingredients"
       (updateData)="updateSelectedIngredients($event)"
-    noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
+      noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
     <br />
     @if (this.isCategoryRecipeFeatureEnabled()) {
-      <app-selected-items-display
-        headline="Categories"
-        id="categorySelect"
-        [knownItems]="knownCategories"
-        [data]="recipe.categories"
-        (updateData)="updateSelectedCategories($event)"
+    <app-selected-items-display
+      headline="Categories"
+      id="categorySelect"
+      [knownItems]="knownCategories"
+      [data]="recipe.categories"
+      (updateData)="updateSelectedCategories($event)"
       noItemsAddedDescription="No Categories added"></app-selected-items-display>
-    }
-    @if (isRatingRecipeFeatureEnabled()) {
-      <app-rating-display
-        [editable]="true"
-        (newRating)="updateRating($event)"
-        [singleRow]="true"
+    } @if (isRatingRecipeFeatureEnabled()) {
+    <app-rating-display
+      [editable]="true"
+      (newRating)="updateRating($event)"
+      [singleRow]="true"
       [rating]="recipe.rating"></app-rating-display>
-    }
-    @if (isRequiredTimeRecipeFeatureEnabled()) {
-      <app-required-time-display
-        [editable]="true"
-        (newRequiredTime)="updateRequiredTime($event)"
-        [singleRow]="true"
+    } @if (isRequiredTimeRecipeFeatureEnabled()) {
+    <app-required-time-display
+      [editable]="true"
+      (newRequiredTime)="updateRequiredTime($event)"
+      [singleRow]="true"
       [requiredTime]="recipe.requiredTime"></app-required-time-display>
-    }
-    @if (isPageNumberRecipeFeatureEnabled()) {
-      <app-page-number-display
-        [editable]="true"
-        (newPageNumber)="updatePageNumber($event)"
+    } @if (isPageNumberRecipeFeatureEnabled()) {
+    <app-page-number-display
+      [editable]="true"
+      (newPageNumber)="updatePageNumber($event)"
       [pageNumber]="recipe.pageNumber"></app-page-number-display>
     }
   </div>

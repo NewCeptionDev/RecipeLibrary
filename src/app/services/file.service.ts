@@ -7,14 +7,11 @@ import { ElectronService } from "./electron.service"
   providedIn: "root",
 })
 export class FileService {
-  private recipeService = inject(RecipeService);
+  private recipeService = inject(RecipeService)
 
   private readonly CURRENT_FILE_VERSION = 1
 
   private electronService: ElectronService | undefined
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {
     this.recipeService.getRecipeChangeEvent().subscribe(() => this.saveLibrary())

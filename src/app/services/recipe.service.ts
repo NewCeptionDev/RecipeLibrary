@@ -8,7 +8,7 @@ import { SnackbarService } from "./snackbar.service"
   providedIn: "root",
 })
 export class RecipeService {
-  private snackbarService = inject(SnackbarService);
+  private snackbarService = inject(SnackbarService)
 
   private static lastUsedRecipeId = 0
 
@@ -21,13 +21,6 @@ export class RecipeService {
   private knownCategories: string[] = []
 
   private recipeChangeEvent: EventEmitter<RecipeChangeEvent> = new EventEmitter<RecipeChangeEvent>()
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
 
   public getAllKnownCookbooks(): string[] {
     return this.knownCookbooks

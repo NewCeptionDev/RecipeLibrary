@@ -1,36 +1,71 @@
-import { Recipe } from "./recipe";
-import { RecipeBuilder } from "../../tests/objects/RecipeBuilder";
+import { Recipe } from "./recipe"
+import { RecipeBuilder } from "../../tests/objects/RecipeBuilder"
 
 describe("Recipe Model", () => {
-    it("should return true when equals", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), RecipeBuilder.defaultRecipe())).toBe(true);
-    });
+  it("should return true when equals", () => {
+    expect(Recipe.equals(RecipeBuilder.defaultRecipe(), RecipeBuilder.defaultRecipe())).toBe(true)
+  })
 
-    it("should return false when equals given id is not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withId(2).build())).toBe(false);
-    });
+  it("should return false when equals given id is not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withId(2).build()
+      )
+    ).toBe(false)
+  })
 
-    it("should return false when equals given recipeName is not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withRecipeName("Another Test Recipe").build())).toBe(false);
-    });
+  it("should return false when equals given recipeName is not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withRecipeName("Another Test Recipe").build()
+      )
+    ).toBe(false)
+  })
 
-    it("should return false when equals given cookbook is not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withCookbook("Another Cookbook").build())).toBe(false);
-    });
+  it("should return false when equals given cookbook is not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withCookbook("Another Cookbook").build()
+      )
+    ).toBe(false)
+  })
 
-    it("should return false when equals given ingredients are not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withIngredients(["AnotherTestIngredient"]).build())).toBe(false);
-    });
+  it("should return false when equals given ingredients are not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withIngredients(["AnotherTestIngredient"]).build()
+      )
+    ).toBe(false)
+  })
 
-    it("should return false when equals given categories are not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withCategories(["AnotherTestCategory"]).build())).toBe(false);
-    });
+  it("should return false when equals given categories are not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withCategories(["AnotherTestCategory"]).build()
+      )
+    ).toBe(false)
+  })
 
-    it("should return false when equals given rating is not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withRating(2).build())).toBe(false);
-    });
+  it("should return false when equals given rating is not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withRating(2).build()
+      )
+    ).toBe(false)
+  })
 
-    it("should return false when equals given requiredTime is not equal", () => {
-        expect(Recipe.equals(RecipeBuilder.defaultRecipe(), new RecipeBuilder().defaultRecipe().withRequiredTime(5).build())).toBe(false);
-    });
-});
+  it("should return false when equals given requiredTime is not equal", () => {
+    expect(
+      Recipe.equals(
+        RecipeBuilder.defaultRecipe(),
+        new RecipeBuilder().defaultRecipe().withRequiredTime(5).build()
+      )
+    ).toBe(false)
+  })
+})

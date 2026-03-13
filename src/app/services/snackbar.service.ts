@@ -6,14 +6,7 @@ import { SnackbarComponent } from "../components/util/snackbar/snackbar.componen
   providedIn: "root",
 })
 export class SnackbarService {
-  private snackBar = inject(MatSnackBar);
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
+  private snackBar = inject(MatSnackBar)
 
   public recipeAddedFeedback() {
     this.openSnackBar("Recipe added")

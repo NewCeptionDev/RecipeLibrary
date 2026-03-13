@@ -8,35 +8,28 @@
       <app-recipe-list></app-recipe-list>
     </div>
     <app-sidebar
-      (addRecipe)="viewSelected(ExtendedOption.ADD)"
-      (editRecipes)="viewSelected(ExtendedOption.EDIT)"
-      (settings)="viewSelected(ExtendedOption.SETTINGS)"
-      (search)="viewSelected(ExtendedOption.SEARCH)"
-    [activeRef]="extended"></app-sidebar>
-    @if (
-      showEditRecipes() || showSettings() || showSearch() || showAddRecipe() || showEditRecipe()
-      ) {
-      <app-extensible-container
-        class="positionIndex0"
-        >
-        @if (showEditRecipes()) {
-          <app-edit-recipes
-            [reloadRecipes]="recipeEdited.asObservable()"
-          (editRecipe)="editRecipe($event)"></app-edit-recipes>
-        }
-        @if (showSettings()) {
-          <app-settings></app-settings>
-        }
-        @if (showSearch()) {
-          <app-search
-          (searchStarted)="toggleSearch()"></app-search>
-        }
-        @if (showAddRecipe() || showEditRecipe()) {
-          <app-recipe-form
-            (recipeChange)="recipeChange()"
-          [recipeInput]="currentlyEditedRecipe"></app-recipe-form>
-        }
-      </app-extensible-container>
+      (addRecipeEmitter)="viewSelected(ExtendedOption.ADD)"
+      (editRecipesEmitter)="viewSelected(ExtendedOption.EDIT)"
+      (settingsEmitter)="viewSelected(ExtendedOption.SETTINGS)"
+      (searchEmitter)="viewSelected(ExtendedOption.SEARCH)"
+      [activeRef]="extended"></app-sidebar>
+    @if ( showEditRecipes() || showSettings() || showSearch() || showAddRecipe() || showEditRecipe()
+    ) {
+    <app-extensible-container class="positionIndex0">
+      @if (showEditRecipes()) {
+      <app-edit-recipes
+        [reloadRecipes]="recipeEdited.asObservable()"
+        (editRecipe)="editRecipe($event)"></app-edit-recipes>
+      } @if (showSettings()) {
+      <app-settings></app-settings>
+      } @if (showSearch()) {
+      <app-search (searchStarted)="toggleSearch()"></app-search>
+      } @if (showAddRecipe() || showEditRecipe()) {
+      <app-recipe-form
+        (recipeChange)="recipeChange()"
+        [recipeInput]="currentlyEditedRecipe"></app-recipe-form>
+      }
+    </app-extensible-container>
     }
   </div>
 </div>

@@ -11,12 +11,9 @@ import { SortOptions } from "../models/sortOptions"
   providedIn: "root",
 })
 export class SearchService {
-  private recipeService = inject(RecipeService);
+  private recipeService = inject(RecipeService)
 
   private publishSearchResults: EventEmitter<Recipe[]> = new EventEmitter<Recipe[]>()
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {
     this.recipeService

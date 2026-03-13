@@ -12,34 +12,34 @@ import { MatIcon } from "@angular/material/icon"
 })
 export class SidebarComponent {
   @Output()
-  public addRecipe: EventEmitter<void> = new EventEmitter()
+  public addRecipeEmitter: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public editRecipes: EventEmitter<void> = new EventEmitter()
+  public editRecipesEmitter: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public settings: EventEmitter<void> = new EventEmitter()
+  public settingsEmitter: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public search: EventEmitter<void> = new EventEmitter()
+  public searchEmitter: EventEmitter<void> = new EventEmitter()
 
   @Input()
   public activeRef: ExtendedOption | undefined
 
   addRecipeTrigger() {
-    this.addRecipe.emit()
+    this.addRecipeEmitter.emit()
   }
 
   editRecipesTrigger() {
-    this.editRecipes.emit()
+    this.editRecipesEmitter.emit()
   }
 
   settingsTrigger() {
-    this.settings.emit()
+    this.settingsEmitter.emit()
   }
 
   searchTrigger() {
-    this.search.emit()
+    this.searchEmitter.emit()
   }
 
   protected readonly ExtendedOption = ExtendedOption

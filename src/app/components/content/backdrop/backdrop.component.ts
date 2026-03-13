@@ -1,31 +1,26 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from "@angular/core"
 import { RecipeService } from "../../../services/recipe.service"
 import { SearchService } from "../../../services/search.service"
-import { MatIcon } from "@angular/material/icon";
+import { MatIcon } from "@angular/material/icon"
 
 @Component({
-    selector: "app-backdrop",
-    templateUrl: "./backdrop.component.html",
-    styleUrls: ["./backdrop.component.scss"],
-    imports: [MatIcon]
+  selector: "app-backdrop",
+  templateUrl: "./backdrop.component.html",
+  styleUrls: ["./backdrop.component.scss"],
+  imports: [MatIcon],
 })
 export class BackdropComponent implements OnInit {
-  private recipeService = inject(RecipeService);
-  private searchService = inject(SearchService);
-  private changeDetector = inject(ChangeDetectorRef);
+  private recipeService = inject(RecipeService)
+
+  private searchService = inject(SearchService)
+
+  private changeDetector = inject(ChangeDetectorRef)
 
   public foundRecipes: number = 0
 
   public showBackdrop = true
 
   public noSearchResults = false
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
 
   ngOnInit(): void {
     this.searchService.getSearchResultsEventEmitter().subscribe((result) => {

@@ -6,22 +6,30 @@ import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
 import { SettingsService } from "src/app/services/settings.service"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
-import { SelectedItemsDisplayComponent } from "../../util/selected-items-display/selected-items-display.component";
-import { RatingDisplayComponent } from "../../util/rating-display/rating-display.component";
-import { RequiredTimeDisplayComponent } from "../../util/required-time-display/required-time-display.component";
-import { MatButton } from "@angular/material/button";
+import { SelectedItemsDisplayComponent } from "../../util/selected-items-display/selected-items-display.component"
+import { RatingDisplayComponent } from "../../util/rating-display/rating-display.component"
+import { RequiredTimeDisplayComponent } from "../../util/required-time-display/required-time-display.component"
+import { MatButton } from "@angular/material/button"
 
 @Component({
-    selector: "app-search",
-    templateUrl: "./search.component.html",
-    styleUrls: ["./search.component.scss"],
-    imports: [SelectedItemsDisplayComponent, RatingDisplayComponent, RequiredTimeDisplayComponent, MatButton]
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.scss"],
+  imports: [
+    SelectedItemsDisplayComponent,
+    RatingDisplayComponent,
+    RequiredTimeDisplayComponent,
+    MatButton,
+  ],
 })
 export class SearchComponent implements OnInit {
-  private recipeService = inject(RecipeService);
-  private searchService = inject(SearchService);
-  private changeDetector = inject(ChangeDetectorRef);
-  private settingsService = inject(SettingsService);
+  private recipeService = inject(RecipeService)
+
+  private searchService = inject(SearchService)
+
+  private changeDetector = inject(ChangeDetectorRef)
+
+  private settingsService = inject(SettingsService)
 
   defaultSearchOptions: SearchOptions = {
     minimumRating: -1,
@@ -45,13 +53,6 @@ export class SearchComponent implements OnInit {
 
   @Output()
   searchStarted: EventEmitter<void> = new EventEmitter()
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
 
   ngOnInit(): void {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()

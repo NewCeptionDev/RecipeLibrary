@@ -5,20 +5,21 @@ import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
 import { SettingsService } from "src/app/services/settings.service"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
-import { SortByComponent } from "../../util/sort-by/sort-by.component";
-import { NgClass } from "@angular/common";
-import { RecipeOverviewComponent } from "../recipe-overview/recipe-overview.component";
-import { RecipeDetailComponent } from "../recipe-detail/recipe-detail.component";
+import { SortByComponent } from "../../util/sort-by/sort-by.component"
+import { NgClass } from "@angular/common"
+import { RecipeOverviewComponent } from "../recipe-overview/recipe-overview.component"
+import { RecipeDetailComponent } from "../recipe-detail/recipe-detail.component"
 
 @Component({
-    selector: "app-recipe-list",
-    templateUrl: "./recipe-list.component.html",
-    styleUrls: ["./recipe-list.component.scss"],
-    imports: [SortByComponent, NgClass, RecipeOverviewComponent, RecipeDetailComponent]
+  selector: "app-recipe-list",
+  templateUrl: "./recipe-list.component.html",
+  styleUrls: ["./recipe-list.component.scss"],
+  imports: [SortByComponent, NgClass, RecipeOverviewComponent, RecipeDetailComponent],
 })
 export class RecipeListComponent implements OnInit {
-  private searchService = inject(SearchService);
-  private settingsService = inject(SettingsService);
+  private searchService = inject(SearchService)
+
+  private settingsService = inject(SettingsService)
 
   public showSearchResults = false
 
@@ -27,13 +28,6 @@ export class RecipeListComponent implements OnInit {
   public shownRecipes: Recipe[] = []
 
   public currentSortOption: SortOptions = SortOptions.ALPHABET
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
 
   ngOnInit(): void {
     this.searchService.getSearchResultsEventEmitter().subscribe((newSearchResults) => {

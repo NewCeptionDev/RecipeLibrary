@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core"
-import { NgClass } from "@angular/common";
-import { MatIcon } from "@angular/material/icon";
+import { NgClass } from "@angular/common"
+import { MatIcon } from "@angular/material/icon"
 
 @Component({
-    selector: "app-rating-display",
-    templateUrl: "./rating-display.component.html",
-    styleUrls: ["./rating-display.component.scss"],
-    imports: [NgClass, MatIcon]
+  selector: "app-rating-display",
+  templateUrl: "./rating-display.component.html",
+  styleUrls: ["./rating-display.component.scss"],
+  imports: [NgClass, MatIcon],
 })
 export class RatingDisplayComponent {
   @Input()

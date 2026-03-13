@@ -14,15 +14,15 @@
       [matAutocomplete]="auto" />
     <mat-autocomplete #auto="matAutocomplete">
       @for (item of filteredItems | async; track item) {
-        <mat-option
-          [value]="item"
-          appMatOptionTextOverflow
-          (click)="onItemSelect(item)">
-          @if (item === itemSelect.value && !knownItems.includes(item)) {
-            <mat-icon>add</mat-icon>
-          }
-          {{ item }}
-        </mat-option>
+      <mat-option
+        [value]="item"
+        appMatOptionTextOverflow
+        (click)="onItemSelect(item)">
+        @if (item === itemSelect.value && !knownItems.includes(item)) {
+        <mat-icon>add</mat-icon>
+        }
+        {{ item }}
+      </mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>

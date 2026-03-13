@@ -9,12 +9,12 @@ describe("SnackbarComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [SnackbarComponent],
-    providers: [
+      imports: [SnackbarComponent],
+      providers: [
         { provide: MAT_SNACK_BAR_DATA, useValue: {} },
         { provide: MatSnackBarRef, useValue: {} },
-    ],
-}).compileComponents()
+      ],
+    }).compileComponents()
 
     fixture = TestBed.createComponent(SnackbarComponent)
     component = fixture.componentInstance

@@ -1,19 +1,15 @@
 @if (editable || (this.pageNumber !== undefined && this.pageNumber !== '')) {
-  <div
-    class="container"
-    >
-    <h3>Page Number:</h3>
-    @if (editable) {
-      <mat-form-field
-        [hideRequiredMarker]="true">
-        <input
-          matInput
-          id="pageNumber"
-          [formControl]="pageNumberFormControl" />
-      </mat-form-field>
-    }
-    @if (!editable) {
-      <h4>{{ this.pageNumber }}</h4>
-    }
-  </div>
+<div class="container">
+  <h3>Page Number:</h3>
+  @if (editable) {
+  <mat-form-field [hideRequiredMarker]="true">
+    <input
+      matInput
+      id="pageNumber"
+      [formControl]="pageNumberFormControl" />
+  </mat-form-field>
+  } @if (!editable) {
+  <h4>{{ this.pageNumber }}</h4>
+  }
+</div>
 }

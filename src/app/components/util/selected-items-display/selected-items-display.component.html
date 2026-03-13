@@ -2,15 +2,15 @@
   <h3 [ngClass]="{ underlined: underlinedHeadline }">{{ headline }}</h3>
 
   @if (editable) {
-    <app-autocomplete-with-add-function
-      class="input"
-      [knownItems]="knownItems"
-      [labelName]="(justKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
-      [clearOnSelect]="true"
-      [itemName]="headline"
-      [refreshFilteredItems]="triggerRefresh ? triggerRefresh.asObservable() : undefined"
-      (itemSelected)="onItemSelect($event)"
-      [disableAddFunction]="justKnownItemsSelectable"
+  <app-autocomplete-with-add-function
+    class="input"
+    [knownItems]="knownItems"
+    [labelName]="(justKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
+    [clearOnSelect]="true"
+    [itemName]="headline"
+    [refreshFilteredItems]="triggerRefresh ? triggerRefresh.asObservable() : undefined"
+    (itemSelected)="onItemSelect($event)"
+    [disableAddFunction]="justKnownItemsSelectable"
     [filterFunction]="notAlreadyIncludedInData"></app-autocomplete-with-add-function>
   }
 
@@ -21,7 +21,7 @@
       <ng-container matColumnDef="name">
         <th
           mat-header-cell
-        *matHeaderCellDef></th>
+          *matHeaderCellDef></th>
         <td
           mat-cell
           *matCellDef="let element">
@@ -30,31 +30,29 @@
       </ng-container>
 
       @if (editable) {
-        <ng-container
-          matColumnDef="action"
-          >
-          <th
-            mat-header-cell
-            *matHeaderCellDef
+      <ng-container matColumnDef="action">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
           class="action"></th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="action">
-            <button
-              mat-icon-button
-              disableRipple
-              (click)="removeElement(element)">
-              <mat-icon>remove</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="action">
+          <button
+            mat-icon-button
+            disableRipple
+            (click)="removeElement(element)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </td>
+      </ng-container>
       }
 
       <tr
         mat-row
         *matRowDef="let row; columns: columns"
-      class="tableRow"></tr>
+        class="tableRow"></tr>
       <tr
         class="mat-row"
         *matNoDataRow>

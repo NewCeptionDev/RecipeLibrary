@@ -506,18 +506,18 @@ const validateRecipeFormElements = (recipe: Recipe) => {
   })
   for (let i = 0; i < 5; i++) {
     if (i < recipe.rating) {
-      // eslint-disable-next-line .scrollIntoView().click({force:true}).typescript-eslint/no-loop-func
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
       cy.get(".stars span")
         .eq(i)
-        // eslint-disable-next-line .scrollIntoView().click({force:true}).typescript-eslint/no-loop-func
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
         .within(() => {
           cy.get(".mat-icon").should("have.class", "filledStar")
         })
     } else {
-      // eslint-disable-next-line .scrollIntoView().click({force:true}).typescript-eslint/no-loop-func
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
       cy.get(".stars span")
         .eq(i)
-        // eslint-disable-next-line .scrollIntoView().click({force:true}).typescript-eslint/no-loop-func
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
         .within(() => {
           cy.get(".mat-icon").should("not.have.class", "filledStar")
         })

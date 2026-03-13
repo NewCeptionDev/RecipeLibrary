@@ -4,27 +4,22 @@ import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 import { SettingsService } from "src/app/services/settings.service"
 import { environment } from "src/environments/environment"
 import { ElectronService } from "../../../services/electron.service"
-import { MatButton } from "@angular/material/button";
+import { MatButton } from "@angular/material/button"
 
 @Component({
-    selector: "app-settings",
-    templateUrl: "./settings.component.html",
-    styleUrls: ["./settings.component.scss"],
-    imports: [MatButton, MatSlideToggle]
+  selector: "app-settings",
+  templateUrl: "./settings.component.html",
+  styleUrls: ["./settings.component.scss"],
+  imports: [MatButton, MatSlideToggle],
 })
 export class SettingsComponent implements OnInit {
-  private electronService = inject(ElectronService);
-  private settingsService = inject(SettingsService);
-  private changeDetectorRef = inject(ChangeDetectorRef);
+  private electronService = inject(ElectronService)
+
+  private settingsService = inject(SettingsService)
+
+  private changeDetectorRef = inject(ChangeDetectorRef)
 
   private optionalRecipeFeatures: Map<string, OptionalRecipeFeature> = new Map()
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {
-    // Dependency Injection
-  }
 
   ngOnInit(): void {
     this.settingsService.settingsChangedEvent.subscribe(() => {

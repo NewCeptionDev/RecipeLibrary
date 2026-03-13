@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { SortOptions } from "../../../models/sortOptions"
 import { SortDirection } from "../../../models/sortDirection"
-import { MatIcon } from "@angular/material/icon";
-import { NgClass } from "@angular/common";
+import { MatIcon } from "@angular/material/icon"
+import { NgClass } from "@angular/common"
 
 @Component({
-    selector: "app-sort-by",
-    templateUrl: "./sort-by.component.html",
-    styleUrls: ["./sort-by.component.scss"],
-    imports: [MatIcon, NgClass]
+  selector: "app-sort-by",
+  templateUrl: "./sort-by.component.html",
+  styleUrls: ["./sort-by.component.scss"],
+  imports: [MatIcon, NgClass],
 })
 export class SortByComponent implements OnInit {
   @Input()

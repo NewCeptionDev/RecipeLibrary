@@ -4,13 +4,13 @@
   <h3 class="headline">{{ labelAddition }} Rating:</h3>
   <div class="stars">
     @for (i of counter(5); track i) {
-      <span>
-        <mat-icon
-          [ngClass]="{ filledStar: rating > i }"
-          (click)="updateRating(i + 1)"
-          >star</mat-icon
-          >
-        </span>
-      }
-    </div>
+    <span>
+      <mat-icon
+        [ngClass]="{ filledStar: rating > i }"
+        (click)="updateRating(i + 1)"
+        >star</mat-icon
+      >
+    </span>
+    }
   </div>
+</div>

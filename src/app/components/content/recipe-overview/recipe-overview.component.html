@@ -1,22 +1,19 @@
 @if (recipe) {
-  <div
-    class="container"
-    >
-    <h1>{{ recipe.recipeName }}</h1>
-    <div class="additionalInformation">
-      <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
-      <div class="rightSide">
-        @if (this.isRequiredTimeRecipeFeatureEnabled()) {
-          <app-required-time-display
-            [editable]="false"
-          [requiredTime]="recipe.requiredTime"></app-required-time-display>
-        }
-        @if (this.isRatingRecipeFeatureEnabled()) {
-          <app-rating-display
-            [editable]="false"
-          [rating]="recipe.rating"></app-rating-display>
-        }
-      </div>
+<div class="container">
+  <h1>{{ recipe.recipeName }}</h1>
+  <div class="additionalInformation">
+    <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
+    <div class="rightSide">
+      @if (this.isRequiredTimeRecipeFeatureEnabled()) {
+      <app-required-time-display
+        [editable]="false"
+        [requiredTime]="recipe.requiredTime"></app-required-time-display>
+      } @if (this.isRatingRecipeFeatureEnabled()) {
+      <app-rating-display
+        [editable]="false"
+        [rating]="recipe.rating"></app-rating-display>
+      }
     </div>
   </div>
+</div>
 }

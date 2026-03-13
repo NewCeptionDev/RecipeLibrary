@@ -13,9 +13,9 @@ describe("ToolbarComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [MatIconModule, ToolbarComponent],
-    providers: [{ provide: ElectronService, useClass: ElectronServiceMock }],
-}).compileComponents()
+      imports: [MatIconModule, ToolbarComponent],
+      providers: [{ provide: ElectronService, useClass: ElectronServiceMock }],
+    }).compileComponents()
 
     fixture = TestBed.createComponent(ToolbarComponent)
     electronService = TestBed.inject(ElectronService)
