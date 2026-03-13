@@ -2,11 +2,10 @@ import { TestBed } from "@angular/core/testing"
 
 import { ElectronService } from "./electron.service"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
-import any = jasmine.any
-import Spy = jasmine.Spy
 import { SettingsService } from "./settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
 import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 class IpcRendererMock {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -39,7 +38,7 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on closeApp", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -48,7 +47,7 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on minimizeApp", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -57,7 +56,7 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on maximizeApp", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -66,16 +65,16 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on saveRecipesToFile", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
     service.saveRecipesToFile({ version: 1, recipes: [] })
-    expect(ipcRendererSendSpy).toHaveBeenCalledWith("saveFile", any(String))
+    expect(ipcRendererSendSpy).toHaveBeenCalledWith("saveFile", expect.any(String))
   })
 
   it("should send message to ipc on requestLoadFile", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -84,7 +83,7 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on requestSettingsInformation", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -93,7 +92,7 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on requestImportLibrary", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -102,7 +101,7 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on requestNewFileSavePath", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -111,12 +110,13 @@ describe("ElectronService", () => {
   })
 
   it("should send message to ipc on saveSettings", () => {
-    const ipcRendererSendSpy = spyOn(ipcRenderer, "send")
-    const getSavePathSpy = spyOn(settingsService, "getRecipePath").and.returnValue("MockSavePath")
-    const getEnabledFeaturesSpy = spyOn(
-      settingsService,
-      "getEnabledRecipeFeatures"
-    ).and.returnValue([OptionalRecipeFeature.CATEGORY])
+    const ipcRendererSendSpy = vi.spyOn(ipcRenderer, "send")
+    const getSavePathSpy = vi
+      .spyOn(settingsService, "getRecipePath")
+      .mockReturnValue("MockSavePath")
+    const getEnabledFeaturesSpy = vi
+      .spyOn(settingsService, "getEnabledRecipeFeatures")
+      .mockReturnValue([OptionalRecipeFeature.CATEGORY])
     // @ts-ignore
     service.ipc = ipcRenderer
 
@@ -153,14 +153,14 @@ describe("ElectronService", () => {
 })
 
 describe("Electron Service Constructor", () => {
-  let ipcRendererOnSpy: Spy
+  let ipcRendererOnSpy: any
   const ipcRenderer: IpcRendererMock = new IpcRendererMock()
 
   beforeEach(() => {
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     window.require = (requiredElement: never) => ({ ipcRenderer })
-    ipcRendererOnSpy = spyOn(ipcRenderer, "on")
+    ipcRendererOnSpy = vi.spyOn(ipcRenderer, "on")
     TestBed.configureTestingModule({
       imports: [MatSnackBarModule],
     })
@@ -168,8 +168,8 @@ describe("Electron Service Constructor", () => {
   })
 
   it("should set up event listeners on creation", () => {
-    expect(ipcRendererOnSpy).toHaveBeenCalledWith("fileLoaded", any(Function))
-    expect(ipcRendererOnSpy).toHaveBeenCalledWith("importLibraryFile", any(Function))
-    expect(ipcRendererOnSpy).toHaveBeenCalledWith("settings", any(Function))
+    expect(ipcRendererOnSpy).toHaveBeenCalledWith("fileLoaded", expect.any(Function))
+    expect(ipcRendererOnSpy).toHaveBeenCalledWith("importLibraryFile", expect.any(Function))
+    expect(ipcRendererOnSpy).toHaveBeenCalledWith("settings", expect.any(Function))
   })
 })

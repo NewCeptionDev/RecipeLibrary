@@ -9,8 +9,7 @@ describe("TwoButtonDialogComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TwoButtonDialogComponent],
-      imports: [MatDialogModule],
+      imports: [MatDialogModule, TwoButtonDialogComponent],
       providers: [
         {
           provide: MAT_DIALOG_DATA,

@@ -1,16 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core"
 import { Recipe } from "src/app/models/recipe"
 import { RecipeService } from "src/app/services/recipe.service"
-import { FormControl, Validators } from "@angular/forms"
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { SettingsService } from "src/app/services/settings.service"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { MatFormField, MatLabel, MatInput, MatError } from "@angular/material/input"
+import { AutocompleteWithAddFunctionComponent } from "../../util/autocomplete-with-add-function/autocomplete-with-add-function.component"
+import { SelectedItemsDisplayComponent } from "../../util/selected-items-display/selected-items-display.component"
+import { RatingDisplayComponent } from "../../util/rating-display/rating-display.component"
+import { RequiredTimeDisplayComponent } from "../../util/required-time-display/required-time-display.component"
+import { PageNumberDisplayComponent } from "../../util/page-number-display/page-number-display.component"
+import { MatButton } from "@angular/material/button"
 
 @Component({
   selector: "app-recipe-form",
   templateUrl: "./recipe-form.component.html",
   styleUrls: ["./recipe-form.component.scss"],
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    AutocompleteWithAddFunctionComponent,
+    SelectedItemsDisplayComponent,
+    RatingDisplayComponent,
+    RequiredTimeDisplayComponent,
+    PageNumberDisplayComponent,
+    MatButton,
+  ],
 })
 export class RecipeFormComponent implements OnInit {
+  private recipeService = inject(RecipeService)
+
+  private settingsService = inject(SettingsService)
+
   defaultRecipe: Recipe = {
     id: -1,
     recipeName: "",
@@ -39,10 +64,6 @@ export class RecipeFormComponent implements OnInit {
 
   @Output()
   public recipeChange: EventEmitter<void> = new EventEmitter()
-
-  constructor(private recipeService: RecipeService, private settingsService: SettingsService) {
-    // Dependency Injection
-  }
 
   ngOnInit(): void {
     this.knownCookbooks = this.recipeService.getAllKnownCookbooks()

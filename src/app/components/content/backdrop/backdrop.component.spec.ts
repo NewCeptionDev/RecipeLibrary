@@ -16,12 +16,11 @@ describe("BackdropComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BackdropComponent],
       providers: [
         { provide: RecipeService, useClass: RecipeServiceMock },
         { provide: SearchService, useClass: SearchServiceMock },
       ],
-      imports: [MatIconModule],
+      imports: [MatIconModule, BackdropComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(BackdropComponent)

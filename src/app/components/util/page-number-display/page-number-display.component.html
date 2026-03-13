@@ -1,14 +1,15 @@
-<div
-  class="container"
-  *ngIf="editable || (this.pageNumber !== undefined && this.pageNumber !== '')">
+@if (editable || (this.pageNumber !== undefined && this.pageNumber !== '')) {
+<div class="container">
   <h3>Page Number:</h3>
-  <mat-form-field
-    *ngIf="editable"
-    [hideRequiredMarker]="true">
+  @if (editable) {
+  <mat-form-field [hideRequiredMarker]="true">
     <input
       matInput
       id="pageNumber"
       [formControl]="pageNumberFormControl" />
   </mat-form-field>
-  <h4 *ngIf="!editable">{{ this.pageNumber }}</h4>
+  } @if (!editable) {
+  <h4>{{ this.pageNumber }}</h4>
+  }
 </div>
+}

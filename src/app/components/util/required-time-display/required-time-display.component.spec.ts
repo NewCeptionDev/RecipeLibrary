@@ -9,7 +9,7 @@ describe("RequiredTimeDisplayComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RequiredTimeDisplayComponent],
+      imports: [RequiredTimeDisplayComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(RequiredTimeDisplayComponent)

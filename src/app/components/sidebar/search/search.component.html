@@ -9,9 +9,9 @@
     id="ingredientSelect"
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
+  @if (this.isCategoryRecipeFeatureEnabled()) {
   <app-selected-items-display
     headline="Categories"
-    *ngIf="this.isCategoryRecipeFeatureEnabled()"
     [knownItems]="knownCategories"
     [data]="selectedOptions.includedCategories"
     (updateData)="updateIncludedCategories($event)"
@@ -19,6 +19,7 @@
     id="categorySelect"
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Categories added"></app-selected-items-display>
+  }
   <app-selected-items-display
     headline="Cookbooks"
     [knownItems]="knownCookbooks"
@@ -28,18 +29,19 @@
     id="cookbookSelect"
     [justKnownItemsSelectable]="true"
     noItemsAddedDescription="No Cookbooks added"></app-selected-items-display>
+  @if (this.isRatingRecipeFeatureEnabled()) {
   <app-rating-display
-    *ngIf="this.isRatingRecipeFeatureEnabled()"
     [editable]="true"
     [rating]="selectedOptions.minimumRating"
     (newRating)="onNewRatingSelected($event)"
     labelAddition="Minimum"></app-rating-display>
+  } @if (this.isRequiredTimeRecipeFeatureEnabled()) {
   <app-required-time-display
-    *ngIf="this.isRequiredTimeRecipeFeatureEnabled()"
     [editable]="true"
     [requiredTime]="selectedOptions.maximumRequiredTime"
     (newRequiredTime)="onNewRequiredTimeSelected($event)"
     labelAddition="Maximum"></app-required-time-display>
+  }
   <div class="buttons">
     <button
       mat-raised-button

@@ -8,9 +8,9 @@
         id="recipeName"
         placeholder="Name of recipe"
         [formControl]="recipeFormControl" />
-      <mat-error *ngIf="recipeFormControl.hasError('required')">
-        The recipe name needs to be filled
-      </mat-error>
+      @if (recipeFormControl.hasError('required')) {
+      <mat-error> The recipe name needs to be filled </mat-error>
+      }
     </mat-form-field>
     <app-autocomplete-with-add-function
       itemName="Cookbook"
@@ -30,31 +30,32 @@
       (updateData)="updateSelectedIngredients($event)"
       noItemsAddedDescription="No Ingredients added"></app-selected-items-display>
     <br />
+    @if (this.isCategoryRecipeFeatureEnabled()) {
     <app-selected-items-display
-      *ngIf="this.isCategoryRecipeFeatureEnabled()"
       headline="Categories"
       id="categorySelect"
       [knownItems]="knownCategories"
       [data]="recipe.categories"
       (updateData)="updateSelectedCategories($event)"
       noItemsAddedDescription="No Categories added"></app-selected-items-display>
+    } @if (isRatingRecipeFeatureEnabled()) {
     <app-rating-display
-      *ngIf="isRatingRecipeFeatureEnabled()"
       [editable]="true"
       (newRating)="updateRating($event)"
       [singleRow]="true"
       [rating]="recipe.rating"></app-rating-display>
+    } @if (isRequiredTimeRecipeFeatureEnabled()) {
     <app-required-time-display
-      *ngIf="isRequiredTimeRecipeFeatureEnabled()"
       [editable]="true"
       (newRequiredTime)="updateRequiredTime($event)"
       [singleRow]="true"
       [requiredTime]="recipe.requiredTime"></app-required-time-display>
+    } @if (isPageNumberRecipeFeatureEnabled()) {
     <app-page-number-display
-      *ngIf="isPageNumberRecipeFeatureEnabled()"
       [editable]="true"
       (newPageNumber)="updatePageNumber($event)"
       [pageNumber]="recipe.pageNumber"></app-page-number-display>
+    }
   </div>
   <div class="buttons">
     <button

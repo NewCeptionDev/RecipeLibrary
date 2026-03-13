@@ -11,7 +11,7 @@ describe("SortByComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SortByComponent],
+      imports: [SortByComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(SortByComponent)
@@ -32,8 +32,8 @@ describe("SortByComponent", () => {
     const expandLessIcon = display.querySelector(".sortDirection mat-icon:first-child")
     const expandMoreIcon = display.querySelector(".sortDirection mat-icon:last-child")
 
-    expect(expandLessIcon).not.toHaveClass("disabled")
-    expect(expandMoreIcon).toHaveClass("disabled")
+    expect(expandLessIcon.classList.contains("disabled")).toBe(false)
+    expect(expandMoreIcon.classList.contains("disabled")).toBe(true)
   })
 
   it("should show expand_more icon if sort direction is DESC", () => {
@@ -45,8 +45,8 @@ describe("SortByComponent", () => {
     const expandLessIcon = display.querySelector(".sortDirection mat-icon:first-child")
     const expandMoreIcon = display.querySelector(".sortDirection mat-icon:last-child")
 
-    expect(expandLessIcon).toHaveClass("disabled")
-    expect(expandMoreIcon).not.toHaveClass("disabled")
+    expect(expandLessIcon.classList.contains("disabled")).toBe(true)
+    expect(expandMoreIcon.classList.contains("disabled")).toBe(false)
   })
 
   it("should select abc icon when ngOnInit given selected SortOption is ALPHABET", () => {
@@ -75,7 +75,7 @@ describe("SortByComponent", () => {
       component.adjustSortDirection.bind(component)
     )
 
-    expect(component.disabled).toBeFalse()
+    expect(component.disabled).toBe(false)
     expect(component.sortDirection).toBe(SortDirection.ASC)
   })
 
@@ -100,7 +100,7 @@ describe("SortByComponent", () => {
       component.adjustSortDirection.bind(component)
     )
 
-    expect(component.disabled).toBeFalse()
+    expect(component.disabled).toBe(false)
     // @ts-ignore
     expect(component.sortDirection).toBe(SortDirection.ASC)
   })

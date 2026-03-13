@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { Injectable, inject } from "@angular/core"
 import { Library } from "../models/library"
 import { RecipeService } from "./recipe.service"
 import { ElectronService } from "./electron.service"
@@ -7,11 +7,13 @@ import { ElectronService } from "./electron.service"
   providedIn: "root",
 })
 export class FileService {
+  private recipeService = inject(RecipeService)
+
   private readonly CURRENT_FILE_VERSION = 1
 
   private electronService: ElectronService | undefined
 
-  constructor(private recipeService: RecipeService) {
+  constructor() {
     this.recipeService.getRecipeChangeEvent().subscribe(() => this.saveLibrary())
   }
 

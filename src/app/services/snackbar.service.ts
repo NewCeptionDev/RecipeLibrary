@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core"
+import { Injectable, inject } from "@angular/core"
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { SnackbarComponent } from "../components/util/snackbar/snackbar.component"
 
@@ -6,9 +6,7 @@ import { SnackbarComponent } from "../components/util/snackbar/snackbar.componen
   providedIn: "root",
 })
 export class SnackbarService {
-  constructor(private snackBar: MatSnackBar) {
-    // Dependency Injection
-  }
+  private snackBar = inject(MatSnackBar)
 
   public recipeAddedFeedback() {
     this.openSnackBar("Recipe added")

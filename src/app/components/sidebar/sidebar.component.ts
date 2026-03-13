@@ -1,41 +1,45 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core"
 import { ExtendedOption } from "../../models/extendedOption"
+import { MatIconButton } from "@angular/material/button"
+import { NgClass } from "@angular/common"
+import { MatIcon } from "@angular/material/icon"
 
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
   styleUrls: ["./sidebar.component.scss"],
+  imports: [MatIconButton, NgClass, MatIcon],
 })
 export class SidebarComponent {
   @Output()
-  public addRecipe: EventEmitter<void> = new EventEmitter()
+  public addRecipeEmitter: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public editRecipes: EventEmitter<void> = new EventEmitter()
+  public editRecipesEmitter: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public settings: EventEmitter<void> = new EventEmitter()
+  public settingsEmitter: EventEmitter<void> = new EventEmitter()
 
   @Output()
-  public search: EventEmitter<void> = new EventEmitter()
+  public searchEmitter: EventEmitter<void> = new EventEmitter()
 
   @Input()
   public activeRef: ExtendedOption | undefined
 
   addRecipeTrigger() {
-    this.addRecipe.emit()
+    this.addRecipeEmitter.emit()
   }
 
   editRecipesTrigger() {
-    this.editRecipes.emit()
+    this.editRecipesEmitter.emit()
   }
 
   settingsTrigger() {
-    this.settings.emit()
+    this.settingsEmitter.emit()
   }
 
   searchTrigger() {
-    this.search.emit()
+    this.searchEmitter.emit()
   }
 
   protected readonly ExtendedOption = ExtendedOption

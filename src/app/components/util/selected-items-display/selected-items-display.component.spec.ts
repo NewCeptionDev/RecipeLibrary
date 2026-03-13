@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
 import { SelectedItemsDisplayComponent } from "./selected-items-display.component"
-import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table"
+import { MatTableModule } from "@angular/material/table"
 import { EventEmitter } from "@angular/core"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 describe("SelectedItemsDisplayComponent", () => {
   let component: SelectedItemsDisplayComponent
@@ -10,8 +11,7 @@ describe("SelectedItemsDisplayComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SelectedItemsDisplayComponent],
-      imports: [MatTableModule],
+      imports: [MatTableModule, SelectedItemsDisplayComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(SelectedItemsDisplayComponent)
@@ -81,7 +81,7 @@ describe("SelectedItemsDisplayComponent", () => {
 
   it("should correctly initialize component given data length larger 0", () => {
     component.data = ["Data"]
-    const setDataSpy = spyOn(component.tableDataSource, "setData")
+    const setDataSpy = vi.spyOn(component.tableDataSource, "setData")
 
     component.ngOnInit()
 
@@ -93,14 +93,14 @@ describe("SelectedItemsDisplayComponent", () => {
 
     component.ngOnInit()
 
-    expect(component.columns).toHaveSize(1)
+    expect(component.columns).toHaveLength(1)
     expect(component.columns[0]).toBe("name")
   })
 
   it("should correctly initialize component given triggerRefresh is set", () => {
     const eventEmitter = new EventEmitter<void>()
     component.triggerRefresh = eventEmitter
-    const refreshTableSpy = spyOn(component, "refreshTableData")
+    const refreshTableSpy = vi.spyOn(component, "refreshTableData")
 
     component.ngOnInit()
 

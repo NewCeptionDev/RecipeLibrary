@@ -17,9 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Node Setup
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 24
       - run: npm ci
       - run: npm run test
 
@@ -42,9 +42,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Node Setup
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 24
       - run: npm ci
       - run: npm run prettier:check
 
@@ -55,9 +55,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Node Setup
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 24
       - run: npm ci
       - run: npm run eslint
 

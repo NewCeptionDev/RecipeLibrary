@@ -115,15 +115,21 @@ describe("Edit Recipe E2E", () => {
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.get("#editRecipeButton").click()
-    cy.get("#recipeName").type(" Updated")
-    cy.get("#cookbookSelect").type(" Updated{enter}")
-    cy.get("#ingredientSelect #autoCompleteInput").type("Additional Ingredient{enter}")
-    cy.get("#categorySelect #autoCompleteInput").type("Additional Category{enter}")
+    cy.get("#recipeName").scrollIntoView().click({ force: true }).type(" Updated")
+    cy.get("#cookbookSelect").scrollIntoView().click({ force: true }).type(" Updated{enter}")
+    cy.get("#ingredientSelect #autoCompleteInput")
+      .scrollIntoView()
+      .click({ force: true })
+      .type("Additional Ingredient{enter}")
+    cy.get("#categorySelect #autoCompleteInput")
+      .scrollIntoView()
+      .click({ force: true })
+      .type("Additional Category{enter}")
     cy.get(".stars span").eq(4).click()
     cy.get("#requiredTime").clear()
-    cy.get("#requiredTime").type("20")
+    cy.get("#requiredTime").scrollIntoView().click({ force: true }).type("20")
     cy.get("#pageNumber").clear()
-    cy.get("#pageNumber").type("42")
+    cy.get("#pageNumber").scrollIntoView().click({ force: true }).type("42")
     cy.get("#submitRecipeFormAction").click()
     cy.get(".mat-mdc-snack-bar-container").contains("Recipe changed")
     const updatedRecipe = RecipeBuilder.e2eRecipe()
@@ -138,17 +144,23 @@ describe("Edit Recipe E2E", () => {
     cy.contains(updatedRecipe.recipeName)
     cy.get("#editRecipeButton").click()
     validateRecipeFormElements(updatedRecipe)
-    cy.get("#recipeName").type(`${"{backspace}".repeat(8)}`)
-    cy.get("#cookbookSelect").type(`${"{backspace}".repeat(8)}{enter}`)
+    cy.get("#recipeName")
+      .scrollIntoView()
+      .click({ force: true })
+      .type(`${"{backspace}".repeat(8)}`)
+    cy.get("#cookbookSelect")
+      .scrollIntoView()
+      .click({ force: true })
+      .type(`${"{backspace}".repeat(8)}{enter}`)
     cy.get("#ingredientSelect table td.action").eq(0).click()
     cy.get("#categorySelect table td.action").eq(0).click()
     cy.get(".stars span")
       .eq(RecipeBuilder.e2eRecipe().rating - 1)
       .click()
     cy.get("#requiredTime").clear()
-    cy.get("#requiredTime").type(120)
+    cy.get("#requiredTime").scrollIntoView().click({ force: true }).type(120)
     cy.get("#pageNumber").clear()
-    cy.get("#pageNumber").type("1")
+    cy.get("#pageNumber").scrollIntoView().click({ force: true }).type("1")
     cy.get("#submitRecipeFormAction").click()
     cy.contains("Edit / Delete Recipes")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
@@ -162,7 +174,7 @@ describe("Edit Recipe E2E", () => {
     cy.get("#editSidebarButton").click()
     cy.contains("Edit / Delete Recipes")
     cy.get("#editRecipeButton").click()
-    cy.get("#recipeName").type(" Updated")
+    cy.get("#recipeName").scrollIntoView().click({ force: true }).type(" Updated")
     cy.get("#editSidebarButton").click()
     cy.get("app-two-button-dialog").contains("Discard Changes")
     cy.contains(
@@ -180,7 +192,7 @@ describe("Edit Recipe E2E", () => {
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.contains(RecipeBuilder.defaultRecipeWithoutId().recipeName)
     cy.get("#recipeSearch").should("exist")
-    cy.get("#recipeSearch").type("Salami")
+    cy.get("#recipeSearch").scrollIntoView().click({ force: true }).type("Salami")
     cy.contains(RecipeBuilder.e2eRecipe().recipeName)
     cy.contains(RecipeBuilder.defaultRecipeWithoutId().recipeName).should("not.exist")
     cy.get("#recipeSearch").clear()
@@ -451,24 +463,33 @@ describe("Search E2E", () => {
 const addRecipe = (recipe: Recipe) => {
   cy.get("#addSidebarButton").click()
   cy.contains("Add a Recipe")
-  cy.get("#recipeName").type(recipe.recipeName)
-  cy.get("#cookbookSelect #autoCompleteInput").type(`${recipe.cookbook}{enter}`)
-  cy.get("#ingredientSelect #autoCompleteInput").type(
-    `${recipe.ingredients.reduce(
-      (previousValue, currentValue) => `${previousValue}{enter}${currentValue}`
-    )}{enter}`
-  )
-  cy.get("#categorySelect #autoCompleteInput").type(
-    `${recipe.categories.reduce(
-      (previousValue, currentValue) => `${previousValue}{enter}${currentValue}`
-    )}{enter}`
-  )
+  cy.get("#recipeName").scrollIntoView().click({ force: true }).type(recipe.recipeName)
+  cy.get("#cookbookSelect #autoCompleteInput")
+    .scrollIntoView()
+    .click({ force: true })
+    .type(`${recipe.cookbook}{enter}`)
+  cy.get("#ingredientSelect #autoCompleteInput")
+    .scrollIntoView()
+    .click({ force: true })
+    .type(
+      `${recipe.ingredients.reduce(
+        (previousValue, currentValue) => `${previousValue}{enter}${currentValue}`
+      )}{enter}`
+    )
+  cy.get("#categorySelect #autoCompleteInput")
+    .scrollIntoView()
+    .click({ force: true })
+    .type(
+      `${recipe.categories.reduce(
+        (previousValue, currentValue) => `${previousValue}{enter}${currentValue}`
+      )}{enter}`
+    )
   cy.get(".stars span")
     .eq(recipe.rating - 1)
     .click()
-  cy.get("#requiredTime").type(recipe.requiredTime)
+  cy.get("#requiredTime").scrollIntoView().click({ force: true }).type(recipe.requiredTime)
   if (recipe.pageNumber !== "") {
-    cy.get("#pageNumber").type(recipe.pageNumber)
+    cy.get("#pageNumber").scrollIntoView().click({ force: true }).type(recipe.pageNumber)
   }
 }
 
@@ -510,16 +531,25 @@ const search = (searchOptions: SearchOptions) => {
   cy.get("#searchSidebarButton").click()
   cy.contains("Search")
   searchOptions.requiredIngredients.forEach((ingredient) => {
-    cy.get("#ingredientSelect #autoCompleteInput").type(`${ingredient}{enter}`)
+    cy.get("#ingredientSelect #autoCompleteInput")
+      .scrollIntoView()
+      .click({ force: true })
+      .type(`${ingredient}{enter}`)
   })
   searchOptions.includedCategories.forEach((category) => {
-    cy.get("#categorySelect #autoCompleteInput").type(`${category}{enter}`)
+    cy.get("#categorySelect #autoCompleteInput")
+      .scrollIntoView()
+      .click({ force: true })
+      .type(`${category}{enter}`)
   })
   cy.get(".stars span")
     .eq(searchOptions.minimumRating - 1)
     .click()
   if (searchOptions.maximumRequiredTime) {
-    cy.get("#requiredTime").type(searchOptions.maximumRequiredTime)
+    cy.get("#requiredTime")
+      .scrollIntoView()
+      .click({ force: true })
+      .type(searchOptions.maximumRequiredTime)
   }
   cy.get("#submitSearchButton").click()
 }

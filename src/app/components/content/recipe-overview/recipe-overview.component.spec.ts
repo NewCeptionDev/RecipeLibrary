@@ -5,6 +5,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { vi } from "vitest"
 
 describe("RecipeOverviewComponent", () => {
   let component: RecipeOverviewComponent
@@ -13,8 +14,7 @@ describe("RecipeOverviewComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RecipeOverviewComponent],
-      imports: [MatIconModule],
+      imports: [MatIconModule, RecipeOverviewComponent],
       providers: [{ provide: SettingsService, useClass: SettingsServiceMock }],
     }).compileComponents()
 
@@ -29,26 +29,26 @@ describe("RecipeOverviewComponent", () => {
   })
 
   it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.RATING,
     ])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.REQUIRED_TIME,
     ])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(false)
   })
 })

@@ -8,7 +8,7 @@ describe("ExtensibleContainerComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExtensibleContainerComponent],
+      imports: [ExtensibleContainerComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(ExtensibleContainerComponent)

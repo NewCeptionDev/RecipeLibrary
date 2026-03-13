@@ -4,6 +4,7 @@ import { OptionalRecipeFeature } from "../models/optionalRecipeFeature"
 import { Settings } from "../models/settings"
 import { ElectronService } from "./electron.service"
 import { SettingsService } from "./settings.service"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 describe("SettingsService", () => {
   let service: SettingsService
@@ -24,7 +25,8 @@ describe("SettingsService", () => {
   it("should update path and trigger filesave when updateRecipePath", () => {
     const expectedFilePath = "NewPath"
     // @ts-ignore
-    const saveSpy = spyOn(service, "saveSettingsToFile")
+    const saveSpy = vi.spyOn(service, "saveSettingsToFile")
+    service.registerElectronService(electronService)
 
     service.updateRecipePath(expectedFilePath)
     // @ts-ignore
@@ -44,7 +46,8 @@ describe("SettingsService", () => {
     // @ts-ignore
     service.settings.enabledRecipeFeatures = []
     // @ts-ignore
-    const saveSpy = spyOn(service, "saveSettingsToFile")
+    const saveSpy = vi.spyOn(service, "saveSettingsToFile")
+    service.registerElectronService(electronService)
 
     service.enableRecipeFeature(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
@@ -56,13 +59,13 @@ describe("SettingsService", () => {
     // @ts-ignore
     service.settings.enabledRecipeFeatures = [OptionalRecipeFeature.CATEGORY]
     // @ts-ignore
-    const saveSpy = spyOn(service, "saveSettingsToFile")
+    const saveSpy = vi.spyOn(service, "saveSettingsToFile")
 
     service.enableRecipeFeature(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
     expect(service.settings.enabledRecipeFeatures).toContain(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
-    expect(service.settings.enabledRecipeFeatures).toHaveSize(1)
+    expect(service.settings.enabledRecipeFeatures).toHaveLength(1)
     expect(saveSpy).not.toHaveBeenCalled()
   })
 
@@ -70,13 +73,14 @@ describe("SettingsService", () => {
     // @ts-ignore
     service.settings.enabledRecipeFeatures = [OptionalRecipeFeature.CATEGORY]
     // @ts-ignore
-    const saveSpy = spyOn(service, "saveSettingsToFile")
+    const saveSpy = vi.spyOn(service, "saveSettingsToFile")
+    service.registerElectronService(electronService)
 
     service.disableRecipeFeature(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
     expect(service.settings.enabledRecipeFeatures).not.toContain(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
-    expect(service.settings.enabledRecipeFeatures).toHaveSize(0)
+    expect(service.settings.enabledRecipeFeatures).toHaveLength(0)
     expect(saveSpy).toHaveBeenCalled()
   })
 
@@ -84,13 +88,13 @@ describe("SettingsService", () => {
     // @ts-ignore
     service.settings.enabledRecipeFeatures = []
     // @ts-ignore
-    const saveSpy = spyOn(service, "saveSettingsToFile")
+    const saveSpy = vi.spyOn(service, "saveSettingsToFile")
 
     service.disableRecipeFeature(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
     expect(service.settings.enabledRecipeFeatures).not.toContain(OptionalRecipeFeature.CATEGORY)
     // @ts-ignore
-    expect(service.settings.enabledRecipeFeatures).toHaveSize(0)
+    expect(service.settings.enabledRecipeFeatures).toHaveLength(0)
     expect(saveSpy).not.toHaveBeenCalled()
   })
 
@@ -114,7 +118,7 @@ describe("SettingsService", () => {
   })
 
   it("should call electronService when saveSettings", () => {
-    const saveSettingsSpy = spyOn(electronService, "saveSettings")
+    const saveSettingsSpy = vi.spyOn(electronService, "saveSettings")
     service.registerElectronService(electronService)
     // @ts-ignore
     service.saveSettingsToFile()

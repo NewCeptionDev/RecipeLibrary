@@ -1,8 +1,8 @@
 <div class="container tableBackground">
   <h3 [ngClass]="{ underlined: underlinedHeadline }">{{ headline }}</h3>
 
+  @if (editable) {
   <app-autocomplete-with-add-function
-    *ngIf="editable"
     class="input"
     [knownItems]="knownItems"
     [labelName]="(justKnownItemsSelectable ? '' : 'Add / ') + 'Select ' + headline"
@@ -12,6 +12,7 @@
     (itemSelected)="onItemSelect($event)"
     [disableAddFunction]="justKnownItemsSelectable"
     [filterFunction]="notAlreadyIncludedInData"></app-autocomplete-with-add-function>
+  }
 
   <div class="table">
     <table
@@ -28,9 +29,8 @@
         </td>
       </ng-container>
 
-      <ng-container
-        matColumnDef="action"
-        *ngIf="editable">
+      @if (editable) {
+      <ng-container matColumnDef="action">
         <th
           mat-header-cell
           *matHeaderCellDef
@@ -47,6 +47,7 @@
           </button>
         </td>
       </ng-container>
+      }
 
       <tr
         mat-row

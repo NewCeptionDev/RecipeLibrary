@@ -1,9 +1,7 @@
-<div
-  class="container"
-  *ngIf="showSearchResults">
-  <div
-    class="optionRow"
-    *ngIf="shownRecipes.length > 0">
+@if (showSearchResults) {
+<div class="container">
+  @if (shownRecipes.length > 0) {
+  <div class="optionRow">
     <p>Found {{ shownRecipes.length }} Recipe{{ shownRecipes.length > 1 ? "s" : "" }}</p>
     <div class="sortOptions">
       <app-sort-by
@@ -13,33 +11,36 @@
         (sortDirectionChanged)="
           this.sortOptionAdjusted(SortOptions.ALPHABET, $event)
         "></app-sort-by>
+      @if (this.isRatingRecipeFeatureEnabled()) {
       <app-sort-by
-        *ngIf="this.isRatingRecipeFeatureEnabled()"
         [disabled]="this.currentSortOption !== SortOptions.RATING"
         [selectedSortOption]="SortOptions.RATING"
         id="ratingSorting"
         (sortDirectionChanged)="this.sortOptionAdjusted(SortOptions.RATING, $event)"></app-sort-by>
+      } @if (this.isRequiredTimeRecipeFeatureEnabled()) {
       <app-sort-by
-        *ngIf="this.isRequiredTimeRecipeFeatureEnabled()"
         [disabled]="this.currentSortOption !== SortOptions.REQUIRED_TIME"
         [selectedSortOption]="SortOptions.REQUIRED_TIME"
         id="requiredTimeSorting"
         (sortDirectionChanged)="
           this.sortOptionAdjusted(SortOptions.REQUIRED_TIME, $event)
         "></app-sort-by>
+      }
     </div>
   </div>
+  }
   <div class="resultList">
+    @for (recipe of shownRecipes; track recipe) {
     <div
-      *ngFor="let recipe of shownRecipes"
       [ngClass]="{ overview: selectedRecipe !== recipe.id, detail: selectedRecipe === recipe.id }"
       (click)="selectRecipe(recipe.id)">
-      <app-recipe-overview
-        *ngIf="selectedRecipe !== recipe.id"
-        [recipe]="recipe"></app-recipe-overview>
-      <app-recipe-detail
-        *ngIf="selectedRecipe === recipe.id"
-        [recipe]="recipe"></app-recipe-detail>
+      @if (selectedRecipe !== recipe.id) {
+      <app-recipe-overview [recipe]="recipe"></app-recipe-overview>
+      } @if (selectedRecipe === recipe.id) {
+      <app-recipe-detail [recipe]="recipe"></app-recipe-detail>
+      }
     </div>
+    }
   </div>
 </div>
+}

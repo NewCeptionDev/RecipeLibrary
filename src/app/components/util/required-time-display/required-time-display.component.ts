@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
-import { FormControl } from "@angular/forms"
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { NgClass } from "@angular/common"
+import { MatFormField, MatInput } from "@angular/material/input"
 
 @Component({
   selector: "app-required-time-display",
   templateUrl: "./required-time-display.component.html",
   styleUrls: ["./required-time-display.component.scss"],
+  imports: [NgClass, MatFormField, MatInput, FormsModule, ReactiveFormsModule],
 })
 export class RequiredTimeDisplayComponent implements OnInit {
   @Input()

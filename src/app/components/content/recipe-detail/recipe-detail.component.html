@@ -1,6 +1,5 @@
-<div
-  class="container"
-  *ngIf="recipe">
+@if (recipe) {
+<div class="container">
   <div class="title">
     <h1>{{ recipe.recipeName }}</h1>
     <h4><mat-icon>book</mat-icon>{{ recipe.cookbook }}</h4>
@@ -13,27 +12,30 @@
       [data]="recipe.ingredients"
       [editable]="false"></app-selected-items-display>
     <br />
+    @if (this.isCategoryRecipeFeatureEnabled()) {
     <app-selected-items-display
       headline="Categories"
       id="categorySelect"
-      *ngIf="this.isCategoryRecipeFeatureEnabled()"
       [underlinedHeadline]="true"
       [data]="recipe.categories"
       [editable]="false"></app-selected-items-display>
+    }
     <div class="verticallyGroupedInformation">
+      @if (this.isRequiredTimeRecipeFeatureEnabled()) {
       <app-required-time-display
         [editable]="false"
-        [requiredTime]="recipe.requiredTime"
-        *ngIf="this.isRequiredTimeRecipeFeatureEnabled()">
+        [requiredTime]="recipe.requiredTime">
       </app-required-time-display>
+      } @if (this.isRatingRecipeFeatureEnabled()) {
       <app-rating-display
         [editable]="false"
-        *ngIf="this.isRatingRecipeFeatureEnabled()"
         [rating]="recipe.rating"></app-rating-display>
+      } @if (this.isPageNumberRecipeFeatureEnabled()) {
       <app-page-number-display
         [editable]="false"
-        *ngIf="this.isPageNumberRecipeFeatureEnabled()"
         [pageNumber]="recipe.pageNumber"></app-page-number-display>
+      }
     </div>
   </div>
 </div>
+}

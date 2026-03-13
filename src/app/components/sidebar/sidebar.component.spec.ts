@@ -9,7 +9,7 @@ describe("SidebarComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SidebarComponent],
+      imports: [SidebarComponent],
     }).compileComponents()
 
     fixture = TestBed.createComponent(SidebarComponent)
@@ -23,38 +23,38 @@ describe("SidebarComponent", () => {
 
   it("should trigger addRecipe when addRecipeTrigger", () => {
     let triggered = false
-    component.addRecipe.subscribe(() => {
+    component.addRecipeEmitter.subscribe(() => {
       triggered = true
     })
     component.addRecipeTrigger()
-    expect(triggered).toBeTrue()
+    expect(triggered).toBe(true)
   })
 
   it("should trigger editRecipes when editRecipesTrigger", () => {
     let triggered = false
-    component.editRecipes.subscribe(() => {
+    component.editRecipesEmitter.subscribe(() => {
       triggered = true
     })
     component.editRecipesTrigger()
-    expect(triggered).toBeTrue()
+    expect(triggered).toBe(true)
   })
 
   it("should trigger settings when settingsTrigger", () => {
     let triggered = false
-    component.settings.subscribe(() => {
+    component.settingsEmitter.subscribe(() => {
       triggered = true
     })
     component.settingsTrigger()
-    expect(triggered).toBeTrue()
+    expect(triggered).toBe(true)
   })
 
   it("should trigger search when searchTrigger", () => {
     let triggered = false
-    component.search.subscribe(() => {
+    component.searchEmitter.subscribe(() => {
       triggered = true
     })
     component.searchTrigger()
-    expect(triggered).toBeTrue()
+    expect(triggered).toBe(true)
   })
 
   Object.values(ExtendedOption).forEach((option) => {

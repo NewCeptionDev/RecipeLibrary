@@ -1,10 +1,40 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { ItemDataSource } from "src/app/util/ItemDataSource"
+import { NgClass } from "@angular/common"
+import { AutocompleteWithAddFunctionComponent } from "../autocomplete-with-add-function/autocomplete-with-add-function.component"
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatRowDef,
+  MatRow,
+  MatNoDataRow,
+} from "@angular/material/table"
+import { MatIconButton } from "@angular/material/button"
+import { MatIcon } from "@angular/material/icon"
 
 @Component({
   selector: "app-selected-items-display",
   templateUrl: "./selected-items-display.component.html",
   styleUrls: ["./selected-items-display.component.scss"],
+  imports: [
+    NgClass,
+    AutocompleteWithAddFunctionComponent,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatIconButton,
+    MatIcon,
+    MatRowDef,
+    MatRow,
+    MatNoDataRow,
+  ],
 })
 export class SelectedItemsDisplayComponent implements OnInit {
   @Input()

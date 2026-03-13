@@ -1,25 +1,25 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core"
-import { MatSlideToggleChange } from "@angular/material/slide-toggle"
+import { ChangeDetectorRef, Component, OnInit, inject } from "@angular/core"
+import { MatSlideToggleChange, MatSlideToggle } from "@angular/material/slide-toggle"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
 import { SettingsService } from "src/app/services/settings.service"
 import { environment } from "src/environments/environment"
 import { ElectronService } from "../../../services/electron.service"
+import { MatButton } from "@angular/material/button"
 
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.scss"],
+  imports: [MatButton, MatSlideToggle],
 })
 export class SettingsComponent implements OnInit {
-  private optionalRecipeFeatures: Map<string, OptionalRecipeFeature> = new Map()
+  private electronService = inject(ElectronService)
 
-  constructor(
-    private electronService: ElectronService,
-    private settingsService: SettingsService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    // Dependency Injection
-  }
+  private settingsService = inject(SettingsService)
+
+  private changeDetectorRef = inject(ChangeDetectorRef)
+
+  private optionalRecipeFeatures: Map<string, OptionalRecipeFeature> = new Map()
 
   ngOnInit(): void {
     this.settingsService.settingsChangedEvent.subscribe(() => {

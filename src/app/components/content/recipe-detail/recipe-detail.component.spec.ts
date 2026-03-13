@@ -5,6 +5,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { SettingsService } from "src/app/services/settings.service"
 import { SettingsServiceMock } from "src/tests/mocks/SettingsServiceMock"
 import { OptionalRecipeFeature } from "src/app/models/optionalRecipeFeature"
+import { vi } from "vitest"
 
 describe("RecipeDetailComponent", () => {
   let component: RecipeDetailComponent
@@ -13,8 +14,7 @@ describe("RecipeDetailComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RecipeDetailComponent],
-      imports: [MatIconModule],
+      imports: [MatIconModule, RecipeDetailComponent],
       providers: [{ provide: SettingsService, useClass: SettingsServiceMock }],
     }).compileComponents()
 
@@ -29,50 +29,50 @@ describe("RecipeDetailComponent", () => {
   })
 
   it("should return true when isCategoryRecipeFeatureEnabled given Category enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.CATEGORY,
     ])
-    expect(component.isCategoryRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isCategoryRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isCategoryRecipeFeatureEnabled given Category disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isCategoryRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isCategoryRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRatingRecipeFeatureEnabled given Rating enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.RATING,
     ])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRatingRecipeFeatureEnabled given Rating disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRatingRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRatingRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isRequiredTimeRecipeFeatureEnabled given RequiredTime enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.REQUIRED_TIME,
     ])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isRequiredTimeRecipeFeatureEnabled given RequiredTime disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isRequiredTimeRecipeFeatureEnabled()).toBe(false)
   })
 
   it("should return true when isPageNumberRecipeFeatureEnabled given PageNumber enabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([
       OptionalRecipeFeature.PAGE_NUMBER,
     ])
-    expect(component.isPageNumberRecipeFeatureEnabled()).toBeTrue()
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBe(true)
   })
 
   it("should return false when isPageNumberRecipeFeatureEnabled given PageNumber disabled", () => {
-    spyOn(settingsService, "getEnabledRecipeFeatures").and.returnValue([])
-    expect(component.isPageNumberRecipeFeatureEnabled()).toBeFalse()
+    vi.spyOn(settingsService, "getEnabledRecipeFeatures").mockReturnValue([])
+    expect(component.isPageNumberRecipeFeatureEnabled()).toBe(false)
   })
 })
